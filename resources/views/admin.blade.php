@@ -64,6 +64,8 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>CRUD</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="{{ url('/Ubigeo') }}" class="dropdown-item">Ubigeo</a>
+
+                              <a href="{{ url('/TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
                             
                         </div>
                     </div>
