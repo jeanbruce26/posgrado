@@ -19,3 +19,12 @@ Route::get('/', function () {
 
 Route::resource ('Ubigeo','UbigeoController');
 Route::resource ('TipoUbigeo','TipoUbigeoController');
+
+
+
+
+Route::resource ('Sede','SedeController');
+Route::resource ('Diplomado','DiplomadoController');
+Route::resource ('Maestria','MaestriaController');
+Route::resource ('Doctorado','DoctoradoController');
+Route::resource ('Programa','ProgramaController');

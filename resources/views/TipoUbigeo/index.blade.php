@@ -2,9 +2,9 @@
 
 @section('content')
 
-	<div class="col-sm-8">
+	<div class="col-sm-12">
 		
-		<h2>Tipo Ubigeo
+		<h2 class="d-flex justify-content-between">Tipo Ubigeo
 		<a href="" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
@@ -23,7 +23,7 @@
 				<tr>
 					<td>{{$tis->cod_tipo}}</td>
 					<td>{{$tis->tipo_ubigeot}}</td>
-									</tr>
+				</tr>
 
 				@endforeach
 			</tbody>

@@ -10,7 +10,7 @@ class UbigeoController extends Controller
 {
     public function index()
     {
-        $ubi = Ubigeo::orderBy('cod_ubi','DESC')->paginate();
+        $ubi = Ubigeo::orderBy('cod_ubi','ASC')->paginate();
         return view('Ubigeo.index', compact('ubi'));
     }
 }

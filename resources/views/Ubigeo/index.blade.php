@@ -2,9 +2,9 @@
 
 @section('content')
 
-	<div class="col-sm-8">
+	<div class="col-sm-12">
 		
-		<h2>Ubigeo
+		<h2 class="d-flex justify-content-between">Ubigeo
 		<a href="" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
