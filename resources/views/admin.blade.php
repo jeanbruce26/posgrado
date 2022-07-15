@@ -79,10 +79,18 @@
 
                     <a href="{{ url('/Persona') }}" class="dropdown-item">Persona</a>
 
-
                             <a href="{{ url('/Ubigeo') }}" class="dropdown-item">Ubigeo</a>
                             <a href="{{ url('/TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
                             <a href="{{ url('/UbigeoPersona') }}" class="dropdown-item">UbigeoPersona</a>
+                            <a href="{{ url('/Admision') }}" class="dropdown-item">Admision</a>
+                            <a href="{{ url('/Inscripcion') }}" class="dropdown-item">Inscripcion</a>
+                            <a href="{{ url('/Pago') }}" class="dropdown-item">Pago</a>
+                            <a href="{{ url('/TipoPago') }}" class="dropdown-item">TipoPago</a>
+                            <a href="{{ url('/IngresoPago') }}" class="dropdown-item">IngresoPago</a>
+                            <a href="{{ url('/InscripcionPago') }}" class="dropdown-item">InscripcionPago</a>
+                            <a href="{{ url('/ConceptoPago') }}" class="dropdown-item">ConceptoPago</a>
+                            <a href="{{ url('/HistorialInscripcion') }}" class="dropdown-item">HistorialInscripcion</a>
+                            <a href="{{ url('/ExpedienteInscripcion') }}" class="dropdown-item">ExpedienteInscripcion</a>
 
 
 

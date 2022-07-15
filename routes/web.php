@@ -38,3 +38,22 @@ Route::resource ('Maestria','MaestriaController');
 Route::resource ('Doctorado','DoctoradoController');
 Route::resource ('Programa','ProgramaController');
 
+
+
+
+
+
+
+
+
+
+Route::resource('Admision', 'AdmisionController');
+Route::resource('Inscripcion', 'InscripcionController');
+Route::resource('Pago', 'PagoController');
+Route::resource('TipoPago', 'TipoPagoController');
+Route::resource('IngresoPago', 'IngresoPagoController');
+Route::resource('InscripcionPago', 'InscripcionPagoController');
+Route::resource('ConceptoPago', 'ConceptoPagoController');
+Route::resource('HistorialInscripcion', 'HistorialInscripcionController');
+Route::resource('ExpedienteInscripcion', 'ExpedienteInscripcionController');
+
