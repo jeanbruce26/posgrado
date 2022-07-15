@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetallePrograma;
 use Illuminate\Http\Request;
-use App\Models\Diplomado;
-use App\Http\Controllers\Controller;
 
-class DiplomadoController extends Controller
+class DetalleProgramaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class DiplomadoController extends Controller
      */
     public function index()
     {
-        $di = Diplomado::orderBy('id_diplo','ASC')->paginate();
-        return view('Diplomado.index', compact('di'));
+        $detpro = DetallePrograma::orderBy('id_detalle_programa','ASC')->paginate();
+        return view('DetallePrograma.index', compact('detpro'));
     }
 
     /**

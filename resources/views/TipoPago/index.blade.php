@@ -4,35 +4,35 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">TipoPago
-		<a href="" class="btn btn-primary pull-right">Nuevo</a>
+		<h2 class="d-flex justify-content-between">Tipo Pago
+			<a href="" class="btn btn-primary ">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
 					<th>Codigo</th>
-					<th>Tipo de Pago</th>
+					<th>Tipo Pago</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
 
 			<tbody>
-				@foreach ($tipoPag as $tipoPago)
+				@foreach ($tipago as $tipopago)
 
 				<tr>
-					<td>{{$tipoPago->cod_tipo_pago}}</td>
-					<td>{{$tipoPago->tipo_pago}}</td>
+					<td>{{$tipopago->cod_tipo_pago}}</td>
+					<td>{{$tipopago->tipo_pago}}</td>
 					<td>
-                        <button type="button" class="btn btn-success">Editar</button>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
-                    </td>
+                            <button type="button" class="btn btn-success">Editar</button>
+                            <button type="button" class="btn btn-danger">Eliminar</button>
+                        </td>
 				</tr>
 
 				@endforeach
 			</tbody>
 		</table>
-		{!! $tipoPag->render() !!}
+		{!! $tipago->render() !!}
 
 	</div>
 

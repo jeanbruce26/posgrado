@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Maestria;
-use App\Http\Controllers\Controller;
+use App\Models\Plan;
 
-class MaestriaController extends Controller
+class PlanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class MaestriaController extends Controller
      */
     public function index()
     {
-        $ma = Maestria::orderBy('id_maestria','ASC')->paginate();
-        return view('Maestria.index', compact('ma'));
+        $plan = Plan::orderBy('id_plan','ASC')->paginate();
+        return view('Plan.index', compact('plan'));
     }
 
     /**

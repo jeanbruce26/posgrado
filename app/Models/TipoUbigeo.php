@@ -11,6 +11,5 @@ class TipoUbigeo extends Model
     protected $fillable = [
         'cod_tipo',
         'tipo_ubigeo',
- 
     ];
 }

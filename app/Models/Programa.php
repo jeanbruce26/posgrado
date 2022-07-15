@@ -11,10 +11,7 @@ class Programa extends Model
 
     protected $table = 'programa';
     protected $fillable = [
-        'cod_programa',
-        'id_diplo',
-        'id_maestria',
-        'id_doc',
-        'sede_cod_sede',
+        'id_programa',
+        'descripcion_programa',
     ];
 }

@@ -4,33 +4,25 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Maestria
-		<a href="" class="btn btn-primary pull-right">Nuevo</a>
+		<h2 class="d-flex justify-content-between">Plan
+		<a href="" class="btn btn-primary ">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Codigo Mestria</th>
-					<th>Maestria</th>
-					<th>Codigo Mencion</th>
-					<th>Mencion</th>
+					<th>Codigo</th>
 					<th>Plan</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
 
 			<tbody>
-				@foreach ($ma as $maestria)
+				@foreach ($plan as $p)
 
 				<tr>
-					<td>{{$maestria->id_maestria}}</td>
-					<td>{{$maestria->cod_maestria}}</td>
-					<td>{{$maestria->maestria}}</td>
-					<td>{{$maestria->cod_mencion}}</td>
-					<td>{{$maestria->mencion}}</td>
-					<td>{{$maestria->id_plan}}</td>
+					<td>{{$p->id_plan}}</td>
+					<td>{{$p->plan}}</td>
 					<td>
                               <button type="button" class="btn btn-success">Editar</button>
                               <button type="button" class="btn btn-danger">Eliminar</button>
@@ -40,7 +32,7 @@
 				@endforeach
 			</tbody>
 		</table>
-		{!! $ma->render() !!}
+		{!! $plan->render() !!}
 
 	</div>
 

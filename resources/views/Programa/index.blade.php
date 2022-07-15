@@ -12,10 +12,8 @@
 			<thead>
 				<tr>
 					<th>Codigo</th>
-					<th>Diplomado</th>
-					<th>Maestria</th>
-					<th>Doctorado</th>
-					<th>Sede</th>
+					<th>Programa</th>
+					<th>Acciones</th>
 				</tr>
 			</thead>
 
@@ -23,11 +21,13 @@
 				@foreach ($pro as $programa)
 
 				<tr>
-					<td>{{$programa->cod_programa}}</td>
-					<td>{{$programa->id_diplo}}</td>
-					<td>{{$programa->id_maestria}}</td>
-					<td>{{$programa->id_doc}}</td>
-					<td>{{$programa->sede_cod_sede}}</td>
+					<td>{{$programa->id_programa}}</td>
+					<td>{{$programa->descripcion_programa}}</td>
+					<td>
+						<button type="button" class="btn btn-primary">Detalle</button>
+                              <button type="button" class="btn btn-success">Editar</button>
+                              <button type="button" class="btn btn-danger">Eliminar</button>
+                         </td>
 				</tr>
 
 				@endforeach
