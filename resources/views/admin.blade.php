@@ -58,11 +58,11 @@
                         <span>Admin</span>
                     </div>
                 </div>
-                <div class="navbar-nav w-100">
-                   
+                <div class="navbar-nav w-100">                 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>CRUD</a>
                         <div class="dropdown-menu bg-transparent border-0">
+
                     <a href="{{ url('/Ubigeo') }}" class="dropdown-item">Ubigeo</a>
 
                     <a href="{{ url('/TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
@@ -79,10 +79,23 @@
 
                     <a href="{{ url('/Persona') }}" class="dropdown-item">Persona</a>
 
+
+                            <a href="{{ url('/Ubigeo') }}" class="dropdown-item">Ubigeo</a>
+                            <a href="{{ url('/TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
+
+
+
+
+
+                            <a href="{{ url('/Sede') }}" class="dropdown-item">Sede</a>
+                            <a href="{{ url('/Diplomado') }}" class="dropdown-item">Diplomado</a>
+                            <a href="{{ url('/Maestria') }}" class="dropdown-item">Maestria</a>
+                            <a href="{{ url('/Doctorado') }}" class="dropdown-item">Doctorado</a>
+                            <a href="{{ url('/Programa') }}" class="dropdown-item">Programa</a>
+                            
+
                         </div>
-                    </div>
-                    
-                    
+                    </div> 
                 </div>
             </nav>
         </div>
@@ -129,16 +142,6 @@
                                 </div>
                             </a>
                             <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item text-center">See all message</a>
                         </div>
                     </div>
@@ -148,16 +151,6 @@
                             <span class="d-none d-lg-inline-flex">Notificatin</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <h6 class="fw-normal mb-0">Password changed</h6>
                                 <small>15 minutes ago</small>
@@ -172,8 +165,6 @@
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
                             <a href="#" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -190,7 +181,7 @@
 
 
             <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
+            <div class="container-fluid pt-4 px-4 ">
                 
             </div>
             <!-- Footer End -->
