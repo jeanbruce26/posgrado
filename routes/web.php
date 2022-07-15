@@ -26,6 +26,7 @@ Route::resource ('Universidad','UniversidadController');
 Route::resource ('EstadoCivil','EstadoCivilController');
 Route::resource ('Discapacidad','DiscapacidadController');
 Route::resource ('Persona','PersonaController');
+Route::resource ('UbigeoPersona','UbigeoPersonaController');
 
 
 

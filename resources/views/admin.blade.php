@@ -82,6 +82,8 @@
 
                             <a href="{{ url('/Ubigeo') }}" class="dropdown-item">Ubigeo</a>
                             <a href="{{ url('/TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
+                            <a href="{{ url('/UbigeoPersona') }}" class="dropdown-item">UbigeoPersona</a>
+
 
 
 
