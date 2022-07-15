@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Maestria;
-use App\Http\Controllers\Controller;
+use App\Models\TipoPago;
 
-class MaestriaController extends Controller
+class TipoPagoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class MaestriaController extends Controller
      */
     public function index()
     {
-        $ma = Maestria::orderBy('id_maestria','ASC')->paginate();
-        return view('Maestria.index', compact('ma'));
+        $tipago = TipoPago::orderBy('cod_tipo_pago','ASC')->paginate();
+        return view('TipoPago.index', compact('tipago'));
     }
 
     /**

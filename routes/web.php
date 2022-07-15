@@ -28,13 +28,9 @@ Route::resource ('Discapacidad','DiscapacidadController');
 Route::resource ('Persona','PersonaController');
 Route::resource ('UbigeoPersona','UbigeoPersonaController');
 
-
-
-
-
 Route::resource ('Sede','SedeController');
-Route::resource ('Diplomado','DiplomadoController');
-Route::resource ('Maestria','MaestriaController');
-Route::resource ('Doctorado','DoctoradoController');
 Route::resource ('Programa','ProgramaController');
+Route::resource ('Plan','PlanController');
+Route::get ('DetallePrograma', [App\Http\Controllers\DetalleProgramaController::class, 'index']);
 
+Route::get ('TipoPago', [App\Http\Controllers\TipoPagoController::class, 'index']);

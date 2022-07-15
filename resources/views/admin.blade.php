@@ -45,7 +45,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="/" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>POSGRADO</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -63,37 +63,25 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>CRUD</a>
                         <div class="dropdown-menu bg-transparent border-0">
 
-                    <a href="{{ url('/Ubigeo') }}" class="dropdown-item">Ubigeo</a>
-
-                    <a href="{{ url('/TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
-
-                    <a href="{{ url('/TipoDocumento') }}" class="dropdown-item">Tipo de Documento</a>
-                                
-                    <a href="{{ url('/GradoAcademico') }}" class="dropdown-item">Grados Academicos</a>
-
-                    <a href="{{ url('/Universidad') }}" class="dropdown-item">Universidades</a>
-
-                    <a href="{{ url('/EstadoCivil') }}" class="dropdown-item">Estado Civil</a>
-
-                    <a href="{{ url('/Discapacidad') }}" class="dropdown-item">Discapacidad</a>
-
-                    <a href="{{ url('/Persona') }}" class="dropdown-item">Persona</a>
-
+                            <a href="{{ url('/Ubigeo') }}" class="dropdown-item">Ubigeo</a>
+                            <a href="{{ url('/TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
+                            <a href="{{ url('/TipoDocumento') }}" class="dropdown-item">Tipo de Documento</a>                            
+                            <a href="{{ url('/GradoAcademico') }}" class="dropdown-item">Grados Academicos</a>
+                            <a href="{{ url('/Universidad') }}" class="dropdown-item">Universidades</a>
+                            <a href="{{ url('/EstadoCivil') }}" class="dropdown-item">Estado Civil</a>
+                            <a href="{{ url('/Discapacidad') }}" class="dropdown-item">Discapacidad</a>
+                            <a href="{{ url('/Persona') }}" class="dropdown-item">Persona</a>
 
                             <a href="{{ url('/Ubigeo') }}" class="dropdown-item">Ubigeo</a>
                             <a href="{{ url('/TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
                             <a href="{{ url('/UbigeoPersona') }}" class="dropdown-item">UbigeoPersona</a>
 
-
-
-
-
-
+                            
                             <a href="{{ url('/Sede') }}" class="dropdown-item">Sede</a>
-                            <a href="{{ url('/Diplomado') }}" class="dropdown-item">Diplomado</a>
-                            <a href="{{ url('/Maestria') }}" class="dropdown-item">Maestria</a>
-                            <a href="{{ url('/Doctorado') }}" class="dropdown-item">Doctorado</a>
                             <a href="{{ url('/Programa') }}" class="dropdown-item">Programa</a>
+                            <a href="{{ url('/DetallePrograma') }}" class="dropdown-item">Detalle Programa</a>
+                            <a href="{{ url('/Plan') }}" class="dropdown-item">Plan</a>
+                            <a href="{{ url('/TipoPago') }}" class="dropdown-item">Tipo Pago</a>
                             
 
                         </div>

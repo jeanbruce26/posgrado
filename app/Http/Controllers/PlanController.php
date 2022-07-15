@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Doctorado;
-use App\Http\Controllers\Controller;
+use App\Models\Plan;
 
-class DoctoradoController extends Controller
+class PlanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class DoctoradoController extends Controller
      */
     public function index()
     {
-        $doc = Doctorado::orderBy('id_doc','ASC')->paginate();
-        return view('Doctorado.index', compact('doc'));
+        $plan = Plan::orderBy('id_plan','ASC')->paginate();
+        return view('Plan.index', compact('plan'));
     }
 
     /**
