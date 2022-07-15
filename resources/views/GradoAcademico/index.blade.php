@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2>Tipo Ubigeo
+		<h2>Grado Academico
 		<a href="" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
@@ -12,23 +12,25 @@
 			<thead>
 				<tr>
 					<th width="20px">Codigo</th>
-					<th width="20px">Tipo de Ubigeo</th>
-					
+					<th width="20px">Grado Academico</th>
+				
+
 				</tr>
 			</thead>
 
 			<tbody>
-				@foreach ($ti as $tis)
+				@foreach ($gra as $g)
 
 				<tr>
-					<td>{{$tis->cod_tipo}}</td>
-					<td>{{$tis->tipo_ubigeot}}</td>
-									</tr>
+					<td>{{$g->cod_grado}}</td>
+					<td>{{$g->nom_grado}}</td>
+			
+				</tr>
 
 				@endforeach
 			</tbody>
 		</table>
-		{!! $ti->render() !!}
+		{!! $gra->render() !!}
 
 	</div>
 

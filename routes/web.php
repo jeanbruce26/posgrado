@@ -19,3 +19,9 @@ Route::get('/', function () {
 
 Route::resource ('Ubigeo','UbigeoController');
 Route::resource ('TipoUbigeo','TipoUbigeoController');
+Route::resource ('TipoDocumento','TipoDocumentoController');
+Route::resource ('GradoAcademico','GradoAcademicoController');
+Route::resource ('Universidad','UniversidadController');
+Route::resource ('EstadoCivil','EstadoCivilController');
+Route::resource ('Discapacidad','DiscapacidadController');
+Route::resource ('Persona','PersonaController');

@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<div class="col-sm-8">
+	<div class="col-sm-12">
 		
 		<h2>Ubigeo
 		<a href="" class="btn btn-primary pull-right">Nuevo</a>

@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2>Tipo Ubigeo
+		<h2>Tipo Documento
 		<a href="" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
@@ -12,23 +12,23 @@
 			<thead>
 				<tr>
 					<th width="20px">Codigo</th>
-					<th width="20px">Tipo de Ubigeo</th>
+					<th width="20px">Tipo de Documento</th>
 					
 				</tr>
 			</thead>
 
 			<tbody>
-				@foreach ($ti as $tis)
+				@foreach ($tipo as $ti)
 
 				<tr>
-					<td>{{$tis->cod_tipo}}</td>
-					<td>{{$tis->tipo_ubigeot}}</td>
+					<td>{{$ti->cod_tipo}}</td>
+					<td>{{$ti->doc}}</td>
 									</tr>
 
 				@endforeach
 			</tbody>
 		</table>
-		{!! $ti->render() !!}
+		{!! $tipo->render() !!}
 
 	</div>
 
