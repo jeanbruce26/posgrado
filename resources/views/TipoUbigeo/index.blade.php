@@ -22,7 +22,7 @@
 
 				<tr>
 					<td>{{$tis->cod_tipo}}</td>
-					<td>{{$tis->tipo_ubigeot}}</td>
+					<td>{{$tis->tipo_ubigeo}}</td>
 				</tr>
 
 				@endforeach

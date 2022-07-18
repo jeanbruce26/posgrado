@@ -11,7 +11,7 @@ class TipoDocumentoController extends Controller
 
     public function index()
     {
-    $tipo = TipoDocumento::orderBy('cod_tipo','ASC')->paginate();
+    $tipo = TipoDocumento::orderBy('id_tipo_doc','ASC')->paginate();
         return view('TipoDocumento.index', compact('tipo'));
 
 }

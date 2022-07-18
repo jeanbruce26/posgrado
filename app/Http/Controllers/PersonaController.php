@@ -12,6 +12,14 @@ class PersonaController extends Controller
     {
         $perso = Persona::orderBy('idpersona','ASC')->paginate();
         return view('Persona.index', compact('perso'));
+    }
 
+    public function create()
+    {
+        return view('Persona.create');
+    }
+
+    public function store(){
+        
     }
 }
