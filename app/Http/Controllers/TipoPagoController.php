@@ -25,7 +25,7 @@ class TipoPagoController extends Controller
      */
     public function create()
     {
-        //
+        return view('TipoPago.create');
     }
 
     /**
@@ -36,7 +36,11 @@ class TipoPagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tipo_pago'  =>  'required|max:45',
+        ]);
+        TipoPago::create($request->all());
+        return redirect()->route('TipoPago.index');
     }
 
     /**

@@ -30,7 +30,10 @@ class Persona extends Model
         'grado_academico_cod_grado',
         'especialidad',
         'pais_extra',
-
- 
     ];
+
+    public function TipoDocumento(){
+        return $this->belongsTo(TipoDocumento::class,
+        'id_tipo_doc','tipo_doc_cod_tipo');
+    }
 }

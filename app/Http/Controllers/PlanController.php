@@ -25,7 +25,7 @@ class PlanController extends Controller
      */
     public function create()
     {
-        //
+        return view('Plan.create');
     }
 
     /**
@@ -36,7 +36,11 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'plan'  =>  'required|max:10',
+        ]);
+        Plan::create($request->all());
+        return redirect()->route('Plan.index');
     }
 
     /**

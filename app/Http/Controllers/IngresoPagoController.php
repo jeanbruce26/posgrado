@@ -25,7 +25,7 @@ class IngresoPagoController extends Controller
      */
     public function create()
     {
-        //
+        return view('IngresoPago.create');
     }
 
     /**
@@ -36,7 +36,14 @@ class IngresoPagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'num_opera'  =>  'required|max:45',
+            'monto'  =>  'required|max:13',
+            'fecha'  =>  'required',
+            'id_inscripcion '  =>  'required',
+        ]);
+        Plan::create($request->all());
+        return redirect()->route('IngresoPago.index');
     }
 
     /**

@@ -14,4 +14,6 @@ class TipoPago extends Model
         'cod_tipo_pago',
         'tipo_pago',
     ];
+
+    public $timestamps = false;
 }

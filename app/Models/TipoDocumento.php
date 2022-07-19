@@ -9,7 +9,7 @@ class TipoDocumento extends Model
 {
   protected $table = 'tipo_doc';
     protected $fillable = [
-        'cod_tipo',
+        'id_tipo_doc',
         'doc',
  
     ];

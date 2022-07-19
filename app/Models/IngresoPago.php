@@ -17,4 +17,6 @@ class IngresoPago extends Model
         'fecha',
         'id_inscripcion',
     ];
+
+    public $timestamps = false;
 }

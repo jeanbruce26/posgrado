@@ -5,7 +5,7 @@
 	<div class="col-sm-12">
 		
 		<h2 class="d-flex justify-content-between">Tipo Pago
-			<a href="" class="btn btn-primary ">Nuevo</a>
+			<a href="{{ url('/TipoPago/create') }}" class="btn btn-primary ">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
