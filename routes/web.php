@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('admin');
 });
 
+
+
 Route::resource ('Ubigeo','UbigeoController');
 Route::resource ('TipoUbigeo','TipoUbigeoController');
 
