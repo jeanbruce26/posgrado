@@ -20,6 +20,6 @@ class PersonaController extends Controller
     }
 
     public function store(){
-        
+        //
     }
 }
