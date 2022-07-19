@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">PERSONAS
+		<h2 class="d-flex justify-content-between">Personas
 		<a href="{{ url('/Persona/create') }}" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
