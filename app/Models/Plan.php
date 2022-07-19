@@ -14,4 +14,6 @@ class Plan extends Model
         'id_plan',
         'plan',
     ];
+
+    public $timestamps = false;
 }
