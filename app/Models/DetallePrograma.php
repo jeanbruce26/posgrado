@@ -9,6 +9,8 @@ class DetallePrograma extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "id_detalle_programa";
+
     protected $table = 'detalle_programa';
     protected $fillable = [
         'id_detalle_programa',
@@ -21,6 +23,8 @@ class DetallePrograma extends Model
         'id_sede',
     ];
 
+    public $timestamps = false;
+    
     public function Programa(){
         return $this->belongsTo(Programa::class,
         'id_programa','id_programa');

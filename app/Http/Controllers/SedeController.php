@@ -26,7 +26,7 @@ class SedeController extends Controller
      */
     public function create()
     {
-        //
+        return view('Sede.create');
     }
 
     /**
@@ -37,7 +37,11 @@ class SedeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'sede'  =>  'required|max:30',
+        ]);
+        Sede::create($request->all());
+        return redirect()->route('Sede.index');
     }
 
     /**
@@ -59,7 +63,8 @@ class SedeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $se = Sede::find($id);
+        return view('Sede.edit')->with('se',$se);
     }
 
     /**
@@ -71,7 +76,13 @@ class SedeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'sede'  =>  'required|max:30',
+        ]);
+        $sede = Sede::find($id);
+        $sede->sede = $request->get('sede');
+        $sede->save();
+        return redirect()->route('Sede.index')->with('success', 'Sede actualizado correctamente');
     }
 
     /**

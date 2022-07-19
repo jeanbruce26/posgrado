@@ -9,9 +9,13 @@ class Sede extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "cod_sede";
+
     protected $table = 'sede';
     protected $fillable = [
         'cod_sede',
         'sede',
     ];
+    
+    public $timestamps = false;
 }

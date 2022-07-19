@@ -9,9 +9,13 @@ class Programa extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "id_programa";
+
     protected $table = 'programa';
     protected $fillable = [
         'id_programa',
         'descripcion_programa',
     ];
+    
+    public $timestamps = false;
 }

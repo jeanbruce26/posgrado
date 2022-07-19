@@ -5,7 +5,7 @@
 	<div class="col-sm-12">
 		
 		<h2 class="d-flex justify-content-between">Detalle Programa
-		<a href="" class="btn btn-primary pull-right">Nuevo</a>
+		<a href="{{ url('DetallePrograma/create') }}" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
@@ -32,7 +32,7 @@
                          <td>{{$detalle->plan->plan}}</td>
 					<td>{{$detalle->sede->sede}}</td> 
 					<td>
-                              <button type="button" class="btn btn-success">Editar</button>
+                              <a href="{{ route('DetallePrograma.edit',$detalle->id_detalle_programa) }}" type="button" class="btn btn-success">Editar</a>
                               <button type="button" class="btn btn-danger">Eliminar</button>
                          </td>
 				</tr>

@@ -26,7 +26,7 @@ class ProgramaController extends Controller
      */
     public function create()
     {
-        //
+        return view('Programa.create');
     }
 
     /**
@@ -37,7 +37,11 @@ class ProgramaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'descripcion_programa'  =>  'required|max:30',
+        ]);
+        Programa::create($request->all());
+        return redirect()->route('Programa.index');
     }
 
     /**
@@ -59,7 +63,8 @@ class ProgramaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pro = Programa::find($id);
+        return view('Programa.edit')->with('pro',$pro);
     }
 
     /**
@@ -71,7 +76,13 @@ class ProgramaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'descripcion_programa'  =>  'required|max:30',
+        ]);
+        $pro = Programa::find($id);
+        $pro->descripcion_programa = $request->get('descripcion_programa');
+        $pro->save();
+        return redirect()->route('Programa.index');
     }
 
     /**

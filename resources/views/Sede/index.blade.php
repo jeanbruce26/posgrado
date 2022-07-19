@@ -5,7 +5,7 @@
 	<div class="col-sm-12">
 		
 		<h2 class="d-flex justify-content-between">Sede
-		<a href="" class="btn btn-primary ">Nuevo</a>
+		<a href="{{ url('Sede/create') }}" class="btn btn-primary ">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
@@ -24,8 +24,8 @@
 					<td>{{$sede->cod_sede}}</td>
 					<td>{{$sede->sede}}</td>
 					<td>
-                              <button type="button" class="btn btn-success">Editar</button>
-                              <button type="button" class="btn btn-danger">Eliminar</button>
+                              <a href="/Sede/{{ $sede->cod_sede }}/edit" class="btn btn-success">Editar</a>
+                              <a type="button" class="btn btn-danger">Eliminar</a>
                          </td>
 				</tr>
 

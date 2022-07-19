@@ -62,7 +62,8 @@ class PlanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $plan = Plan::find($id);
+        return view('Plan.edit')->with('plan',$plan);
     }
 
     /**
@@ -74,7 +75,13 @@ class PlanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'plan'  =>  'required|max:30',
+        ]);
+        $plan = Plan::find($id);
+        $plan->plan = $request->get('plan');
+        $plan->save();
+        return redirect()->route('Plan.index');
     }
 
     /**
