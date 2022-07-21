@@ -20,21 +20,15 @@
                <label for="inputApellidoMaterno" class="form-label">Apellido Materno *</label>
                <input type="text" class="form-control" id="inputApellidoMaterno" name="ape_pat">
           </div>
-
-          @foreach ($tipodo as $per)
-
           <div class="col-md-6">
                <label for="inputTipoDocumento" class="form-label">Tipo de Documento *</label>
                <select id="inputTipoDocumento" class="form-select" name="tipo_doc">
                     <option selected>Seleccione</option>
+                    @foreach ($tipodo as $per)
                     <option value="{{$per->id_tipo_doc}}">{{$per->doc}}</option>
+                    @endforeach
                </select>
           </div>
-                 
-           @endforeach
-
-         
-
           <div class="col-md-6">
                <label for="inputNumeroDocumento" class="form-label">Numero Documento *</label>
                <input type="text" class="form-control" id="inputNumeroDocumento" name="num_doc">
@@ -79,57 +73,48 @@
                <label for="inputCentroTranajo" class="form-label">Centro de Trabajo *</label>
                <input type="text" class="form-control" id="inputCentroTranajo" name="centro_trabajo">
           </div>
-
-
-           @foreach ($esta as $es)
-
           <div class="col-md-3">
                <label for="inputEstadoCivil" class="form-label">Estado Civil *</label>
                <select id="inputEstadoCivil" class="form-select" name="estado_civil">
                     <option selected>Seleccione...</option>
+                    @foreach ($esta as $es)
                     <option value="{{$es->cod_est}}">{{$es->est_civil}}</option>
+                    @endforeach
                </select>
           </div>
-
-           @endforeach
-
-
-          @foreach ($tipodis as $dis)
           <div class="col-md-3">
                <label for="inputEstadoCivil" class="form-label">Discapacidad *</label>
                <select id="inputEstadoCivil" class="form-select" name="discapacidad">
                     <option selected>Seleccione...</option>
-                   <option value="{{$dis->cod_disc}}">{{$dis->discapacidad}}</option>
+                    @foreach ($tipodis as $dis)
+                    <option value="{{$dis->cod_disc}}">{{$dis->discapacidad}}</option>
+                    @endforeach
                </select>
           </div>
-          @endforeach
-
-          @foreach ($uni as $u)
           <div class="col-md-6">
                <label for="inputUniversidad" class="form-label">Universidad *</label>
                <select id="inputUniversidad" class="form-select" name="universidad">
                     <option selected>Choose...</option>
+                    @foreach ($uni as $u)
                     <option value="{{$u->cod_uni}}">{{$u->universidad}}</option>
+                    @endforeach
                </select>
           </div>
-          @endforeach
-
-           @foreach ($gra as $g)
 
           <div class="col-md-6">
                <label for="inputGradoAcademico" class="form-label">Grado Academico *</label>
                <select id="inputGradoAcademico" class="form-select" name="grado_academico">
                     <option selected>Choose...</option>
+                    @foreach ($gra as $g)
                     <option value="{{$g->id_grado_academico}}">{{$g->nom_grado}}</option>
+                    @endforeach
                </select>
           </div>
-
-          @endforeach
-
           <div class="col-md-6">
                <label for="inputEspecialidad" class="form-label">Especialidad *</label>
                <input type="text" class="form-control" id="inputEspecialidad" name="especialidad">
           </div>
+          @livewire('select-ubigeo')
           <div class="col-md-12">
                <button type="submit" class="btn btn-primary">Agregar</button>
           </div>

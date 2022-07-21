@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ubigeo extends Model
 {
-   protected $table = 'ubigeo';
+    protected $primaryKey = "cod_ubi";
+
+    protected $table = 'ubigeo';
     protected $fillable = [
         'cod_ubi',
         'cod_depart',
@@ -17,4 +19,6 @@ class Ubigeo extends Model
         'provincia',
         'distrito',
     ];
+    
+    public $timestamps = false;
 }
