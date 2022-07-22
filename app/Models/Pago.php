@@ -18,4 +18,5 @@ class Pago extends Model
         'fecha_pago',
         'dni',
     ];
+    
 }
