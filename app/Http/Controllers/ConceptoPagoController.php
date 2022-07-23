@@ -25,7 +25,7 @@ class ConceptoPagoController extends Controller
      */
     public function create()
     {
-        //
+        return view('ConceptoPago.create');
     }
 
     /**
@@ -36,7 +36,13 @@ class ConceptoPagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'concepto'  =>  'required|max:45',
+            'monto'  =>  'required|max:13',
+            'estado'  =>  'required|max:11',
+        ]);
+        ConceptoPago::create($request->all());
+        return redirect()->route('ConceptoPago.index');
     }
 
     /**
@@ -58,7 +64,8 @@ class ConceptoPagoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $concepPago = ConceptoPago::find($id);
+        return view('ConceptoPago.edit')->with('concepPago',$concepPago);
     }
 
     /**
@@ -70,7 +77,14 @@ class ConceptoPagoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'concepto'  =>  'required|max:45',
+            'monto'  =>  'required|max:13',
+            'estado'  =>  'required|max:11',
+        ]);
+        $concepPago = ConceptoPago::find($id);
+        $concepPago ->update($request->all());
+        return redirect()->route('ConceptoPago.index');
     }
 
     /**

@@ -25,7 +25,7 @@ class AdmisionController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admision.create');
     }
 
     /**
@@ -36,7 +36,11 @@ class AdmisionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'admision'  =>  'required|max:45',
+        ]);
+        Admision::create($request->all());
+        return redirect()->route('Admision.index');
     }
 
     /**
@@ -58,7 +62,8 @@ class AdmisionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $admi = Admision::find($id);
+        return view('Admision.edit')->with('admi',$admi);
     }
 
     /**
@@ -70,7 +75,12 @@ class AdmisionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'admision'  =>  'required|max:45',
+        ]);
+        $admi = Admision::find($id);
+        $admi->update($request->all());
+        return redirect()->route('Admision.index');
     }
 
     /**

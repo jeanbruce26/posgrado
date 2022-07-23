@@ -5,7 +5,7 @@
 	<div class="col-sm-12">
 		
 		<h2 class="d-flex justify-content-between">Discapacidad
-		<a href="" class="btn btn-primary pull-right">Nuevo</a>
+		<a href="{{ route('Discapacidad.create') }}" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
@@ -25,9 +25,9 @@
 					<td>{{$di->discapacidad}}</td>
 
 					<td>
-                              <button type="button" class="btn btn-success">Editar</button>
-                              <button type="button" class="btn btn-danger">Eliminar</button>
-                         </td>
+						<a href="{{ route('Discapacidad.edit', $di->cod_disc) }}" type="button" class="btn btn-success">Editar</a>
+						<button type="button" class="btn btn-danger">Eliminar</button>
+					</td>
 				</tr>
 
 				@endforeach

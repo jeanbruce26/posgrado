@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">IngresoPago
+		<h2 class="d-flex justify-content-between">Ingreso de Pago
 		<a href="{{ url('/IngresoPago/create') }}" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
@@ -28,9 +28,9 @@
 					<td>{{$ingresoPago->num_opera}}</td>
 					<td>{{$ingresoPago->monto}}</td>
 					<td>{{$ingresoPago->fecha}}</td>
-					<td>{{$ingresoPago->id_inscripcion}}</td>
+					<td>{{$ingresoPago->inscripcion->cod_inscripcion}}</td>
 					<td>
-                        <button type="button" class="btn btn-success">Editar</button>
+                        <a href="{{ route('IngresoPago.edit',$ingresoPago->cod_ingre) }}" type="button" class="btn btn-success">Editar</a>
                         <button type="button" class="btn btn-danger">Eliminar</button>
                     </td>
 				</tr>

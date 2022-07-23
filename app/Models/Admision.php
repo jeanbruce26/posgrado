@@ -9,9 +9,13 @@ class Admision extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "cod_admi";
+
     protected $table = 'admision';
     protected $fillable = [
         'cod_admi',
         'admision',
     ];
+
+    public $timestamps = false;
 }

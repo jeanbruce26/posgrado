@@ -5,7 +5,7 @@
 	<div class="col-sm-12">
 		
 		<h2 class="d-flex justify-content-between">ConceptoPago
-		<a href="" class="btn btn-primary pull-right">Nuevo</a>
+		<a href="{{ url('/ConceptoPago/create') }}" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
@@ -26,9 +26,14 @@
 					<td>{{$conceptoPago->cod_concep}}</td>
 					<td>{{$conceptoPago->concepto}}</td>
 					<td>{{$conceptoPago->monto}}</td>
-					<td>{{$conceptoPago->estado}}</td>
+					<td>@if ( $conceptoPago->estado == 1)
+							ACTIVO
+						@else
+							DESACTIVO
+						@endif
+					</td>
 					<td>
-                        <button type="button" class="btn btn-success">Editar</button>
+                        <a href="{{ route('ConceptoPago.edit', $conceptoPago->cod_concep) }}" type="button" class="btn btn-success">Editar</a>
                         <button type="button" class="btn btn-danger">Eliminar</button>
                     </td>
 				</tr>

@@ -15,4 +15,12 @@ class HistorialInscripcion extends Model
         'id_inscripcion',
         'admision',
     ];
+
+    public $timestamps = false;
+
+    public function Inscripcion(){
+        return $this->belongsTo(Inscripcion::class,
+        'id_inscripcion','id_inscripcion');
+    }
+    
 }

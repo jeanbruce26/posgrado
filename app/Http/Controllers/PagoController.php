@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pago;
+use App\Models\TipoPago;
+use App\Models\ConceptoPago;
 
 class PagoController extends Controller
 {
@@ -25,7 +27,9 @@ class PagoController extends Controller
      */
     public function create()
     {
-        //
+        $tipoPago = TipoPago::all();
+        $concepPago = ConceptoPago::all();
+        return view('Pago.create', compact('tipoPago', 'concepPago'));
     }
 
     /**
@@ -36,7 +40,15 @@ class PagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tipo_pago_cod_tipo_pago'  =>  'required|max:11',
+            'concep_pago_cod_concep'  =>  'required|max:11',
+            'monto'  =>  'required|max:13',
+            'fecha_pago'  =>  'required',
+            'dni'  =>  'required|max:9',
+        ]);
+        Pago::create($request->all());
+        return redirect()->route('Pago.index');
     }
 
     /**
@@ -58,7 +70,10 @@ class PagoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pago = Pago::find($id);
+        $tipoPago = TipoPago::all();
+        $concepPago = ConceptoPago::all();
+        return view('Pago.edit', compact('tipoPago','concepPago','pago'))->with('pago',$pago);
     }
 
     /**
@@ -70,7 +85,16 @@ class PagoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'tipo_pago_cod_tipo_pago'  =>  'required|max:11',
+            'concep_pago_cod_concep'  =>  'required|max:11',
+            'monto'  =>  'required|max:13',
+            'fecha_pago'  =>  'required',
+            'dni'  =>  'required|max:9',
+        ]);
+        $pago = Pago::find($id);
+        $pago ->update($request->all());
+        return redirect()->route('Pago.index');
     }
 
     /**

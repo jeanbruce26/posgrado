@@ -2,40 +2,43 @@
 
 @section('content')
 
-	<div class="col-sm-12">
-		
-		<h2 class="d-flex justify-content-between">Grado Academico
-		<a href="" class="btn btn-primary pull-right">Nuevo</a>
-		</h2>
+<div class="col-sm-12">
+	
+	<h2 class="d-flex justify-content-between">Grado Academico
+	<a href="{{ route('GradoAcademico.create') }}" class="btn btn-primary pull-right">Nuevo</a>
+	</h2>
 
-		<table class="table table-hover table-striped">
-			<thead>
-				<tr>
-					<th width="20px">Codigo</th>
-					<th width="20px">Grado Academico</th>
-				
+	<table class="table table-hover table-striped">
+		<thead>
+			<tr>
+				<th>Codigo</th>
+				<th>Grado Academico</th>
+				<th>Acciones</th>
 
-				</tr>
-			</thead>
+			</tr>
+		</thead>
 
-			<tbody>
-				@foreach ($gra as $g)
+		<tbody>
+			@foreach ($gra as $g)
 
-				<tr>
-					<td>{{$g->id_grado_academico}}</td>
-					<td>{{$g->nom_grado}}</td>
-			
-				</tr>
+			<tr>
+				<td>{{$g->id_grado_academico}}</td>
+				<td>{{$g->nom_grado}}</td>
+				<td>
+				<a href="{{ route('GradoAcademico.edit', $g->id_grado_academico) }}" type="button" class="btn btn-success">Editar</a>
+				<button type="button" class="btn btn-danger">Eliminar</button>
+			</td>
+			</tr>
 
-				@endforeach
-			</tbody>
-		</table>
-		{!! $gra->render() !!}
+			@endforeach
+		</tbody>
+	</table>
+	{!! $gra->render() !!}
 
-	</div>
+</div>
 
-	<div class="col-sm-4">
-		
-	</div>
+<div class="col-sm-4">
+	
+</div>
 
 @endsection
