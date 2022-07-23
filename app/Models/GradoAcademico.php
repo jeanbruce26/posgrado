@@ -9,8 +9,7 @@ class GradoAcademico extends Model
 {
     protected $table = 'grado_academico';
     protected $fillable = [
-        'cod_grado',
+        'id_grado_academico',
         'nom_grado',
- 
     ];
 }

@@ -8,10 +8,9 @@ use App\Models\GradoAcademico;
 
 class GradoAcademicoController extends Controller
 {
-     public function index()
+    public function index()
     {
-    $gra = GradoAcademico::orderBy('cod_grado','ASC')->paginate();
+        $gra = GradoAcademico::orderBy('id_grado_academico','ASC')->paginate();
         return view('GradoAcademico.index', compact('gra'));
-
     }
 }

@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2>Grado Academico
+		<h2 class="d-flex justify-content-between">Grado Academico
 		<a href="" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
@@ -22,7 +22,7 @@
 				@foreach ($gra as $g)
 
 				<tr>
-					<td>{{$g->cod_grado}}</td>
+					<td>{{$g->id_grado_academico}}</td>
 					<td>{{$g->nom_grado}}</td>
 			
 				</tr>

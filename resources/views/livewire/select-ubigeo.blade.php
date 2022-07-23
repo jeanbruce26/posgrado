@@ -5,7 +5,7 @@
         <select wire:model="selectedDepartamento" class="form-select" name="cod_depar" id="depar">
             <option selected>Seleccione</option>
             @foreach ($ubi as $item)
-            <option value="{{$item->cod_depart}}">{{$item->departamento}} {{$item->cod_depart}}</option>
+            <option value="{{$item->id}}">{{$item->departamento}}</option>
             @endforeach
         </select>
     </div>
@@ -16,7 +16,7 @@
         <select wire:model="selectedProvincia" class="form-select" name="cod_provin">
             <option selected>Seleccione</option>
             @foreach ($prov as $item)
-            <option value="{{$item->cod_provin}}">{{$item->provincia}} {{$item->cod_provin}}</option>
+            <option value="{{$item->id}}">{{$item->provincia}}</option>
             @endforeach
         </select>
     </div>
@@ -28,7 +28,7 @@
         <select wire:model="selectedDistrito" class="form-select" name="cod_ubi">
             <option selected>Seleccione</option>
             @foreach ($dist as $item)
-            <option value="{{$item->cod_ubi}}">{{$item->distrito}} {{$item->cod_ubi}}</option>
+            <option value="{{$item->id}}">{{$item->distrito}}</option>
             @endforeach
         </select>
     </div>

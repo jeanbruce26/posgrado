@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Universidad extends Model
+class Departamento extends Model
 {
-    protected $primaryKey = "cod_uni";
+    use HasFactory;
 
-    protected $table = 'univer';
+    protected $primaryKey = "id";
+
+    protected $table = 'departamento';
     protected $fillable = [
-        'cod_uni',
-        'universidad',
-        'depart',
-        'tipo_gesti',
+        'id',
+        'departamento',
+        'ubigeo',
     ];
-    
+
     public $timestamps = false;
 }
