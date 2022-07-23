@@ -63,7 +63,7 @@
                             <a href="{{ url('EstadoCivil') }}" class="dropdown-item">Estado Civil</a>
                             <a href="{{ url('Discapacidad') }}" class="dropdown-item">Discapacidad</a>
                             <a href="{{ url('Persona') }}" class="dropdown-item">Persona</a>
-                            <a href="{{ url('Ubigeo') }}" class="dropdown-item">Ubigeo</a>
+                            
                             <a href="{{ url('TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
                             <a href="{{ url('UbigeoPersona') }}" class="dropdown-item">UbigeoPersona</a>
                             <a href="{{ url('Admision') }}" class="dropdown-item">Admision</a>

@@ -15,7 +15,6 @@ class Pago extends Model
     protected $table = 'pago';
     protected $fillable = [
         'cod_pago', 
-        
         'tipo_pago_cod_tipo_pago',
         'concep_pago_cod_concep',
         'monto',

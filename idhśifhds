@@ -1,0 +1,207 @@
+[33mcommit d5586a29a26db348665722cd124022eaea2e9dfa[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Merge: dc9a229 94e522f
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Sat Jul 23 15:30:49 2022 -0500
+
+    Merge branch 'master' of https://github.com/jeanbruce26/posgrado
+
+[33mcommit dc9a2296068f4244ef0324657179738fd0f322dc[m
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Sat Jul 23 15:30:40 2022 -0500
+
+    Actualización
+
+[33mcommit 94e522f6bb2846a2a2f39efca115877a91a050af[m
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Sat Jul 23 13:14:25 2022 -0500
+
+    ELIMINANDO MODELO CONTROLADOR Y VISTA DE UBIGEO
+
+[33mcommit 2025b17edcac96759b39e77f684f0db8330e8ac6[m
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Sat Jul 23 13:09:42 2022 -0500
+
+    PRIMER FORMULARIO DE INSCRIPCION
+
+[33mcommit 87b28aa299603cd60f8c6d731e520dba56665cce[m
+Merge: c2c73c7 aa9187d
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Fri Jul 22 23:53:32 2022 -0500
+
+    Merge branch 'master' of https://github.com/jeanbruce26/posgrado
+
+[33mcommit c2c73c77c4f1b88ee1f11d15218285d77936225a[m
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Fri Jul 22 23:50:33 2022 -0500
+
+    COMBO UBIGEO, CRUD UNIVERSIDAD Y TEMPLATE USER
+
+[33mcommit aa9187d3b6156711a31c914af629b84eacaac176[m
+Merge: c7bbc6c 2fc7f3e
+Author: Yoshio Onuki <105018988+YoshioOnuki@users.noreply.github.com>
+Date:   Fri Jul 22 23:45:29 2022 -0500
+
+    Merge branch 'master' of https://github.com/jeanbruce26/posgrado
+
+[33mcommit c7bbc6c98fd87995dba3e298be22d9a1b73615e1[m
+Author: Yoshio Onuki <105018988+YoshioOnuki@users.noreply.github.com>
+Date:   Fri Jul 22 23:26:31 2022 -0500
+
+    CREATE, EDIT - Admision, ConceptoPago, Discapacidad, GradoAcad, IngresoPago, Pago, TipoPago
+
+[33mcommit 2fc7f3e49d2c01873a767e24bf01347ceab99e5b[m
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Fri Jul 22 09:10:48 2022 -0500
+
+    actualizar
+
+[33mcommit a2e8b8197832926ebb3cef6b670673c8efd8492a[m
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Wed Jul 20 19:33:04 2022 -0500
+
+    COMBO UBIGEO
+
+[33mcommit cdde4251468a2a8085e8e45cc5d45b3aa6ee6cae[m
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Tue Jul 19 12:45:03 2022 -0500
+
+    CREAR Y EDITAR
+    
+    EDITAR Y CREAR DE LAS TABLAS, PLAN, SEDE, PROGRAMA Y DETALLE DE PROGRAMA
+
+[33mcommit eb4046079aa4924539ef66af72d25141967c1699[m
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Mon Jul 18 23:47:45 2022 -0500
+
+    CREATE
+
+[33mcommit b90c7290d598554991aa137f86339a688105413d[m
+Merge: 07ada71 bcbd55b
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Mon Jul 18 21:28:09 2022 -0500
+
+    Merge branch 'master' of https://github.com/jeanbruce26/posgrado
+
+[33mcommit 07ada718f454bf25229ebf6d7d6dcbe2a091a379[m
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Mon Jul 18 21:27:58 2022 -0500
+
+    pruebas
+
+[33mcommit bcbd55b670495d2101197d00e66d0eaafe773b2b[m
+Merge: 47414a4 9e04400
+Author: Yoshio Onuki <105018988+YoshioOnuki@users.noreply.github.com>
+Date:   Mon Jul 18 20:28:38 2022 -0500
+
+    Merge branch 'master' of https://github.com/jeanbruce26/posgrado
+
+[33mcommit 47414a42f9f86da4b5ae9096cf5a536ca97d25ee[m
+Author: Yoshio Onuki <105018988+YoshioOnuki@users.noreply.github.com>
+Date:   Mon Jul 18 20:28:33 2022 -0500
+
+    CREATE - PL;AN, TIPOPAGO, INGRESOPAGO
+
+[33mcommit 9e044001585fa16f7232e05cc704c4f1fd520737[m
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Mon Jul 18 19:41:23 2022 -0500
+
+    FORMULARIO DE PERSONA
+    
+    Falta agregar lo que es el combo de ubigeo
+
+[33mcommit ee5c359c70d55be64c05c3aee23725f81213aa8c[m
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Mon Jul 18 09:53:18 2022 -0500
+
+    ACTUALIZACION DE PLANTILLA ADMIN
+
+[33mcommit 835e9b52f31dbcb0b0d7a4a3c416fdbba87de6cd[m
+Merge: e3fe6bf 2319c53
+Author: Yoshio Onuki <105018988+YoshioOnuki@users.noreply.github.com>
+Date:   Fri Jul 15 18:33:35 2022 -0500
+
+    Merge branch 'master' of https://github.com/jeanbruce26/posgrado
+
+[33mcommit e3fe6bf1f1a924d2a0323c4aeb16146e60471191[m
+Author: Yoshio Onuki <105018988+YoshioOnuki@users.noreply.github.com>
+Date:   Fri Jul 15 18:26:24 2022 -0500
+
+    CRUD INSCRIPCION, PAGO
+    
+    PAGO, INSCRIPCIONPAGO, CONCEPTOPAGO, INGRESOPAGO, TIPOPAGO, INSCRIPCION, ADMISION, HISTORIALINSCRIPCION, EXPEDIENTEINSCRIPCION
+
+[33mcommit 2319c53ea5d791cc6daf31254aaa77dcac57bfaf[m
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Fri Jul 15 16:11:41 2022 -0500
+
+    CRUD DE PROGRAMA
+    
+    SEDE, PLAN, PROGRAMA, DETALLES DE PROGRAMA
+
+[33mcommit 4168e89040f7afa947b936e9344751587bbe1f5b[m
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Thu Jul 14 22:12:37 2022 -0500
+
+    CRUD UBIGEOPERSONA
+
+[33mcommit 5b272bee8086f8c2b8a7ce578f779d82e063af2f[m
+Merge: 778ec8c 7bc1ec5
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Thu Jul 14 22:02:32 2022 -0500
+
+    prueba
+
+[33mcommit 778ec8c033f81f93c358a7ff36e97c3fa58aaa74[m
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Thu Jul 14 21:55:06 2022 -0500
+
+    CRUD PERSONA
+
+[33mcommit 7bc1ec544dcff98be9bfc6dcbc1476f474957c76[m
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Wed Jul 13 12:51:02 2022 -0500
+
+    SUBIDA DE DATOS, MODELO, CONTROLADOR Y VISTAS
+    
+    MODELO, CONTROLADOR, VISTAS INDEX, DE PORGRAMA, SEDE, DIPLOMADO, MAESTRIA Y DOCTORADO
+
+[33mcommit 258e926d7f5a41c950ff6839761bf1d121fe3a3d[m
+Merge: 415dae7 c1595dd
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Tue Jul 12 08:52:43 2022 -0500
+
+    Merge branch 'master' of https://github.com/jeanbruce26/posgrado
+
+[33mcommit 415dae716b8e4bd97ead847c491b9a008835f935[m
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Tue Jul 12 08:52:32 2022 -0500
+
+    Crud Tipo Ubigeo
+
+[33mcommit c1595dd9469ded860045fbef2f79078ccd0eb30d[m
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Mon Jul 11 19:12:54 2022 -0500
+
+    CAMBIANDO EL ESTILO DE LA PAGINACION DE LAS TABLAS
+    
+    Modificando la paginacion con bootstrap por defecto.
+
+[33mcommit 5e39d6754f9452aeb9775e703b33ab7115338452[m
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Mon Jul 11 18:20:55 2022 -0500
+
+    plantilla admi
+
+[33mcommit 8f44d504c067e353b92580f30403438d342a27d5[m
+Author: Jamt Mendoza <43344540+pupilojamt@users.noreply.github.com>
+Date:   Sun Jul 10 20:46:39 2022 -0500
+
+    Actualizacionn de archivos
+    
+    Carpeta vendor mas le .env
+
+[33mcommit da2867a08bd80283e0e89f29019c1efded364c04[m
+Author: jeantaker26 <jean_bruce26@hotmail.com>
+Date:   Sun Jul 10 10:46:46 2022 -0500
+
+    sube
