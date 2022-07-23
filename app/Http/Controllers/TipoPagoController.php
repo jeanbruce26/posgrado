@@ -62,7 +62,8 @@ class TipoPagoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tipoPago = TipoPago::find($id);
+        return view('TipoPago.edit')->with('tipoPago',$tipoPago);
     }
 
     /**
@@ -74,7 +75,12 @@ class TipoPagoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'tipo_pago'  =>  'required|max:45',
+        ]);
+        $tipoPago = TipoPago::find($id);
+        $tipoPago ->update($request->all());
+        return redirect()->route('TipoPago.index');
     }
 
     /**

@@ -19,4 +19,6 @@ class ExpedienteInscripcion extends Model
         'expediente_cod_exp',
         'id_inscripcion',
     ];
+
+    public $timestamps = false;
 }

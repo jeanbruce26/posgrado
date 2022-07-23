@@ -6,8 +6,6 @@ Route::get('/', function () {
     return view('admin');
 });
 
-
-
 Route::resource ('Ubigeo','UbigeoController');
 Route::resource ('TipoUbigeo','TipoUbigeoController');
 
@@ -34,3 +32,8 @@ Route::resource('ConceptoPago', 'ConceptoPagoController');
 Route::resource('HistorialInscripcion', 'HistorialInscripcionController');
 Route::resource('ExpedienteInscripcion', 'ExpedienteInscripcionController');
 
+Route::get('/user', function () {
+    return view('user');
+});
+
+Route::resource('user/inscripcion', 'UserInscripcionController');

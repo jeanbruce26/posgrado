@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Universidad extends Model
 {
+    protected $primaryKey = "cod_uni";
+
     protected $table = 'univer';
     protected $fillable = [
         'cod_uni',
         'universidad',
         'depart',
         'tipo_gesti',
- 
     ];
+    
+    public $timestamps = false;
 }

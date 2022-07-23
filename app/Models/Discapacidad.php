@@ -7,10 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Discapacidad extends Model
 {
+
+    use HasFactory;
+
+    protected $primaryKey = "cod_disc";
+
     protected $table = 'discapacidad';
     protected $fillable = [
-        'cod_dist',
+        'cod_disc',
         'discapacidad',
- 
+
     ];
+
+    public $timestamps = false;
 }

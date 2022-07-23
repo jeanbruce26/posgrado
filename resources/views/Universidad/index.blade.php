@@ -5,7 +5,7 @@
 	<div class="col-sm-12">
 		
 		<h2 class="d-flex justify-content-between">Universidad
-		<a href="" class="btn btn-primary pull-right">Nuevo</a>
+		<a href="{{ route('Universidad.create') }}" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
@@ -28,7 +28,7 @@
 					<td>{{$n->depart}}</td>
 					<td>{{$n->tipo_gesti}}</td>
 					<td>
-                              <button type="button" class="btn btn-success">Editar</button>
+                              <a href="{{ route('Universidad.edit',$n->cod_uni) }}" type="button" class="btn btn-success">Editar</a>
                               <button type="button" class="btn btn-danger">Eliminar</button>
                          </td>
 				</tr>

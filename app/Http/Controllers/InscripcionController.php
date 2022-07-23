@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Inscripcion;
+use App\Models\Persona;
+use App\Models\Admision;
+use App\Models\DetallePrograma;
 
 class InscripcionController extends Controller
 {
@@ -14,7 +17,7 @@ class InscripcionController extends Controller
      */
     public function index()
     {
-        $insc = Inscripcion::orderBy('id_inscrip','ASC')->paginate();
+        $insc = Inscripcion::orderBy('id_inscripcion','ASC')->paginate();
         return view('Inscripcion.index', compact('insc'));
     }
 

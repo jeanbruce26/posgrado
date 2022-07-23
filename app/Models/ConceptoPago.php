@@ -9,6 +9,8 @@ class ConceptoPago extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "cod_concep";
+
     protected $table = 'concep_pago';
     protected $fillable = [
         'cod_concep',
@@ -16,4 +18,6 @@ class ConceptoPago extends Model
         'monto',
         'estado',
     ];
+
+    public $timestamps = false;
 }

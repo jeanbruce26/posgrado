@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\IngresoPago;
+use App\Models\Inscripcion;
 
 class IngresoPagoController extends Controller
 {
@@ -25,7 +26,8 @@ class IngresoPagoController extends Controller
      */
     public function create()
     {
-        return view('IngresoPago.create');
+        $insc = Inscripcion::all();
+        return view('IngresoPago.create', compact('insc'));
     }
 
     /**
@@ -40,9 +42,9 @@ class IngresoPagoController extends Controller
             'num_opera'  =>  'required|max:45',
             'monto'  =>  'required|max:13',
             'fecha'  =>  'required',
-            'id_inscripcion '  =>  'required',
+            'id_inscripcion'  =>  'required',
         ]);
-        Plan::create($request->all());
+        IngresoPago::create($request->all());
         return redirect()->route('IngresoPago.index');
     }
 
@@ -65,7 +67,9 @@ class IngresoPagoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ingPago = IngresoPago::find($id);
+        $insc = Inscripcion::all();
+        return view('IngresoPago.edit', compact('insc','ingPago'))->with('ingPago',$ingPago);
     }
 
     /**
@@ -77,7 +81,15 @@ class IngresoPagoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'num_opera'  =>  'required|max:45',
+            'monto'  =>  'required|max:13',
+            'fecha'  =>  'required',
+            'id_inscripcion'  =>  'required',
+        ]);
+        $ingPago = IngresoPago::find($id);
+        $ingPago ->update($request->all());
+        return redirect()->route('IngresoPago.index');
     }
 
     /**

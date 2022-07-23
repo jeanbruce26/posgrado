@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="{{ asset('/favicon.ico') }}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +40,7 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <a href="/" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>POSGRADO</h3>
+                    <h3 class="text-success"><i class="fa fa-hashtag me-2"></i>POSGRADO</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -56,30 +56,29 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>CRUD</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{{ url('/Ubigeo') }}" class="dropdown-item">Ubigeo</a>
-                            <a href="{{ url('/TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
-                            <a href="{{ url('/TipoDocumento') }}" class="dropdown-item">Tipo de Documento</a>                            
-                            <a href="{{ url('/GradoAcademico') }}" class="dropdown-item">Grados Academicos</a>
-                            <a href="{{ url('/Universidad') }}" class="dropdown-item">Universidades</a>
-                            <a href="{{ url('/EstadoCivil') }}" class="dropdown-item">Estado Civil</a>
-                            <a href="{{ url('/Discapacidad') }}" class="dropdown-item">Discapacidad</a>
-                            <a href="{{ url('/Persona') }}" class="dropdown-item">Persona</a>
-                            <a href="{{ url('/Ubigeo') }}" class="dropdown-item">Ubigeo</a>
-                            <a href="{{ url('/TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
-                            <a href="{{ url('/UbigeoPersona') }}" class="dropdown-item">UbigeoPersona</a>
-                            <a href="{{ url('/Admision') }}" class="dropdown-item">Admision</a>
-                            <a href="{{ url('/Inscripcion') }}" class="dropdown-item">Inscripcion</a>
-                            <a href="{{ url('/Pago') }}" class="dropdown-item">Pago</a>
-                            <a href="{{ url('/TipoPago') }}" class="dropdown-item">TipoPago</a>
-                            <a href="{{ url('/IngresoPago') }}" class="dropdown-item">IngresoPago</a>
-                            <a href="{{ url('/InscripcionPago') }}" class="dropdown-item">InscripcionPago</a>
-                            <a href="{{ url('/ConceptoPago') }}" class="dropdown-item">ConceptoPago</a>
-                            <a href="{{ url('/HistorialInscripcion') }}" class="dropdown-item">HistorialInscripcion</a>
-                            <a href="{{ url('/ExpedienteInscripcion') }}" class="dropdown-item">ExpedienteInscripcion</a>
-                            <a href="{{ url('/Sede') }}" class="dropdown-item">Sede</a>
-                            <a href="{{ url('/Programa') }}" class="dropdown-item">Programa</a>
-                            <a href="{{ url('/DetallePrograma') }}" class="dropdown-item">Detalle Programa</a>
-                            <a href="{{ url('/Plan') }}" class="dropdown-item">Plan</a> 
+                            <a href="{{ url('TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
+                            <a href="{{ url('TipoDocumento') }}" class="dropdown-item">Tipo de Documento</a>                            
+                            <a href="{{ url('GradoAcademico') }}" class="dropdown-item">Grados Academicos</a>
+                            <a href="{{ url('Universidad') }}" class="dropdown-item">Universidades</a>
+                            <a href="{{ url('EstadoCivil') }}" class="dropdown-item">Estado Civil</a>
+                            <a href="{{ url('Discapacidad') }}" class="dropdown-item">Discapacidad</a>
+                            <a href="{{ url('Persona') }}" class="dropdown-item">Persona</a>
+                            <a href="{{ url('Ubigeo') }}" class="dropdown-item">Ubigeo</a>
+                            <a href="{{ url('TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
+                            <a href="{{ url('UbigeoPersona') }}" class="dropdown-item">UbigeoPersona</a>
+                            <a href="{{ url('Admision') }}" class="dropdown-item">Admision</a>
+                            <a href="{{ url('Inscripcion') }}" class="dropdown-item">Inscripcion</a>
+                            <a href="{{ url('Pago') }}" class="dropdown-item">Pago</a>
+                            <a href="{{ url('TipoPago') }}" class="dropdown-item">TipoPago</a>
+                            <a href="{{ url('IngresoPago') }}" class="dropdown-item">IngresoPago</a>
+                            <a href="{{ url('InscripcionPago') }}" class="dropdown-item">InscripcionPago</a>
+                            <a href="{{ url('ConceptoPago') }}" class="dropdown-item">ConceptoPago</a>
+                            <a href="{{ url('HistorialInscripcion') }}" class="dropdown-item">HistorialInscripcion</a>
+                            <a href="{{ url('ExpedienteInscripcion') }}" class="dropdown-item">ExpedienteInscripcion</a>
+                            <a href="{{ url('Sede') }}" class="dropdown-item">Sede</a>
+                            <a href="{{ url('Programa') }}" class="dropdown-item">Programa</a>
+                            <a href="{{ url('DetallePrograma') }}" class="dropdown-item">Detalle Programa</a>
+                            <a href="{{ url('Plan') }}" class="dropdown-item">Plan</a> 
                         </div>
                     </div> 
                 </div>
@@ -96,7 +95,7 @@
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
+                    <i class="fa fa-bars text-success"></i>
                 </a>
                 <form class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search">
@@ -176,7 +175,7 @@
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-success btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->

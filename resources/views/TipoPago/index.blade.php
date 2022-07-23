@@ -5,7 +5,7 @@
 	<div class="col-sm-12">
 		
 		<h2 class="d-flex justify-content-between">Tipo Pago
-			<a href="{{ url('/TipoPago/create') }}" class="btn btn-primary ">Nuevo</a>
+			<a href="{{ route('TipoPago.create') }}" class="btn btn-primary ">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
@@ -24,7 +24,7 @@
 					<td>{{$tipopago->cod_tipo_pago}}</td>
 					<td>{{$tipopago->tipo_pago}}</td>
 					<td>
-                            <button type="button" class="btn btn-success">Editar</button>
+                            <a href="{{ route('TipoPago.edit',$tipopago->cod_tipo_pago) }}" type="button" class="btn btn-success">Editar</a>
                             <button type="button" class="btn btn-danger">Eliminar</button>
                         </td>
 				</tr>
