@@ -10,7 +10,6 @@
           <div class="col-md-12">
                <label for="inputNombre" class="form-label">Nombre *</label>
                <input type="text" class="form-control" id="inputNombre" name="nombre">
-               
           </div>
           <div class="col-md-6">
                <label for="inputApellidoPaterno" class="form-label">Apellido Paterno *</label>
@@ -114,6 +113,7 @@
                <label for="inputEspecialidad" class="form-label">Especialidad *</label>
                <input type="text" class="form-control" id="inputEspecialidad" name="especialidad">
           </div>
+          <h5 class="text-secondary">Ubigeo de direccion</h5>
           @livewire('select-ubigeo')
           <div class="col-md-12">
                <button type="submit" class="btn btn-primary">Agregar</button>
