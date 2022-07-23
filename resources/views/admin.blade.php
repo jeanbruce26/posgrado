@@ -29,6 +29,8 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+
+    @livewireStyles
 </head>
 
 <body>
@@ -190,6 +192,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    @livewireScripts
 </body>
 
 </html>

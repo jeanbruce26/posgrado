@@ -33,5 +33,5 @@ class Pago extends Model
         return $this->belongsTo(ConceptoPago::class,
         'concep_pago_cod_concep','cod_concep');
     }
+
 }
-    
