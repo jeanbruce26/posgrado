@@ -4,9 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Inscripcion
-		<a href="" class="btn btn-primary pull-right">Nuevo</a>
-		</h2>
+		<h2 class="d-flex justify-content-between">Inscripcion</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
@@ -16,8 +14,7 @@
 					<th>Persona</th>
 					<th>Estado</th>
 					<th>Admision</th>
-					<th>Programa</th>
-					<th>Acciones</th>
+					<th>Detalle Programa</th>
 				</tr>
 			</thead>
 
@@ -25,16 +22,12 @@
 				@foreach ($insc as $inscrip)
 
 				<tr>
-					<td>{{$inscrip->id_inscrip}}</td>
-					<td>{{$inscrip->cod_inscrip}}</td>
-					<td>{{$inscrip->persona_idpersona}}</td>
+					<td>{{$inscrip->id_inscripcion}}</td>
+					<td>{{$inscrip->cod_inscripcion}}</td>
+					<td>{{$inscrip->persona->nombres}} {{$inscrip->persona->apell_pater}} {{$inscrip->persona->apell_mater}}</td>
 					<td>{{$inscrip->estado}}</td>
-					<td>{{$inscrip->admision_cod_admi}}</td>
-					<td>{{$inscrip->id_detalle_programa}}</td>
-					<td>
-                        <button type="button" class="btn btn-success">Editar</button>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
-                    </td>
+					<td>{{$inscrip->admision->admision}}</td>
+					<td>{{$inscrip->detallePrograma->des_detalle_programa}}</td>
 				</tr>
 
 				@endforeach

@@ -7,10 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class GradoAcademico extends Model
 {
+    use HasFactory;
+
+    protected $primaryKey = "id_grado_academico";
+
     protected $table = 'grado_academico';
     protected $fillable = [
-        'cod_grado',
+        'id_grado_academico',
         'nom_grado',
- 
+
     ];
+
+    public $timestamps = false;
 }

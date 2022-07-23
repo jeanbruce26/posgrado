@@ -4,16 +4,16 @@
 
 	<div class="col-sm-12">
 		
-		<h2>Grado Academico
-		<a href="" class="btn btn-primary pull-right">Nuevo</a>
+		<h2 class="d-flex justify-content-between">Grado Academico
+		<a href="{{ route('GradoAcademico.create') }}" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th width="20px">Codigo</th>
-					<th width="20px">Grado Academico</th>
-				
+					<th>Codigo</th>
+					<th>Grado Academico</th>
+					<th>Acciones</th>
 
 				</tr>
 			</thead>
@@ -22,9 +22,12 @@
 				@foreach ($gra as $g)
 
 				<tr>
-					<td>{{$g->cod_grado}}</td>
+					<td>{{$g->id_grado_academico}}</td>
 					<td>{{$g->nom_grado}}</td>
-			
+					<td>
+                        <a href="{{ route('GradoAcademico.edit', $g->id_grado_academico) }}" type="button" class="btn btn-success">Editar</a>
+                        <button type="button" class="btn btn-danger">Eliminar</button>
+                    </td>
 				</tr>
 
 				@endforeach

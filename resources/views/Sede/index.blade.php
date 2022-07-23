@@ -24,9 +24,9 @@
 					<td>{{$sede->cod_sede}}</td>
 					<td>{{$sede->sede}}</td>
 					<td>
-                              <a href="/Sede/{{ $sede->cod_sede }}/edit" class="btn btn-success">Editar</a>
-                              <a type="button" class="btn btn-danger">Eliminar</a>
-                         </td>
+						<a href="/Sede/{{ $sede->cod_sede }}/edit" class="btn btn-success">Editar</a>
+						<a type="button" class="btn btn-danger">Eliminar</a>
+					</td>
 				</tr>
 
 				@endforeach

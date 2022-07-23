@@ -9,6 +9,8 @@ class IngresoPago extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "cod_ingre";
+
     protected $table = 'ingre_pago';
     protected $fillable = [
         'cod_ingre',
@@ -19,4 +21,9 @@ class IngresoPago extends Model
     ];
 
     public $timestamps = false;
+
+    public function Inscripcion(){
+        return $this->belongsTo(Inscripcion::class,
+        'id_inscripcion','id_inscripcion');
+    }
 }

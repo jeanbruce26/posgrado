@@ -13,4 +13,6 @@ class EstadoCivil extends Model
         'est_civil',
  
     ];
+
+    public $timestamps = false;
 }
