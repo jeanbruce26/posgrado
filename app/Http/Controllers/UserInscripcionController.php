@@ -7,6 +7,7 @@ use App\Models\EstadoCivil;
 use App\Models\GradoAcademico;
 use App\Models\TipoDocumento;
 use App\Models\Universidad;
+use App\Models\Expediente;
 use Illuminate\Http\Request;
 
 class UserInscripcionController extends Controller
@@ -23,7 +24,8 @@ class UserInscripcionController extends Controller
         $estado_civil = EstadoCivil::all();
         $universidad = Universidad::all();
         $grado = GradoAcademico::all();
-        return view('user/inscripcion.formulario1', compact('tipo_doc','tipo_dis','estado_civil','universidad','grado'));
+        $expediente = Expediente::all();
+        return view('user/inscripcion.formulario3', compact('tipo_doc','tipo_dis','estado_civil','universidad','grado','expediente'));
     }
 
     /**

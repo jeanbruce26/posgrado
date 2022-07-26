@@ -9,6 +9,8 @@ class ExpedienteInscripcion extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "cod_ex_insc";
+
     protected $table = 'ex_insc';
     protected $fillable = [
         'cod_ex_insc',

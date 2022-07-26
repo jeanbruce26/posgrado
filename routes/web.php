@@ -36,4 +36,8 @@ Route::get('/user', function () {
     return view('user');
 });
 
+Route::get('/prueba', function () {
+    return view('user/inscripcion/formulario3');
+});
+
 Route::resource('user/inscripcion', 'UserInscripcionController');
