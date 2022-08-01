@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetallePrograma;
-use App\Models\Mencion;
-use App\Models\Plan;
 use App\Models\Programa;
-use App\Models\Sede;
+use App\Models\SubPrograma;
 use Illuminate\Http\Request;
 
-class DetalleProgramaController extends Controller
+class SubProgramaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,8 @@ class DetalleProgramaController extends Controller
      */
     public function index()
     {
-        $detpro = DetallePrograma::orderBy('id_detalle_programa','ASC')->paginate();
-        return view('DetallePrograma.index', compact('detpro'));
+        $sub = SubPrograma::orderBy('id_subprograma','ASC')->paginate();
+        return view('SubPrograma.index', compact('sub'));
     }
 
     /**
@@ -29,10 +26,8 @@ class DetalleProgramaController extends Controller
      */
     public function create()
     {
-        $men = Mencion::all();
-        $plan = Plan::all();
-        $sede = Sede::all();
-        return view('DetallePrograma.create', compact('men','plan','sede'));
+        $pro = Programa::all();
+        return view('SubPrograma.create', compact('pro'));
     }
 
     /**
@@ -44,12 +39,12 @@ class DetalleProgramaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_mencion'  =>  'required',
-            'id_plan'  =>  'required',
-            'id_sede'  =>  'required',
+            'cod_subprograma'  =>  'required|max:10',
+            'subprograma'  =>  'required|max:50',
+            'id_programa'  =>  'required|max:50',
         ]);
-        DetallePrograma::create($request->all());
-        return redirect()->route('DetallePrograma.index');
+        SubPrograma::create($request->all());
+        return redirect()->route('SubPrograma.index');
     }
 
     /**
@@ -71,11 +66,9 @@ class DetalleProgramaController extends Controller
      */
     public function edit($id)
     {
-        $det = DetallePrograma::find($id);
-        $men = Mencion::all();
-        $plan = Plan::all();
-        $sede = Sede::all();
-        return view('DetallePrograma.edit', compact('men','plan','sede','det'))->with('det',$det);
+        $sub = SubPrograma::find($id);
+        $pro = Programa::all();
+        return view('SubPrograma.edit', compact('pro'))->with('sub',$sub);
     }
 
     /**
@@ -88,13 +81,13 @@ class DetalleProgramaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id_mencion'  =>  'required',
-            'id_plan'  =>  'required',
-            'id_sede'  =>  'required',
+            'cod_subprograma'  =>  'required|max:10',
+            'subprograma'  =>  'required|max:50',
+            'id_programa'  =>  'required|max:50',
         ]);
-        $det = DetallePrograma::find($id);
-        $det ->update($request->all());
-        return redirect()->route('DetallePrograma.index');
+        $mencion = SubPrograma::find($id);
+        $mencion ->update($request->all());
+        return redirect()->route('SubPrograma.index');
     }
 
     /**

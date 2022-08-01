@@ -10,42 +10,14 @@
 			{{ method_field('PUT') }}
                @csrf
                <div class="col-md-12">
-                    <label for="inputPrograma" class="form-label">Programa *</label>
+                    <label for="inputPrograma" class="form-label">Mencion *</label>
                     <select id="inputPrograma" class="form-select" name="id_programa">
                          <option selected>Seleccione</option>
-                         @foreach ($pro as $item)
-                         <option value="{{ $item->id_programa }}" {{ $item->id_programa == $det->id_programa ? 'selected' : '' }}>{{$item->descripcion_programa}}</option>
+                         @foreach ($men as $item)
+                         <option value="{{ $item->id_mencion }}" {{ $item->id_mencion == $det->id_mencion ? 'selected' : '' }}>{{$item->mencion}}</option>
                          @endforeach
                     </select>
                     @error('id_programa')
-                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-               </div>
-			<div class="col-md-6">
-				<label for="inputCodDetPro" class="form-label">Codigo de Detalle Programa *</label>
-				<input type="text" class="form-control" id="inputCodDetPro" name="cod_detalle_programa"  value="{{ $det->cod_detalle_programa }}">
-                    @error('cod_detalle_programa')
-                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-               </div>
-               <div class="col-md-6">
-				<label for="inputDesDetPro" class="form-label">Detalle Programa *</label>
-				<input type="text" class="form-control" id="inputDesDetPro" name="des_detalle_programa"  value="{{ $det->des_detalle_programa }}">
-                    @error('des_detalle_programa')
-                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-               </div>
-               <div class="col-md-6">
-				<label for="inputCodMen" class="form-label">Codigo Mencion</label>
-				<input type="text" class="form-control" id="inputCodMen" name="cod_mencion"  value="{{ $det->cod_mencion }}">
-                    @error('cod_mencion')
-                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-               </div>
-               <div class="col-md-6">
-				<label for="inputMen" class="form-label">Mencion</label>
-				<input type="text" class="form-control" id="inputMen" name="des_mencion"  value="{{ $det->des_mencion }}">
-                    @error('des_mencion')
                          <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
                </div>

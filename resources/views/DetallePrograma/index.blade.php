@@ -13,8 +13,8 @@
 				<tr>
 					<th>Id</th>
 					<th>Programa</th>
-					<th>Codigo Detalle Programa</th>
-					<th>Descripcion</th>
+					<th>Sub Programa</th>
+					<th>Mencion</th>
 					<th>Plan</th>
 					<th>Sede</th>
 					<th>Acciones</th>
@@ -26,9 +26,9 @@
 
 				<tr>
 					<td>{{$detalle->id_detalle_programa}}</td>
-					<td>{{$detalle->programa->descripcion_programa}}</td>
-					<td>{{$detalle->cod_detalle_programa}}</td>
-					<td>{{$detalle->des_detalle_programa}}</td>
+					<td>{{$detalle->mencion->subprograma->programa->descripcion_programa}}</td>
+					<td>{{$detalle->mencion->subprograma->subprograma}}</td>
+					<td>{{$detalle->mencion->mencion}}</td>
 					<td>{{$detalle->plan->plan}}</td>
 					<td>{{$detalle->sede->sede}}</td> 
 					<td>

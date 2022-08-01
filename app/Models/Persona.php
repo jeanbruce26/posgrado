@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Persona extends Model
 {
+    protected $primaryKey = "idpersona";
+
     protected $table = 'persona';
     protected $fillable = [
         'idpersona',
@@ -27,10 +29,12 @@ class Persona extends Model
         'discapacidad_cod_disc',
         'est_civil_cod_est',
         'univer_cod_uni',
-        'grado_academico_cod_grado',
+        'id_grado_academico',
         'especialidad',
         'pais_extra',
     ];
+
+    public $timestamps = false;
 
     public function TipoDocumento(){
         return $this->belongsTo(TipoDocumento::class,
