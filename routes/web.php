@@ -7,6 +7,7 @@ Route::get('/', function () {
 });
 
 
+Route::resource ('Ubigeo','UbigeoController');
 Route::resource ('TipoUbigeo','TipoUbigeoController');
 
 Route::resource ('TipoDocumento','TipoDocumentoController');

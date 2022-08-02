@@ -16,6 +16,7 @@ class PlanController extends Controller
     {
         $plan = Plan::orderBy('id_plan','ASC')->paginate();
         return view('Plan.index', compact('plan'));
+        
     }
 
     /**
