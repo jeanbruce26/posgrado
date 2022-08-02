@@ -6,7 +6,7 @@
 		
 		<h3 class="d-flex justify-content-between text-secondary">Ficha de Inscripcion</h3>
 
-		<form action="{{ route('inscripcion.store') }}" method="POST" class="row g-3">
+		<form action="{{ route('inscripcion.store1') }}" method="POST" class="row g-3">
 			@csrf
                <div class="col-md-4">
                     <label class="form-label">Tipo de Documento (*)</label>

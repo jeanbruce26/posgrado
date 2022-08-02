@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
+use App\Models\DetallePrograma;
 use App\Models\Discapacidad;
 use App\Models\Distrito;
 use App\Models\EstadoCivil;
@@ -10,6 +11,8 @@ use App\Models\GradoAcademico;
 use App\Models\TipoDocumento;
 use App\Models\Universidad;
 use App\Models\Expediente;
+use App\Models\IngresoPago;
+use App\Models\Inscripcion;
 use App\Models\Persona;
 use App\Models\Provincia;
 use App\Models\UbigeoPersona;
@@ -32,16 +35,6 @@ class UserInscripcionController extends Controller
         $expediente = Expediente::all();
         $departamento = Departamento::all();
         return view('user/inscripcion.formulario1', compact('tipo_doc','tipo_dis','estado_civil','universidad','grado','expediente','departamento'));
-    }
-
-    public function index2()
-    {
-        return view('user/inscripcion.formulario2');
-    }
-
-    public function index3()
-    {
-        return view('user/inscripcion.formulario3');
     }
 
     /**
@@ -109,12 +102,59 @@ class UserInscripcionController extends Controller
 
     public function store2(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'id_mencion'  =>  'required',
+            'id_plan'  =>  'required',
+            'num_opera'  =>  'required',
+            'monto'  =>  'required',
+            'fecha'  =>  'required',
+            'vaucher'  =>  'required',
+        ]);
 
-    public function store3(Request $request)
-    {
-        //
+        $input = $request->all();
+        $plan = 1;
+        $admision = 1;
+        $estado = "Activo";
+        $detalle = DetallePrograma::create([
+            "id_mencion" => $input["id_mencion"],
+            "id_plan" => $plan,
+        ]);
+        $id_detalle_programa = $detalle->id_detalle_programa;
+
+        $inscripcion = Inscripcion::create([
+            "persona_idpersona" => $input["persona_idpersona"],
+            "estado" => $estado,
+            "admision_cod_admi" => $admision,
+            "id_detalle_programa" => $id_detalle_programa,
+        ]);
+
+        $id_inscripcion = $inscripcion->id_inscripcion;
+
+        $per = Persona::where('idpersona',$input["persona_idpersona"])->get();
+        foreach($per as $item){
+            $dnipersona = $per->num_doc;
+        }
+
+        if($request->hasFile("vaucher")){
+            $file = $request->file("vaucher");
+            $vaucher = "pdf_".$dnipersona."_".time().".".$file->guessExtension();
+            $ruta = public_path("pdf/vaucher/".$vaucher);
+            if($file->guessExtension()=="pdf"){
+                copy($file,$ruta);
+            }else{
+
+            }
+        }
+
+        $ingre_pago = IngresoPago::create([
+            "num_opera" => $input["num_opera"],
+            "monto" => $input["monto"],
+            "fecha" => $input["fecha"],
+            "id_inscripcion" => $id_inscripcion,
+            "vaucher" => $vaucher,
+        ]);
+
+        return view('user/inscripcion.formulario3', compact('inscripcion'));
     }
 
     /**

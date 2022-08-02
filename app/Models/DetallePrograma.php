@@ -16,7 +16,6 @@ class DetallePrograma extends Model
         'id_detalle_programa',
         'id_mencion',
         'id_plan',
-        'id_sede',
     ];
 
     public $timestamps = false;
@@ -24,11 +23,6 @@ class DetallePrograma extends Model
     public function Mencion(){
         return $this->belongsTo(Mencion::class,
         'id_mencion','id_mencion');
-    }
-
-    public function Sede(){
-        return $this->belongsTo(Sede::class,
-        'id_sede','cod_sede');
     }
 
     public function Plan(){

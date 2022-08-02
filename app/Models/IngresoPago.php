@@ -18,6 +18,7 @@ class IngresoPago extends Model
         'monto',
         'fecha',
         'id_inscripcion',
+        'vaucher',
     ];
 
     public $timestamps = false;

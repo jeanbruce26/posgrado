@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Programa;
 use App\Http\Controllers\Controller;
+use App\Models\Sede;
 
 class ProgramaController extends Controller
 {
@@ -26,7 +27,8 @@ class ProgramaController extends Controller
      */
     public function create()
     {
-        return view('Programa.create');
+        $sede = Sede::all();
+        return view('Programa.create', compact('sede'));
     }
 
     /**
@@ -39,6 +41,7 @@ class ProgramaController extends Controller
     {
         $request->validate([
             'descripcion_programa'  =>  'required|max:30',
+            'id_sede'  =>  'required',
         ]);
         Programa::create($request->all());
         return redirect()->route('Programa.index');
@@ -64,7 +67,8 @@ class ProgramaController extends Controller
     public function edit($id)
     {
         $pro = Programa::find($id);
-        return view('Programa.edit')->with('pro',$pro);
+        $sede = Sede::all();
+        return view('Programa.edit', compact('sede'))->with('pro',$pro);
     }
 
     /**
@@ -78,9 +82,11 @@ class ProgramaController extends Controller
     {
         $request->validate([
             'descripcion_programa'  =>  'required|max:30',
+            'id_sede'  =>  'required',
         ]);
         $pro = Programa::find($id);
         $pro->descripcion_programa = $request->get('descripcion_programa');
+        $pro->id_sede = $request->get('id_sede');
         $pro->save();
         return redirect()->route('Programa.index');
     }

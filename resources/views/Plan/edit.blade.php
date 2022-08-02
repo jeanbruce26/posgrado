@@ -13,7 +13,7 @@
 				<label for="inputPlan" class="form-label">Plan</label>
 				<input type="text" class="form-control" id="inputPlan" name="plan" value="{{ $plan->plan }}">
                     @error('plan')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                    	<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
 			</div>
 			<div class="col-12">

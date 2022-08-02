@@ -6,7 +6,7 @@
 		
 		<h3 class="d-flex justify-content-between text-secondary">Ficha de Inscripcion</h3>
 
-		<form action="" method="POST" class="row g-3">
+		<form action="{{ route('inscripcion.store2') }}" method="POST" class="row g-3">
 			@csrf
                <h5 class="text-secondary">Programa</h5>
                @livewire('select-programa')
@@ -25,13 +25,13 @@
                     <label class="form-label">Fecha (*)</label>
                     <input type="date" class="form-control"  name="fecha">
                </div>
-               <div class="col-md-6">
+               <div class="col-md-12">
                     <label class="form-label">Vaucher (*)</label>
                     <input type="file" class="form-control"  name="vaucher">
                </div>
                <div class="col-md-6">
                     <label class="form-label">idpersona</label>
-                    <input type="text" class="form-control"  name="vaucher" value="{{$persona->idpersona}}">
+                    <input type="text" class="form-control"  name="persona_idpersona" value="{{$persona->idpersona}}">
                </div>
 			<div class="col-md-12">
 				<button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Guardar y continuar</button>

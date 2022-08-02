@@ -13,6 +13,7 @@
 				<tr>
 					<th>Codigo</th>
 					<th>Programa</th>
+					<th>Sede</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -23,6 +24,7 @@
 				<tr>
 					<td>{{$programa->id_programa}}</td>
 					<td>{{$programa->descripcion_programa}}</td>
+					<td>{{$programa->sede->sede}}</td>
 					<td>
 						<button type="button" class="btn btn-primary">Detalle</button>
                               <a href="{{ route('Programa.edit',$programa->id_programa) }}" type="button" class="btn btn-success">Editar</a>

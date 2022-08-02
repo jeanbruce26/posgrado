@@ -9,12 +9,11 @@ class Inscripcion extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = "id_inscrip";
+    protected $primaryKey = "id_inscripcion";
 
     protected $table = 'inscripcion';
     protected $fillable = [
-        'id_inscrip',
-        'cod_inscripcion',
+        'id_inscripcion',
         'persona_idpersona',
         'estado',
         'admision_cod_admi',

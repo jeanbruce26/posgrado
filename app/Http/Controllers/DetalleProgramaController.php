@@ -31,8 +31,7 @@ class DetalleProgramaController extends Controller
     {
         $men = Mencion::all();
         $plan = Plan::all();
-        $sede = Sede::all();
-        return view('DetallePrograma.create', compact('men','plan','sede'));
+        return view('DetallePrograma.create', compact('men','plan'));
     }
 
     /**
@@ -46,7 +45,6 @@ class DetalleProgramaController extends Controller
         $request->validate([
             'id_mencion'  =>  'required',
             'id_plan'  =>  'required',
-            'id_sede'  =>  'required',
         ]);
         DetallePrograma::create($request->all());
         return redirect()->route('DetallePrograma.index');
@@ -74,8 +72,7 @@ class DetalleProgramaController extends Controller
         $det = DetallePrograma::find($id);
         $men = Mencion::all();
         $plan = Plan::all();
-        $sede = Sede::all();
-        return view('DetallePrograma.edit', compact('men','plan','sede','det'))->with('det',$det);
+        return view('DetallePrograma.edit', compact('men','plan','det'))->with('det',$det);
     }
 
     /**
@@ -90,7 +87,6 @@ class DetalleProgramaController extends Controller
         $request->validate([
             'id_mencion'  =>  'required',
             'id_plan'  =>  'required',
-            'id_sede'  =>  'required',
         ]);
         $det = DetallePrograma::find($id);
         $det ->update($request->all());

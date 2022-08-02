@@ -30,7 +30,7 @@
 					<td>{{$detalle->mencion->subprograma->subprograma}}</td>
 					<td>{{$detalle->mencion->mencion}}</td>
 					<td>{{$detalle->plan->plan}}</td>
-					<td>{{$detalle->sede->sede}}</td> 
+					<td>{{$detalle->mencion->subprograma->programa->sede->sede}}</td> 
 					<td>
 						<a href="{{ route('DetallePrograma.edit',$detalle->id_detalle_programa) }}" type="button" class="btn btn-success">Editar</a>
 						<button type="button" class="btn btn-danger">Eliminar</button>

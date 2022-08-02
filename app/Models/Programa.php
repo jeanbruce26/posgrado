@@ -15,7 +15,13 @@ class Programa extends Model
     protected $fillable = [
         'id_programa',
         'descripcion_programa',
+        'id_sede',
     ];
+
+    public function Sede(){
+        return $this->belongsTo(Sede::class,
+        'id_sede','cod_sede');
+    }
     
     public $timestamps = false;
 }
