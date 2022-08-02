@@ -29,10 +29,10 @@
                     <label class="form-label">Vaucher (*)</label>
                     <input type="file" class="form-control"  name="vaucher">
                </div>
-               <div class="col-md-6">
+               {{-- <div class="col-md-6">
                     <label class="form-label">idpersona</label>
                     <input type="text" class="form-control"  name="persona_idpersona" value="{{$persona->idpersona}}">
-               </div>
+               </div> --}}
 			<div class="col-md-12">
 				<button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Guardar y continuar</button>
 			</div>

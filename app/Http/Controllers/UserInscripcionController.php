@@ -34,7 +34,7 @@ class UserInscripcionController extends Controller
         $grado = GradoAcademico::all();
         $expediente = Expediente::all();
         $departamento = Departamento::all();
-        return view('user/inscripcion.formulario1', compact('tipo_doc','tipo_dis','estado_civil','universidad','grado','expediente','departamento'));
+        return view('user/inscripcion.formulario2', compact('tipo_doc','tipo_dis','estado_civil','universidad','grado','expediente','departamento'));
     }
 
     /**
