@@ -11,7 +11,7 @@ class InscripcionPago extends Model
 
     protected $primaryKey = "cod_insc_pago";
 
-    protected $table = 'insc_pago';
+    protected $table = 'inscripcion_pago';
     protected $fillable = [
         'cod_insc_pago',
         'pago_cod_pago',

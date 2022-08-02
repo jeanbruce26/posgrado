@@ -22,6 +22,8 @@ Route::resource ('Sede','SedeController');
 Route::resource ('Programa','ProgramaController');
 Route::resource ('Plan','PlanController');
 Route::resource ('DetallePrograma', 'DetalleProgramaController');
+Route::resource ('Mencion', 'MencionController');
+Route::resource ('SubPrograma', 'SubProgramaController');
 
 Route::resource('Admision', 'AdmisionController');
 Route::resource('Inscripcion', 'InscripcionController');
@@ -38,3 +40,5 @@ Route::get('/user', function () {
 });
 
 Route::resource('user/inscripcion', 'UserInscripcionController');
+
+// Route::post('user/provincias', [\App\Http\Controllers\UserInscripcionController:: class, 'provincias']);

@@ -1,7 +1,7 @@
 <div class="col-sm-12 row">
     <div class="col-md-4">
         <label class="form-label">Ciudad (*)</label>
-        <select wire:model="selectedDepartamento" class="form-select" name="cod_depar" id="depar">
+        <select wire:model="selectedDepartamento" class="form-select" name="cod_depar">
             <option selected>Seleccione</option>
             @foreach ($ubi as $item)
             <option value="{{$item->id}}">{{$item->departamento}}</option>

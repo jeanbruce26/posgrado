@@ -78,6 +78,8 @@
                             <a href="{{ url('Sede') }}" class="dropdown-item">Sede</a>
                             <a href="{{ url('Programa') }}" class="dropdown-item">Programa</a>
                             <a href="{{ url('DetallePrograma') }}" class="dropdown-item">Detalle Programa</a>
+                            <a href="{{ url('SubPrograma') }}" class="dropdown-item">SubPrograma</a>
+                            <a href="{{ url('Mencion') }}" class="dropdown-item">Mencion</a>
                             <a href="{{ url('Plan') }}" class="dropdown-item">Plan</a> 
                         </div>
                     </div> 
