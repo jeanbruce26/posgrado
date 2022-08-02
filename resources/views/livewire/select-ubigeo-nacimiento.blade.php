@@ -22,7 +22,7 @@
     @if ($selectedProvincia)
     <div class="col-md-4">
         <label class="form-label">Distrito (*)</label>
-        <select wire:model="selectedDistrito" class="form-select" name="id_distrito">
+        <select wire:model="selectedDistrito" class="form-select" name="id_distrito2">
             <option selected>Seleccione</option>
             @foreach ($dist as $item)
             <option value="{{$item->id}}">{{$item->distrito}}</option>

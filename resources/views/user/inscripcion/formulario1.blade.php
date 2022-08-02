@@ -118,27 +118,6 @@
                </div>
                <h5 class="text-secondary">Ubigeo de direccion</h5>
                @livewire('select-ubigeo')
-               {{-- <div class="col-md-4">
-                    <label class="form-label">Departamento</label>
-                    <select class="form-select" name="id" id="_departamentos">
-                         <option value="" selected>Seleccione...</option>
-                         @foreach ($departamento as $item)
-                         <option value="{{$item->id}}">{{$item->departamento}}</option>
-                         @endforeach
-                    </select>
-               </div>
-               <div class="col-md-4">
-                    <label class="form-label">Provincia</label>
-                    <select class="form-select" name="id_provincia" id="_provincias">
-                         <option value="" selected>Seleccione...</option>
-                    </select>
-               </div> 
-               <div class="col-md-4">
-                    <label class="form-label">Distrito</label>
-                    <select class="form-select" name="id_distrito" id="_distritos">
-                         <option value="" selected>Seleccione...</option>
-                    </select>
-               </div> --}}
                <div class="col-md-12">
                     <label class="form-label">Direccion (*)</label>
                     <input type="text" class="form-control" name="direccion">
@@ -179,25 +158,3 @@
 	</div>
 
 @endsection
-{{-- 
-@section('scritp')
-     <script>
-          document.getElementById('_departamentos').addEventListener('change',(e)=>{
-               fetch('provincias',{
-                    method : 'POST',
-                    body: JSON.stringify({texto : e.target.value}),
-                    headers:{
-                         'Content-Type': 'application/json'
-                    }
-               }).then(response =>{
-                    return response.json()
-               }).then( data =>{
-                    var opciones ="<option value=''>Elegir</option>";
-                    for (let i in data.lista) {
-                         opciones+= '<option value="'+data.lista[i].id+'">'+data.lista[i].provincias+'</option>';
-                    }
-                    document.getElementById("_provincias").innerHTML = opciones;
-               }).catch(error =>console.error(error));
-          })
-     </script>
-@endsection --}}

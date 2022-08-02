@@ -15,6 +15,7 @@ class UbigeoPersona extends Model
         'id_distrito',
         'tipo_ubigeo_cod_tipo',
         'persona_idpersona',
+        'ubigeo',
     ];
     
     public $timestamps = false;

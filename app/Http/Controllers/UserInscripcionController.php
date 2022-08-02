@@ -34,25 +34,6 @@ class UserInscripcionController extends Controller
         return view('user/inscripcion.formulario1', compact('tipo_doc','tipo_dis','estado_civil','universidad','grado','expediente','departamento'));
     }
 
-    // public function provincias(Request $request){
-    //     if(isset($request->texto)){
-    //         $provincias = Provincia::whereId_departamento($request->texto)->get();
-    //         return response()->json(
-    //             [
-    //                 'lista' => $provincias,
-    //                 'success' => true
-    //             ]
-    //             );
-    //     }else{
-    //         return response()->json(
-    //             [
-    //                 'success' => false
-    //             ]
-    //             );
-
-    //     }
-    // }
-
     public function index2()
     {
         return view('user/inscripcion.formulario2');
@@ -110,10 +91,16 @@ class UserInscripcionController extends Controller
         $input = $request->all();
         
         for ($i = 1; $i <= 2; $i++){
+            $v = 'id_distrito'.$i;
+            $ubigeo = Distrito::select('ubigeo')->where('id',$input[$v])->get();
+            foreach($ubigeo as $item){
+                $ubi = $item->ubigeo;
+            }
             $dato = UbigeoPersona::create([
-                "id_distrito" => $input['id_distrito'],
+                "id_distrito" => $input[$v],
                 "tipo_ubigeo_cod_tipo" => $i,
-                "persona_idpersona" => 'idpersona',
+                "persona_idpersona" => $idpersona,
+                "ubigeo" => $ubi,
             ]);
         }
 

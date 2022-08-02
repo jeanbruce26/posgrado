@@ -39,5 +39,3 @@ Route::get('/user', function () {
 });
 
 Route::resource('user/inscripcion', 'UserInscripcionController');
-
-// Route::post('user/provincias', [\App\Http\Controllers\UserInscripcionController:: class, 'provincias']);
