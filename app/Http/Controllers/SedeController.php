@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sede;
 use App\Http\Controllers\Controller;
+use App\Models\Plan;
 
 class SedeController extends Controller
 {
@@ -26,7 +27,8 @@ class SedeController extends Controller
      */
     public function create()
     {
-        return view('Sede.create');
+        $plan = Plan::all();
+        return view('Sede.create', compact('plan'));
     }
 
     /**
@@ -39,6 +41,7 @@ class SedeController extends Controller
     {
         $request->validate([
             'sede'  =>  'required|max:30',
+            'id_plan'  =>  'required',
         ]);
         Sede::create($request->all());
         return redirect()->route('Sede.index');
@@ -64,7 +67,8 @@ class SedeController extends Controller
     public function edit($id)
     {
         $se = Sede::find($id);
-        return view('Sede.edit')->with('se',$se);
+        $plan = Plan::all();
+        return view('Sede.edit', compact('plan'))->with('se',$se);
     }
 
     /**
@@ -78,9 +82,11 @@ class SedeController extends Controller
     {
         $request->validate([
             'sede'  =>  'required|max:30',
+            'id_plan'  =>  'required',
         ]);
         $sede = Sede::find($id);
         $sede->sede = $request->get('sede');
+        $sede->id_plan = $request->get('id_plan');
         $sede->save();
         return redirect()->route('Sede.index')->with('success', 'Sede actualizado correctamente');
     }

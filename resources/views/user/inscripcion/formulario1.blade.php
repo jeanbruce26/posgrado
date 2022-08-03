@@ -117,7 +117,7 @@
                     <input type="email" class="form-control" name="email2">
                </div>
                <h5 class="text-secondary">Ubigeo de direccion</h5>
-               @livewire('select-ubigeo')
+               <livewire:select-ubigeo/>
                <div class="col-md-12">
                     <label class="form-label">Direccion (*)</label>
                     <input type="text" class="form-control" name="direccion">
@@ -126,7 +126,7 @@
                     @enderror
                </div>
                <h5 class="text-secondary">Ubigeo de Nacimiento</h5>
-               @livewire('select-ubigeo-nacimiento')
+               <livewire:select-ubigeo-nacimiento/>
                <div class="col-md-4">
                     <label class="form-label">Año de Egreso (*)</label>
                     <input type="int" class="form-control" name="año_egreso">

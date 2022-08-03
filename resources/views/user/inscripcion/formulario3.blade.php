@@ -9,7 +9,7 @@
 		<form action="" method="POST" class="row g-3 mt-2">
 			@csrf
 
-            <table class="table table-hover table-striped">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Tipo de Documento</th>
@@ -25,7 +25,7 @@
                             <label class="form-label mt-2 mb-2">{{ $item->tipo_doc }} (*)</label>
                         </td>
                         <td>
-                            <input class="mt-2 mb-2" type="file" name="expediente" id="expediente">
+                            <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito" type="file" name="expediente" id="expediente">
                         </td>
                         <td>
                             <label class="form-label mt-2 mb-2">PDF</label>

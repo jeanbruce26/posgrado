@@ -13,6 +13,7 @@
 				<tr>
 					<th>Codigo</th>
 					<th>Sede</th>
+					<th>Plan</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -23,6 +24,7 @@
 				<tr>
 					<td>{{$sede->cod_sede}}</td>
 					<td>{{$sede->sede}}</td>
+					<td>{{$sede->plan->plan}}</td>
 					<td>
 						<a href="/Sede/{{ $sede->cod_sede }}/edit" class="btn btn-success">Editar</a>
 						<a type="button" class="btn btn-danger">Eliminar</a>

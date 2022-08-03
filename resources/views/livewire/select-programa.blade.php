@@ -20,6 +20,9 @@
     </div>
     @endif
     @if($selectedPrograma)
+    @php
+        $valor = null;
+    @endphp
     <div class="col-md-4">
         @foreach ($pro2 as $item)
         <label class="form-label">{{ $item->descripcion_programa }} (*)</label>
@@ -33,18 +36,26 @@
     </div>
     @endif
     @if ($selectedSubPrograma)
+    @php
+        foreach ($men as $item){
+            $valor = $item->mencion;
+        }
+    @endphp
+    @if (!is_null($valor))
     <div class="col-md-4">
         <label class="form-label">Mencion (*)</label>
         <select wire:model="selectedMencion" class="form-select" name="id_mencion">
             <option selected>Seleccione</option>
             @foreach ($men as $item)
-            @if (is_null($item->mencion))
-                <option value="{{$item->id_mencion}}">Sin mencion</option>
-            @else
                 <option value="{{$item->id_mencion}}">{{$item->mencion}}</option>
-            @endif
             @endforeach
         </select>
     </div>
+    @else
+    <div class="col-md-4">
+        <input type="hidden" class="form-control" name="id_mencion" value="{{$item->id_mencion}}">
+    </div>
+    @endif
+    
     @endif
 </div>
