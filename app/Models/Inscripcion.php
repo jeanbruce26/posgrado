@@ -17,7 +17,7 @@ class Inscripcion extends Model
         'persona_idpersona',
         'estado',
         'admision_cod_admi',
-        'id_detalle_programa',
+        'id_mencion',
     ];
 
     public $timestamps = false;
@@ -32,9 +32,9 @@ class Inscripcion extends Model
         'admision_cod_admi','cod_admi');
     }
 
-    public function DetallePrograma(){
-        return $this->belongsTo(DetallePrograma::class,
-        'id_detalle_programa','id_detalle_programa');
+    public function Mencion(){
+        return $this->belongsTo(Mencion::class,
+        'id_mencion','id_mencion');
     }
 
 }

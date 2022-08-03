@@ -10,11 +10,10 @@
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Codigo</th>
 					<th>Persona</th>
 					<th>Estado</th>
 					<th>Admision</th>
-					<th>Detalle Programa</th>
+					<th>Programa</th>
 				</tr>
 			</thead>
 
@@ -23,11 +22,10 @@
 
 				<tr>
 					<td>{{$inscrip->id_inscripcion}}</td>
-					<td>{{$inscrip->cod_inscripcion}}</td>
 					<td>{{$inscrip->persona->nombres}} {{$inscrip->persona->apell_pater}} {{$inscrip->persona->apell_mater}}</td>
 					<td>{{$inscrip->estado}}</td>
 					<td>{{$inscrip->admision->admision}}</td>
-					<td>{{$inscrip->detallePrograma->des_detalle_programa}}</td>
+					<td>{{$inscrip->mencion->subprograma->subprograma}} - {{$inscrip->mencion->mencion}}</td>
 				</tr>
 
 				@endforeach

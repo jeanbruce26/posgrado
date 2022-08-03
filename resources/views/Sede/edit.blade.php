@@ -16,6 +16,18 @@
 						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
 			</div>
+               <div class="col-md-6">
+                    <label for="inputPlan" class="form-label">Plan *</label>
+                    <select id="inputPlan" class="form-select" name="id_plan">
+                         <option selected>Seleccione</option>
+                         @foreach ($plan as $item)
+                         <option value="{{$item->id_plan}}" {{ $item->id_plan == $se->id_plan ? 'selected' : '' }}>{{$item->plan}}</option>
+                         @endforeach
+                    </select>
+                    @error('id_plan')
+                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                    @enderror
+               </div>
 			<div class="col-12">
 				<button type="submit" class="btn btn-primary">Actualizar</button>
 			</div>

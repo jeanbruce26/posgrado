@@ -19,7 +19,6 @@ Route::resource ('UbigeoPersona','UbigeoPersonaController');
 Route::resource ('Sede','SedeController');
 Route::resource ('Programa','ProgramaController');
 Route::resource ('Plan','PlanController');
-Route::resource ('DetallePrograma', 'DetalleProgramaController');
 Route::resource ('Mencion', 'MencionController');
 Route::resource ('SubPrograma', 'SubProgramaController');
 
@@ -37,7 +36,9 @@ Route::get('/user', function () {
     return view('user');
 });
 
-Route::resource('user/inscripcion', 'UserInscripcionController');
+Route::get('user/inscripcion', 'UserInscripcionController@index');
 Route::post('user/inscripcion', 'UserInscripcionController@store')->name('inscripcion.store1');
-Route::post('user/inscripcion2', 'UserInscripcionController@store2')->name('inscripcion.store2');
-Route::post('user/inscripcion3', 'UserInscripcionController@store3')->name('inscripcion.store3');
+Route::get('user/inscripcion/paso2/{idpersona}', 'UserInscripcionController@index2')->name('inscripcion.index2');
+Route::post('user/inscripcion/paso2', 'UserInscripcionController@store2')->name('inscripcion.store2');
+Route::get('user/inscripcion/paso3/{id_inscripcion}', 'UserInscripcionController@index3')->name('inscripcion.index3');
+Route::post('user/inscripcion/paso3', 'UserInscripcionController@store3')->name('inscripcion.store3');

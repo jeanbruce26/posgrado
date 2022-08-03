@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admision;
 use App\Models\Departamento;
 use App\Models\DetallePrograma;
 use App\Models\Discapacidad;
@@ -14,7 +15,6 @@ use App\Models\Expediente;
 use App\Models\IngresoPago;
 use App\Models\Inscripcion;
 use App\Models\Persona;
-use App\Models\Provincia;
 use App\Models\UbigeoPersona;
 use Illuminate\Http\Request;
 
@@ -32,9 +32,18 @@ class UserInscripcionController extends Controller
         $estado_civil = EstadoCivil::all();
         $universidad = Universidad::all();
         $grado = GradoAcademico::all();
+        return view('user/inscripcion.formulario1', compact('tipo_doc','tipo_dis','estado_civil','universidad','grado'));
+    }
+
+    public function index2($idpersona)
+    {
+        return view('user/inscripcion.formulario2', compact('idpersona'));
+    }
+
+    public function index3($id_inscripcion)
+    {
         $expediente = Expediente::all();
-        $departamento = Departamento::all();
-        return view('user/inscripcion.formulario1', compact('tipo_doc','tipo_dis','estado_civil','universidad','grado','expediente','departamento'));
+        return view('user/inscripcion.formulario3', compact('id_inscripcion', 'expediente'));
     }
 
     /**
@@ -84,12 +93,12 @@ class UserInscripcionController extends Controller
         $input = $request->all();
         
         for ($i = 1; $i <= 2; $i++){
-            $v = 'id_distrito'.$i;
+            $v = "id_distrito".$i;
             $ubigeo = Distrito::select('ubigeo')->where('id',$input[$v])->get();
             foreach($ubigeo as $item){
                 $ubi = $item->ubigeo;
             }
-            $dato = UbigeoPersona::create([
+            UbigeoPersona::create([
                 "id_distrito" => $input[$v],
                 "tipo_ubigeo_cod_tipo" => $i,
                 "persona_idpersona" => $idpersona,
@@ -97,64 +106,50 @@ class UserInscripcionController extends Controller
             ]);
         }
 
-        return view('user/inscripcion.formulario2', compact('persona'));
+        return redirect()->route('inscripcion.index2', [$persona->idpersona]);
     }
 
     public function store2(Request $request)
     {
         $request->validate([
-            'id_mencion'  =>  'required',
-            'id_plan'  =>  'required',
-            'num_opera'  =>  'required',
-            'monto'  =>  'required',
-            'fecha'  =>  'required',
-            'vaucher'  =>  'required',
+            // 'id_mencion'  =>  'required',
+            // 'num_opera'  =>  'required',
+            // 'monto'  =>  'required',
+            // 'fecha'  =>  'required',
+            'vaucher'  =>  'required|mimes:pdf,jpg,jpeg,png|max:10240',
         ]);
 
-        $input = $request->all();
-        $plan = 1;
+        $input = $request->all();   
         $admision = 1;
         $estado = "Activo";
-        $detalle = DetallePrograma::create([
-            "id_mencion" => $input["id_mencion"],
-            "id_plan" => $plan,
-        ]);
-        $id_detalle_programa = $detalle->id_detalle_programa;
 
         $inscripcion = Inscripcion::create([
-            "persona_idpersona" => $input["persona_idpersona"],
+            "persona_idpersona" => $input['persona_idpersona'],
             "estado" => $estado,
             "admision_cod_admi" => $admision,
-            "id_detalle_programa" => $id_detalle_programa,
+            "id_mencion" => $input['id_mencion'],
         ]);
 
         $id_inscripcion = $inscripcion->id_inscripcion;
 
-        $per = Persona::where('idpersona',$input["persona_idpersona"])->get();
-        foreach($per as $item){
-            $dnipersona = $per->num_doc;
+        $admision = Admision::where('cod_admi',1)->get();
+        foreach($admision as $item){
+            $admi = $item->admision;
         }
 
-        if($request->hasFile("vaucher")){
-            $file = $request->file("vaucher");
-            $vaucher = "pdf_".$dnipersona."_".time().".".$file->guessExtension();
-            $ruta = public_path("pdf/vaucher/".$vaucher);
-            if($file->guessExtension()=="pdf"){
-                copy($file,$ruta);
-            }else{
-
-            }
-        }
+        $data = $request->file('vaucher');
+        $data = $filename = "voucher".".".$data->extension();
+        $request->vaucher->move(public_path($admi.'/'.$id_inscripcion), $filename);
 
         $ingre_pago = IngresoPago::create([
-            "num_opera" => $input["num_opera"],
-            "monto" => $input["monto"],
-            "fecha" => $input["fecha"],
+            "num_opera" => $input['num_opera'],
+            "monto" => $input['monto'],
+            "fecha" => $input['fecha'],
             "id_inscripcion" => $id_inscripcion,
-            "vaucher" => $vaucher,
+            "vaucher" => $filename,
         ]);
 
-        return view('user/inscripcion.formulario3', compact('inscripcion'));
+        return redirect()->route('inscripcion.index3', [$inscripcion->id_inscripcion]);
     }
 
     /**
