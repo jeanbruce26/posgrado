@@ -3,13 +3,14 @@
 @section('content')
 
 	<div class="col-sm-12">
-		
+
 		<h3 class="d-flex justify-content-between text-secondary">Ingreso de Documentos</h3>
         @if($errors->any())
             @foreach($errors->getMessages() as $this_error)
                 <div class="alert alert-danger mt-1 mb-1">{{ $this_error[0] }}</div>
             @endforeach
         @endif
+
 		<form action="{{ route('inscripcion.store3') }}" method="POST" class="row g-3 mt-2" enctype="multipart/form-data">
 			@csrf
             <div class="col-md-6">
@@ -32,11 +33,12 @@
                         </td>
 
                         <td>
-                            <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito" 
+                            <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-primary text-secondary btn-sm colorsito" 
                                 type="file" 
                                 name="nom_exped{{ $item->cod_exp }}"
                             >
                         </td>
+
                         <td>
                             <label class="form-label mt-2 mb-2">PDF</label>
                         </td> 
