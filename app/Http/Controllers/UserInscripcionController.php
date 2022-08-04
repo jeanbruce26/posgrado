@@ -12,11 +12,13 @@ use App\Models\GradoAcademico;
 use App\Models\TipoDocumento;
 use App\Models\Universidad;
 use App\Models\Expediente;
+use App\Models\ExpedienteInscripcion;
 use App\Models\IngresoPago;
 use App\Models\Inscripcion;
 use App\Models\Persona;
 use App\Models\UbigeoPersona;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserInscripcionController extends Controller
 {
@@ -44,6 +46,11 @@ class UserInscripcionController extends Controller
     {
         $expediente = Expediente::all();
         return view('user/inscripcion.formulario3', compact('id_inscripcion', 'expediente'));
+    }
+
+    public function index4()
+    {
+        return view('user');
     }
 
     /**
@@ -112,10 +119,10 @@ class UserInscripcionController extends Controller
     public function store2(Request $request)
     {
         $request->validate([
-            // 'id_mencion'  =>  'required',
-            // 'num_opera'  =>  'required',
-            // 'monto'  =>  'required',
-            // 'fecha'  =>  'required',
+            'id_mencion'  =>  'required',
+            'num_opera'  =>  'required',
+            'monto'  =>  'required',
+            'fecha'  =>  'required',
             'vaucher'  =>  'required|mimes:pdf,jpg,jpeg,png|max:10240',
         ]);
 
@@ -150,6 +157,50 @@ class UserInscripcionController extends Controller
         ]);
 
         return redirect()->route('inscripcion.index3', [$inscripcion->id_inscripcion]);
+    }
+
+    public function store3(Request $request)
+    {
+        $expediente = Expediente::all();
+        foreach($expediente as $item){
+        $request->validate([
+                ("nom_exped".$item->cod_exp)  =>  'required|mimes:pdf|max:20240'
+        ]);
+        }
+
+        $input = $request->all(); 
+
+        $estado = "Enviado";
+
+        $count = Expediente::count();
+
+        for($i = 1; $i <= $count; $i++){
+            $expe = Expediente::where('cod_exp',$i)->get();
+            foreach($expe as $item){
+                $nombreExpediente = $item->tipo_doc;
+                $cod = $item->cod_exp;
+            }
+
+            $admision = Admision::where('cod_admi',1)->get();
+            foreach($admision as $item){
+                $admi = $item->admision;
+            }
+
+            $name = 'nom_exped'.$cod;
+
+            $data = $request->file('nom_exped'.$cod);
+            $data = $filename = $nombreExpediente.".".$data->extension();
+            $request->$name->move(public_path($admi.'/'.$input['id_inscripcion']), $filename);
+
+            $expe_ins = ExpedienteInscripcion::create([
+                "nom_exped" => $filename,
+                "estado" => $estado,
+                "expediente_cod_exp" => $i,
+                "id_inscripcion" => $input['id_inscripcion'],
+            ]);
+        }
+
+        return redirect()->route('user');
     }
 
     /**

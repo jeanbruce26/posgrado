@@ -19,8 +19,18 @@ class ExpedienteInscripcion extends Model
         'observacion',
         'fecha_entre',
         'expediente_cod_exp',
-        'id_inscripcion',
+        'id_inscripcion'
     ];
 
     public $timestamps = false;
+
+    public function Inscripcion(){
+        return $this->belongsTo(Inscripcion::class,
+        'id_inscripcion','id_inscripcion');
+    }
+
+    public function Expediente(){
+        return $this->belongsTo(Expediente::class,
+        'expediente_cod_exp','cod_expe');
+    }
 }

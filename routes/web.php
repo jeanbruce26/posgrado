@@ -36,6 +36,7 @@ Route::get('/user', function () {
     return view('user');
 });
 
+Route::get('user', 'UserInscripcionController@index4')->name('user');
 Route::get('user/inscripcion', 'UserInscripcionController@index');
 Route::post('user/inscripcion', 'UserInscripcionController@store')->name('inscripcion.store1');
 Route::get('user/inscripcion/paso2/{idpersona}', 'UserInscripcionController@index2')->name('inscripcion.index2');
