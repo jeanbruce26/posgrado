@@ -25,7 +25,6 @@
 					<td>{{$admision->admision}}</td>
 					<td>
                         <a href="{{ route('Admision.edit', $admision->cod_admi) }}" type="button" class="btn btn-success">Editar</a>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
                     </td>
 				</tr>
 

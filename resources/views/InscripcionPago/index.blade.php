@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">InscripcionPago
+		<h2 class="d-flex justify-content-between">Inscripcion de Pago
 		<a href="" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 

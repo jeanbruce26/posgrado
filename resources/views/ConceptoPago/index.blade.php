@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">ConceptoPago
+		<h2 class="d-flex justify-content-between">Concepto de Pago
 		<a href="{{ url('/ConceptoPago/create') }}" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
@@ -34,7 +34,6 @@
 					</td>
 					<td>
                         <a href="{{ route('ConceptoPago.edit', $conceptoPago->cod_concep) }}" type="button" class="btn btn-success">Editar</a>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
                     </td>
 				</tr>
 

@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Ubigeo Persona
+		<h2 class="d-flex justify-content-between">Ubigeo de Persona
 		<a href="" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
@@ -15,7 +15,6 @@
 					<th>Ubigeo Codigo</th>
 					<th>Tipo de Ubigeo</th>
 					<th>Id Persona</th>
-					<th>Acciones</th>
 				</tr>
 			</thead>
 
@@ -24,8 +23,8 @@
 
 				<tr>
 					<td>{{$ub->cod_ubi_pers}}</td>
-					<td>{{$ub->ubigeo_cod_ubi}}</td>
-					<td>{{$ub->tipo_ubigeo_cod_tipo}}</td>
+					<td>{{$ub->ubigeo}}</td>
+					<td>{{$ub->TipoUbigeo->tipo_ubigeo}}</td>
 					<td>{{$ub->persona_idpersona}}</td>
 				
 				</tr>

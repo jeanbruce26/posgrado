@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">HistorialInscripcion</h2>
+		<h2 class="d-flex justify-content-between">Historial de Inscripcion</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>

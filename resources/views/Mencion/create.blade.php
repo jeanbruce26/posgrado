@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Agregar Mencion</h2>
+		<h2 class="d-flex justify-content-between">Agregar Mención</h2>
 
 		<form action="{{ route('Mencion.store') }}" method="POST" class="row g-3">
 			@csrf
@@ -25,15 +25,15 @@
 			<div class="col-md-12">
                     <label class="form-label">Sub Programa *</label>
                     <select class="form-select" name="id_subprograma">
-                         <option selected>Seleccione</option>
-                         @foreach ($sub as $item)
-                         <option value="{{$item->id_subprograma}}">{{$item->programa->descripcion_programa}} - {{$item->subprograma}}</option>
-                         @endforeach
+						<option selected>Seleccione</option>
+						@foreach ($sub as $item)
+						<option value="{{$item->id_subprograma}}">{{$item->programa->descripcion_programa}} - {{$item->subprograma}}</option>
+						@endforeach
                     </select>
                     @error('id_subprograma')
-                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
-               </div>
+			</div>
 			<div class="col-12">
 				<button type="submit" class="btn btn-primary">Agregar</button>
 			</div>

@@ -35,7 +35,7 @@
                         <td>
                             <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-primary text-secondary btn-sm colorsito" 
                                 type="file" 
-                                name="nom_exped{{ $item->cod_exp }}"
+                                name="expediente{{ $item->cod_exp }}"
                             >
                         </td>
 

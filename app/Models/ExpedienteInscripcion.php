@@ -10,6 +10,7 @@ class ExpedienteInscripcion extends Model
     use HasFactory;
 
     protected $primaryKey = "cod_ex_insc";
+    protected $dates = ['fecha_entre'];
 
     protected $table = 'ex_insc';
     protected $fillable = [
@@ -31,6 +32,6 @@ class ExpedienteInscripcion extends Model
 
     public function Expediente(){
         return $this->belongsTo(Expediente::class,
-        'expediente_cod_exp','cod_expe');
+        'expediente_cod_exp','cod_exp');
     }
 }

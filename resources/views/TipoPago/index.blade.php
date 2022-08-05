@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Tipo Pago
+		<h2 class="d-flex justify-content-between">Tipo de Pago
 			<a href="{{ route('TipoPago.create') }}" class="btn btn-primary ">Nuevo</a>
 		</h2>
 

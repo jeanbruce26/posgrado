@@ -13,7 +13,6 @@
 				<tr>
 					<th>Codigo</th>
 					<th>Estado Civil</th>
-					<th>Acciones</th>
 				</tr>
 			</thead>
 
@@ -23,11 +22,6 @@
 				<tr>
 					<td>{{$es->cod_est}}</td>
 					<td>{{$es->est_civil}}</td>
-
-					<td>
-                              <button type="button" class="btn btn-success">Editar</button>
-                              <button type="button" class="btn btn-danger">Eliminar</button>
-                         </td>
 				</tr>
 
 				@endforeach

@@ -164,7 +164,11 @@ class UserInscripcionController extends Controller
         $expediente = Expediente::all();
         foreach($expediente as $item){
         $request->validate([
-                ("nom_exped".$item->cod_exp)  =>  'required|mimes:pdf|max:20240'
+                // ("nom_exped".$item->cod_exp)  =>  'required|mimes:pdf|max:20240'
+                "expediente1" =>  'required|mimes:pdf|max:20240',
+                "expediente2" =>  'required|mimes:pdf|max:20240',
+                "expediente3" =>  'required|mimes:pdf|max:20240',
+                
         ]);
         }
 
@@ -186,9 +190,9 @@ class UserInscripcionController extends Controller
                 $admi = $item->admision;
             }
 
-            $name = 'nom_exped'.$cod;
+            $name = 'expediente'.$cod;
 
-            $data = $request->file('nom_exped'.$cod);
+            $data = $request->file('expediente'.$cod);
             $data = $filename = $nombreExpediente.".".$data->extension();
             $request->$name->move(public_path($admi.'/'.$input['id_inscripcion']), $filename);
 
