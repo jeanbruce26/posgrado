@@ -12,7 +12,7 @@
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Numero de DNI</th>
+					<th>Documento</th>
 					<th>Apellido Paterno</th>
 					<th>Apellido Materno</th>
 					<th>Nombres</th>
@@ -31,42 +31,15 @@
 					<td>{{$per->apell_mater}}</td>
 					<td>{{$per->nombres}}</td>
 					<td>{{$per->celular1}}</td>
-
 					<td>
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detalleModal" data-bs-whatever="@mdo">Detalle</button>
-							<button type="button" class="btn btn-success">Editar</button>
-						</td>
+						<a href="{{ route('Persona.show',$per->idpersona) }}" type="button" class="btn btn-secondary">Detalle</a>
+					</td>
 				</tr>
 
 				@endforeach
 			</tbody>
 		</table>
 		{!! $perso->render() !!}
-
 	</div>
-
-
-	{{-- MODAL DETALLE --}}
-	<div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Detalles - {{ $per->nombres }} {{ $per->apell_pater }} {{ $per->apell_mater }}</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form>
-						<div>
-							..
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	{{-- MODAL DETALLE --}}
 
 @endsection

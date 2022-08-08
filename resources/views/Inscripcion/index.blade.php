@@ -28,7 +28,7 @@
 					<td>{{$inscrip->admision->admision}}</td>
 					<td>{{$inscrip->mencion->subprograma->subprograma}} - {{$inscrip->mencion->mencion}}</td>
 					<td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detalleModal" data-bs-whatever="@mdo">Mostrar</button>
+                        <a href="{{ route('Inscripcion.show', $inscrip->id_inscripcion) }}" type="button" class="btn btn-secondary">Mostrar</a>
                     </td>
 				</tr>
 
@@ -37,29 +37,5 @@
 		</table>
 		{!! $insc->render() !!}
 	</div>
-
-
-	{{-- MODAL DETALLE --}}
-	<div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Documentos</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form>
-						<div>
-							..
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	{{-- MODAL DETALLE --}}
 
 @endsection

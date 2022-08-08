@@ -15,7 +15,6 @@
 					<th>Pago</th>
 					<th>Ingreso de Pago</th>
 					<th>Estado</th>
-					<th>Acciones</th>
 				</tr>
 			</thead>
 
@@ -32,10 +31,6 @@
 						DESACTIVO
 					@endif
 					</td>
-					<td>
-                        <button type="button" class="btn btn-success">Editar</button>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
-                    </td>
 				</tr>
 
 				@endforeach

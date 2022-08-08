@@ -34,4 +34,10 @@ class PersonaController extends Controller
     public function store(){
         //
     }
+
+    public function show($id)
+    {
+        $persona = Persona::find($id);
+        return view('Persona.show', compact('persona'));
+    }
 }

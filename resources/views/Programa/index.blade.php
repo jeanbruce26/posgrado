@@ -27,9 +27,9 @@
 					<td>{{$programa->sede->sede}}</td>
 					<td>
 						<button type="button" class="btn btn-primary">Detalle</button>
-                              <a href="{{ route('Programa.edit',$programa->id_programa) }}" type="button" class="btn btn-success">Editar</a>
-                              <button type="button" class="btn btn-danger">Eliminar</button>
-                         </td>
+							<a href="{{ route('Programa.edit',$programa->id_programa) }}" type="button" class="btn btn-success">Editar</a>
+							<button type="button" class="btn btn-danger">Eliminar</button>
+						</td>
 				</tr>
 
 				@endforeach

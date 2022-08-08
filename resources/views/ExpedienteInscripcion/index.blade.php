@@ -12,7 +12,7 @@
 			<thead>
 				<tr class="col-sm-12">
 					<th>Codigo</th>
-					<th>Nombre</th>
+					<th class="col-md-4">Nombre</th>
 					<th>Estado</th>
 					<th class="col-md-4">Observación</th>
 					<th>Fecha</th>
