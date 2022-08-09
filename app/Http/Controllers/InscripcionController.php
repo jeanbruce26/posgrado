@@ -50,7 +50,8 @@ class InscripcionController extends Controller
      */
     public function show($id)
     {
-        //
+        $insc = Inscripcion::find($id);
+        return view('Inscripcion.show', compact('insc'));
     }
 
     /**

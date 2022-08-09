@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Persona extends Model
 {
     protected $primaryKey = "idpersona";
+    protected $dates = ['fecha_naci'];
 
     protected $table = 'persona';
     protected $fillable = [
@@ -38,6 +39,27 @@ class Persona extends Model
 
     public function TipoDocumento(){
         return $this->belongsTo(TipoDocumento::class,
-        'id_tipo_doc','tipo_doc_cod_tipo');
+        'tipo_doc_cod_tipo','id_tipo_doc');
     }
+
+    public function EstadoCivil(){
+        return $this->belongsTo(EstadoCivil::class,
+        'est_civil_cod_est','cod_est');
+    }
+
+    public function Universidad(){
+        return $this->belongsTo(Universidad::class,
+        'univer_cod_uni','cod_uni');
+    }
+    
+    public function Discapacidad(){
+        return $this->belongsTo(Discapacidad::class,
+        'discapacidad_cod_disc','cod_disc');
+    }
+
+    public function GradoAcademico(){
+        return $this->belongsTo(GradoAcademico::class,
+        'id_grado_academico','id_grado_academico');
+    }
+
 }

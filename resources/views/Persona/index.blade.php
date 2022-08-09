@@ -5,14 +5,14 @@
 	<div class="col-sm-12">
 		
 		<h2 class="d-flex justify-content-between">Personas
-		<a href="{{ url('/Persona/create') }}" class="btn btn-primary pull-right">Nuevo</a>
+		<a href="{{ url('/user/inscripcion') }}" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Numero de DNI</th>
+					<th>Documento</th>
 					<th>Apellido Paterno</th>
 					<th>Apellido Materno</th>
 					<th>Nombres</th>
@@ -31,23 +31,15 @@
 					<td>{{$per->apell_mater}}</td>
 					<td>{{$per->nombres}}</td>
 					<td>{{$per->celular1}}</td>
-
 					<td>
-						<button type="button" class="btn btn-success">Mostrar</button>
-                              <button type="button" class="btn btn-success">Editar</button>
-                              <button type="button" class="btn btn-danger">Eliminar</button>
-                         </td>
+						<a href="{{ route('Persona.show',$per->idpersona) }}" type="button" class="btn btn-secondary">Detalle</a>
+					</td>
 				</tr>
 
 				@endforeach
 			</tbody>
 		</table>
 		{!! $perso->render() !!}
-
-	</div>
-
-	<div class="col-sm-4">
-		
 	</div>
 
 @endsection

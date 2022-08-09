@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CanalPago;
 use Illuminate\Http\Request;
 use App\Models\Pago;
 use App\Models\TipoPago;
@@ -16,8 +17,8 @@ class PagoController extends Controller
      */
     public function index()
     {
-        $pag = Pago::orderBy('cod_pago','ASC')->paginate();
-        return view('Pago.index', compact('pag'));
+        $pago = Pago::orderBy('pago_id','ASC')->paginate();
+        return view('Pago.index', compact('pago'));
     }
 
     /**
@@ -27,9 +28,8 @@ class PagoController extends Controller
      */
     public function create()
     {
-        $tipoPago = TipoPago::all();
-        $concepPago = ConceptoPago::all();
-        return view('Pago.create', compact('tipoPago', 'concepPago'));
+        $canal = CanalPago::all();
+        return view('Pago.create', compact('canal'));
     }
 
     /**
@@ -41,11 +41,12 @@ class PagoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tipo_pago_cod_tipo_pago'  =>  'required|max:11',
-            'concep_pago_cod_concep'  =>  'required|max:11',
-            'monto'  =>  'required|max:13',
+            'dni'  =>  'required|max:10',
+            'nro_operacion'  =>  'required|max:11',
+            'monto'  =>  'required',
             'fecha_pago'  =>  'required',
-            'dni'  =>  'required|max:9',
+            'estado'  =>  'required|numeric',
+            'canal_pago_id'  =>  'required|numeric',
         ]);
         Pago::create($request->all());
         return redirect()->route('Pago.index');
@@ -71,9 +72,8 @@ class PagoController extends Controller
     public function edit($id)
     {
         $pago = Pago::find($id);
-        $tipoPago = TipoPago::all();
-        $concepPago = ConceptoPago::all();
-        return view('Pago.edit', compact('tipoPago','concepPago','pago'))->with('pago',$pago);
+        $canal = CanalPago::all();
+        return view('Pago.edit', compact('canal','pago'))->with('pago',$pago);
     }
 
     /**
@@ -86,11 +86,12 @@ class PagoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'tipo_pago_cod_tipo_pago'  =>  'required|max:11',
-            'concep_pago_cod_concep'  =>  'required|max:11',
-            'monto'  =>  'required|max:13',
-            'fecha_pago'  =>  'required',
-            'dni'  =>  'required|max:9',
+            'dni'  =>  'required|max:10',
+            'nro_operacion'  =>  'required|max:11',
+            'monto'  =>  'required',
+            'fecha_pago'  =>  'required|date',
+            'estado'  =>  'required|numeric',
+            'canal_pago_id'  =>  'required|numeric',
         ]);
         $pago = Pago::find($id);
         $pago ->update($request->all());

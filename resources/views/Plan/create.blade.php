@@ -13,6 +13,7 @@
 				<input type="text" class="form-control" id="inputPlan" name="plan" maxlength="10" value="{{ old('plan') }}">
 			</div>
 			<div class="col-12">
+				<a href="{{ route('Plan.index') }}" class="btn btn-danger me-md-2">Regresar</a>
 				<button type="submit" class="btn btn-primary">Agregar</button>
 			</div>
 		</form>

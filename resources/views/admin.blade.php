@@ -56,21 +56,16 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>CRUD</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{{ url('TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
-                            <a href="{{ url('TipoDocumento') }}" class="dropdown-item">Tipo de Documento</a>                            
-                            <a href="{{ url('GradoAcademico') }}" class="dropdown-item">Grados Academicos</a>
-                            <a href="{{ url('Universidad') }}" class="dropdown-item">Universidades</a>
-                            <a href="{{ url('EstadoCivil') }}" class="dropdown-item">Estado Civil</a>
-                            <a href="{{ url('Discapacidad') }}" class="dropdown-item">Discapacidad</a>
-                            <a href="{{ url('Persona') }}" class="dropdown-item">Persona</a>
-                            
-                            <a href="{{ url('TipoUbigeo') }}" class="dropdown-item">Tipo de Ubigeo</a>
-                            <a href="{{ url('UbigeoPersona') }}" class="dropdown-item">UbigeoPersona</a>
                             <a href="{{ url('Admision') }}" class="dropdown-item">Admision</a>
+                            <a href="{{ url('ConceptoPago') }}" class="dropdown-item">Concepto de Pago</a>
+                            <a href="{{ url('ExpedienteInscripcion') }}" class="dropdown-item">Expediente de Inscripcion</a>
+                            <a href="{{ url('GradoAcademico') }}" class="dropdown-item">Grados Academicos</a>
+                            <a href="{{ url('HistorialInscripcion') }}" class="dropdown-item">Historial de Inscripcion</a>
+                            <a href="{{ url('IngresoPago') }}" class="dropdown-item">Ingreso de Pago</a>
                             <a href="{{ url('Inscripcion') }}" class="dropdown-item">Inscripcion</a>
+
                             <a href="{{ url('Pago') }}" class="dropdown-item">Pago</a>
-                            <a href="{{ url('TipoPago') }}" class="dropdown-item">TipoPago</a>
-                            <a href="{{ url('IngresoPago') }}" class="dropdown-item">IngresoPago</a>
+                            <a href="{{ url('CanalPago') }}" class="dropdown-item">Canal Pago</a>
                             <a href="{{ url('InscripcionPago') }}" class="dropdown-item">InscripcionPago</a>
                             <a href="{{ url('ConceptoPago') }}" class="dropdown-item">ConceptoPago</a>
                             <a href="{{ url('HistorialInscripcion') }}" class="dropdown-item">HistorialInscripcion</a>
@@ -78,8 +73,16 @@
                             <a href="{{ url('Sede') }}" class="dropdown-item">Sede</a>
                             <a href="{{ url('Programa') }}" class="dropdown-item">Programa</a>
                             <a href="{{ url('SubPrograma') }}" class="dropdown-item">SubPrograma</a>
+
                             <a href="{{ url('Mencion') }}" class="dropdown-item">Mencion</a>
-                            <a href="{{ url('Plan') }}" class="dropdown-item">Plan</a> 
+                            <a href="{{ url('Pago') }}" class="dropdown-item">Pago</a>
+                            <a href="{{ url('Persona') }}" class="dropdown-item">Persona</a>
+                            <a href="{{ url('Plan') }}" class="dropdown-item">Plan</a>
+                            <a href="{{ url('Programa') }}" class="dropdown-item">Programa</a>
+                            <a href="{{ url('Sede') }}" class="dropdown-item">Sede</a>
+                            <a href="{{ url('SubPrograma') }}" class="dropdown-item">Sub Programas</a>
+                            <a href="{{ url('Universidad') }}" class="dropdown-item">Universidades</a>
+                            <a href="{{ url('TipoPago') }}" class="dropdown-item">Tipo de Pago</a>
                         </div>
                     </div> 
                 </div>
@@ -189,7 +192,7 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
+    
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 

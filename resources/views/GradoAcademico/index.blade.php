@@ -26,7 +26,6 @@
 				<td>{{$g->nom_grado}}</td>
 				<td>
 				<a href="{{ route('GradoAcademico.edit', $g->id_grado_academico) }}" type="button" class="btn btn-success">Editar</a>
-				<button type="button" class="btn btn-danger">Eliminar</button>
 			</td>
 			</tr>
 

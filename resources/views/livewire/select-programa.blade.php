@@ -7,16 +7,22 @@
             <option value="{{$item->cod_sede}}">{{$item->sede}}</option>
             @endforeach
         </select>
+        @error('id_sede')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+        @enderror
     </div>
     @if($selectedSede)
     <div class="col-md-4">
         <label class="form-label">Programa (*)</label>
         <select wire:model="selectedPrograma" class="form-select" name="id_detatte_programa">
-            <option selected>Seleccione</option>
+            <option value="" selected>Seleccione</option>
             @foreach ($pro as $item)
             <option value="{{$item->id_programa}}">{{$item->descripcion_programa}}</option>
             @endforeach
-        </select>
+        </select> 
+        @error('id_detatte_programa')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+        @enderror
     </div>
     @endif
     @if($selectedPrograma)
@@ -28,11 +34,14 @@
         <label class="form-label">{{ $item->descripcion_programa }} (*)</label>
         @endforeach
         <select wire:model="selectedSubPrograma" class="form-select" name="id_subprograma">
-            <option selected>Seleccione</option>
+            <option value="" selected>Seleccione</option>
             @foreach ($sub as $item)
             <option value="{{$item->id_subprograma}}">{{$item->subprograma}}</option>
             @endforeach
         </select>
+        @error('id_subprograma')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+        @enderror
     </div>
     @endif
     @if ($selectedSubPrograma)
@@ -45,11 +54,14 @@
     <div class="col-md-4">
         <label class="form-label">Mencion (*)</label>
         <select wire:model="selectedMencion" class="form-select" name="id_mencion">
-            <option selected>Seleccione</option>
+            <option value="" selected>Seleccione</option>
             @foreach ($men as $item)
                 <option value="{{$item->id_mencion}}">{{$item->mencion}}</option>
             @endforeach
         </select>
+        @error('id_mencion')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+        @enderror
     </div>
     @else
     <div class="col-md-4">

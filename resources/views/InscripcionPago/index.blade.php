@@ -3,8 +3,9 @@
 @section('content')
 
 	<div class="col-sm-12">
-		
-		<h2 class="d-flex justify-content-between">InscripcionPago
+
+		<h2 class="d-flex justify-content-between">Inscripcion Pago
+
 		<a href="" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
@@ -12,10 +13,10 @@
 			<thead>
 				<tr>
 					<th>Codigo</th>
+					<th>Inscripcion</th>
 					<th>Pago</th>
-					<th>Ingreso de Pago</th>
-					<th>Estado</th>
-					<th>Acciones</th>
+					<th>Concepto Pago</th>
+					{{-- <th>Acciones</th> --}}
 				</tr>
 			</thead>
 
@@ -23,19 +24,14 @@
 				@foreach ($inscPago as $inscripcionPago)
 
 				<tr>
-					<td>{{$inscripcionPago->cod_insc_pago}}</td>
+					<td>{{$inscripcionPago->inscripcion_pago_id}}</td>
+					<td>{{$inscripcionPago->inscripcion->inscripcion_id}}</td>
 					<td>{{$inscripcionPago->pago->monto}}</td>
-					<td>{{$inscripcionPago->ingresoPago->monto}}</td>
-					<td>@if ( $inscripcionPago->estado_ins == 1)
-						ACTIVO
-					@else
-						DESACTIVO
-					@endif
-					</td>
-					<td>
+					<td>{{$inscripcionPago->concepto_pago->concepto}}</td>
+					{{-- <td>
                         <button type="button" class="btn btn-success">Editar</button>
                         <button type="button" class="btn btn-danger">Eliminar</button>
-                    </td>
+                    </td> --}}
 				</tr>
 
 				@endforeach

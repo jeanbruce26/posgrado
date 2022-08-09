@@ -14,7 +14,7 @@ class ConceptoPagoController extends Controller
      */
     public function index()
     {
-        $conPago = ConceptoPago::orderBy('cod_concep','ASC')->paginate();
+        $conPago = ConceptoPago::orderBy('concepto_id','ASC')->paginate();
         return view('ConceptoPago.index', compact('conPago'));
     }
 
@@ -80,7 +80,7 @@ class ConceptoPagoController extends Controller
         $request->validate([
             'concepto'  =>  'required|max:45',
             'monto'  =>  'required|max:13',
-            'estado'  =>  'required|max:11',
+            'estado'  =>  'required|max:11|numeric',
         ]);
         $concepPago = ConceptoPago::find($id);
         $concepPago ->update($request->all());

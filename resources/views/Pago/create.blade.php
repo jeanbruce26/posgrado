@@ -9,32 +9,22 @@
     <form action="{{ route('Pago.store') }}" method="POST" class="row g-3">
         @csrf
 
-        <div class="col-md-6">
-            <label for="inputTipoPago" class="form-label">Tipo de Pago *</label>
-            <select id="inputTipoPago" class="form-select" name="tipo_pago_cod_tipo_pago" value="{{ old('tipo_pago_cod_tipo_pago') }}"> 
-                <option selected>Seleccione</option>
-                @foreach ($tipoPago as $item)
-                <option value="{{$item->cod_tipo_pago}}">{{$item->tipo_pago}}</option>
-                @endforeach
-            </select>
-            @error('tipo_pago_cod_tipo_pago')
+        <div class="col-6">
+            <label class="form-label">DNI *</label>
+            <input type="text" class="form-control" name="dni" maxlength="10" value="{{ old('dni') }}">
+            @error('dni')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
         </div>
 
-        <div class="col-md-6">
-            <label for="inputConcepPago" class="form-label">Concepto de Pago *</label>
-            <select id="inputConcepPago" class="form-select" name="concep_pago_cod_concep" value="{{ old('concep_pago_cod_concep') }}">
-                <option selected>Seleccione</option>
-                @foreach ($concepPago as $item)
-                <option value="{{$item->cod_concep}}">{{$item->concepto}}</option>
-                @endforeach
-            </select>
-            @error('concep_pago_cod_concep')
+        <div class="col-6">
+            <label class="form-label">Nro Operacion *</label>
+            <input type="text" class="form-control" name="nro_operacion" maxlength="10" value="{{ old('nro_operacion') }}">
+            @error('nro_operacion')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
         </div>
-
+        
         <div class="col-md-6">
             <label for="inputMonto" class="form-label">Monto *</label>
             <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" value="{{ old('monto') }}">
@@ -50,15 +40,30 @@
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
         </div>
-        
-        <div class="col-6">
-            <label for="inputDNI" class="form-label">DNI *</label>
-            <input type="text" class="form-control" id="inputDNI" name="dni" maxlength="9" value="{{ old('dni') }}">
-            @error('dni')
+
+        <div class="col-md-6">
+            <label class="form-label">Canal de Pago *</label>
+            <select class="form-select" name="canal_pago_id" value="{{ old('canal_pago_id') }}"> 
+                <option value="" selected>Seleccione</option>
+                @foreach ($canal as $item)
+                <option value="{{$item->canal_pago_id}}">{{$item->descripcion}}</option>
+                @endforeach
+            </select>
+            @error('canal_pago_id')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
         </div>
-        
+
+        <div class="col-md-6">
+            <label class="form-label">Estado *</label>
+            <select class="form-select" name="estado" value="{{ old('estado') }}"> 
+                <option value="" selected>Seleccione</option>
+                <option value="1">Activo</option>
+            </select>
+            @error('estado')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
         
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Agregar</button>

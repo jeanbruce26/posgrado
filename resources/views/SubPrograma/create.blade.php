@@ -25,15 +25,15 @@
 			<div class="col-md-12">
                     <label class="form-label">Programa *</label>
                     <select class="form-select" name="id_programa">
-                         <option selected>Seleccione</option>
-                         @foreach ($pro as $item)
-                         <option value="{{$item->id_programa}}">{{$item->descripcion_programa}}</option>
-                         @endforeach
+						<option selected>Seleccione</option>
+						@foreach ($pro as $item)
+						<option value="{{$item->id_programa}}">{{$item->descripcion_programa}}</option>
+						@endforeach
                     </select>
                     @error('id_programa')
-                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
-               </div>
+			</div>
 			<div class="col-12">
 				<button type="submit" class="btn btn-primary">Agregar</button>
 			</div>

@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class TipoDocumento extends Model
 {
-  protected $table = 'tipo_doc';
+    use HasFactory;
+    
+    protected $primaryKey = 'id_tipo_doc';
+
+    protected $table = 'tipo_doc';
     protected $fillable = [
         'id_tipo_doc',
         'doc',
- 
     ];
+
+    public $timestamps = false;
 }

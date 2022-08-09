@@ -13,8 +13,8 @@
 				<label for="inputAdmision" class="form-label">Admisión *</label>
 				<input type="text" class="form-control" id="inputAdmision" name="admision" maxlength="45" value="{{ old('admision') }}">
 				@error('admision')
-                	<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-            	@enderror
+					<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+				@enderror
 			</div>
 
             <div class="col-12">

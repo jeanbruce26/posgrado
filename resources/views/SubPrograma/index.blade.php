@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Sub Porgrama
+		<h2 class="d-flex justify-content-between">Sub Programa
 		<a href="{{ url('/SubPrograma/create') }}" class="btn btn-primary ">Nuevo</a>
 		</h2>
 
@@ -14,7 +14,7 @@
 					<th>Id</th>
 					<th>Programa</th>
 					<th>Codigo</th>
-					<th>Sub Porgrama</th>
+					<th>Sub Programa</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
