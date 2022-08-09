@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Mencion
+		<h2 class="d-flex justify-content-between">Mención
 		<a href="{{ url('/Mencion/create') }}" class="btn btn-primary ">Nuevo</a>
 		</h2>
 

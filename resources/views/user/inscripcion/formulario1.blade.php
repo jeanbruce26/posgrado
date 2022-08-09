@@ -10,7 +10,7 @@
 			@csrf
                <div class="col-md-4">
                     <label class="form-label">Tipo de Documento (*)</label>
-                    <select class="form-select" name="tipo_doc_cod_tipo">
+                    <select class="form-select" name="tipo_doc_cod_tipo" value="{{ old('tipo_doc_cod_tipo') }}">
                          <option value="" selected>Seleccione</option>
                          @foreach ($tipo_doc as $item)
                          <option value="{{$item->id_tipo_doc}}">{{$item->doc}}</option>
@@ -22,35 +22,35 @@
                </div>
                <div class="col-md-4">
                     <label class="form-label">Numero Documento (*)</label>
-                    <input type="text" class="form-control" name="num_doc">
+                    <input type="text" class="form-control" name="num_doc" value="{{ old('num_doc') }}">
                     @error('num_doc')
 						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
                </div>
                <div class="col-md-4">
                     <label class="form-label">Apellido Paterno (*)</label>
-                    <input type="text" class="form-control" name="apell_pater">
+                    <input type="text" class="form-control" name="apell_pater" value="{{ old('apell_pater') }}">
                     @error('apell_pater')
 						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
                </div>
                <div class="col-md-4">
                     <label class="form-label">Apellido Materno (*)</label>
-                    <input type="text" class="form-control"  name="apell_mater">
+                    <input type="text" class="form-control"  name="apell_mater" value="{{ old('apell_mater') }}">
                     @error('apell_mater')
 						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
                </div>
                <div class="col-md-4">
                     <label class="form-label">Nombre (*)</label>
-                    <input type="text" class="form-control" name="nombres">
+                    <input type="text" class="form-control" name="nombres" value="{{ old('nombres') }}">
                     @error('nombres')
 						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
                </div>
                <div class="col-md-4">
                     <label class="form-label">Sexo (*)</label>
-                    <select class="form-select" name="sexo">
+                    <select class="form-select" name="sexo" value="{{ old('sexo') }}">
                          <option value="" selected>Seleccione</option>
                          <option value="F">FEMENINO</option>
                          <option value="M">MASCULINO</option>
@@ -58,7 +58,7 @@
                </div>
                <div class="col-md-4">
                     <label class="form-label">Fecha de Naciminto (*)</label>
-                    <input type="date" class="form-control" name="fecha_naci">
+                    <input type="date" class="form-control" name="fecha_naci" value="{{ old('fecha_naci') }}">
                     @error('fecha_naci')
 						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror

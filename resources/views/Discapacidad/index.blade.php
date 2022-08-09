@@ -26,7 +26,6 @@
 
 					<td>
 						<a href="{{ route('Discapacidad.edit', $di->cod_disc) }}" type="button" class="btn btn-success">Editar</a>
-						<button type="button" class="btn btn-danger">Eliminar</button>
 					</td>
 				</tr>
 

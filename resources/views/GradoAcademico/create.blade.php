@@ -14,7 +14,7 @@
 				<input type="text" class="form-control" id="inputGradoAca" name="nom_grado" maxlength="45" value="{{ old('nom_grado') }}">
                 @error('nom_grado')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-            	@enderror
+				@enderror
 			</div>
 
             <div class="col-12">

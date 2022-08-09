@@ -19,4 +19,9 @@ class UbigeoPersona extends Model
     ];
     
     public $timestamps = false;
+
+    public function TipoUbigeo(){
+        return $this->belongsTo(TipoUbigeo::class,
+        'tipo_ubigeo_cod_tipo','cod_tipo');
+    }
 }

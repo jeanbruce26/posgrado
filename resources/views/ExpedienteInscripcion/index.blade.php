@@ -4,20 +4,18 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">ExpedienteInscripcion
+		<h2 class="d-flex justify-content-between">Expediente de Inscripcion
 		<a href="" class="btn btn-primary pull-right">Nuevo</a>
 		</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
-				<tr>
+				<tr class="col-sm-12">
 					<th>Codigo</th>
-					<th>Nombre</th>
+					<th class="col-md-4">Nombre</th>
 					<th>Estado</th>
-					<th>Observación</th>
-					<th>Fecha de Entrega</th>
-					<th>Expediente</th>
-					<th>Inscripción</th>
+					<th class="col-md-4">Observación</th>
+					<th>Fecha</th>
 				</tr>
 			</thead>
 
@@ -28,14 +26,12 @@
 					<td>{{$expInscripcion->cod_ex_insc}}</td>
 					<td>{{$expInscripcion->nom_exped}}</td>
 					<td>{{$expInscripcion->estado}}</td>
-					<td>{{$expInscripcion->observacion}}</td>
-					<td>{{$expInscripcion->fecha_entre}}</td>
-					<td>{{$expInscripcion->expediente_cod_exp}}</td>
-					<td>{{$expInscripcion->id_inscripcion }}</td>
-					<td>
-                        <button type="button" class="btn btn-success">Editar</button>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
-                    </td>
+					@if($expInscripcion->observacion == null)
+						<td>Sin Observación</td>
+					@else
+						<td>{{$expInscripcion->observacion}}</td>
+					@endif
+					<td>{{$expInscripcion->fecha_entre->format('d/m/Y')}}</td>
 				</tr>
 
 				@endforeach

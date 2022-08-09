@@ -3,7 +3,7 @@
 @section('content')
 
 	<div class="col-sm-12">
-		
+
 		<h2 class="d-flex justify-content-between">Canal Pago
 			<a href="{{ route('CanalPago.create') }}" class="btn btn-primary ">Nuevo</a>
 		</h2>

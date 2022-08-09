@@ -14,6 +14,7 @@
 					<th>Estado</th>
 					<th>Admision</th>
 					<th>Programa</th>
+					<th>Expedientes</th>
 				</tr>
 			</thead>
 
@@ -26,17 +27,15 @@
 					<td>{{$inscrip->estado}}</td>
 					<td>{{$inscrip->admision->admision}}</td>
 					<td>{{$inscrip->mencion->subprograma->subprograma}} - {{$inscrip->mencion->mencion}}</td>
+					<td>
+                        <a href="{{ route('Inscripcion.show', $inscrip->id_inscripcion) }}" type="button" class="btn btn-secondary">Mostrar</a>
+                    </td>
 				</tr>
 
 				@endforeach
 			</tbody>
 		</table>
 		{!! $insc->render() !!}
-
-	</div>
-
-	<div class="col-sm-4">
-		
 	</div>
 
 @endsection

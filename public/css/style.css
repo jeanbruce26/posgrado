@@ -279,3 +279,7 @@
 .colorsito:hover {
     color: #FFFFFF !important;
 }
+
+.form-control[type=file] {
+    overflow: hidden;
+}
