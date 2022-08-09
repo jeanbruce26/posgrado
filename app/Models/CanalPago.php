@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TipoPago extends Model
+class CanalPago extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = "cod_tipo_pago";
+    protected $primaryKey = "canal_pago_id";
 
-    protected $table = 'tipo_pago';
+    protected $table = 'canal_pago';
     protected $fillable = [
-        'cod_tipo_pago',
-        'tipo_pago',
+        'canal_pago_id',
+        'descripcion',
     ];
 
     public $timestamps = false;

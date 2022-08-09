@@ -23,7 +23,7 @@
 				@foreach ($conPago as $conceptoPago)
 
 				<tr>
-					<td>{{$conceptoPago->cod_concep}}</td>
+					<td>{{$conceptoPago->concepto_id}}</td>
 					<td>{{$conceptoPago->concepto}}</td>
 					<td>{{$conceptoPago->monto}}</td>
 					<td>@if ( $conceptoPago->estado == 1)
@@ -33,7 +33,7 @@
 						@endif
 					</td>
 					<td>
-                        <a href="{{ route('ConceptoPago.edit', $conceptoPago->cod_concep) }}" type="button" class="btn btn-success">Editar</a>
+                        <a href="{{ route('ConceptoPago.edit', $conceptoPago->concepto_id) }}" type="button" class="btn btn-success">Editar</a>
                         <button type="button" class="btn btn-danger">Eliminar</button>
                     </td>
 				</tr>

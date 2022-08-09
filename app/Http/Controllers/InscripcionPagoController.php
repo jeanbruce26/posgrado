@@ -14,7 +14,7 @@ class InscripcionPagoController extends Controller
      */
     public function index()
     {
-        $inscPago = InscripcionPago::orderBy('cod_insc_pago','ASC')->paginate();
+        $inscPago = InscripcionPago::orderBy('inscripcion_pago_id','ASC')->paginate();
         return view('InscripcionPago.index', compact('inscPago'));
     }
 

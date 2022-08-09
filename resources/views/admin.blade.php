@@ -69,8 +69,7 @@
                             <a href="{{ url('Admision') }}" class="dropdown-item">Admision</a>
                             <a href="{{ url('Inscripcion') }}" class="dropdown-item">Inscripcion</a>
                             <a href="{{ url('Pago') }}" class="dropdown-item">Pago</a>
-                            <a href="{{ url('TipoPago') }}" class="dropdown-item">TipoPago</a>
-                            <a href="{{ url('IngresoPago') }}" class="dropdown-item">IngresoPago</a>
+                            <a href="{{ url('CanalPago') }}" class="dropdown-item">Canal Pago</a>
                             <a href="{{ url('InscripcionPago') }}" class="dropdown-item">InscripcionPago</a>
                             <a href="{{ url('ConceptoPago') }}" class="dropdown-item">ConceptoPago</a>
                             <a href="{{ url('HistorialInscripcion') }}" class="dropdown-item">HistorialInscripcion</a>
@@ -189,7 +188,7 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
+    
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 

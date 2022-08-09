@@ -16,6 +16,9 @@
                          <option value="{{$item->id_tipo_doc}}">{{$item->doc}}</option>
                          @endforeach
                     </select>
+                    @error('tipo_doc_cod_tipo')
+						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                    @enderror
                </div>
                <div class="col-md-4">
                     <label class="form-label">Numero Documento (*)</label>

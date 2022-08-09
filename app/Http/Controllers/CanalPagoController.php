@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\IngresoPago;
-use App\Models\Inscripcion;
+use App\Models\CanalPago;
 
-class IngresoPagoController extends Controller
+class CanalPagoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class IngresoPagoController extends Controller
      */
     public function index()
     {
-        $ingrePago = IngresoPago::orderBy('cod_ingre','ASC')->paginate();
-        return view('IngresoPago.index', compact('ingrePago'));
+        $canal = CanalPago::orderBy('canal_pago_id','ASC')->paginate();
+        return view('CanalPago.index', compact('canal'));
     }
 
     /**
@@ -26,8 +25,7 @@ class IngresoPagoController extends Controller
      */
     public function create()
     {
-        $insc = Inscripcion::all();
-        return view('IngresoPago.create', compact('insc'));
+        return view('CanalPago.create');
     }
 
     /**
@@ -39,13 +37,10 @@ class IngresoPagoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'num_opera'  =>  'required|max:45',
-            'monto'  =>  'required|max:13',
-            'fecha'  =>  'required',
-            'id_inscripcion'  =>  'required',
+            'descripcion'  =>  'required|max:200',
         ]);
-        IngresoPago::create($request->all());
-        return redirect()->route('IngresoPago.index');
+        CanalPago::create($request->all());
+        return redirect()->route('CanalPago.index');
     }
 
     /**
@@ -67,9 +62,8 @@ class IngresoPagoController extends Controller
      */
     public function edit($id)
     {
-        $ingPago = IngresoPago::find($id);
-        $insc = Inscripcion::all();
-        return view('IngresoPago.edit', compact('insc','ingPago'))->with('ingPago',$ingPago);
+        $canal = CanalPago::find($id);
+        return view('CanalPago.edit')->with('canal',$canal);
     }
 
     /**
@@ -82,14 +76,11 @@ class IngresoPagoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'num_opera'  =>  'required|max:45',
-            'monto'  =>  'required|max:13',
-            'fecha'  =>  'required',
-            'id_inscripcion'  =>  'required',
+            'descripcion'  =>  'required|max:200',
         ]);
-        $ingPago = IngresoPago::find($id);
-        $ingPago ->update($request->all());
-        return redirect()->route('IngresoPago.index');
+        $canal = CanalPago::find($id);
+        $canal ->update($request->all());
+        return redirect()->route('CanalPago.index');
     }
 
     /**

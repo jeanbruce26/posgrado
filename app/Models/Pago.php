@@ -10,28 +10,24 @@ class Pago extends Model
     use HasFactory;
 
 
-    protected $primaryKey = "cod_pago";
+    protected $primaryKey = "pago_id";
 
     protected $table = 'pago';
     protected $fillable = [
-        'cod_pago', 
-        'tipo_pago_cod_tipo_pago',
-        'concep_pago_cod_concep',
+        'pago_id', 
+        'dni',
+        'nro_operacion',
         'monto',
         'fecha_pago',
-        'dni',
+        'estado',
+        'canal_pago_id',
     ];
 
     public $timestamps = false;
 
-    public function tipo_pago(){
-        return $this->belongsTo(TipoPago::class,
-        'tipo_pago_cod_tipo_pago','cod_tipo_pago');
-    }
-
-    public function concep_pago(){
-        return $this->belongsTo(ConceptoPago::class,
-        'concep_pago_cod_concep','cod_concep');
+    public function CanalPago(){
+        return $this->belongsTo(CanalPago::class,
+        'canal_pago_id','canal_pago_id');
     }
 
 }
