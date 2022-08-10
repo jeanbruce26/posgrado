@@ -53,26 +53,19 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">               
-                    
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>PERSONA</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{{ url('Persona') }}" class="dropdown-item">Persona</a>
-                            <a href="{{ url('Inscripcion') }}" class="dropdown-item">Inscripcion</a> 
-                        </div>
-                    </div> 
-
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>CRUD</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="{{ url('Admision') }}" class="dropdown-item">Admision</a>
+                            <a href="{{ url('CanalPago') }}" class="dropdown-item">Canal Pago</a>
                             <a href="{{ url('ConceptoPago') }}" class="dropdown-item">Concepto de Pago</a>
                             <a href="{{ url('GradoAcademico') }}" class="dropdown-item">Grados Academicos</a>
                             <a href="{{ url('HistorialInscripcion') }}" class="dropdown-item">Historial de Inscripcion</a>
-                            <a href="{{ url('IngresoPago') }}" class="dropdown-item">Ingreso de Pago</a>
                             <a href="{{ url('InscripcionPago') }}" class="dropdown-item">Inscripcion de Pago</a>
+                            <a href="{{ url('Inscripcion') }}" class="dropdown-item">Inscripcion</a>
                             <a href="{{ url('Mencion') }}" class="dropdown-item">Mencion</a>
                             <a href="{{ url('Pago') }}" class="dropdown-item">Pago</a>
+                            <a href="{{ url('Persona') }}" class="dropdown-item">Persona</a>
                             <a href="{{ url('Plan') }}" class="dropdown-item">Plan</a>
                             <a href="{{ url('Programa') }}" class="dropdown-item">Programa</a>
                             <a href="{{ url('Sede') }}" class="dropdown-item">Sede</a>
@@ -188,7 +181,7 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
+    
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 

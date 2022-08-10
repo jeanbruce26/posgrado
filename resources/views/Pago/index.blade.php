@@ -12,27 +12,29 @@
 			<thead>
 				<tr>
 					<th>Codigo</th>
-					<th>Tipo de Pago</th>
-					<th>Concepto</th>
+					<th>DNI</th>
+					<th>Nro Operacion</th>
 					<th>Monto</th>
 					<th>Fecha</th>
-					<th>DNI</th>
+					<th>Estado</th>
+					<th>Canal Pago</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
 
 			<tbody>
-				@foreach ($pag as $pago)
+				@foreach ($pago as $item)
 
 				<tr>
-					<td>{{$pago->cod_pago}}</td>
-					<td>{{$pago->tipo_pago->tipo_pago}}</td>
-					<td>{{$pago->concep_pago->concepto}}</td>
-					<td>{{$pago->monto}}</td>
-					<td>{{$pago->fecha_pago}}</td>
-					<td>{{$pago->dni}}</td>
+					<td>{{$item->pago_id}}</td>
+					<td>{{$item->dni}}</td>
+					<td>{{$item->nro_operacion}}</td>
+					<td>{{$item->monto}}</td>
+					<td>{{$item->fecha_pago}}</td>
+					<td>{{$item->estado}}</td>
+					<td>{{$item->CanalPago->descripcion}}</td>
 					<td>
-                        <a	href="{{ route('Pago.edit',$pago->cod_pago) }}" type="button" class="btn btn-success">Editar</a>
+                        <a	href="{{ route('Pago.edit',$item->pago_id) }}" type="button" class="btn btn-success">Editar</a>
                         <button type="button" class="btn btn-danger">Eliminar</button>
                     </td>
 				</tr>
@@ -40,7 +42,7 @@
 				@endforeach
 			</tbody>
 		</table>
-		{!! $pag->render() !!}
+		{!! $pago->render() !!}
 
 	</div>
 

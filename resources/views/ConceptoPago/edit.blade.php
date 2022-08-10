@@ -6,7 +6,7 @@
 		
 		<h2 class="d-flex justify-content-between">Editar Concepto de Pago</h2>
 
-		<form action="{{ route('ConceptoPago.update',$concepPago->cod_concep) }}" method="POST" class="row g-3">
+		<form action="{{ route('ConceptoPago.update',$concepPago->concepto_id) }}" method="POST" class="row g-3">
 			{{ method_field('PUT') }}
             @csrf
 

@@ -9,11 +9,11 @@ class ConceptoPago extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = "cod_concep";
+    protected $primaryKey = "concepto_id";
 
-    protected $table = 'concep_pago';
+    protected $table = 'concepto_pago';
     protected $fillable = [
-        'cod_concep',
+        'concepto_id',
         'concepto',
         'monto',
         'estado',
