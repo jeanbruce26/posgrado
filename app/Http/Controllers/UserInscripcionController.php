@@ -48,7 +48,7 @@ class UserInscripcionController extends Controller
 
     public function index4()
     {
-        return view('user');
+        return view('user.inscripcion.inscripcion');
     }
 
     /**

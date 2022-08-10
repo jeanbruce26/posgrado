@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pago;
 use Illuminate\Http\Request;
-use App\Models\Admision;
 
-class AdmisionController extends Controller
+class InscripcionLoginController extends Controller
 {
+    protected $guard = 'pagos';
+
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +16,7 @@ class AdmisionController extends Controller
      */
     public function index()
     {
-        // auth()->attempt();
-        $admi = Admision::orderBy('cod_admi','ASC')->paginate();
-        return view('Admision.index', compact('admi'));
+        return view('user.auth.validacion');
     }
 
     /**
@@ -26,7 +26,7 @@ class AdmisionController extends Controller
      */
     public function create()
     {
-        return view('Admision.create');
+        //
     }
 
     /**
@@ -38,10 +38,30 @@ class AdmisionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'admision'  =>  'required|max:45',
+            'dni'  =>  'required|numeric',
+            'nro_operacion'  =>  'required|numeric',
         ]);
-        Admision::create($request->all());
-        return redirect()->route('Admision.index');
+
+        $pago = Pago::where('dni',$request->dni)->where('nro_operacion',$request->nro_operacion)->where('estado',1)->first();
+
+        if(!$pago){
+            return back()->with('mensaje','Credenciales incorrectas');
+        }else{
+            auth('pagos')->login($pago);
+        }
+
+        // if(!){
+        //     return back()->with('mensaje','Credenciales incorrectas');
+        // }
+
+        return redirect()->route('inscripcion');
+    }
+
+    public function logout(Request $request)
+    {
+        auth('pagos')->logout();
+
+        return redirect()->route('login');
     }
 
     /**
@@ -63,8 +83,7 @@ class AdmisionController extends Controller
      */
     public function edit($id)
     {
-        $admi = Admision::find($id);
-        return view('Admision.edit')->with('admi',$admi);
+        //
     }
 
     /**
@@ -76,12 +95,7 @@ class AdmisionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'admision'  =>  'required|max:45',
-        ]);
-        $admi = Admision::find($id);
-        $admi->update($request->all());
-        return redirect()->route('Admision.index');
+        //
     }
 
     /**

@@ -1,125 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <title>POSGRADO | SISTEMA DE INSCRIPCION</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{{ asset('/user/images/favicon.ico') }}">
+        <!-- Bootstrap Css -->
+        <link href="{{ asset('/user/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="{{ asset('/user/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="{{ asset('/user/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 
-<head>
-    <meta charset="utf-8">
-    <title>Posgrado</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ asset('/assets/font-awesome/css/font-awesome.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('/assets/css/form-elements.css') }}">
+        <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
 
-    <!-- Favicon -->
-    <link href="{{ asset('/favicon.ico') }}" rel="icon">
+        @livewireStyles
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    </head>
+    <body data-layout="horizontal" data-topbar="dark">
+        <!-- Begin page -->
+        <div id="layout-wrapper">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{{ asset('/assets/css/form-elements.css') }}">
-    <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
+            <header id="page-topbar">
+                <div class="navbar-header">
+                    <div class="d-flex">
+                        <!-- LOGO -->
+                        <div class="navbar-brand-box">
+                            <a class="logo">
+                                <span class="logo-sm">
+                                    <img src="assets/images/LogoPosgradoSF.png" alt="" height="30" width="25">
+                                </span>
+                                <span class="logo-lg">
+                                    <div class="m-auto d-flex align-items-center">
+                                        <img src="{{ asset('user/images/LogoPosgradoSF.png') }}" alt="" height="35" width="30">
+                                        <h4 class="m-auto mx-3 text-uppercase text-white">Posgrado</h4>
+                                    </div>
+                                </span>
+                            </a>
+                        </div>
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
+                        <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                            <i class="fa fa-fw fa-bars"></i>
+                        </button>
+                    </div>
 
-    <!-- Template Stylesheet -->
-    <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
-
-    @livewireStyles
-</head>
-
-<body>
-    <div class="container-xxl position-relative bg-white d-flex p-0">
-        
-        <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3 ">
-            <nav class="navbar bg-light navbar-light justify-content-around">
-                <a href="/user" class="navbar-brand mx-4 mb-3 d-flex flex-column justify-content-center align-items-center">
-                    <img src="{{ asset('/img/LogoPosgradoSF.png') }}" style="width: 50px; height: 65px;" class="img-fluid rounded-top m-auto" alt="">
-                    <h3 class="text-success mt-1 m-auto"></i>POSGRADO</h3>
-                </a>
-                <div class="d-flex align-items-center mb-4">
-                    <div class="ms-3">
-                        <div class="card">
-                            <div class="card-header">
-                                Ciclo Academico 2022-I
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title text-center text-secondary mt-2">Bienvenido</h4>
+                    <div class="d-flex">
+                        <div class="dropdown d-inline-block">
+                            <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Opciones</span>
+                                <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- item-->
+                                <form action="{{ route('logout') }}" method="post">
+                                    @csrf
+                                    <button class="dropdown-item"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Cerrar Sesión</span></button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="navbar-nav w-100">                 
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user-edit me-2"></i>Inscripcion</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{{ url('/user/inscripcion') }}" class="dropdown-item">Inscripcion</a> 
-                        </div>
-                    </div> 
+                <div class="container-fluid">
+                    <div class="topnav">
+                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+                            <div class="collapse navbar-collapse" id="topnav-menu-content">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link font-weight-bold" href="{{ route('inscripcion') }}">
+                                            <i class="uil uil-book me-2"></i> Inscripción
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
                 </div>
-            </nav>
-        </div>
-        <!-- Sidebar End -->
+            </header>
+    
 
 
-        <!-- Content Start -->
-        <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="/" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars text-success"></i>
-                </a>
-                <div class="navbar-nav align-items-center">
-                    <a href="/user" class="nav-link">   
-                        <h4 class="d-none d-lg-inline-flex mt-2 text-success">ESCUELA DE POSGRADO - UNU</h4>
-                    </a>
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container-fluid">
+                        @yield('content')  
+                    </div> <!-- container-fluid -->
                 </div>
-            </nav>
-            <!-- Navbar End -->
-
-
-            <!-- Blank Start -->
-            <div class="container-fluid pt-4 px-4">
-                @yield('content')  
-            </div>
-            <!-- Blank End -->
-
-
-            <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4 ">
+                <!-- End Page-content -->
                 
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <script>document.write(new Date().getFullYear())</script> © Escuela de Posgrado.
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
             </div>
-            <!-- Footer End -->
+            <!-- end main content-->
+
         </div>
-        <!-- Content End -->
+        <!-- END layout-wrapper -->
 
+        <!-- JAVASCRIPT -->
+        <script src="{{ asset('/user/libs/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('/user/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('/user/libs/metismenu/metisMenu.min.js') }}"></script>
+        <script src="{{ asset('/user/libs/simplebar/simplebar.min.js') }}"></script>
+        <script src="{{ asset('/user/libs/node-waves/waves.min.js') }}"></script>
+        <script src="{{ asset('/user/libs/waypoints/lib/jquery.waypoints.min.js') }}"></script>
+        <script src="{{ asset('/user/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-success btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
+        <!-- jquery step -->
+        <script src="{{ asset('/user/libs/jquery-steps/build/jquery.steps.min.js') }}"></script>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- form wizard init -->
+        <script src="{{ asset('/user/js/pages/form-wizard.init.js') }}"></script>
 
-    <!-- Javascript -->
-    {{-- <script src="{{ asset('/assets/js/jquery-1.11.1.min.js') }}"></script>
-    <script src="{{ asset('/assets/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('/assets/js/jquery.backstretch.min.js') }}"></script>
-    <script src="{{ asset('/assets/js/retina-1.1.0.min.js') }}"></script> --}}
-    <script src="{{ asset('/assets/js/scripts.js') }}"></script>
+        <!-- App js -->
+        <script src="{{ asset('/user/js/app.js') }}"></script>
+        
+        <!-- Javascript -->
+        <script src="{{ asset('/assets/js/jquery-1.11.1.min.js') }}"></script>
+        <script src="{{ asset('/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('/assets/js/jquery.backstretch.min.js') }}"></script>
+        <script src="{{ asset('/assets/js/retina-1.1.0.min.js') }}"></script>
+        <script src="{{ asset('/assets/js/scripts.js') }}"></script>
 
-    @yield('script')
-    @livewireScripts
-</body>
+        @livewireScripts
 
+    </body>
 </html>
