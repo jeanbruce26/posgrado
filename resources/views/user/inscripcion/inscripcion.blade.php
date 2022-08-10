@@ -10,8 +10,8 @@
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Horizontal</a></li>
-                    <li class="breadcrumb-item active">Topbar Dark</li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Inscripcion</li>
                 </ol>
             </div>
 
@@ -23,33 +23,69 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body f1">
                 <h4 class="card-title mb-4">Basic Wizard</h4>
 
-                <form role="form" action="" method="post" class="f1 row g-3">
-                    @csrf
-
+                {{-- <form role="form" action="" method="post" class="f1 row g-3">
+                    @csrf --}}
                     <div class="f1-steps col-sm-12">
                         <div class="f1-progress">
-                            <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div>
+                            <div class="f1-progress-line" data-now-value="12" data-number-of-steps="4" style="width: 12%;"></div>
                         </div>
-                            <div class="f1-step active">
-                                <div class="f1-step-icon"><i class="fa fa-user"></i></div>
-                                <p>Paso 1</p>
-                            </div>
-                            <div class="f1-step">
-                                <div class="f1-step-icon"><i class="fa fa-book"></i></div>
-                                <p>Paso 2</p>
-                            </div>
+                        <div class="f1-step active">
+                            <div class="f1-step-icon"><i class="fa fa-check"></i></div>
+                            <p>Paso 1</p>
+                        </div>
+                        <div class="f1-step">
+                            <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                            <p>Paso 2</p>
+                        </div>
+                        <div class="f1-step">
+                            <div class="f1-step-icon"><i class="fa fa-book"></i></div>
+                            <p>Paso 3</p>
+                        </div>
                         <div class="f1-step">
                             <div class="f1-step-icon"><i class="fa fa-file"></i></div>
                             <p>Fin</p>
                         </div>
                     </div>
-                            
-                            
+                        
                     <!--paso 1 -->
                     <div class="fieldset col-sm-12">
+                        <form action="{{ route('check') }}" method="post" novalidate>
+                            @csrf
+                            <div class="card">
+                                @error('check')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                @enderror
+                                <h5 class="card-header">A tener en cuenta:</h5>
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">Por favor, lee determinadamente los siguientes puntos antes de comenzar con tu inscripción.</h5>
+                                    <p class="card-text"><i class="fas fa-comment-dollar me-2 m-auto"></i>Puedes realizar tu inscripción al día siguiente de haber realizado tu pago.</p>
+                                    <p class="card-text"><i class="fas fa-address-card me-2 m-auto"></i>Ten a mano tu Documento de Identidad.</p>
+                                    <p class="card-text"><i class="fas fa-info-circle me-2 m-auto"></i>Proporciona datos fidedignos (auténticos).</p>
+                                    <p class="card-text"><i class="fas fa-info-circle me-2 m-auto"></i>Se muy cuidadoso al completar cada información solicidad por el Sistema de Inscripción.</p>
+                                    <p class="card-text d-flex justify-content-star align-items-center"><input type="checkbox" name="check" class="me-2"><span>Acepto Terminos y condiciones.</span></p> 
+                                </div>
+                            </div>
+                            <div class="f1-buttons mt-3 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-next">Siguiente</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!--fin del paso 1 -->
+                
+                
+                    <!--paso 2 -->
+                    <div class="fieldset col-sm-12">
+                        <div class="card">
+                            <h5 class="card-header">Featured</h5>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
                         <div class="d-flex row g-3">
                             {{-- <div class="col-md-4">
                                 <label class="form-label">Tipo de Documento (*)</label>
@@ -198,7 +234,8 @@
                             </div>
                         </div>
                         
-                        <div class="f1-buttons mt-3 d-flex justify-content-end">
+                        <div class="f1-buttons mt-3 d-flex justify-content-between">
+                            <button type="button" class="btn btn-previous mt-3">Atrás</button>
                             <button type="button" class="btn btn-next">Siguiente</button>
                         </div>
                     </div>
@@ -241,7 +278,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="f1-buttons  d-flex justify-content-between">
+                        <div class="f1-buttons d-flex justify-content-between">
                             <button type="button" class="btn btn-previous mt-3">Atrás</button>
                             <button type="button" class="btn btn-next mt-3">Siguiente</button>
                         </div>
@@ -288,7 +325,7 @@
                     </div>
                     <!--fin -->
                 
-                </form>
+                {{-- </form> --}}
 
             </div>
             <!-- end card body -->

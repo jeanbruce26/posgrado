@@ -71,7 +71,7 @@
                             <div class="collapse navbar-collapse" id="topnav-menu-content">
                                 <ul class="navbar-nav">
                                     <li class="nav-item">
-                                        <a class="nav-link font-weight-bold" href="{{ route('inscripcion') }}">
+                                        <a class="nav-link font-weight-bold" {{--  href="{{ route('inscripcion') }}"--}}> 
                                             <i class="uil uil-book me-2"></i> Inscripción
                                         </a>
                                     </li>

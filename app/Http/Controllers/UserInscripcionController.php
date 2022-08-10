@@ -51,6 +51,17 @@ class UserInscripcionController extends Controller
         return view('user.inscripcion.inscripcion');
     }
 
+    public function check(Request $request)
+    {
+        // dd($request);
+
+        $request->validate([
+            'check' => ['required']
+        ]);
+
+        return view('user.inscripcion.inscripcion');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

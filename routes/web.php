@@ -35,7 +35,8 @@ Route::get('/user', function () {
     return view('user');
 });
 
-Route::get('inscripcion', 'UserInscripcionController@index4')->name('inscripcion')->middleware('auth:pagos');
+Route::get('inscripcion', 'UserInscripcionController@index4')->middleware('auth:pagos')->name('inscripcion');
+Route::post('inscripcion', 'UserInscripcionController@check')->middleware('auth:pagos')->name('check');
 // Route::get('user/inscripcion', 'UserInscripcionController@index');
 // Route::post('user/inscripcion', 'UserInscripcionController@store')->name('inscripcion.store1');
 // Route::get('user/inscripcion/paso2/{idpersona}', 'UserInscripcionController@index2')->name('inscripcion.index2');
