@@ -84,7 +84,7 @@
                 </div>
             @endif
             <div class="col-12 mt-4">
-                <button type="submit" class="btn btn-danger">Regresar</button>
+                <button type="submit" class="btn btn-secondary"><i class="fas fa-angle-left"></i> Regresar</button>
             </div>
 		</form>
 	</div>

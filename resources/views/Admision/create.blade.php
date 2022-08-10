@@ -9,7 +9,7 @@
 		<form action="{{ route('Admision.store') }}" method="POST" class="row g-3">
 			@csrf
 
-            <div class="col-md-6">
+            <div class="col-md-12">
 				<label for="inputAdmision" class="form-label">Admisión *</label>
 				<input type="text" class="form-control" id="inputAdmision" name="admision" maxlength="45" value="{{ old('admision') }}">
 				@error('admision')
@@ -17,8 +17,9 @@
 				@enderror
 			</div>
 
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Agregar</button>
+            <div class="col-12 d-flex justify-content-between">
+				<a href="{{ route('Admision.index') }}" class="btn btn-secondary d-flex justify-content-center align-items-center"><i class="fas fa-angle-left me-1"></i> Regresar</a>
+                <button  class="btn btn-primary d-flex justify-content-center align-items-center">Agregar <i class="fas fa-plus-circle ms-1"></i></button>
             </div>
 		</form>
 

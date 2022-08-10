@@ -4,14 +4,12 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Expediente de Inscripcion
-		<a href="" class="btn btn-primary pull-right">Nuevo</a>
-		</h2>
+		<h2 class="d-flex justify-content-between">Expediente de Inscripcion</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr class="col-sm-12">
-					<th>Codigo</th>
+					<th class="col-1">Codigo</th>
 					<th class="col-md-4">Nombre</th>
 					<th>Estado</th>
 					<th class="col-md-4">Observación</th>
