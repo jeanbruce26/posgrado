@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'pagos' => [
+            'driver' => 'session',
+            'provider' => 'pagos',
+        ],
     ],
 
     /*
@@ -69,6 +73,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'pagos' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Pago::class,
+        ],
     ],
 
     /*
