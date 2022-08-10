@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Inscripcion;
+use App\Models\ExpedienteInscripcion;
 use App\Models\Persona;
 use App\Models\Admision;
 use App\Models\DetallePrograma;
@@ -50,8 +51,8 @@ class InscripcionController extends Controller
      */
     public function show($id)
     {
-        $insc = Inscripcion::find($id);
-        return view('Inscripcion.show', compact('insc'));
+        $expInsc = ExpedienteInscripcion::where('id_inscripcion', $id)->get();
+        return view('Inscripcion.show', compact('expInsc'));
     }
 
     /**

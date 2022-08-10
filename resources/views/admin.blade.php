@@ -52,28 +52,17 @@
                         <span>Admin</span>
                     </div>
                 </div>
-                <div class="navbar-nav w-100">                 
+                <div class="navbar-nav w-100">               
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>CRUD</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="{{ url('Admision') }}" class="dropdown-item">Admision</a>
+                            <a href="{{ url('CanalPago') }}" class="dropdown-item">Canal Pago</a>
                             <a href="{{ url('ConceptoPago') }}" class="dropdown-item">Concepto de Pago</a>
-                            <a href="{{ url('ExpedienteInscripcion') }}" class="dropdown-item">Expediente de Inscripcion</a>
                             <a href="{{ url('GradoAcademico') }}" class="dropdown-item">Grados Academicos</a>
                             <a href="{{ url('HistorialInscripcion') }}" class="dropdown-item">Historial de Inscripcion</a>
-                            <a href="{{ url('IngresoPago') }}" class="dropdown-item">Ingreso de Pago</a>
+                            <a href="{{ url('InscripcionPago') }}" class="dropdown-item">Inscripcion de Pago</a>
                             <a href="{{ url('Inscripcion') }}" class="dropdown-item">Inscripcion</a>
-
-                            <a href="{{ url('Pago') }}" class="dropdown-item">Pago</a>
-                            <a href="{{ url('CanalPago') }}" class="dropdown-item">Canal Pago</a>
-                            <a href="{{ url('InscripcionPago') }}" class="dropdown-item">InscripcionPago</a>
-                            <a href="{{ url('ConceptoPago') }}" class="dropdown-item">ConceptoPago</a>
-                            <a href="{{ url('HistorialInscripcion') }}" class="dropdown-item">HistorialInscripcion</a>
-                            <a href="{{ url('ExpedienteInscripcion') }}" class="dropdown-item">ExpedienteInscripcion</a>
-                            <a href="{{ url('Sede') }}" class="dropdown-item">Sede</a>
-                            <a href="{{ url('Programa') }}" class="dropdown-item">Programa</a>
-                            <a href="{{ url('SubPrograma') }}" class="dropdown-item">SubPrograma</a>
-
                             <a href="{{ url('Mencion') }}" class="dropdown-item">Mencion</a>
                             <a href="{{ url('Pago') }}" class="dropdown-item">Pago</a>
                             <a href="{{ url('Persona') }}" class="dropdown-item">Persona</a>
