@@ -1,191 +1,256 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
 
-<head>
-    <meta charset="utf-8">
-    <title>Posgrado</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <head>
 
-    <!-- Favicon -->
-    <link href="{{ asset('/favicon.ico') }}" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
-
-    @livewireStyles
-</head>
-
-<body>
-    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <meta charset="utf-8" />
+        <title>Posgrado</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-light navbar-light">
-                <a href="/" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-success"><i class="fa fa-hashtag me-2"></i>POSGRADO</h3>
-                </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="{{ asset('/img/user.jpg') }}" alt="" style="width: 40px; height: 40px;">
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                    </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">USSER</h6>
-                        <span>Admin</span>
-                    </div>
-                </div>
-                <div class="navbar-nav w-100">               
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>CRUD</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{{ url('Admision') }}" class="dropdown-item">Admision</a>
-                            <a href="{{ url('CanalPago') }}" class="dropdown-item">Canal Pago</a>
-                            <a href="{{ url('ConceptoPago') }}" class="dropdown-item">Concepto de Pago</a>
-                            <a href="{{ url('GradoAcademico') }}" class="dropdown-item">Grados Academicos</a>
-                            <a href="{{ url('HistorialInscripcion') }}" class="dropdown-item">Historial de Inscripcion</a>
-                            <a href="{{ url('InscripcionPago') }}" class="dropdown-item">Inscripcion de Pago</a>
-                            <a href="{{ url('Inscripcion') }}" class="dropdown-item">Inscripcion</a>
-                            <a href="{{ url('Mencion') }}" class="dropdown-item">Mencion</a>
-                            <a href="{{ url('Pago') }}" class="dropdown-item">Pago</a>
-                            <a href="{{ url('Persona') }}" class="dropdown-item">Persona</a>
-                            <a href="{{ url('Plan') }}" class="dropdown-item">Plan</a>
-                            <a href="{{ url('Programa') }}" class="dropdown-item">Programa</a>
-                            <a href="{{ url('Sede') }}" class="dropdown-item">Sede</a>
-                            <a href="{{ url('SubPrograma') }}" class="dropdown-item">Sub Programas</a>
-                            <a href="{{ url('Universidad') }}" class="dropdown-item">Universidades</a>
-                            <a href="{{ url('TipoPago') }}" class="dropdown-item">Tipo de Pago</a>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{{ asset('/user/images/favicon.ico') }}">
+
+        <!-- Bootstrap Css -->
+        <link href="{{ asset('/user/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="{{ asset('/user/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="{{ asset('/user/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+        {{-- Icons --}}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
+
+        @livewireStyles
+    </head>
+
+    <body data-sidebar="dark">
+
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+
+            <header id="page-topbar">
+                <div class="navbar-header">
+                    <div class="d-flex">
+                        <!-- LOGO -->
+                        <div class="navbar-brand-box">
+                            <a class="logo">
+                                <span class="logo-sm">
+                                    <img src="{{ asset('/user/images/LogoPosgradoSF.png') }}" alt="" height="30" width="25">
+                                </span>
+                            </a>
                         </div>
-                    </div> 
+
+                        <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
+                            <i class="fa fa-fw fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <div class="d-flex">
+
+                        <div class="dropdown d-inline-block d-lg-none ms-2">
+                            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="uil-search"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                                aria-labelledby="page-header-search-dropdown">
+                            </div>
+                        </div>
+
+                        <div class="dropdown d-inline-block">
+                            <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Nombre de Usuario</span>
+                                <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- item-->
+                                <a class="dropdown-item" href="#"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Perfil</span></a>
+                                <a class="dropdown-item" href="#"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Cerrar Sesión</span></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </nav>
-        </div>
-        <!-- Sidebar End -->
+            </header>
+
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="vertical-menu">
+
+                <!-- LOGO -->
+                <div class="navbar-brand-box">
+                    <a class="logo">
+                        <span class="logo-sm">
+                            <img src="{{ asset('user/images/LogoPosgradoSF.png') }}" alt="" height="30" width="25">
+                        </span>
+                        <span class="logo-lg">
+                            <div class="m-auto d-flex align-items-center">
+                                <img src="{{ asset('user/images/LogoPosgradoSF.png') }}" alt="" height="35" width="30">
+                                <h4 class="m-auto mx-3 text-uppercase text-white">Posgrado</h4>
+                            </div>
+                        </span>
+                    </a>
+                </div>
+
+                <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
+                    <i class="fa fa-fw fa-bars"></i>
+                </button>
+
+                <div data-simplebar class="sidebar-menu-scroll">
+
+                    <!--- Sidemenu -->
+                    <div id="sidebar-menu">
+                        <!-- Left Menu Start -->
+                        <ul class="metismenu list-unstyled" id="side-menu">
+                            <li class="menu-title">Menu</li>
+
+                            <li>
+                                <a href="/">
+                                    <i class="uil-home-alt"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="uil-window-section"></i>
+                                    <span>CRUDS</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+                                    <li>
+                                        <a href="javascript: void(0);" class="has-arrow">Persona</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="{{ url('Persona') }}" class="dropdown-item">Estudiantes</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript: void(0);" class="has-arrow">Pago</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="{{ url('CanalPago') }}" class="dropdown-item">Canal Pago</a></li>
+                                            <li><a href="{{ url('ConceptoPago') }}" class="dropdown-item">Concepto de Pago</a></li>
+                                            <li><a href="{{ url('Pago') }}" class="dropdown-item">Pago</a> </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript: void(0);" class="has-arrow">Admisión</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="{{ url('Admision') }}" class="dropdown-item">Admision</a></li>
+                                        </ul>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="{{ url('Plan') }}" class="dropdown-item">Plan</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript: void(0);" class="has-arrow">Programa</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="{{ url('Admision') }}" class="dropdown-item">Admision</a></li>
+                                            <li><a href="{{ url('Plan') }}" class="dropdown-item">Plan</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript: void(0);" class="has-arrow">Inscripción</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="{{ url('HistorialInscripcion') }}" class="dropdown-item">Historial de Inscripcion</a></li>
+                                            <li><a href="{{ url('InscripcionPago') }}" class="dropdown-item">Inscripcion de Pago</a></li>
+                                            <li><a href="{{ url('Inscripcion') }}" class="dropdown-item">Inscripcion</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript: void(0);" class="has-arrow">Programas</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="{{ url('GradoAcademico') }}" class="dropdown-item">Grados Academicos</a></li>
+                                            <li><a href="{{ url('Mencion') }}" class="dropdown-item">Mencion</a></li>
+                                            <li><a href="{{ url('Programa') }}" class="dropdown-item">Programa</a></li>
+                                            <li><a href="{{ url('Sede') }}"class="dropdown-item">Sede</a></li>
+                                            <li><a href="{{ url('SubPrograma') }}" class="dropdown-item">Sub Programas</a></li>
+                                            <li><a href="{{ url('Universidad') }}" class="dropdown-item">Universidades</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Sidebar -->
+                </div>
+            </div>
+            <!-- Left Sidebar End -->
 
 
-        <!-- Content Start -->
-        <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars text-success"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
-                <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <!-- <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex align-items-center justify-content-between">
+                                    <h4 class="mb-0">Dashboard</h4>
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
+                                        </ol>
                                     </div>
                                 </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
+                            </div>
+                        </div> -->
+                        <!-- end page title -->
+
+
+                        <!-- Contenido de la page -->
+                        <!-- -------------------- -->
+                        <div class="card">
+                            <div class="card-body">
+                                @yield('content')
+                            </div>
                         </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ asset('/img/user.jpg') }}" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Log Out</a>
-                        </div>
-                    </div>
+                        
+                    </div> <!-- container-fluid -->
                 </div>
-            </nav>
-            <!-- Navbar End -->
+                <!-- End Page-content -->
 
 
-            <!-- Blank Start -->
-            <div class="container-fluid pt-4 px-4">
-                @yield('content')  
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <script>document.write(new Date().getFullYear())</script> © Escuela de Posgrado.
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
-            <!-- Blank End -->
+            <!-- end main content-->
 
-
-            <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4 ">
-                
-            </div>
-            <!-- Footer End -->
         </div>
-        <!-- Content End -->
+        <!-- END layout-wrapper -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-success btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
 
-    @livewireScripts
-</body>
+        <!-- Right bar overlay-->
+        <div class="rightbar-overlay"></div>
+
+        <!-- JAVASCRIPT -->
+        <script src="{{ asset('user/libs/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('user/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('user/libs/metismenu/metisMenu.min.js') }}"></script>
+        <script src="{{ asset('user/libs/simplebar/simplebar.min.js') }}"></script>
+        <script src="{{ asset('user/libs/node-waves/waves.min.js') }}"></script>
+        <script src="{{ asset('user/libs/waypoints/lib/jquery.waypoints.min.js') }}"></script>
+        <script src="{{ asset('user/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
+
+        <!-- apexcharts -->
+        <script src="{{ asset('user/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+        <script src="{{ asset('user/js/pages/dashboard.init.js') }}"></script>
+
+        <!-- App js -->
+        <script src="{{ asset('user/js/app.js') }}"></script>
+
+    </body>
 
 </html>

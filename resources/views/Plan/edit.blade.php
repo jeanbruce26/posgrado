@@ -17,8 +17,8 @@
                     @enderror
 			</div>
 			<div class="col-12 d-flex justify-content-between">
-				<a href="{{ route('Plan.index') }}" class="btn btn-secondary me-md-2"><i class="fas fa-angle-left"></i> Regresar</a>
-				<button type="submit" class="btn btn-primary">Guardar <i class="fas fa-edit"></i></button>
+				<a href="{{ route('Plan.index') }}" class="btn btn-secondary d-flex justify-content-center align-items-center text-center"><i class="fas fa-angle-left me-1"></i> Regresar</a>
+				<button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center text-center">Guardar <i class="fas fa-edit ms-1"></i></button>
 			</div>
 		</form>
 

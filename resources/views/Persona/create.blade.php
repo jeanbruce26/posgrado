@@ -115,8 +115,8 @@
           </div>
           <h5 class="text-secondary">Ubigeo de direccion</h5>
           @livewire('select-ubigeo')
-          <div class="col-md-12">
-               <button type="submit" class="btn btn-primary">Agregar</button>
+          <div class="col-md-12 d-flex justify-content-star">
+               <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center text-center">Agregar</button>
           </div>
      </form>
 

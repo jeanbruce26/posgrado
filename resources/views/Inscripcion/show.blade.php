@@ -15,7 +15,7 @@
                         <th>Estado</th>
                         <th>Fecha</th>
                         <th class="col-md-4">Observación</th>
-                        <th>Archivo</th>
+                        <th class="col-1">Archivo</th>
                     </tr>
                 </thead>
     
@@ -39,8 +39,8 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="col-12 mt-4">
-                <button type="submit" class="btn btn-danger">Regresar</button>
+            <div class="col-12 d-flex justify-content-between">
+                <a href="{{ route('Inscripcion.index') }}" class="btn btn-secondary d-flex justify-content-center align-items-center align-text-center"><i class="fas fa-angle-left me-1"></i> Regresar</a>
             </div>
 		</form>
 	</div>

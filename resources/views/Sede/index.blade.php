@@ -5,16 +5,16 @@
 	<div class="col-sm-12">
 		
 		<h2 class="d-flex justify-content-between">Sede
-		<a href="{{ url('Sede/create') }}" class="btn btn-primary ">Nuevo</a>
+		<a href="{{ url('Sede/create') }}" class="btn btn-primary pull-right d-flex justify-content-center align-items-center text-center">Nuevo <i class="fas fa-plus-circle ms-1"></i></a>
 		</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th>Codigo</th>
+					<th class="col-1">Codigo</th>
 					<th>Sede</th>
 					<th>Plan</th>
-					<th>Acciones</th>
+					<th class="col-1">Acciones</th>
 				</tr>
 			</thead>
 
@@ -25,9 +25,8 @@
 					<td>{{$sede->cod_sede}}</td>
 					<td>{{$sede->sede}}</td>
 					<td>{{$sede->plan->plan}}</td>
-					<td>
-						<a href="/Sede/{{ $sede->cod_sede }}/edit" class="btn btn-success">Editar</a>
-						<a type="button" class="btn btn-danger">Eliminar</a>
+					<td class="d-flex justify-content-star">
+                        <a	href="/Sede/{{ $sede->cod_sede }}/edit" type="button" class="btn btn-success d-flex justify-content-center align-items-center text-center">Editar <i class="fas fa-edit ms-1"></i></a>
 					</td>
 				</tr>
 

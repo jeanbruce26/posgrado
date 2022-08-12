@@ -11,11 +11,11 @@
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th class="col-1">Codigo</th>
+					<th class="col-1">Código</th>
 					<th>Concepto</th>
-					<th class="col-2">Monto</thc>
-					<th class="col-3">Estado</th>
-					<th class="col-2">Acciones</th>
+					<th >Monto</thc>
+					<th >Estado</th>
+					<th class="col-1">Acciones</th>
 				</tr>
 			</thead>
 
