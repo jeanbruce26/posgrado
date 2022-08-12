@@ -26,27 +26,19 @@
             <div class="card-body f1">
                 <h4 class="card-title mb-4">Basic Wizard</h4>
 
-                {{-- <form role="form" action="" method="post" class="f1 row g-3">
-                    @csrf --}}
+                <form role="form" action="" method="post" class="f1 row g-3">
+                    @csrf
                     <div class="f1-steps col-sm-12">
                         <div class="f1-progress">
-                            <div class="f1-progress-line" data-now-value="12" data-number-of-steps="4" style="width: 12%;"></div>
+                            <div class="f1-progress-line" data-now-value="24" data-number-of-steps="2" style="width: 24%;"></div>
                         </div>
-                        <div class="f1-step active">
+                        <div class="f1-step">
                             <div class="f1-step-icon"><i class="fa fa-check"></i></div>
                             <p>Paso 1</p>
                         </div>
-                        <div class="f1-step">
-                            <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                        <div class="f1-step active">
+                            <div class="f1-step-icon"><i class="fa fa-comment-dollar"></i></div>
                             <p>Paso 2</p>
-                        </div>
-                        <div class="f1-step">
-                            <div class="f1-step-icon"><i class="fa fa-book"></i></div>
-                            <p>Paso 3</p>
-                        </div>
-                        <div class="f1-step">
-                            <div class="f1-step-icon"><i class="fa fa-file"></i></div>
-                            <p>Fin</p>
                         </div>
                     </div>
                         
@@ -55,9 +47,6 @@
                         <form action="{{ route('check') }}" method="post" novalidate>
                             @csrf
                             <div class="card">
-                                @error('check')
-                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
                                 <h5 class="card-header">A tener en cuenta:</h5>
                                 <div class="card-body">
                                     <h5 class="card-title mb-3">Por favor, lee determinadamente los siguientes puntos antes de comenzar con tu inscripción.</h5>
@@ -68,7 +57,7 @@
                                     <p class="card-text d-flex justify-content-star align-items-center"><input type="checkbox" name="check" class="me-2"><span>Acepto Terminos y condiciones.</span></p> 
                                 </div>
                             </div>
-                            <div class="f1-buttons mt-3 d-flex justify-content-end">
+                            <div class="mt-3 d-flex justify-content-end">
                                 <button type="submit" class="btn btn-next">Siguiente</button>
                             </div>
                         </form>
@@ -241,49 +230,6 @@
                     </div>
                     <!--fin del paso 1 -->
 
-                    <!---paso 2 -->
-                    <div class="fieldset">
-                        <div class="d-flex row g-3">
-                            <h5 class="text-secondary">Programa</h5>
-                            <livewire:select-programa/>
-                            
-                            <h5 class="text-secondary mt-3">Pagos</h5>
-
-                            <div class="col-md-4">
-                                <label class="form-label">Numero Operacion  (*)</label>
-                                <input type="text" class="form-control" name="num_opera">
-                                @error('num_opera')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Monto (*)</label>
-                                <input type="text" class="form-control" name="monto">
-                                @error('monto')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Fecha (*)</label>
-                                <input type="date" class="form-control"  name="fecha">
-                                @error('fecha')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label">Vaucher (*)</label>
-                                <input type="file" class="form-control"  name="vaucher">
-                                @error('vaucher')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="f1-buttons d-flex justify-content-between">
-                            <button type="button" class="btn btn-previous mt-3">Atrás</button>
-                            <button type="button" class="btn btn-next mt-3">Siguiente</button>
-                        </div>
-                    </div>
-                    <!--fin del paso 2 -->
 
                     <!--paso fin -->
                     <div class="fieldset">
@@ -325,7 +271,7 @@
                     </div>
                     <!--fin -->
                 
-                {{-- </form> --}}
+                </form>
 
             </div>
             <!-- end card body -->

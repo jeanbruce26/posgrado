@@ -130,12 +130,12 @@
         <!-- App js -->
         <script src="{{ asset('/user/js/app.js') }}"></script>
         
-        <!-- Javascript -->
+        {{-- <!-- Javascript -->
         <script src="{{ asset('/assets/js/jquery-1.11.1.min.js') }}"></script>
         <script src="{{ asset('/assets/bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('/assets/js/jquery.backstretch.min.js') }}"></script>
         <script src="{{ asset('/assets/js/retina-1.1.0.min.js') }}"></script>
-        <script src="{{ asset('/assets/js/scripts.js') }}"></script>
+        <script src="{{ asset('/assets/js/scripts.js') }}"></script> --}}
 
         @livewireScripts
 

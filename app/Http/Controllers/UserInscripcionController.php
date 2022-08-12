@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admision;
+use App\Models\ConceptoPago;
 use App\Models\Discapacidad;
 use App\Models\Distrito;
 use App\Models\EstadoCivil;
@@ -13,6 +14,7 @@ use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
 use App\Models\IngresoPago;
 use App\Models\Inscripcion;
+use App\Models\Pago;
 use App\Models\Persona;
 use App\Models\UbigeoPersona;
 use Illuminate\Http\Request;
@@ -33,11 +35,49 @@ class UserInscripcionController extends Controller
         // $grado = GradoAcademico::all();
         // $expediente = Expediente::all();
         // return view('user/inscripcion.create', compact('tipo_doc','tipo_dis','estado_civil','universidad','grado','expediente'));
+        
+        return view('user.inscripcion.terminos-condiciones');
     }
 
-    public function index2($idpersona)
+    public function check(Request $request)
+    {
+        // $request->validate([
+        //     'check'  =>  'required',
+        // ]);
+
+        if(!$request->check){
+            return back()->with('mensaje','Acepte los Terminos y Condiciones');
+        }
+
+        return redirect()->route('inscripcion.pagos');
+    }
+
+    public function index2()
     {
         // return view('user/inscripcion.formulario2', compact('idpersona'));
+        $concepto = ConceptoPago::all();
+        $tipo_doc = TipoDocumento::all();
+        $pago = null;
+        $concepto_id = null;
+        $tipodoc_id = null;
+        $doc = null;
+        return view('user.inscripcion.pagos', compact('concepto', 'tipo_doc', 'pago', 'concepto_id', 'tipodoc_id', 'doc'));
+    }
+
+    public function mostrarPago(Request $request)
+    {
+        $request->validate([
+            'tipo_documento' => ['required', 'numeric'],
+            'numero_documento' => ['required', 'numeric'],
+            'concepto_pago' => ['required', 'numeric'],
+        ]);
+        $concepto = ConceptoPago::all();
+        $concepto_id = $request->concepto_pago;
+        $tipo_doc = TipoDocumento::all();
+        $tipodoc_id = $request->tipo_documento;
+        $doc = $request->numero_documento;
+        $pago = Pago::where('dni',$request->numero_documento)->get();
+        return view('user.inscripcion.pagos', compact('concepto', 'tipo_doc', 'pago', 'concepto_id', 'tipodoc_id', 'doc'));
     }
 
     public function index3($id_inscripcion)
@@ -48,17 +88,6 @@ class UserInscripcionController extends Controller
 
     public function index4()
     {
-        return view('user.inscripcion.inscripcion');
-    }
-
-    public function check(Request $request)
-    {
-        // dd($request);
-
-        $request->validate([
-            'check' => ['required']
-        ]);
-
         return view('user.inscripcion.inscripcion');
     }
 

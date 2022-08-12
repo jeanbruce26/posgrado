@@ -41,18 +41,14 @@ class InscripcionLoginController extends Controller
             'dni'  =>  'required|numeric',
             'nro_operacion'  =>  'required|numeric',
         ]);
-
-        $pago = Pago::where('dni',$request->dni)->where('nro_operacion',$request->nro_operacion)->where('estado',1)->first();
+        
+        $pago = Pago::where('dni',$request->dni)->where('nro_operacion',$request->nro_operacion)->where('estado',1)->orWhere('estado',2)->first();
 
         if(!$pago){
             return back()->with('mensaje','Credenciales incorrectas');
         }else{
             auth('pagos')->login($pago);
         }
-
-        // if(!){
-        //     return back()->with('mensaje','Credenciales incorrectas');
-        // }
 
         return redirect()->route('inscripcion');
     }
