@@ -4,16 +4,16 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Admision
+		<h2 class="d-flex justify-content-between">Admisión
 		<a href="{{ url('/Admision/create') }}" class="btn btn-primary pull-right d-flex justify-content-center align-items-center">Nuevo <i class="fas fa-plus-circle ms-1"></i></a>
 		</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th class="col-1">Codigo</th>
-					<th>Admision</th>
-					<th class="col-2">Acciones</th>
+					<th class="col-1">Código</th>
+					<th>Admisión</th>
+					<th class="col-1">Acciones</th>
 				</tr>
 			</thead>
 

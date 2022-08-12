@@ -10,7 +10,7 @@
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th class="col-1">Codigo</th>
+					<th class="col-1">Código</th>
 					<th>Estado Civil</th>
 				</tr>
 			</thead>

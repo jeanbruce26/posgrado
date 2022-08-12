@@ -66,8 +66,9 @@
                     @enderror
             </div>
             
-			<div class="col-12">
-				<button type="submit" class="btn btn-primary">Actualizar</button>
+			<div class="col-12 d-flex justify-content-between">
+				<a href="{{ route('Pago.index') }}" class="btn btn-secondary d-flex justify-content-center align-items-center"><i class="fas fa-angle-left me-1"></i> Regresar</a>
+				<button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center">Guardar <i class="fas fa-edit ms-1"></i></button>
 			</div>
 		</form>
 

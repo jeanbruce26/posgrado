@@ -10,7 +10,7 @@
 			{{ method_field('PUT') }}
             @csrf
             
-			<div class="col-md-6">
+			<div class="col-md-12">
                 <label for="inputAdmision" class="form-label">Admisión *</label>
 				<input type="text" class="form-control" id="inputAdmision" name="admision"  value="{{ $admi->admision }}">
                     @error('admision')

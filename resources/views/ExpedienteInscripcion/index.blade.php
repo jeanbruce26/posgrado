@@ -4,12 +4,12 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Expediente de Inscripcion</h2>
+		<h2 class="d-flex justify-content-between">Expediente de Inscripción</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr class="col-sm-12">
-					<th class="col-1">Codigo</th>
+					<th class="col-1">Código</th>
 					<th class="col-md-4">Nombre</th>
 					<th>Estado</th>
 					<th class="col-md-4">Observación</th>
