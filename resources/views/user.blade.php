@@ -29,10 +29,10 @@
                 <div class="navbar-header">
                     <div class="d-flex">
                         <!-- LOGO -->
-                        <div class="navbar-brand-box">
+                        <div class="navbar-brand-box2">
                             <a class="logo">
                                 <span class="logo-sm">
-                                    <img src="assets/images/LogoPosgradoSF.png" alt="" height="30" width="25">
+                                    <img src="{{ asset('user/images/LogoPosgradoSF.png') }}" alt="" height="30" width="25">
                                 </span>
                                 <span class="logo-lg">
                                     <div class="m-auto d-flex align-items-center">
@@ -52,14 +52,14 @@
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Opciones</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">{{ auth('pagos')->user()->dni }}</span>
                                 <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
                                 <form action="{{ route('logout') }}" method="post">
                                     @csrf
-                                    <button class="dropdown-item"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Cerrar Sesión</span></button>
+                                    <button type="submit" class="dropdown-item"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Cerrar Sesión</span></button>
                                 </form>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                             <div class="collapse navbar-collapse" id="topnav-menu-content">
                                 <ul class="navbar-nav">
                                     <li class="nav-item">
-                                        <a class="nav-link font-weight-bold" href="{{ route('inscripcion') }}">
+                                        <a class="nav-link font-weight-bold" {{--  href="{{ route('inscripcion') }}"--}}> 
                                             <i class="uil uil-book me-2"></i> Inscripción
                                         </a>
                                     </li>

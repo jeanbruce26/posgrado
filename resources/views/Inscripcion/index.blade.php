@@ -4,17 +4,17 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Inscripcion</h2>
+		<h2 class="d-flex justify-content-between">Inscripción</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th>ID</th>
+					<th class="col-1">Código</th>
 					<th>Persona</th>
 					<th>Estado</th>
-					<th>Admision</th>
+					<th>Admisión</th>
 					<th>Programa</th>
-					<th>Expedientes</th>
+					<th class="col-1">Expedientes</th>
 				</tr>
 			</thead>
 
@@ -27,8 +27,8 @@
 					<td>{{$inscrip->estado}}</td>
 					<td>{{$inscrip->admision->admision}}</td>
 					<td>{{$inscrip->mencion->subprograma->subprograma}} - {{$inscrip->mencion->mencion}}</td>
-					<td>
-                        <a href="{{ route('Inscripcion.show', $inscrip->id_inscripcion) }}" type="button" class="btn btn-secondary">Mostrar</a>
+					<td class="d-flex justify-content-star">
+                        <a href="{{ route('Inscripcion.show', $inscrip->id_inscripcion) }}" type="button" class="btn btn-secondary d-flex justify-content-center align-items-center text-center">Detalle <i class="fas fa-info-circle ms-1"></i></a>
                     </td>
 				</tr>
 

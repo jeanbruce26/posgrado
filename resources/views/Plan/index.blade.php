@@ -5,15 +5,15 @@
 	<div class="col-sm-12">
 		
 		<h2 class="d-flex justify-content-between">Plan
-		<a href="{{ url('/Plan/create') }}" class="btn btn-primary">Nuevo</a>
+		<a href="{{ url('/Plan/create') }}" class="btn btn-primary d-flex justify-content-center align-items-center text-center">Nuevo <i class="fas fa-plus-circle ms-1"></i></a>
 		</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th>Codigo</th>
+					<th class="col-md-1">Codigo</th>
 					<th>Plan</th>
-					<th>Acciones</th>
+					<th class="col-md-1">Acciones</th>
 				</tr>
 			</thead>
 
@@ -23,9 +23,8 @@
 				<tr>
 					<td>{{$p->id_plan}}</td>
 					<td>{{$p->plan}}</td>
-					<td>
-						<a href="{{ route('Plan.edit',$p->id_plan) }}" type="button" class="btn btn-success">Editar</a>
-						<button type="button" class="btn btn-danger">Eliminar</button>
+					<td class="d-flex justify-content-star">
+                        <a	href="{{ route('Plan.edit',$p->id_plan) }}" type="button" class="btn btn-success d-flex justify-content-center align-items-center text-center">Editar <i class="fas fa-edit ms-1"></i></a>
 					</td>
 				</tr>
 

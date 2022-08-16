@@ -83,8 +83,8 @@
                     <input class="form-control" type="text" value="{{$persona->especialidad}}"disabled> 
                 </div>
             @endif
-            <div class="col-12 mt-4">
-                <button type="submit" class="btn btn-danger">Regresar</button>
+            <div class="col-12 mt-4 d-flex justify-content-star">
+                <button type="submit" class="btn btn-secondary d-flex justify-content-center align-items-center text-center"><i class="fas fa-angle-left me-1"></i> Regresar</button>
             </div>
 		</form>
 	</div>

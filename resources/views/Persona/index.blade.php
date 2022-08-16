@@ -4,20 +4,18 @@
 
 	<div class="col-sm-12">
 		
-		<h2 class="d-flex justify-content-between">Personas
-		<a href="{{ url('/user/inscripcion') }}" class="btn btn-primary pull-right">Nuevo</a>
-		</h2>
+		<h2 class="d-flex justify-content-between">Estudiantes</h2>
 
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th>ID</th>
+					<th class="col-1">Código</th>
 					<th>Documento</th>
 					<th>Apellido Paterno</th>
 					<th>Apellido Materno</th>
 					<th>Nombres</th>
 					<th>Celular</th>
-					<th>Acciones</th>
+					<th class="col-1">Acciones</th>
 				</tr>
 			</thead>
 
@@ -31,8 +29,8 @@
 					<td>{{$per->apell_mater}}</td>
 					<td>{{$per->nombres}}</td>
 					<td>{{$per->celular1}}</td>
-					<td>
-						<a href="{{ route('Persona.show',$per->idpersona) }}" type="button" class="btn btn-secondary">Detalle</a>
+					<td class="d-flex justify-content-star">
+						<a href="{{ route('Persona.show',$per->idpersona) }}" type="button" class="btn btn-secondary d-flex justify-content-center align-items-center text-center">Detalle <i class="fas fa-info-circle ms-1"></i></a>
 					</td>
 				</tr>
 
