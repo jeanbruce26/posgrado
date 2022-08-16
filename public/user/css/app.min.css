@@ -230,6 +230,14 @@ body[data-sidebar-size="sm"] .navbar-header .vertical-menu-btn {
   z-index: 1;
   background-color: var(--bs-sidebar-bg);
 }
+.navbar-brand-box2 {
+  padding: 0 1.5rem;
+  width: 250px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
 .logo {
   line-height: 70px;
 }
@@ -4625,3 +4633,10 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   padding: 7px 0;
 }
 /*# sourceMappingURL=app.min.css.map */
+.guia{
+  cursor: pointer;
+  color: #22252f;
+}
+.guia:hover{
+  text-decoration: underline !important;
+}

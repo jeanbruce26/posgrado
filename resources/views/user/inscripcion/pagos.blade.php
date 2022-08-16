@@ -36,7 +36,7 @@
                                 <select class="form-select" name="concepto_pago">
                                     <option value="" selected>Seleccione</option>
                                     @foreach ($concepto as $item)
-                                    <option value="{{$item->concepto_id}}" {{ $item->concepto_id == $concepto_id ? 'selected' : '' }}>{{$item->concepto}}</option>
+                                    <option value="{{$item->concepto_id}}" {{ $item->concepto_id == $concepto_id ? 'selected' : '' }}>{{$item->concepto}} - S/.{{$item->monto}}</option>
                                     @endforeach
                                 </select>
                                 @error('concepto_pago')
@@ -65,8 +65,12 @@
                             <div class="col-md-1 d-flex justify-content-center align-items-end">
                                 <button type="submit" class="btn btn-next">Buscar</button>
                             </div>
+                            @if (session('mensaje-dni'))
+                                <div class="alert alert-danger mt-1 mb-1">{{ session('mensaje-dni') }}</div>
+                            @endif
                         </form>
-                        <form action="" method="post">
+                        <form action="{{ route('inscripcion.guardar-pagos') }}" method="post">
+                            @csrf
                             <div class="table-responsive">
                                 <table class="table table-editable table-nowrap align-middle table-edits">
                                     <thead>
@@ -105,6 +109,10 @@
                                     </tbody>
                                 </table>
                             </div>
+                            @if (session('mensaje-seleccionar'))
+                                <div class="alert alert-danger mt-1 mb-1">{{ session('mensaje-seleccionar') }}</div>
+                            @endif
+                            <input type="hidden" name="concepto_id" value="{{ $concepto_id }}">
                             <div class="mt-3 d-flex justify-content-end">
                                 <button type="submit" class="btn btn-next">Guardar</button>
                             </div>

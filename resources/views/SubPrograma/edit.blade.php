@@ -26,7 +26,7 @@
 			<div class="col-md-12">
                     <label class="form-label">Programa *</label>
                     <select class="form-select" name="id_programa">
-						<option selected>Seleccione</option>
+						<option value="" selected>Seleccione</option>
 						@foreach ($pro as $item)
 						<option value="{{$item->id_programa}}" {{ $item->id_programa == $sub->id_programa ? 'selected' : '' }}>{{$item->descripcion_programa}}</option>
 						@endforeach
