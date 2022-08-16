@@ -29,33 +29,18 @@
                         <div class="card">
                             <div class="card-body p-4"> 
                                 <div class="text-center">
-                                    <!-- <a class="mb-3 d-block auth-logo">
+                                    <a class="mb-3 d-block auth-logo">
                                         <img src="{{ asset('user/images/LogoPosgradoSF.png') }}" alt="" height="90" width="70" class="logo logo-dark">
                                     </a>
-
-                                     -->
-                                    <h3 class="text-primary">Validación de Pago</h3>
-                                   
+                                    <h3 class="text-primary">ESCUELA DE POSGRADO</h3>
+                                    <h5 class="mt-4">Forlumario de validación de pago</h5>
                                 </div>
                                 <div class="text-center mt-4">
-                                    <p class="text-muted"><strong>Recuerda que, puedes realizar tu inscripción al dia siguiente de haber realizado tu pago.<strong></p>
+                                    <p class="text-muted">Recuerda que, puedes realizar tu inscripción al dia siguiente de haber realizado tu pago.</p>
                                 </div>
                                 <div class="p-2 mt-4">
-                                    <form action="{{ route('login') }}" method="POST" novalidate id="formulario">
+                                    <form action="{{ route('login') }}" method="POST" novalidate>
                                         @csrf
-
-                                        <div class="mb-3">
-                                            <label class="form-label">Tipo de documento *</label><br>
-                                            <select class="form-select"> 
-                                                <option>DNI</option>
-                                                <option>Carnet de Extranjeria</option>
-
-                                            </select>
-                                           
-                                        </div>
-
-
-
                                         <div class="mb-3">
                                             <label class="form-label">Numero de documento *</label>
                                             <input type="text" name="dni" value="{{ old('dni') }}" class="form-control" placeholder="Ingrese su número de documento">
@@ -85,9 +70,12 @@
                             </div>
                         </div>
 
+                        
+
                         <div class="mt-5 text-center text-white">
                             <p>© <script>document.write(new Date().getFullYear())</script> Escuela de Posgrado</p>
                         </div>
+
 
                     </div>
                 </div>
@@ -107,7 +95,8 @@
 
         <!-- App js -->
         <script src="{{ asset('/assets/js/app.js') }}"></script>
-      
+
+
 
     </body>
 </html>
