@@ -6,7 +6,6 @@
      <div class="col-lg-12">
           <div class="card">
                <div class="card-body f1">
-                    <h4 class="card-title mb-4">Ficha de Inscripcion Escuela de Posgrado</h4>
                     <div class="card">
                          <div class="card-body">
                               <form role="form" action="{{ route('inscripcion.store') }}" method="post" class="f1 row g-3 formulario-guardar" enctype="multipart/form-data">
