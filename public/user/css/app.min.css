@@ -433,7 +433,6 @@ body[data-sidebar="dark"] .navbar-brand-box .logo-light {
   }
 }
 body[data-layout="horizontal"] .page-content {
-  margin-top: 70px;
   padding: calc(80px + 1.25rem) calc(1.25rem / 2) 60px calc(1.25rem / 2);
 }
 @media (max-width: 991.98px) {
@@ -591,8 +590,7 @@ body[data-layout="horizontal"] .footer {
   overflow: hidden;
 }
 .main-content .content {
-  padding: 0 15px 10px 15px;
-  margin-top: 70px;
+  padding: 0 15px 0 15px;
 }
 .sidebar-menu-scroll {
   height: calc(100% - 70px);
