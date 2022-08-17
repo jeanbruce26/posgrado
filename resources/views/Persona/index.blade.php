@@ -30,7 +30,7 @@
 					<td>{{$per->nombres}}</td>
 					<td>{{$per->celular1}}</td>
 					<td class="d-flex justify-content-star">
-						<a href="{{ route('Persona.show',$per->idpersona) }}" type="button" class="btn btn-secondary d-flex justify-content-center align-items-center text-center">Detalle <i class="fas fa-info-circle ms-1"></i></a>
+						<a href="{{ route('Persona.show',$per->idpersona) }}" type="button" class="btn btn-info  d-flex justify-content-center align-items-center text-center">Detalle <i class="fas fa-info-circle ms-1"></i></a>
 					</td>
 				</tr>
 

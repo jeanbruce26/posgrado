@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mencion;
-use App\Models\SubPrograma;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Expediente;
 
-class MencionController extends Controller
+class ExpedienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class MencionController extends Controller
      */
     public function index()
     {
-        $mencion = Mencion::orderBy('id_mencion','ASC')->paginate();
-        return view('Mencion.index', compact('mencion'));
+        $exp = Expediente::orderBy('cod_exp','ASC')->paginate();
+        return view('Expediente.index', compact('exp'));
     }
 
     /**
@@ -26,8 +26,7 @@ class MencionController extends Controller
      */
     public function create()
     {
-        $sub = SubPrograma::all();
-        return view('Mencion.create', compact('sub'));
+        return view('Expediente.create');
     }
 
     /**
@@ -39,12 +38,11 @@ class MencionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'cod_mencion'  =>  'max:10',
-            'mencion'  =>  'max:50',
-            'id_subprograma'  =>  'required|numeric',
+            'tipo_doc'  =>  'required|max:45',
+            'estado'  =>  'required|numeric',
         ]);
-        Mencion::create($request->all());
-        return redirect()->route('Mencion.index');
+        Expediente::create($request->all());
+        return redirect()->route('Expediente.index');
     }
 
     /**
@@ -66,9 +64,8 @@ class MencionController extends Controller
      */
     public function edit($id)
     {
-        $mencion = Mencion::find($id);
-        $sub = SubPrograma::all();
-        return view('Mencion.edit', compact('sub'))->with('mencion',$mencion);
+        $exp = Expediente::find($id);
+        return view('Expediente.edit')->with('exp',$exp);
     }
 
     /**
@@ -81,13 +78,12 @@ class MencionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'cod_mencion'  =>  'max:10',
-            'mencion'  =>  'max:50',
-            'id_subprograma'  =>  'required|numeric',
+            'tipo_doc'  =>  'required|max:45',
+            'estado'  =>  'required|numeric',
         ]);
-        $mencion = Mencion::find($id);
-        $mencion ->update($request->all());
-        return redirect()->route('Mencion.index');
+        $exp = Expediente::find($id);
+        $exp->update($request->all());
+        return redirect()->route('Expediente.index');
     }
 
     /**

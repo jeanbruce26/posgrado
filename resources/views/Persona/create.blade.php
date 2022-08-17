@@ -33,7 +33,7 @@
                <input type="text" class="form-control" id="inputNumeroDocumento" name="num_doc">
           </div>
           <div class="col-12">
-               <label for="inputDireccion" class="form-label">Direccion *</label>
+               <label for="inputDireccion" class="form-label">Dirección *</label>
                <input type="text" class="form-control" id="inputDireccion" name="direccion">
           </div>
           <div class="col-md-6">
@@ -93,7 +93,7 @@
           <div class="col-md-6">
                <label for="inputUniversidad" class="form-label">Universidad *</label>
                <select id="inputUniversidad" class="form-select" name="universidad">
-                    <option selected>Choose...</option>
+                    <option selected>Seleccione...</option>
                     @foreach ($uni as $u)
                     <option value="{{$u->cod_uni}}">{{$u->universidad}}</option>
                     @endforeach
@@ -101,9 +101,9 @@
           </div>
 
           <div class="col-md-6">
-               <label for="inputGradoAcademico" class="form-label">Grado Academico *</label>
+               <label for="inputGradoAcademico" class="form-label">Grado Académico *</label>
                <select id="inputGradoAcademico" class="form-select" name="grado_academico">
-                    <option selected>Choose...</option>
+                    <option selected>Seleccione...</option>
                     @foreach ($gra as $g)
                     <option value="{{$g->id_grado_academico}}">{{$g->nom_grado}}</option>
                     @endforeach
@@ -113,7 +113,7 @@
                <label for="inputEspecialidad" class="form-label">Especialidad *</label>
                <input type="text" class="form-control" id="inputEspecialidad" name="especialidad">
           </div>
-          <h5 class="text-secondary">Ubigeo de direccion</h5>
+          <h5 class="text-secondary">Ubigeo de Dirección</h5>
           @livewire('select-ubigeo')
           <div class="col-md-12 d-flex justify-content-star">
                <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center text-center">Agregar</button>

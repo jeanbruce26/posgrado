@@ -12,9 +12,9 @@
 			<thead>
 				<tr>
 					<th>Programa</th>
-					<th>SubPrograma</th>
-					<th>Codigo</th>
-					<th>Mencion</th>
+					<th>Sub Programa</th>
+					<th>Código</th>
+					<th>Mención</th>
 					<th class="col-1">Acciones</th>
 				</tr>
 			</thead>
@@ -25,14 +25,14 @@
 				<tr>
 					<td>{{$item->subprograma->programa->descripcion_programa}}</td>
 					<td>{{$item->subprograma->subprograma}}</td>
-					@if (is_null($item->cod_mencion) && is_null($item->mencion))
-					<td>Sin Mencion</td>
-					<td>Sin Mencion</td>
-					@else
-					<td>{{$item->cod_mencion}}</td>
-					<td>{{$item->mencion}}</td>
-					@endif
-					<td>
+						@if (is_null($item->cod_mencion) && is_null($item->mencion))
+							<td class="text-danger">Sin Mención</td>
+							<td class="text-danger">Sin Mención</td>
+						@else
+							<td>{{$item->cod_mencion}}</td>
+							<td>{{$item->mencion}}</td>
+						@endif
+					<td class="d-flex justify-content-star">
 						<a href="{{ route('Mencion.edit',$item->id_mencion) }}" type="button" class="btn btn-success d-flex justify-content-center align-items-center text-center">Editar <i class="fas fa-edit ms-1"></i></a>
 					</td>
 				</tr>

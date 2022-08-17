@@ -19,7 +19,7 @@
             </div>
 
             <div class="col-6">
-                <label for="inputDNI" class="form-label">Nro Operacion *</label>
+                <label for="inputDNI" class="form-label">Número Operación *</label>
                 <input type="text" class="form-control" id="inputDNI" name="nro_operacion" maxlength="10" value="{{ $pago->nro_operacion }}">
                 @error('nro_operacion')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>

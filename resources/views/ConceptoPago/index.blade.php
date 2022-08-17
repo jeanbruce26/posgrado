@@ -14,7 +14,7 @@
 					<th class="col-1">Código</th>
 					<th>Concepto</th>
 					<th >Monto</thc>
-					<th >Estado</th>
+					<th class="col-2">Estado</th>
 					<th class="col-1">Acciones</th>
 				</tr>
 			</thead>
@@ -26,10 +26,11 @@
 					<td>{{$conceptoPago->concepto_id}}</td>
 					<td>{{$conceptoPago->concepto}}</td>
 					<td>{{$conceptoPago->monto}}</td>
-					<td>@if ( $conceptoPago->estado == 1)
-							ACTIVO
+					<td>
+						@if ( $conceptoPago->estado == 1)
+							<div class="p-1 bg-info text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">Activo</div>
 						@else
-							DESACTIVO
+							<div class="p-1 bg-danger text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">Inactivo</div>
 						@endif
 					</td>
 					<td class="d-flex justify-content-star">

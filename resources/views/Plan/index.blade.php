@@ -11,7 +11,7 @@
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th class="col-md-1">Codigo</th>
+					<th class="col-md-1">Código</th>
 					<th>Plan</th>
 					<th class="col-md-1">Acciones</th>
 				</tr>

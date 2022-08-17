@@ -14,7 +14,7 @@
 					<th class="col-1">Código</th>
 					<th>Universidad</th>
 					<th>Departamento</th>
-					<th>Tipo Gestion</th>
+					<th>Tipo Gestión</th>
 					<th class="col-1">Acciones</th>
 				</tr>
 			</thead>

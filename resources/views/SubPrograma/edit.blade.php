@@ -10,14 +10,14 @@
 			{{ method_field('PUT') }}
 			@csrf
 			<div class="col-md-4">
-				<label class="form-label">Codigo Mencion *</label>
+				<label class="form-label">Codigo Mención *</label>
 				<input type="text" class="form-control"  name="cod_subprograma" value="{{ $sub->cod_subprograma }}">
                     @error('cod_subprograma')
 						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
 			</div>
 			<div class="col-md-8">
-				<label class="form-label">Mencion *</label>
+				<label class="form-label">Mención *</label>
 				<input type="text" class="form-control" name="subprograma" value="{{ $sub->subprograma }}">
 				@error('subprograma')
 						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>

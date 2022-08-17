@@ -24,7 +24,7 @@
                     @enderror
                </div>
                <div class="col-md-6">
-				<label class="form-label">Tipo de Gestion *</label>
+				<label class="form-label">Tipo de Gestión *</label>
 				<input type="text" class="form-control" name="tipo_gesti"  value="{{ $uni->tipo_gesti }}">
                     @error('tipo_gesti')
                          <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
