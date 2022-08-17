@@ -12,8 +12,8 @@
 			<thead>
 				<tr>
 					<th class="col-1">Código</th>
-					<th>Programa</th>
-					<th>Código</th>
+					<th class="col-2">Programa</th>
+					<th class="col-2">Código</th>
 					<th>Sub Programa</th>
 					<th class="col-1">Acciones</thcl>
 				</tr>

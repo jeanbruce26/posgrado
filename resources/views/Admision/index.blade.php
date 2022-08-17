@@ -13,7 +13,7 @@
 				<tr>
 					<th class="col-1">Código</th>
 					<th>Admisión</th>
-					<th>Estado</th>
+					<th class="col-2">Estado</th>
 					<th class="col-1">Acciones</th>
 				</tr>
 			</thead>
@@ -24,7 +24,17 @@
 				<tr>
 					<td>{{$admision->cod_admi}}</td>
 					<td>{{$admision->admision}}</td>
-					<td>{{$admision->estado}}</td>
+					@if($admision->estado == 1)
+						<td>
+							<div class="p-1 bg-info text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">Activo</div>
+						</td>
+					@else
+						@if($admision->estado == 2)
+							<td>
+								<div class="p-1 bg-danger text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">Inactivo</div> 
+							</td>
+						@endif
+					@endif
 					<td class="d-flex justify-content-star">
                         <a href="{{ route('Admision.edit', $admision->cod_admi) }}" type="button" class="btn btn-success d-flex justify-content-center align-items-center text-center">Editar <i class="fas fa-edit ms-1"></i></a>
                     </td>

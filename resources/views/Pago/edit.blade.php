@@ -59,7 +59,9 @@
                 <label class="form-label">Estado *</label>
 				<select class="form-select" name="estado">
                     <option selected>Seleccione</option>
-                    <option value="1" {{ '1' == $pago->estado ? 'selected' : '' }}>Activo</option>
+                    <option value="1" {{ '1' == $pago->estado ? 'selected' : '' }}>Pagado</option>
+                    <option value="2" {{ '2' == $pago->estado ? 'selected' : '' }}>Verificado</option>
+                    <option value="3" {{ '3' == $pago->estado ? 'selected' : '' }}>Inscripto</option>
                 </select>
                     @error('estado')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>

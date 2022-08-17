@@ -58,7 +58,9 @@
             <label class="form-label">Estado *</label>
             <select class="form-select" name="estado" value="{{ old('estado') }}"> 
                 <option value="" selected>Seleccione</option>
-                <option value="1">Activo</option>
+                <option value="1">Pagado</option>
+                <option value="2">Verificado</option>
+                <option value="3">Inscripto</option>
             </select>
             @error('estado')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
