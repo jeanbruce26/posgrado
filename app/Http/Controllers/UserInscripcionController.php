@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admision;
+use App\Models\ConceptoPago;
 use App\Models\Discapacidad;
 use App\Models\Distrito;
 use App\Models\EstadoCivil;
@@ -13,9 +14,13 @@ use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
 use App\Models\IngresoPago;
 use App\Models\Inscripcion;
+use App\Models\InscripcionPago;
+use App\Models\Mencion;
+use App\Models\Pago;
 use App\Models\Persona;
 use App\Models\UbigeoPersona;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserInscripcionController extends Controller
 {
@@ -26,50 +31,94 @@ class UserInscripcionController extends Controller
      */
     public function index()
     {
-        // $tipo_doc = TipoDocumento::all();
-        // $tipo_dis = Discapacidad::all();
-        // $estado_civil = EstadoCivil::all();
-        // $universidad = Universidad::all();
-        // $grado = GradoAcademico::all();
-        // $expediente = Expediente::all();
-        // return view('user/inscripcion.create', compact('tipo_doc','tipo_dis','estado_civil','universidad','grado','expediente'));
-    }
-
-    public function index2($idpersona)
-    {
-        // return view('user/inscripcion.formulario2', compact('idpersona'));
-    }
-
-    public function index3($id_inscripcion)
-    {
-        // $expediente = Expediente::all();
-        // return view('user/inscripcion.formulario3', compact('id_inscripcion', 'expediente'));
-    }
-
-    public function index4()
-    {
-        return view('user.inscripcion.inscripcion');
+        return view('user.inscripcion.terminos-condiciones');
     }
 
     public function check(Request $request)
     {
-        // dd($request);
+        // $request->validate([
+        //     'check'  =>  'required',
+        // ]);
 
-        $request->validate([
-            'check' => ['required']
-        ]);
+        if(!$request->check){
+            return back()->with('mensaje','Acepte los Terminos y Condiciones');
+        }
 
-        return view('user.inscripcion.inscripcion');
+        return redirect()->route('inscripcion.pagos');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index2()
     {
-        //
+        // return view('user/inscripcion.formulario2', compact('idpersona'));
+        $concepto = ConceptoPago::all();
+        $tipo_doc = TipoDocumento::all();
+        $pago = null;
+        $concepto_id = null;
+        $tipodoc_id = null;
+        $doc = null;
+        return view('user.inscripcion.pagos', compact('concepto', 'tipo_doc', 'pago', 'concepto_id', 'tipodoc_id', 'doc'));
+    }
+
+    public function mostrarPago(Request $request)
+    {
+        $request->validate([
+            'tipo_documento' => ['required', 'numeric'],
+            'numero_documento' => ['required', 'numeric'],
+            'concepto_pago' => ['required', 'numeric'],
+        ]);
+        if($request->numero_documento != auth('pagos')->user()->dni){
+            return back()->with('mensaje-dni','El dni ingresado no puede ser buscado o no lo pertenece.');
+        }
+        $concepto = ConceptoPago::all();
+        $concepto_id = $request->concepto_pago;
+        $tipo_doc = TipoDocumento::all();
+        $tipodoc_id = $request->tipo_documento;
+        $doc = $request->numero_documento;
+        $pago = Pago::where('dni',$request->numero_documento)->where('estado',1)->get();
+        return view('user.inscripcion.pagos', compact('concepto', 'tipo_doc', 'pago', 'concepto_id', 'tipodoc_id', 'doc'));
+    }
+
+    public function guardarPago(Request $request)
+    {
+        if(!$request->seleccionar){
+            return back()->with('mensaje-seleccionar','Debe seleccionar su pago, para continuar con su inscripcion.');
+        }
+
+        $admi = Admision::where('estado',1)->get();
+        foreach($admi as $item){
+            $admision = $item->cod_admi;
+        }
+        
+        $inscripcion = Inscripcion::create([
+            "estado" => 'Activo',
+            "admision_cod_admi" => $admision,
+        ]);
+
+        foreach($request->seleccionar as $key=>$name){
+
+            $inscripcion_pago = InscripcionPago::create([
+                "pago_id" => $request->seleccionar[$key],
+                "inscripcion_id" => $inscripcion->id_inscripcion,
+                "concepto_pago_id" => $request->concepto_id,
+            ]);
+
+            $pago = Pago::find($request->seleccionar[$key]);
+            $pago->estado = 2;
+            $pago->save();
+        }
+        
+        return redirect()->route('inscripcion.inscripcion', [$inscripcion->id_inscripcion]);
+    }
+
+    public function inscripcion($id_inscripcion)
+    {
+        $tipo_doc = TipoDocumento::all();
+        $tipo_dis = Discapacidad::all();
+        $estado_civil = EstadoCivil::all();
+        $universidad = Universidad::all();
+        $grado = GradoAcademico::all();
+        $expediente = Expediente::all();
+        return view('user/inscripcion.create', compact('tipo_doc','tipo_dis','estado_civil','universidad','grado','expediente','id_inscripcion'));
     }
 
     /**
@@ -80,6 +129,11 @@ class UserInscripcionController extends Controller
      */
     public function store(Request $request)
     {
+        date_default_timezone_set("America/Lima");
+        // dd($final);
+        $request->validate([
+            'check'  =>  'required'
+        ]);
         // // dd($request);
         // $expediente = Expediente::all();
         // foreach($expediente as $item){
@@ -109,212 +163,133 @@ class UserInscripcionController extends Controller
         //     'especialidad'  =>  'max:50',
         //     'pais_extra'  =>  'max:50',
         //     'id_mencion'  =>  'required',
-        //     'num_opera'  =>  'required',
-        //     'monto'  =>  'required',
-        //     'fecha'  =>  'required',
-        //     'vaucher'  =>  'required|mimes:pdf,jpg,jpeg,png|max:10240',
+        //     'check'  =>  'required',
         //     'nom_exped2'  =>  'required|mimes:pdf|max:20240',
         // ]);
 
-        // //FORMULARIO 1
+        //FORMULARIO 1
 
-        // $persona = Persona::create([
-        //     "num_doc" => $request->num_doc,
-        //     "apell_pater" => $request->apell_pater,
-        //     "apell_mater" => $request->apell_mater,
-        //     "nombres" => $request->nombres,
-        //     "direccion" => $request->direccion,
-        //     "celular1" => $request->celular1,
-        //     "celular2" => $request->celular2,
-        //     "sexo" => $request->sexo,
-        //     "fecha_naci" => $request->fecha_naci,
-        //     "email" => $request->email,
-        //     "email2" => $request->email2,
-        //     "año_egreso" => $request->año_egreso,
-        //     "centro_trab" => $request->centro_trab,
-        //     "tipo_doc_cod_tipo" => $request->tipo_doc_cod_tipo,
-        //     "discapacidad_cod_disc" => $request->discapacidad_cod_disc,
-        //     "est_civil_cod_est " => $request->est_civil_cod_est,
-        //     "univer_cod_uni" => $request->univer_cod_uni,
-        //     "id_grado_academico" => $request->id_grado_academico,
-        //     "especialidad" => $request->especialidad,
-        // ]);
+        $persona = Persona::create([
+            "num_doc" => $request->num_doc,
+            "apell_pater" => $request->apell_pater,
+            "apell_mater" => $request->apell_mater,
+            "nombres" => $request->nombres,
+            "direccion" => $request->direccion,
+            "celular1" => $request->celular1,
+            "celular2" => $request->celular2,
+            "sexo" => $request->sexo,
+            "fecha_naci" => $request->fecha_naci,
+            "email" => $request->email,
+            "email2" => $request->email2,
+            "año_egreso" => $request->año_egreso,
+            "centro_trab" => $request->centro_trab,
+            "tipo_doc_cod_tipo" => $request->tipo_doc_cod_tipo,
+            "discapacidad_cod_disc" => $request->discapacidad_cod_disc,
+            "est_civil_cod_est" => $request->est_civil_cod_est,
+            "univer_cod_uni" => $request->univer_cod_uni,
+            "id_grado_academico" => $request->id_grado_academico,
+            "especialidad" => $request->especialidad,
+        ]);
 
-        // dd($persona);
+        $idpersona = $persona->idpersona;
 
-        // $idpersona = $persona->idpersona;
-
-        // $input = $request->all();
+        $input = $request->all();
         
-        // for ($i = 1; $i <= 2; $i++){
-        //     $v = "id_distrito".$i;
-        //     $ubigeo = Distrito::select('ubigeo')->where('id',$input[$v])->get();
-        //     foreach($ubigeo as $item){
-        //         $ubi = $item->ubigeo;
-        //     }
-        //     UbigeoPersona::create([
-        //         "id_distrito" => $input[$v],
-        //         "tipo_ubigeo_cod_tipo" => $i,
-        //         "persona_idpersona" => $idpersona,
-        //         "ubigeo" => $ubi,
-        //     ]);
-        // }
+        for ($i = 1; $i <= 2; $i++){
+            $v = "id_distrito".$i;
+            $ubigeo = Distrito::select('ubigeo')->where('id',$input[$v])->get();
+            foreach($ubigeo as $item){
+                $ubi = $item->ubigeo;
+            }
+            UbigeoPersona::create([
+                "id_distrito" => $input[$v],
+                "tipo_ubigeo_cod_tipo" => $i,
+                "persona_idpersona" => $idpersona,
+                "ubigeo" => $ubi,
+            ]);
+        }
 
-        // //FORMULARIO 2
+        $id_inscripcion = $request->id_inscripcion;
 
-        // $admision = 1;
-        // $estado = "Activo";
+        $inscripcion = Inscripcion::find($id_inscripcion);
+        $inscripcion->persona_idpersona = $idpersona;
+        $inscripcion->id_mencion = $input['id_mencion'];
+        $inscripcion->save();
 
-        // $inscripcion = Inscripcion::create([
-        //     "persona_idpersona" => $idpersona,
-        //     "estado" => $estado,
-        //     "admision_cod_admi" => $admision,
-        //     "id_mencion" => $input['id_mencion'],
-        // ]);
+        //FORMULARIO 3
 
-        // $id_inscripcion = $inscripcion->id_inscripcion;
+        $estadoExpediente = "Enviado";
 
-        // $admision2 = Admision::where('cod_admi',1)->get();
-        // foreach($admision2 as $item){
-        //     $admi = $item->admision;
-        // }
+        $count = Expediente::count();
 
-        // $data = $request->file('vaucher');
-        // $data = $filename = "voucher".".".$data->extension();
-        // $request->vaucher->move(public_path($admi.'/'.$id_inscripcion), $filename);
+        for($i = 1; $i <= $count; $i++){
+            $expe = Expediente::where('cod_exp',$i)->get();
+            foreach($expe as $item){
+                $nombreExpediente = $item->tipo_doc;
+                $cod = $item->cod_exp;
+            }
 
-        // IngresoPago::create([
-        //     "num_opera" => $input['num_opera'],
-        //     "monto" => $input['monto'],
-        //     "fecha" => $input['fecha'],
-        //     "id_inscripcion" => $id_inscripcion,
-        //     "vaucher" => $filename,
-        // ]);
+            $admision3 = Admision::where('estado',1)->get();
+            foreach($admision3 as $item){
+                $admi = $item->admision;
+            }
 
-        // //FORMULARIO 3
+            $name = 'nom_exped'.$cod;
 
-        // $estadoExpediente = "Enviado";
+            $data = $request->file('nom_exped'.$cod);
+            if($data != null){
+                $data = $filename = $nombreExpediente.".".$data->extension();
+                $request->$name->move(public_path($admi.'/'.$id_inscripcion.'/'), $filename);
 
-        // $count = Expediente::count();
+                ExpedienteInscripcion::create([
+                    "nom_exped" => $filename,
+                    "estado" => $estadoExpediente,
+                    "expediente_cod_exp" => $i,
+                    "id_inscripcion" => $id_inscripcion,
+                ]);
+            }
+        }
+        $montoTotal=0;
+        $inscripcion_pago = InscripcionPago::where('inscripcion_id',$id_inscripcion)->get();
+        foreach($inscripcion_pago as $item){
+            $pago_id = $item->pago_id;
+            $pago = Pago::find($pago_id);
+            $pago->estado = 3;
+            $pago->save();
 
-        // for($i = 1; $i <= $count; $i++){
-        //     $expe = Expediente::where('cod_exp',$i)->get();
-        //     foreach($expe as $item){
-        //         $nombreExpediente = $item->tipo_doc;
-        //         $cod = $item->cod_exp;
-        //     }
+            $montoTotal = $montoTotal + $item->pago->monto;
+        }
 
-        //     $admision3 = Admision::where('cod_admi',1)->get();
-        //     foreach($admision3 as $item){
-        //         $admi = $item->admision;
-        //     }
+        $fecha_actual = now();
+        $mencion = Mencion::where('id_mencion',$request->id_mencion)->get();
+        $admisionn = Admision::where('estado',1)->get();
+        $inscrip = Inscripcion::where('id_inscripcion',$id_inscripcion)->get();
+        $tiempo = 6;
+        $valor = '+ '.intval($tiempo).' month';
+        $final = date('j-m-Y',strtotime($request->fecha_inicio.$valor));
 
-        //     $name = 'nom_exped'.$cod;
+        $data = [ 
+            'persona' => $persona,
+            'fecha_actual' => $fecha_actual,
+            'mencion' => $mencion,
+            'admisionn' => $admisionn,
+            'inscripcion_pago' => $inscripcion_pago,
+            'inscrip' => $inscrip,
+            'montoTotal' => $montoTotal,
+            'final' => $final
+        ];
 
-        //     $data = $request->file('nom_exped'.$cod);
-        //     if($data != null){
-        //         $data = $filename = $nombreExpediente.".".$data->extension();
-        //         $request->$name->move(public_path($admi.'/'.$id_inscripcion), $filename);
+        $nombre_pdf = 'FICHA_INSCRIPCION.pdf';
+        $pdf = PDF::loadView('user.inscripcion.reporte-pdf', $data)->save(public_path($admi.'/'.$id_inscripcion.'/'). $nombre_pdf);
+        PDF::loadView('user.inscripcion.reporte-pdf', $data)->stream($nombre_pdf);
 
-        //         ExpedienteInscripcion::create([
-        //             "nom_exped" => $filename,
-        //             "estado" => $estadoExpediente,
-        //             "expediente_cod_exp" => $i,
-        //             "id_inscripcion" => $id_inscripcion,
-        //         ]);
-        //     }
-        // }
+        $ins = Inscripcion::find($id_inscripcion);
+        $ins->inscripcion = $nombre_pdf;
+        $ins->save();
 
-        // return redirect()->route('user');
+        auth('pagos')->logout();
 
-        // // return redirect()->route('inscripcion.index2', [$persona->idpersona]);
-    }
-
-    public function store2(Request $request)
-    {
-        // $request->validate([
-        //     'id_mencion'  =>  'required',
-        //     'num_opera'  =>  'required',
-        //     'monto'  =>  'required',
-        //     'fecha'  =>  'required',
-        //     'vaucher'  =>  'required|mimes:pdf,jpg,jpeg,png|max:10240',
-        // ]);
-
-        // $input = $request->all();   
-        // $admision = 1;
-        // $estado = "Activo";
-
-        // $inscripcion = Inscripcion::create([
-        //     "persona_idpersona" => $input['persona_idpersona'],
-        //     "estado" => $estado,
-        //     "admision_cod_admi" => $admision,
-        //     "id_mencion" => $input['id_mencion'],
-        // ]);
-
-        // $id_inscripcion = $inscripcion->id_inscripcion;
-
-        // $admision = Admision::where('cod_admi',1)->get();
-        // foreach($admision as $item){
-        //     $admi = $item->admision;
-        // }
-
-        // $data = $request->file('vaucher');
-        // $data = $filename = "voucher".".".$data->extension();
-        // $request->vaucher->move(public_path($admi.'/'.$id_inscripcion), $filename);
-
-        // $ingre_pago = IngresoPago::create([
-        //     "num_opera" => $input['num_opera'],
-        //     "monto" => $input['monto'],
-        //     "fecha" => $input['fecha'],
-        //     "id_inscripcion" => $id_inscripcion,
-        //     "vaucher" => $filename,
-        // ]);
-
-        // // return redirect()->route('inscripcion.index3', [$inscripcion->id_inscripcion]);
-    }
-
-    public function store3(Request $request)
-    {
-        // $expediente = Expediente::all();
-        // foreach($expediente as $item){
-        // $request->validate([
-        //         ("nom_exped".$item->cod_exp)  =>  'mimes:pdf|max:20240'
-        // ]);
-        // }
-
-        // $input = $request->all(); 
-
-        // $estado = "Enviado";
-
-        // $count = Expediente::count();
-
-        // for($i = 1; $i <= $count; $i++){
-        //     $expe = Expediente::where('cod_exp',$i)->get();
-        //     foreach($expe as $item){
-        //         $nombreExpediente = $item->tipo_doc;
-        //         $cod = $item->cod_exp;
-        //     }
-
-        //     $admision = Admision::where('cod_admi',1)->get();
-        //     foreach($admision as $item){
-        //         $admi = $item->admision;
-        //     }
-
-        //     $name = 'nom_exped'.$cod;
-
-        //     $data = $request->file('nom_exped'.$cod);
-        //     $data = $filename = $nombreExpediente.".".$data->extension();
-        //     $request->$name->move(public_path($admi.'/'.$input['id_inscripcion']), $filename);
-
-        //     $expe_ins = ExpedienteInscripcion::create([
-        //         "nom_exped" => $filename,
-        //         "estado" => $estado,
-        //         "expediente_cod_exp" => $i,
-        //         "id_inscripcion" => $input['id_inscripcion'],
-        //     ]);
-        // }
-
-        // return redirect()->route('user');
+        return redirect()->route('login');
     }
 
     /**

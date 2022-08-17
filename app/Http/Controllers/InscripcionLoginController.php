@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InscripcionPago;
 use App\Models\Pago;
 use Illuminate\Http\Request;
 
@@ -41,20 +42,28 @@ class InscripcionLoginController extends Controller
             'dni'  =>  'required|numeric',
             'nro_operacion'  =>  'required|numeric',
         ]);
-
-        $pago = Pago::where('dni',$request->dni)->where('nro_operacion',$request->nro_operacion)->where('estado',1)->first();
-
+        
+        // $pago = Pago::where('dni',$request->dni)->where('nro_operacion',$request->nro_operacion)->where('estado',1)->orWhere('estado',2)->first();
+        $pago = Pago::where('dni',$request->dni)->where('nro_operacion',$request->nro_operacion)->first();
+        // dd($pago);
         if(!$pago){
             return back()->with('mensaje','Credenciales incorrectas');
-        }else{
-            auth('pagos')->login($pago);
         }
 
-        // if(!){
-        //     return back()->with('mensaje','Credenciales incorrectas');
-        // }
+        if($pago->estado == 1){
+            auth('pagos')->login($pago);
+            return redirect()->route('inscripcion');
+        }else if($pago->estado == 2){
+            $inscripcion = InscripcionPago::join('pago','inscripcion_pago.pago_id','=','pago.pago_id')->where('pago.dni',$request->dni)->where('pago.nro_operacion',$request->nro_operacion)->where('pago.estado',2)->get();
+            foreach($inscripcion as $item){
+                $id_inscripcion = $item->inscripcion_id;
+            }
+            auth('pagos')->login($pago);
+            return redirect()->route('inscripcion.inscripcion', [$id_inscripcion]);
+        }else if($pago->estado == 3){
+            return back()->with('mensaje','Usted ya no puede realizar una inscripción');
+        }
 
-        return redirect()->route('inscripcion');
     }
 
     public function logout(Request $request)

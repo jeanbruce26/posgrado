@@ -39,6 +39,7 @@ class AdmisionController extends Controller
     {
         $request->validate([
             'admision'  =>  'required|max:45',
+            'estado'  =>  'required|numeric',
         ]);
         Admision::create($request->all());
         return redirect()->route('Admision.index');
@@ -78,6 +79,7 @@ class AdmisionController extends Controller
     {
         $request->validate([
             'admision'  =>  'required|max:45',
+            'estado'  =>  'required|numeric',
         ]);
         $admi = Admision::find($id);
         $admi->update($request->all());

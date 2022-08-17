@@ -39,7 +39,7 @@
                                     <p class="text-muted">Recuerda que, puedes realizar tu inscripción al dia siguiente de haber realizado tu pago.</p>
                                 </div>
                                 <div class="p-2 mt-4">
-                                    <form action="{{ route('login') }}" method="POST" novalidate>
+                                    <form action="{{ route('login.store') }}" method="POST" novalidate>
                                         @csrf
                                         <div class="mb-3">
                                             <label class="form-label">Numero de documento *</label>
@@ -64,21 +64,53 @@
                                         <div class="mt-4">
                                             <button class="btn btn-primary w-100 w-sm waves-effect waves-light" type="submit">Ingresar</button>
                                         </div>
+
+                                        <div class="mt-4">
+                                            - <a class="guia" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                Guia de Inscripción
+                                            </a>
+                                        </div>
                                     </form>
                                 </div>
             
                             </div>
                         </div>
 
+                        
+
                         <div class="mt-5 text-center text-white">
                             <p>© <script>document.write(new Date().getFullYear())</script> Escuela de Posgrado</p>
                         </div>
+
 
                     </div>
                 </div>
                 <!-- end row -->
             </div>
             <!-- end container -->
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Guia de Inscripción</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <img src="{{ asset('Manual/Diapositiva1.png') }}" class="w-100" alt="">
+                    <img src="{{ asset('Manual/Diapositiva2.PNG') }}" class="w-100" alt="">
+                    <img src="{{ asset('Manual/Diapositiva3.PNG') }}" class="w-100" alt="">
+                    <img src="{{ asset('Manual/Diapositiva4.PNG') }}" class="w-100" alt="">
+                    <img src="{{ asset('Manual/Diapositiva5.PNG') }}" class="w-100" alt="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <a target="_blank" href="{{ asset('Manual/manual_inscripcion.pdf') }}" class="btn btn-primary">Descargar</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- JAVASCRIPT -->
@@ -92,6 +124,8 @@
 
         <!-- App js -->
         <script src="{{ asset('/assets/js/app.js') }}"></script>
+
+
 
     </body>
 </html>

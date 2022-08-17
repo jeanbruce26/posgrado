@@ -15,6 +15,7 @@ class Admision extends Model
     protected $fillable = [
         'cod_admi',
         'admision',
+        'estado',
     ];
 
     public $timestamps = false;

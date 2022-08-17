@@ -24,7 +24,7 @@
 					<td>{{$inscripcionPago->inscripcion_pago_id}}</td>
 					<td>{{$inscripcionPago->inscripcion->inscripcion_id}}</td>
 					<td>{{$inscripcionPago->pago->monto}}</td>
-					<td>{{$inscripcionPago->concepto_pago->concepto}}</td>
+					<td>{{$inscripcionPago->ConceptoPago->concepto}}</td>
 					{{-- <td>
                         <button type="button" class="btn btn-success">Editar</button>
                         <button type="button" class="btn btn-danger">Eliminar</button>

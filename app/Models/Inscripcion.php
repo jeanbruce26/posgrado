@@ -18,6 +18,7 @@ class Inscripcion extends Model
         'estado',
         'admision_cod_admi',
         'id_mencion',
+        'inscripcion',
     ];
 
     public $timestamps = false;
