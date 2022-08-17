@@ -13,7 +13,7 @@
 				<tr>
 					<th class="col-1">Código</th>
 					<th>Programa</th>
-					<th>Codigo</th>
+					<th>Código</th>
 					<th>Sub Programa</th>
 					<th class="col-1">Acciones</thcl>
 				</tr>

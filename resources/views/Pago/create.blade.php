@@ -18,7 +18,7 @@
         </div>
 
         <div class="col-6">
-            <label class="form-label">Nro Operacion *</label>
+            <label class="form-label">Número Operación *</label>
             <input type="text" class="form-control" name="nro_operacion" maxlength="10" value="{{ old('nro_operacion') }}">
             @error('nro_operacion')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>

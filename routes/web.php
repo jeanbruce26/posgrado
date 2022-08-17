@@ -30,6 +30,7 @@ Route::resource('InscripcionPago', 'InscripcionPagoController');
 Route::resource('ConceptoPago', 'ConceptoPagoController');
 Route::resource('HistorialInscripcion', 'HistorialInscripcionController');
 Route::resource('ExpedienteInscripcion', 'ExpedienteInscripcionController');
+Route::resource('Expediente', 'ExpedienteController');
 
 Route::get('/user', function () {
     return view('user');

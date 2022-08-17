@@ -30,8 +30,8 @@
                 <label for="inputMonto" class="form-label">Estado *</label>
                 <select id="inputEstado" class="form-select" name="estado">
                     <option selected>Seleccione</option>
-                    <option value="1" {{ $concepPago->estado == 1 ? 'selected' : '' }}> ACTIVO</option>
-                    <option value="2" {{ $concepPago->estado == 2 ? 'selected' : '' }}> DESACTIVO</option>
+                    <option value="1" {{ $concepPago->estado == 1 ? 'selected' : '' }}> Activo</option>
+                    <option value="2" {{ $concepPago->estado == 2 ? 'selected' : '' }}> Inactivo</option>
                 </select>
                 @error('monto')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>

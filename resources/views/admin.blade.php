@@ -19,6 +19,8 @@
         {{-- Icons --}}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
         @livewireStyles
     </head>
 
@@ -134,16 +136,13 @@
                                         <a href="javascript: void(0);" class="has-arrow">Admisión</a>
                                         <ul class="sub-menu" aria-expanded="true">
                                             <li><a href="{{ url('Admision') }}" class="dropdown-item">Admision</a></li>
-                                        </ul>
-                                        <ul class="sub-menu" aria-expanded="true">
                                             <li><a href="{{ url('Plan') }}" class="dropdown-item">Plan</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="javascript: void(0);" class="has-arrow">Programa</a>
+                                        <a href="javascript: void(0);" class="has-arrow">Expediente</a>
                                         <ul class="sub-menu" aria-expanded="true">
-                                            <li><a href="{{ url('Admision') }}" class="dropdown-item">Admision</a></li>
-                                            <li><a href="{{ url('Plan') }}" class="dropdown-item">Plan</a></li>
+                                            <li><a href="{{ url('Expediente') }}" class="dropdown-item">Expediente</a></li>
                                         </ul>
                                     </li>
                                     <li>
@@ -207,7 +206,6 @@
                                 @yield('content')
                             </div>
                         </div>
-                        
                     </div> <!-- container-fluid -->
                 </div>
                 <!-- End Page-content -->

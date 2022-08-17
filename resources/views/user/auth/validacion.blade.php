@@ -76,9 +76,12 @@
                             </div>
                         </div>
 
+                        
+
                         <div class="mt-5 text-center text-white">
                             <p>© <script>document.write(new Date().getFullYear())</script> Escuela de Posgrado</p>
                         </div>
+
 
                     </div>
                 </div>
@@ -121,6 +124,8 @@
 
         <!-- App js -->
         <script src="{{ asset('/assets/js/app.js') }}"></script>
+
+
 
     </body>
 </html>

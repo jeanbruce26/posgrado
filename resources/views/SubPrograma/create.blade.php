@@ -9,7 +9,7 @@
 		<form action="{{ route('SubPrograma.store') }}" method="POST" class="row g-3">
 			@csrf
 			<div class="col-md-4">
-				<label class="form-label">Codigo Sub Programa *</label>
+				<label class="form-label">Código Sub Programa *</label>
 				<input type="text" class="form-control" name="cod_subprograma" maxlength="10" value="{{ old('cod_subprograma') }}">
 				@error('cod_subprograma')
 					<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
