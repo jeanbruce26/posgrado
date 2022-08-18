@@ -13,7 +13,7 @@
 				<tr>
 					<th class="col-1">Código</th>
 					<th>Documento</th>
-					<th>Número Operación</th>
+					<th>Número de Operación</th>
 					<th>Monto</th>
 					<th>Fecha</th>
 					<th>Canal Pago</th>

@@ -18,7 +18,7 @@
 			</div>
 			<div class="col-md-8">
 				<label class="form-label">Mención *</label>
-				<input type="text" class="form-control" name="mencion" value="{{ $mencion->mencion }}">
+				<input type="text" class="form-control" name="mencion" value="{{ $mencion->mencion }}" onkeypress="return soloLetras(event)">
 				@error('mencion')
 						<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
@@ -42,5 +42,26 @@
 		</form>
 
 	</div>
+
+	<script>
+		function soloLetras(e) {
+			var key = e.keyCode || e.which,
+				tecla = String.fromCharCode(key).toLowerCase(),
+				letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+				especiales = [8, 37, 39, 46],
+				tecla_especial = false;
+		
+			for (var i in especiales) {
+				if (key == especiales[i]) {
+				tecla_especial = true;
+				break;
+				}
+			}
+		
+			if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+				return false;
+			}
+		}
+	</script>
 
 @endsection

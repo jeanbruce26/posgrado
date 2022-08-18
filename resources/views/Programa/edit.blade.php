@@ -10,8 +10,8 @@
                {{ method_field('PUT') }}
                @csrf
 			<div class="col-md-6">
-				<label for="inputPrograma" class="form-label">Programa</label>
-				<input type="text" class="form-control" id="inputPrograma" name="descripcion_programa" value="{{ $pro->descripcion_programa }}">
+				<label for="inputPrograma" class="form-label">Programa *</label>
+				<input type="text" class="form-control" id="inputPrograma" name="descripcion_programa" value="{{ $pro->descripcion_programa }}" onkeypress="return soloLetras(event)">
                     @error('descripcion_programa')
                          <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
@@ -19,12 +19,12 @@
                <div class="col-md-6">
                     <label for="inputPlan" class="form-label">Sede *</label>
                     <select id="inputPlan" class="form-select" name="id_sede">
-                         <option selected>Seleccione</option>
+                         <option value="" selected>Seleccione</option>
                          @foreach ($sede as $item)
                          <option value="{{$item->id_sede}}" {{ $item->cod_sede == $pro->id_sede ? 'selected' : '' }}>{{$item->sede}}</option>
                          @endforeach
                     </select>
-                    @error('cod_sede')
+                    @error('id_sede')
                          <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
                </div>
@@ -35,5 +35,26 @@
 		</form>
 
 	</div>
+
+     <script>
+		function soloLetras(e) {
+			var key = e.keyCode || e.which,
+				tecla = String.fromCharCode(key).toLowerCase(),
+				letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+				especiales = [8, 37, 39, 46],
+				tecla_especial = false;
+		
+			for (var i in especiales) {
+				if (key == especiales[i]) {
+				tecla_especial = true;
+				break;
+				}
+			}
+		
+			if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+				return false;
+			}
+		}
+	</script>
 
 @endsection

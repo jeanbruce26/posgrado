@@ -11,7 +11,7 @@
 
         <div class="col-md-4">
             <label for="inputConcepto" class="form-label">Concepto *</label>
-            <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" value="{{ old('concepto') }}">
+            <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" value="{{ old('concepto') }}" onkeypress="return soloLetras(event)">
             @error('concepto')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
@@ -19,7 +19,7 @@
 
         <div class="col-md-4">
             <label for="inputMonto" class="form-label">Monto *</label>
-            <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" value="{{ old('monto') }}">
+            <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" value="{{ old('monto') }}" onkeypress="return soloNumeros(event)">
             @error('monto')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
@@ -28,9 +28,9 @@
         <div class="col-4">
             <label for="inputEstado" class="form-label">Estado *</label>
             <select id="inputEstado" class="form-select" name="estado">
-                <option selected>Seleccione</option>
-                <option value="1"> ACTIVO</option>
-                <option value="2"> DESACTIVO</option>
+                <option value="" selected>Seleccione</option>
+                <option value="1"> Activo</option>
+                <option value="2"> Inactivo</option>
             </select>
             @error('estado')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -44,5 +44,47 @@
         </div>
     </form>
 </div>
+
+<script>
+    function soloLetras(e) {
+        var key = e.keyCode || e.which,
+            tecla = String.fromCharCode(key).toLowerCase(),
+            letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+            especiales = [8, 37, 39, 46],
+            tecla_especial = false;
+    
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+            }
+        }
+    
+        if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+            return false;
+        }
+    }
+</script>
+
+<script>
+    function soloNumeros(e) {
+        var key = e.keyCode || e.which,
+            tecla = String.fromCharCode(key).toLowerCase(),
+            letras = "1234567890.",
+            especiales = [8, 37, 39, 46],
+            tecla_especial = false;
+    
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+            }
+        }
+    
+        if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+            return false;
+        }
+    }
+</script>
 
 @endsection
