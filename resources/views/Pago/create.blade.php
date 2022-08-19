@@ -26,8 +26,8 @@
         </div>
         
         <div class="col-md-6">
-            <label for="inputMonto" class="form-label">Monto *</label>
-            <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" value="{{ old('monto') }}" onkeypress="return soloNumeros(event)">
+            <label class="form-label">Monto *</label>
+            <input type="text" class="form-control" name="monto" maxlength="13" value="{{ old('monto') }}" onkeypress="return soloNumeros(event)">
             @error('monto')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
@@ -94,5 +94,7 @@
         }
     }
 </script>
+
+
 
 @endsection

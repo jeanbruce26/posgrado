@@ -42,28 +42,28 @@
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Numero Documento (*)</label>
-                                                  <input type="text" class="form-control" name="num_doc" value="{{ old('num_doc') }}">
+                                                  <input type="text" class="form-control" name="num_doc" value="{{ old('num_doc') }}" onkeypress="return  soloNumeros(event)">
                                                   @error('num_doc')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Apellido Paterno (*)</label>
-                                                  <input type="text" class="form-control" name="apell_pater" value="{{ old('apell_pater') }}" style="text-transform: uppercase;">
+                                                  <input type="text" class="form-control" name="apell_pater" value="{{ old('apell_pater') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
                                                   @error('apell_pater')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Apellido Materno (*)</label>
-                                                  <input type="text" class="form-control"  name="apell_mater" value="{{ old('apell_mater') }}" style="text-transform: uppercase;">
+                                                  <input type="text" class="form-control"  name="apell_mater" value="{{ old('apell_mater') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
                                                   @error('apell_mater')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Nombre (*)</label>
-                                                  <input type="text" class="form-control" name="nombres" value="{{ old('nombres') }}" style="text-transform: uppercase;">
+                                                  <input type="text" class="form-control" name="nombres" value="{{ old('nombres') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
                                                   @error('nombres')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -112,21 +112,21 @@
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Especialidad</label>
-                                                  <input type="text" class="form-control" name="especialidad" value="{{ old('especialidad') }}" style="text-transform: uppercase;">
+                                                  <input type="text" class="form-control" name="especialidad" value="{{ old('especialidad') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
                                                   @error('especialidad')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Celular (*)</label>
-                                                  <input type="text" class="form-control" name="celular1" value="{{ old('celular1') }}" style="text-transform: uppercase;">
+                                                  <input type="text" class="form-control" name="celular1" value="{{ old('celular1') }}" style="text-transform: uppercase;" onkeypress="return  soloNumeros(event)">
                                                   @error('celular1')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Celular opcional</label>
-                                                  <input type="text" class="form-control" name="celular2" value="{{ old('celular2') }}" style="text-transform: uppercase;">
+                                                  <input type="text" class="form-control" name="celular2" value="{{ old('celular2') }}" onkeypress="return  soloNumeros(event)">
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Discapacidad</label>
@@ -161,7 +161,7 @@
                                              <livewire:select-ubigeo-nacimiento/>
                                              <div class="col-md-4">
                                                   <label class="form-label">Año de Egreso (*)</label>
-                                                  <input type="int" class="form-control" name="año_egreso" value="{{ old('año_egreso') }}">
+                                                  <input type="int" class="form-control" name="año_egreso" value="{{ old('año_egreso') }}" maxlength="4" onkeypress="return  soloNumeros(event)">
                                                   @error('año_egreso')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -285,6 +285,48 @@
                     }
                })
           })
+     </script>
+
+     <script>
+          function soloNumeros(e) {
+          var key = e.keyCode || e.which,
+               tecla = String.fromCharCode(key).toLowerCase(),
+               letras = "1234567890.",
+               especiales = [8, 37, 39, 46],
+               tecla_especial = false;
+          
+          for (var i in especiales) {
+               if (key == especiales[i]) {
+               tecla_especial = true;
+               break;
+               }
+          }
+          
+          if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+               return false;
+          }
+          }
+     </script>
+
+     <script>
+          function soloLetras(e) {
+          var key = e.keyCode || e.which,
+               tecla = String.fromCharCode(key).toLowerCase(),
+               letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+               especiales = [8, 37, 39, 46],
+               tecla_especial = false;
+          
+          for (var i in especiales) {
+               if (key == especiales[i]) {
+               tecla_especial = true;
+               break;
+               }
+          }
+          
+          if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+               return false;
+          }
+          }
      </script>
 
 @endsection

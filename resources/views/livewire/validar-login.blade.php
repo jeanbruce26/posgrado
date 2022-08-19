@@ -17,7 +17,7 @@
     
         <div class="mb-3">
             <label class="form-label">Numero de documento *</label>
-            <input type="text" wire:model="dni" name="documento" value="{{ old('documento') }}" class="form-control @error('documento') is-invalid @enderror" placeholder="Ingrese su número de documento" disabled>
+            <input type="text" wire:model="dni" name="documento" value="{{ old('documento') }}" class="form-control @error('documento') is-invalid @enderror" placeholder="Ingrese su número de documento" onkeypress="return soloNumeros(event)" id="miInput" onblur="limpiaNum()" disabled>
             {{-- @error('dni')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror --}}
@@ -26,7 +26,7 @@
     
         <div class="mb-3">
             <label class="form-label">Número de operación *</label>
-            <input type="text" wire:model="nro_operacion" name="nro_operacion" value="{{ old('nro_operacion') }}" class="form-control @error('nro_operacion') is-invalid @enderror" placeholder="Ingrese su número de operación">
+            <input type="text" wire:model="nro_operacion" name="nro_operacion" value="{{ old('nro_operacion') }}" class="form-control @error('nro_operacion') is-invalid @enderror" placeholder="Ingrese su número de operación" onkeypress="return soloNumeros(event)" id="miInput2" onblur="limpiaNum2()">
             {{-- @error('nro_operacion')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror --}}
@@ -42,3 +42,41 @@
         </div>
     </form>
 </div>
+
+<script>
+    function soloNumeros(e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toLowerCase();
+        letras = "1234567890";
+        especiales = [8, 37, 39, 46];
+
+        tecla_especial = false
+        for(var i in especiales) {
+            if(key == especiales[i]) {
+                tecla_especial = true;
+                break;
+            }
+        }
+    
+        if(letras.indexOf(tecla) == -1 && !tecla_especial)
+            return false;
+    }
+
+    function limpiaNum() {
+        var val = document.getElementById("miInput").value;
+        var tam = val.length;
+        for(i = 0; i < tam; i++) {
+            if(isNaN(val[i]))
+                document.getElementById("miInput").value = '';
+        }
+    }
+
+    function limpiaNum2() {
+        var val = document.getElementById("miInput2").value;
+        var tam = val.length;
+        for(i = 0; i < tam; i++) {
+            if(isNaN(val[i]))
+                document.getElementById("miInput2").value = '';
+        }
+    }
+</script>
