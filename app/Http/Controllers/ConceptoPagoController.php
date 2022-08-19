@@ -38,7 +38,7 @@ class ConceptoPagoController extends Controller
     {
         $request->validate([
             'concepto'  =>  'required|max:45',
-            'monto'  =>  'required|max:13',
+            'monto'  =>  'required|numeric',
             'estado'  =>  'required|max:11',
         ]);
         ConceptoPago::create($request->all());
@@ -79,8 +79,8 @@ class ConceptoPagoController extends Controller
     {
         $request->validate([
             'concepto'  =>  'required|max:45',
-            'monto'  =>  'required|max:13',
-            'estado'  =>  'required|max:11|numeric',
+            'monto'  =>  'required|numeric',
+            'estado'  =>  'required|numeric',
         ]);
         $concepPago = ConceptoPago::find($id);
         $concepPago ->update($request->all());

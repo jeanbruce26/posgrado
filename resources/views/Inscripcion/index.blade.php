@@ -19,9 +19,9 @@
 				<tr>
 					<th class="col-1">Código</th>
 					<th>Persona</th>
-					<th class="col-2">Estado</th>
 					<th>Admisión</th>
 					<th>Programa</th>
+					<th class="col-2">Estado</th>
 					<th class="col-1">Expedientes</th>
 					<th class="col-1">Acciones</th>
 				</tr>
@@ -33,14 +33,15 @@
 				<tr>
 					<td>{{$inscrip->id_inscripcion}}</td>
 					<td>{{$inscrip->persona->nombres}} {{$inscrip->persona->apell_pater}} {{$inscrip->persona->apell_mater}}</td>
-					<td>
-						@if ( $inscrip->estado == "Activo")
-							<div class="p-1 bg-info text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">{{$inscrip->estado}}</div></td>
-						@else
-							<div class="p-1 bg-danger text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">{{$inscrip->estado}}</div></td>
-						@endif
 					<td>{{$inscrip->admision->admision}}</td>
 					<td>{{$inscrip->mencion->subprograma->subprograma}} - {{$inscrip->mencion->mencion}}</td>
+					<td>
+						@if ( $inscrip->estado == "Activo")
+							<div class="p-1 bg-info text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">{{$inscrip->estado}}</div>
+						@else
+							<div class="p-1 bg-danger text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">{{$inscrip->estado}}</div>
+						@endif
+					</td>
 					<td class="d-flex justify-content-star">
                         <a href="#showModal" type="button" class="btn btn-info d-flex justify-content-center align-items-center text-center" data-bs-toggle="modal" data-bs-target="#showModal{{$inscrip->id_inscripcion}}">Detalle <i class="fas fa-info-circle ms-1"></i></a>
 
@@ -62,9 +63,9 @@
 												<thead>
 													<tr class="col-sm-12">
 														<th class="col-md-4">Documento</th>
-														<th class="col-md-2">Estado</th>
 														<th class="col-md-2">Fecha</th>
 														<th class="col-md-3">Observación</th>
+														<th class="col-md-2">Estado</th>
 														<th class="col-md-1">Archivo</th>
 													</tr>
 												</thead>
@@ -75,9 +76,6 @@
 															@if($exp->cod_exp == $expInscripcion->expediente_cod_exp)
 																<tr>
 																	<td>{{$expInscripcion->nom_exped}}</td>
-																	<td>
-																		<div class="p-1 bg-info text-white rounded-pill d-flex justify-content-center align-items-center text-center">{{$expInscripcion->estado}}</div></td>
-																	</td>
 																	<td>{{$expInscripcion->fecha_entre->format('d/m/Y')}}</td>
 																	@if($expInscripcion->observacion == null)
 																		<td>Sin Observación</td>
@@ -85,8 +83,11 @@
 																		<td>{{$expInscripcion->observacion}}</td>
 																	@endif
 																	<td>
-																		<a target="_blank" href="{{asset('Admision 2022 - I/'.$expInscripcion->id_inscripcion.'/'.$expInscripcion->nom_exped)}}" class="btn btn-with">
-																			<i class="fas fa-file-pdf"></i>
+																		<div class="p-1 bg-info text-white rounded-pill d-flex justify-content-center align-items-center text-center">{{$expInscripcion->estado}}</div></td>
+																	</td>
+																	<td>
+																		<a target="_blank" href="{{asset('Admision 2022 - I/'.$expInscripcion->id_inscripcion.'/'.$expInscripcion->nom_exped)}}" class="btn btn-with w-25 d-flex justify-content-center ms-2">
+																			<i class="fas fa-file-pdf fa-lg"></i>
 																		</a>
 																	</td>
 																</tr>
@@ -98,12 +99,12 @@
 														@if($value != 1)
 															<tr>
 																<td>{{$exp->tipo_doc}}</td>
+																<td>-</td>
+																<td>-</td>
 																<td>
 																	<div class="p-1 bg-danger text-white rounded-pill d-flex justify-content-center align-items-center text-center">No enviado</div></td>
 																</td>
-																<td>-</td>
-																<td>-</td>
-																<td>-</td>
+																<td class="d-flex ms-3">-</td>
 															</tr>
 														@endif
 														@php

@@ -41,10 +41,10 @@ class PagoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'dni'  =>  'required|max:10',
-            'nro_operacion'  =>  'required|max:11',
-            'monto'  =>  'required',
-            'fecha_pago'  =>  'required',
+            'dni'  =>  'required|min:8',
+            'nro_operacion'  =>  'required|numeric',
+            'monto'  =>  'required|numeric',
+            'fecha_pago'  =>  'required|date',
             'estado'  =>  'required|numeric',
             'canal_pago_id'  =>  'required|numeric',
         ]);
@@ -86,9 +86,9 @@ class PagoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'dni'  =>  'required|max:10',
-            'nro_operacion'  =>  'required|max:11',
-            'monto'  =>  'required',
+            'dni'  =>  'required|min:8',
+            'nro_operacion'  =>  'required|numeric',
+            'monto'  =>  'required|numeric',
             'fecha_pago'  =>  'required|date',
             'estado'  =>  'required|numeric',
             'canal_pago_id'  =>  'required|numeric',
