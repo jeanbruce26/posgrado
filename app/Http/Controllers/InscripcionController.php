@@ -86,9 +86,8 @@ class InscripcionController extends Controller
         if($insc->save()){
             return redirect(to: '/Inscripcion')->with('edit', 'Estado Actualizado.');
         }else{
-            return redirect(to: '/Inscripcion')->with('error', 'Error al Actualizar Estado.');
+            exit();
         }
-        
     }
 
     /**

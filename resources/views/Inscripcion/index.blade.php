@@ -45,7 +45,7 @@
 					<td class="d-flex justify-content-star">
                         <a href="#showModal" type="button" class="btn btn-info d-flex justify-content-center align-items-center text-center" data-bs-toggle="modal" data-bs-target="#showModal{{$inscrip->id_inscripcion}}">Detalle <i class="fas fa-info-circle ms-1"></i></a>
 
-						{{-- Modal Editar --}}
+						{{-- Modal Show --}}
 						<div class="modal fade" id="showModal{{$inscrip->id_inscripcion}}" tabindex="-1" aria-labelledby="showModal" aria-hidden="true">
 							<div class="modal-dialog  modal-lg modal-dialog-scrollable">
 								<div class="modal-content">
@@ -121,7 +121,7 @@
 								</div>
 							</div>
 						</div>
-						{{-- Modal Editar --}}
+						{{-- Modal Show --}}
                     </td>
 					<td>
                         <a href="#editModal" type="button" class="btn btn-success d-flex justify-content-center align-items-center text-center w-100" data-bs-toggle="modal" data-bs-target="#editModal{{$inscrip->id_inscripcion}}">Editar <i class="fas fa-edit ms-1"></i></a>

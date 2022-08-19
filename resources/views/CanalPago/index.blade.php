@@ -4,7 +4,7 @@
 
 	<div class="col-sm-12">
 
-		<h2 class="d-flex justify-content-between">Canal Pago
+		<h2 class="d-flex justify-content-between">Canal de Pago
 			<a href="{{ route('CanalPago.create') }}" class="btn btn-primary pull-right d-flex justify-content-center align-items-center">Nuevo <i class="fas fa-plus-circle ms-1"></i></a>
 		</h2>
 
