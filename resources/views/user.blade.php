@@ -115,6 +115,8 @@
         <script src="{{ asset('/assets/js/retina-1.1.0.min.js') }}"></script>
         <script src="{{ asset('/assets/js/scripts.js') }}"></script>
 
+        @yield('js')  
+
         @livewireScripts
 
     </body>
