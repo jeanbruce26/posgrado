@@ -40,7 +40,7 @@ class SubProgramaController extends Controller
     {
         $request->validate([
             'cod_subprograma'  =>  'required|max:10',
-            'subprograma'  =>  'required|max:50',
+            'subprograma'  =>  'required|max:200',
             'id_programa'  =>  'required|numeric',
         ]);
         SubPrograma::create($request->all());
@@ -82,7 +82,7 @@ class SubProgramaController extends Controller
     {
         $request->validate([
             'cod_subprograma'  =>  'required|max:10',
-            'subprograma'  =>  'required|max:50',
+            'subprograma'  =>  'required|max:200',
             'id_programa'  =>  'required|numeric',
         ]);
         $mencion = SubPrograma::find($id);

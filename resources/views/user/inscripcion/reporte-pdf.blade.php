@@ -544,7 +544,7 @@
         }
     </style>
 </head>
-<body style="padding: 2rem;">
+<body style="padding: 1.5rem;">
     <table class="table" style="width:100%;">
         <thead>
             <tr>
@@ -576,7 +576,6 @@
             </tr>
         </thead>
     </table>
-    <br>
     <table class="table mt-4" style="width:100%;">
         <thead>
             <tr>
@@ -609,12 +608,12 @@
             <div>
                 <table>
                     <tr>
-                        <th><div class="titulo3 my-1">Fecha de inscripción</div></th>
+                        <th><div class="titulo3">Fecha de inscripción</div></th>
                         <th><div class="mx-2">:</div></th>
                         <th style="text-align: initial;">{{$fecha_actual}}</th>
                     </tr>
                     <tr>
-                        <th><div class="titulo3 my-1">Programa</div></th>
+                        <th><div class="titulo3">Programa</div></th>
                         <th><div class="mx-2">:</div></th>
                         @foreach ($mencion as $item)
                         <th style="text-align: initial;">{{ $item->subprograma->programa->descripcion_programa }}</th>
@@ -622,7 +621,7 @@
                     </tr>
                     <tr>
                         @foreach ($mencion as $item)
-                        <th><div class="titulo3 my-1">{{ Str::ucfirst($item->subprograma->programa->descripcion_programa)  }}</div></th>
+                        <th><div class="titulo3">{{ Str::ucfirst($item->subprograma->programa->descripcion_programa)  }}</div></th>
                         @endforeach
                         <th><div class="mx-2">:</div></th>
                         @foreach ($mencion as $item)
@@ -633,7 +632,7 @@
                         @foreach ($mencion as $item)
                         @if ($item->mencion == null)
                         @else
-                        <th><div class="titulo3 my-1">Mención</div></th>
+                        <th><div class="titulo3">Mención</div></th>
                         <th><div class="mx-2">:</div></th>
                         <th style="text-align: initial;">{{ $item->mencion }}</th>
                         @endif
@@ -643,96 +642,143 @@
             </div>
         </div>
         <br>
-        <div class="mt-2">
-            <div class="titulo2">
-                INFORMACIÓN PERSONAL
-            </div>
-            <div class="linea mt-2 mb-2"></div>
-            <div>
-                <table>
-                    <tr>
-                        <th><div class="titulo3 my-1">Documento de identidad</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        @foreach ($persona as $item)
-                        <th style="text-align: initial;">{{ $item->num_doc }}</th>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Apellidos</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        @foreach ($persona as $item)
-                        <th style="text-align: initial;">{{ $item->apell_pater }} {{ $item->apell_mater }}</th>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Nombres</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        @foreach ($persona as $item)
-                        <th style="text-align: initial;">{{ $item->nombres }}</th>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Fecha de nacimiento</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        @foreach ($persona as $item)
-                        <th style="text-align: initial;">{{ $item->fecha_naci->format('d/m/Y') }}</th>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Sexo</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        @foreach ($persona as $item)
-                        <th style="text-align: initial;">{{ $item->sexo }}</th>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Estado Civil</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        @foreach ($persona as $item)
-                        <th style="text-align: initial;">{{ $item->EstadoCivil->est_civil }}</th>
-                        @endforeach
-                    </tr>
-                </table>
-            </div>
+        <table class="table" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="mt-2">
+                            <div class="titulo2">
+                                INFORMACIÓN PERSONAL
+                            </div>
+                            <div class="linea mt-2 mb-2"></div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th><div class="titulo3">Documento de identidad</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->num_doc }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Apellidos</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->apell_pater }} {{ $item->apell_mater }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Nombres</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->nombres }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Fecha de nacimiento</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->fecha_naci->format('d/m/Y') }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Sexo</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->sexo }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Estado Civil</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->EstadoCivil->est_civil }}</th>
+                                        @endforeach
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="mt-2">
+                            <div class="titulo2">
+                                INFORMACIÓN DE CONTACTO
+                            </div>
+                            <div class="linea mt-2 mb-2"></div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th><div class="titulo3">Domicilio</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->direccion }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Correo electronico</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->email }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Celular</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->celular1 }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Celular opcional</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->celular2 }}</th>
+                                        @endforeach
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <br>
+    <div class="mt-2">
+        <div class="titulo2">
+            INFORMACIÓN DE DOCUMENTOS
         </div>
-        <br>
-        <div class="mt-2">
-            <div class="titulo2">
-                INFORMACIÓN DE CONTACTO
-            </div>
-            <div class="linea mt-2 mb-2"></div>
-            <div>
-                <table>
-                    <tr>
-                        <th><div class="titulo3 my-1">Domicilio</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        @foreach ($persona as $item)
-                        <th style="text-align: initial;">{{ $item->direccion }}</th>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Correo electronico</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        @foreach ($persona as $item)
-                        <th style="text-align: initial;">{{ $item->email }}</th>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Celular</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        @foreach ($persona as $item)
-                        <th style="text-align: initial;">{{ $item->celular1 }}</th>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Celular opcional</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        @foreach ($persona as $item)
-                        <th style="text-align: initial;">{{ $item->celular2 }}</th>
-                        @endforeach
-                    </tr>
-                </table>
-            </div>
+        <div class="linea mt-2 mb-2"></div>
+        <div>
+            <table>
+                @php
+                    $value = 0;
+                @endphp
+                @foreach ($expedi as $item2)
+                    @foreach ($expedienteInscripcion as $item)
+                        @if($item2->cod_exp == $item->expediente_cod_exp)
+                        <tr>
+                            <th><div class="titulo3">{{ $item2->tipo_doc }}</div></th>
+                            <th><div class="mx-2">:</div></th>
+                            <th style="text-align: initial;">Entregado</th>
+                        </tr>
+                        @php
+                            $value=1;
+                        @endphp
+                        @endif
+                    @endforeach
+                    @if($value != 1)
+                        <tr>
+                            <th><div class="titulo3">{{ $item2->tipo_doc }}</div></th>
+                            <th><div class="mx-2">:</div></th>
+                            <th style="text-align: initial; color: red;">No Entregado</th>
+                        </tr>
+                    @endif
+                    @php
+                        $value=0;
+                    @endphp
+                @endforeach
+            </table>
         </div>
     </div>
     <br>
@@ -745,7 +791,7 @@
             <table>
                 @foreach ($inscripcion_pago as $item)
                 <tr>
-                    <th><div class="titulo3 my-1">Concepto de pago</div></th>
+                    <th><div class="titulo3">Concepto de pago</div></th>
                     <th><div class="mx-2">:</div></th>
                     <th style="text-align: initial;">{{ $item->ConceptoPago->concepto }}</th>
                 </tr>
@@ -787,12 +833,35 @@
     <div class="mt-2">
         @foreach ($admisionn as $item)
         <div class="" style="text-align: justify;">
-            Hasta el ({{$final}}); caso contrario perderé mi ingreso y, el monto abonado por derecho de inscripcion, carpeta y prospecto de postulante, de
-acuerdo a los articulos 29 e), 81 y la tercera disposicion complementaria del Reglamento General de {{ $item->admision }}. En fe de lo cual firmo y estampo mi huella digital en el presente compromiso.
+            Declaro bajo juramento, que en caso de ingresar me comprometo a regualizar los documentos que me faltan hasta la fecha ({{$final}}); caso contrario perderé mi ingreso y, el monto abonado por derecho de inscripcion, de acuerdo a los articulos 29 e), 81 y la tercera disposicion complementaria del Reglamento General de Admisión.
         </div>
         @endforeach
     </div>
-    <br>
+    <table class="table"  style="width:100%; margin-top: 1rem;">
+        <thead>
+            <tr>
+                <th class="" style="text-align: initial; font-size: small;">Para la posterior subida de expedientes pedientes, debera ingresar al sistema con su usuario y contraseña:</th>
+            </tr>
+        </thead>
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <th><div class="titulo3 my-1" style="font-size: small;">Usuario</div></th>
+                <th><div class="mx-2 my-1">:</div></th>
+                @foreach ($persona as $item)
+                <th class="my-1" style="text-align: initial; font-size: small;">{{ $item->num_doc }}</th>
+                @endforeach
+            </tr>
+            <tr>
+                <th><div class="titulo3 my-1" style="font-size: small;">Contraseña</div></th>
+                <th><div class="mx-2 my-1">:</div></th>
+                @foreach ($inscrip as $item)
+                <th class="my-1" style="text-align: initial; font-size: small;">{{$item->id_inscripcion}}</th>
+                @endforeach
+            </tr>
+        </thead>
+    </table>
     <table class="table" style="width:100%;">
         <thead>
             <tr>

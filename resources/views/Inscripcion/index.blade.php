@@ -32,7 +32,7 @@
 
 				<tr>
 					<td>{{$inscrip->id_inscripcion}}</td>
-					<td>{{$inscrip->persona->nombres}} {{$inscrip->persona->apell_pater}} {{$inscrip->persona->apell_mater}}</td>
+					<td>{{$inscrip->persona->nombres }} {{$inscrip->persona->apell_pater}} {{$inscrip->persona->apell_mater}}</td>
 					<td>{{$inscrip->admision->admision}}</td>
 					<td>{{$inscrip->mencion->subprograma->subprograma}} - {{$inscrip->mencion->mencion}}</td>
 					<td>

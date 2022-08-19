@@ -10,8 +10,6 @@ use App\Models\Discapacidad;
 use App\Models\EstadoCivil;
 use App\Models\Universidad;
 use App\Models\GradoAcademico;
-use App\Models\Ubigeo;
-use Illuminate\Support\Facades\DB;
 
 class PersonaController extends Controller
 {

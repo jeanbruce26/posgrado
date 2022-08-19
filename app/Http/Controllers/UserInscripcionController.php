@@ -268,6 +268,8 @@ class UserInscripcionController extends Controller
         $valor = '+ '.intval($tiempo).' month';
         $final = date('j-m-Y',strtotime($request->fecha_inicio.$valor));
         $per = Persona::where('idpersona', $persona->idpersona)->get();
+        $expedienteInscripcion = ExpedienteInscripcion::where('id_inscripcion',$id_inscripcion)->get();
+        $expedi = Expediente::all();
 
         $data = [ 
             'persona' => $per,
@@ -277,7 +279,9 @@ class UserInscripcionController extends Controller
             'inscripcion_pago' => $inscripcion_pago,
             'inscrip' => $inscrip,
             'montoTotal' => $montoTotal,
-            'final' => $final
+            'final' => $final,
+            'expedienteInscripcion' => $expedienteInscripcion,
+            'expedi' => $expedi,
         ];
 
         $nombre_pdf = 'FICHA_INSCRIPCION.pdf';

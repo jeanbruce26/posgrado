@@ -27,7 +27,7 @@
                     <select class="form-select" name="id_subprograma">
 						<option value="" selected>Seleccione</option>
 						@foreach ($sub as $item)
-						<option value="{{$item->id_subprograma}}">{{$item->programa->descripcion_programa}} - {{$item->subprograma}}</option>
+						<option value="{{$item->id_subprograma}}">{{$item->programa->sede->sede}} - {{$item->programa->descripcion_programa}} - {{$item->subprograma}}</option>
 						@endforeach
                     </select>
                     @error('id_subprograma')

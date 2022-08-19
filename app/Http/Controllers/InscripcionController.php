@@ -19,7 +19,7 @@ class InscripcionController extends Controller
      */
     public function index()
     {
-        $insc = Inscripcion::orderBy('id_inscripcion','ASC')->paginate();
+        $insc = Inscripcion::orderBy('id_inscripcion','ASC')->paginate(10);
         $expediente = Expediente::all();
         $cantidadExp = Expediente::count();
         return view('Inscripcion.index', compact('insc', 'expediente', 'cantidadExp'));

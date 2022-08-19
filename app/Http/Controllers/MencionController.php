@@ -40,7 +40,7 @@ class MencionController extends Controller
     {
         $request->validate([
             'cod_mencion'  =>  'max:10',
-            'mencion'  =>  'max:50',
+            'mencion'  =>  'max:200',
             'id_subprograma'  =>  'required|numeric',
         ]);
         Mencion::create($request->all());
@@ -82,7 +82,7 @@ class MencionController extends Controller
     {
         $request->validate([
             'cod_mencion'  =>  'max:10',
-            'mencion'  =>  'max:50',
+            'mencion'  =>  'max:200',
             'id_subprograma'  =>  'required|numeric',
         ]);
         $mencion = Mencion::find($id);

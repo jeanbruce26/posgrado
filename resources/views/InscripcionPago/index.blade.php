@@ -22,7 +22,7 @@
 
 				<tr>
 					<td>{{$inscripcionPago->inscripcion_pago_id}}</td>
-					<td>{{$inscripcionPago->inscripcion->inscripcion_id}}</td>
+					<td>{{$inscripcionPago->inscripcion_id}}</td>
 					<td>{{$inscripcionPago->pago->monto}}</td>
 					<td>{{$inscripcionPago->ConceptoPago->concepto}}</td>
 					{{-- <td>
