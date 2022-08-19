@@ -21,7 +21,7 @@
                     <select id="inputPlan" class="form-select" name="id_sede">
                          <option value="" selected>Seleccione</option>
                          @foreach ($sede as $item)
-                         <option value="{{$item->id_sede}}" {{ $item->cod_sede == $pro->id_sede ? 'selected' : '' }}>{{$item->sede}}</option>
+                         <option value="{{$item->cod_sede}}" {{ $item->cod_sede == $pro->id_sede ? 'selected' : '' }}>{{$item->sede}}</option>
                          @endforeach
                     </select>
                     @error('id_sede')

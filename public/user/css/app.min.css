@@ -1,5 +1,6 @@
-@import url(https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
 :root {
+  --fuente: 'Roboto', sans-serif;
   --bs-sidebar-bg: #ffffff;
   --bs-bg-color-fondo: rgb(0, 51, 90);
   --bs-sidebar-menu-item-color: #7b8190;
@@ -2545,7 +2546,7 @@ body[data-layout="horizontal"][data-layout-size="boxed"] .navbar-header {
   box-shadow: none;
 }
 .irs {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--fuente);
 }
 .irs--round {
   cursor: pointer;
@@ -3817,7 +3818,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   min-height: 10px !important;
 }
 .apex-charts text {
-  font-family: "IBM Plex Sans", sans-serif !important;
+  font-family: var(--fuente) !important;
   fill: #adb5bd;
   font-weight: 400;
 }
@@ -3826,7 +3827,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
 }
 .apexcharts-tooltip-text,
 .apexcharts-tooltip-title {
-  font-family: "IBM Plex Sans", sans-serif !important;
+  font-family: var(--fuente) !important;
 }
 .apexcharts-legend-series {
   font-weight: 500;
@@ -3837,7 +3838,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
 }
 .apexcharts-legend-text {
   color: var(--bs-gray-600) !important;
-  font-family: "IBM Plex Sans", sans-serif !important;
+  font-family: var(--fuente) !important;
   font-size: 13px !important;
   font-weight: 500 !important;
 }
@@ -3846,7 +3847,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
 }
 .apexcharts-xaxis text,
 .apexcharts-yaxis text {
-  font-family: "IBM Plex Sans", sans-serif !important;
+  font-family: var(--fuente) !important;
   fill: var(--bs-gray-500);
 }
 .flot-charts-height {
@@ -3882,7 +3883,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   color: var(--bs-gray-200) !important;
   font-size: 12px !important;
   line-height: 18px !important;
-  font-family: "IBM Plex Sans", sans-serif !important;
+  font-family: var(--fuente) !important;
   font-weight: 500 !important;
 }
 .gmaps,
@@ -3924,7 +3925,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   border: none;
   background: var(--bs-gray-800);
   color: var(--bs-gray-100);
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--fuente);
   font-size: 0.9rem;
   padding: 5px 8px;
 }
@@ -4637,4 +4638,10 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
 }
 .guia:hover{
   text-decoration: underline !important;
+}
+.color-fondo{
+  background-color: #ebf3ff;
+}
+.color-fondo2{
+  background-color: #f0fff9;
 }

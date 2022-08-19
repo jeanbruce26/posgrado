@@ -80,13 +80,14 @@ class ProgramaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
         $request->validate([
             'descripcion_programa'  =>  'required|max:30',
-            'id_sede'  =>  'required',
+            'id_sede'  =>  'required|numeric',
         ]);
         $pro = Programa::find($id);
-        $pro->descripcion_programa = $request->get('descripcion_programa');
-        $pro->id_sede = $request->get('id_sede');
+        $pro->descripcion_programa = $request->descripcion_programa;
+        $pro->id_sede = $request->id_sede;
         $pro->save();
         return redirect()->route('Programa.index');
     }

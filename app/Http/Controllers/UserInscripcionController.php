@@ -21,6 +21,7 @@ use App\Models\Persona;
 use App\Models\UbigeoPersona;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
 
 class UserInscripcionController extends Controller
 {
@@ -129,52 +130,51 @@ class UserInscripcionController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         date_default_timezone_set("America/Lima");
         // dd($final);
         $request->validate([
             'check'  =>  'required'
         ]);
-        // // dd($request);
-        // $expediente = Expediente::all();
-        // foreach($expediente as $item){
-        // $request->validate([
-        //         ("nom_exped".$item->cod_exp)  =>  'mimes:pdf|max:20240'
-        // ]);
-        // }
-        // $request->validate([
-        //     'num_doc'  =>  'required|max:10',
-        //     'apell_pater'  =>  'required',
-        //     'apell_mater'  =>  'required',
-        //     'nombres'  =>  'required|max:50',
-        //     'direccion'  =>  'required|max:50',
-        //     'celular1'  =>  'required|max:9',
-        //     'celular2'  =>  'max:9',
-        //     'sexo'  =>  'required',
-        //     'fecha_naci'  =>  'required',
-        //     'email'  =>  'required|max:50',
-        //     'email2'  =>  'max:50',
-        //     'año_egreso'  =>  'required|max:50',
-        //     'centro_trab'  =>  'required|max:50',
-        //     'tipo_doc_cod_tipo'  =>  'required',
-        //     'discapacidad_cod_disc'  =>  'numeric',
-        //     'est_civil_cod_est'  =>  'required',
-        //     'univer_cod_uni'  =>  'required',
-        //     'id_grado_academico'  =>  'required',
-        //     'especialidad'  =>  'max:50',
-        //     'pais_extra'  =>  'max:50',
-        //     'id_mencion'  =>  'required',
-        //     'check'  =>  'required',
-        //     'nom_exped2'  =>  'required|mimes:pdf|max:20240',
-        // ]);
+        // dd($request);
+        $expediente = Expediente::all();
+        foreach($expediente as $item){
+        $request->validate([
+                ("nom_exped".$item->cod_exp)  =>  'mimes:pdf|max:20240'
+        ]);
+        }
+        $request->validate([
+            'num_doc'  =>  'required|max:9',
+            'apell_pater'  =>  'required|string',
+            'apell_mater'  =>  'required|string',
+            'nombres'  =>  'required|max:50|string',
+            'direccion'  =>  'required|max:50',
+            'celular1'  =>  'required|digits:9|numeric',
+            'celular2'  =>  'nullable|digits:9|numeric',
+            'sexo'  =>  'required|string',
+            'fecha_naci'  =>  'required',
+            'email'  =>  'required|max:50|email',
+            'email2'  =>  'nullable|email',
+            'año_egreso'  =>  'required|max:50',
+            'centro_trab'  =>  'required|max:50',
+            'tipo_doc_cod_tipo'  =>  'required|numeric',
+            'discapacidad_cod_disc'  =>  'nullable|numeric',
+            'est_civil_cod_est'  =>  'required|numeric',
+            'univer_cod_uni'  =>  'required|numeric',
+            'id_grado_academico'  =>  'required|numeric',
+            'especialidad'  =>  'nullable|string',
+            'id_mencion'  =>  'required|numeric',
+            'check'  =>  'required',
+        ]);
 
         //FORMULARIO 1
 
         $persona = Persona::create([
-            "num_doc" => $request->num_doc,
-            "apell_pater" => $request->apell_pater,
-            "apell_mater" => $request->apell_mater,
-            "nombres" => $request->nombres,
-            "direccion" => $request->direccion,
+            "num_doc" => Str::upper($request->num_doc),
+            "apell_pater" => Str::upper($request->apell_pater),
+            "apell_mater" => Str::upper($request->apell_mater),
+            "nombres" => Str::upper($request->nombres),
+            "direccion" => Str::upper($request->direccion),
             "celular1" => $request->celular1,
             "celular2" => $request->celular2,
             "sexo" => $request->sexo,
@@ -182,13 +182,13 @@ class UserInscripcionController extends Controller
             "email" => $request->email,
             "email2" => $request->email2,
             "año_egreso" => $request->año_egreso,
-            "centro_trab" => $request->centro_trab,
+            "centro_trab" => Str::upper($request->centro_trab),
             "tipo_doc_cod_tipo" => $request->tipo_doc_cod_tipo,
             "discapacidad_cod_disc" => $request->discapacidad_cod_disc,
             "est_civil_cod_est" => $request->est_civil_cod_est,
             "univer_cod_uni" => $request->univer_cod_uni,
             "id_grado_academico" => $request->id_grado_academico,
-            "especialidad" => $request->especialidad,
+            "especialidad" => Str::upper($request->especialidad),
         ]);
 
         $idpersona = $persona->idpersona;
@@ -260,16 +260,17 @@ class UserInscripcionController extends Controller
             $montoTotal = $montoTotal + $item->pago->monto;
         }
 
-        $fecha_actual = now();
+        $fecha_actual = date('d/m/Y');
         $mencion = Mencion::where('id_mencion',$request->id_mencion)->get();
         $admisionn = Admision::where('estado',1)->get();
         $inscrip = Inscripcion::where('id_inscripcion',$id_inscripcion)->get();
         $tiempo = 6;
         $valor = '+ '.intval($tiempo).' month';
         $final = date('j-m-Y',strtotime($request->fecha_inicio.$valor));
+        $per = Persona::where('idpersona', $persona->idpersona)->get();
 
         $data = [ 
-            'persona' => $persona,
+            'persona' => $per,
             'fecha_actual' => $fecha_actual,
             'mencion' => $mencion,
             'admisionn' => $admisionn,
@@ -281,7 +282,7 @@ class UserInscripcionController extends Controller
 
         $nombre_pdf = 'FICHA_INSCRIPCION.pdf';
         $pdf = PDF::loadView('user.inscripcion.reporte-pdf', $data)->save(public_path($admi.'/'.$id_inscripcion.'/'). $nombre_pdf);
-        PDF::loadView('user.inscripcion.reporte-pdf', $data)->stream($nombre_pdf);
+        $pdf2 = PDF::loadView('user.inscripcion.reporte-pdf', $data);
 
         $ins = Inscripcion::find($id_inscripcion);
         $ins->inscripcion = $nombre_pdf;
@@ -289,7 +290,7 @@ class UserInscripcionController extends Controller
 
         auth('pagos')->logout();
 
-        return redirect()->route('login');
+        return $pdf2->stream($nombre_pdf);;
     }
 
     /**
