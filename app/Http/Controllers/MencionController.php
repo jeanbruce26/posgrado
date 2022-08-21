@@ -40,8 +40,8 @@ class MencionController extends Controller
     {
         $request->validate([
             'cod_mencion'  =>  'max:10',
-            'mencion'  =>  'max:50',
-            'id_subprograma'  =>  'required|max:50',
+            'mencion'  =>  'max:200',
+            'id_subprograma'  =>  'required|numeric',
         ]);
         Mencion::create($request->all());
         return redirect()->route('Mencion.index');
@@ -82,8 +82,8 @@ class MencionController extends Controller
     {
         $request->validate([
             'cod_mencion'  =>  'max:10',
-            'mencion'  =>  'max:50',
-            'id_subprograma'  =>  'required|max:50',
+            'mencion'  =>  'max:200',
+            'id_subprograma'  =>  'required|numeric',
         ]);
         $mencion = Mencion::find($id);
         $mencion ->update($request->all());

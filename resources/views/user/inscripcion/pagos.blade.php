@@ -2,24 +2,6 @@
 
 @section('content')
 
-<!-- start page title -->
-<div class="row">
-    <div class="col-12">
-        <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Inscripcion</h4>
-
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Inscripcion</li>
-                </ol>
-            </div>
-
-        </div>
-    </div>
-</div>
-<!-- end page title -->
-
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -57,7 +39,7 @@
                             </div>
                             <div class="col-md-3 d-flex flex-column justify-content-end align-items-star">
                                 <label class="d-flex justify-content-star align-items-center">Numero Documento *</label>
-                                <input type="text" class="form-control" name="numero_documento" value="{{ old('numero_documento', $doc) }}">
+                                <input type="text" class="form-control" name="numero_documento" value="{{ old('numero_documento', $doc) }}" onkeypress="return soloNumeros(event)">
                                 @error('numero_documento')
                                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -127,5 +109,27 @@
     <!-- end col -->
 </div>
 <!-- end row -->
+
+{{-- Validacion de campos numericos --}}
+<script>
+    function soloNumeros(e) {
+        var key = e.keyCode || e.which,
+            tecla = String.fromCharCode(key).toLowerCase(),
+            letras = "1234567890.",
+            especiales = [8, 37, 39, 46],
+            tecla_especial = false;
+    
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+            }
+        }
+    
+        if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+            return false;
+        }
+    }
+</script>
 
 @endsection

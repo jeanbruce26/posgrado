@@ -8,6 +8,7 @@ use App\Models\ExpedienteInscripcion;
 use App\Models\Persona;
 use App\Models\Admision;
 use App\Models\DetallePrograma;
+use App\Models\Expediente;
 
 class InscripcionController extends Controller
 {
@@ -18,8 +19,10 @@ class InscripcionController extends Controller
      */
     public function index()
     {
-        $insc = Inscripcion::orderBy('id_inscripcion','ASC')->paginate();
-        return view('Inscripcion.index', compact('insc'));
+        $insc = Inscripcion::orderBy('id_inscripcion','ASC')->paginate(10);
+        $expediente = Expediente::all();
+        $cantidadExp = Expediente::count();
+        return view('Inscripcion.index', compact('insc', 'expediente', 'cantidadExp'));
     }
 
     /**
@@ -51,8 +54,6 @@ class InscripcionController extends Controller
      */
     public function show($id)
     {
-        $expInsc = ExpedienteInscripcion::where('id_inscripcion', $id)->get();
-        return view('Inscripcion.show', compact('expInsc'));
     }
 
     /**
@@ -75,7 +76,18 @@ class InscripcionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $insc = Inscripcion::find($id);
+
+        $request->validate([
+            'estado'  =>  'required|max:45',
+        ]);
+        $insc = Inscripcion::find($id);
+        $insc->update($request->all());
+        if($insc->save()){
+            return redirect(to: '/Inscripcion')->with('edit', 'Estado Actualizado.');
+        }else{
+            exit();
+        }
     }
 
     /**

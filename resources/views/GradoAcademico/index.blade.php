@@ -5,7 +5,7 @@
 <div class="col-sm-12">
 	
 	<h2 class="d-flex justify-content-between">Grado Académico
-	<a href="{{ route('GradoAcademico.create') }}" class="btn btn-primary pull-right d-flex justify-content-center align-items-center text-center">Nuevo <i class="fas fa-plus-circle ms-1"></i></a>
+		<a href="{{ route('GradoAcademico.create') }}" class="btn btn-primary pull-right d-flex justify-content-center align-items-center text-center">Nuevo <i class="fas fa-plus-circle ms-1"></i></a>
 	</h2>
 
 	<table class="table table-hover table-striped">

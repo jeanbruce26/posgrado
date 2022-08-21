@@ -9,7 +9,7 @@
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th width="20px">Codigo</th>
+					<th width="20px">Código</th>
 					<th width="20px">Tipo de Documento</th>
 					
 				</tr>

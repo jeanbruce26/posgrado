@@ -2,9 +2,9 @@
     <div class="col-md-12 mb-3">
         <label class="form-label">Sede (*)</label>
         <select wire:model="selectedSede" class="form-select" name="id_sede">
-            <option selected>Seleccione</option>
+            <option value="" selected>Seleccione</option>
             @foreach ($sed as $item)
-            <option value="{{$item->cod_sede}}">{{$item->sede}}</option>
+            <option value="{{$item->cod_sede}}" {{ $item->cod_sede == old('id_sede') ? 'selected' : '' }}>{{$item->sede}}</option>
             @endforeach
         </select>
         @error('id_sede')
@@ -17,7 +17,7 @@
         <select wire:model="selectedPrograma" class="form-select" name="id_detatte_programa">
             <option value="" selected>Seleccione</option>
             @foreach ($pro as $item)
-            <option value="{{$item->id_programa}}">{{$item->descripcion_programa}}</option>
+            <option value="{{$item->id_programa}}" {{ $item->id_programa == old('id_programa') ? 'selected' : '' }}>{{$item->descripcion_programa}}</option>
             @endforeach
         </select> 
         @error('id_detatte_programa')
@@ -36,7 +36,7 @@
         <select wire:model="selectedSubPrograma" class="form-select" name="id_subprograma">
             <option value="" selected>Seleccione</option>
             @foreach ($sub as $item)
-            <option value="{{$item->id_subprograma}}">{{$item->subprograma}}</option>
+            <option value="{{$item->id_subprograma}}" {{ $item->id_subprograma == old('id_subprograma') ? 'selected' : '' }}>{{$item->subprograma}}</option>
             @endforeach
         </select>
         @error('id_subprograma')
@@ -56,7 +56,7 @@
         <select wire:model="selectedMencion" class="form-select" name="id_mencion">
             <option value="" selected>Seleccione</option>
             @foreach ($men as $item)
-                <option value="{{$item->id_mencion}}">{{$item->mencion}}</option>
+                <option value="{{$item->id_mencion}}" {{ $item->id_mencion == old('id_mencion') ? 'selected' : '' }}>{{$item->mencion}}</option>
             @endforeach
         </select>
         @error('id_mencion')

@@ -23,7 +23,7 @@ class GradoAcademicoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom_grado'  =>  'required|max:45',
+            'nom_grado'  =>  'required|string|max:45',
         ]);
         GradoAcademico::create($request->all());
         return redirect()->route('GradoAcademico.index');
@@ -38,7 +38,7 @@ class GradoAcademicoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nom_grado'  =>  'required|max:45',
+            'nom_grado'  =>  'required|string|max:45',
         ]);
         $gradoAca = GradoAcademico::find($id);
         $gradoAca ->update($request->all());

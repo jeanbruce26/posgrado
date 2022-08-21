@@ -122,6 +122,10 @@
         font-weight: 700;
         font-size: small;
         }
+        .titulo6{
+        font-weight: 700;
+        font-size: medium;
+        }
         .titulo5 {
             font-size: small;
             text-align: initial;
@@ -161,87 +165,58 @@
         }
 
         .d-flex {
-        display: -webkit-box !important;
-        display: -ms-flexbox !important;
         display: flex !important;
         }
 
         .justify-content-start {
-        -webkit-box-pack: start !important;
-        -ms-flex-pack: start !important;
         justify-content: flex-start !important;
         }
         .justify-content-end {
-        -webkit-box-pack: end !important;
-        -ms-flex-pack: end !important;
         justify-content: flex-end !important;
         }
         .justify-content-center {
-        -webkit-box-pack: center !important;
-        -ms-flex-pack: center !important;
         justify-content: center !important;
         }
         .justify-content-between {
-        -webkit-box-pack: justify !important;
-        -ms-flex-pack: justify !important;
         justify-content: space-between !important;
         }
         .justify-content-around {
-        -ms-flex-pack: distribute !important;
         justify-content: space-around !important;
         }
         .justify-content-evenly {
-        -webkit-box-pack: space-evenly !important;
-        -ms-flex-pack: space-evenly !important;
         justify-content: space-evenly !important;
         }
         .align-items-start {
-        -webkit-box-align: start !important;
-        -ms-flex-align: start !important;
         align-items: flex-start !important;
         }
         .align-items-end {
-        -webkit-box-align: end !important;
-        -ms-flex-align: end !important;
         align-items: flex-end !important;
         }
         .align-items-center {
-        -webkit-box-align: center !important;
-        -ms-flex-align: center !important;
         align-items: center !important;
         }
         .align-items-baseline {
-        -webkit-box-align: baseline !important;
-        -ms-flex-align: baseline !important;
         align-items: baseline !important;
         }
         .align-items-stretch {
-        -webkit-box-align: stretch !important;
-        -ms-flex-align: stretch !important;
         align-items: stretch !important;
         }
         .align-content-start {
-        -ms-flex-line-pack: start !important;
         align-content: flex-start !important;
         }
         .align-content-end {
-        -ms-flex-line-pack: end !important;
         align-content: flex-end !important;
         }
         .align-content-center {
-        -ms-flex-line-pack: center !important;
         align-content: center !important;
         }
         .align-content-between {
-        -ms-flex-line-pack: justify !important;
         align-content: space-between !important;
         }
         .align-content-around {
-        -ms-flex-line-pack: distribute !important;
         align-content: space-around !important;
         }
         .align-content-stretch {
-        -ms-flex-line-pack: stretch !important;
         align-content: stretch !important;
         }
         .align-self-auto {
@@ -569,42 +544,61 @@
         }
     </style>
 </head>
-<body style="padding: 1rem;">
-    <div style="display: flex; justify-content: space-around;">
-        <div style="display: flex; align-items: center;">
-            <img src="{{ storage_path('app/public/asset-pdf/unu.png') }}" width="60px" height="70px" alt="logo unu">
-        </div>
-        <div style="text-align: center">
-            <div class="mb-3" style="font-weight: 700; font-size:large;">
-                UNIVERSIDAD NACIONAL DE UCAYALI
-            </div>
-            <div class="mb-3" style="font-weight: 700; font-size:medium;">
-                ESCUELA DE POSGRADO
-            </div>
-            @foreach ($admisionn as $item)
-            <div style="font-weight: 700; font-size:medium;">
-                FICHA DE INSCRIPCION: {{$item->admision}}
-            </div>
-            @endforeach
-        </div>
-        <div style="display: flex; align-items: center;">
-            <img src="{{ storage_path('app/public/asset-pdf/posgrado.png') }}" width="60px" height="70px" alt="logo posgrado">
-        </div>
-    </div>
-    <div class="d-flex justify-content-between mt-2">
-        @foreach ($mencion as $item)
-        <div class="titulo2">
-            Sede: {{ $item->subprograma->programa->sede->sede }}
-        </div>
-        @endforeach
-        @foreach ($inscrip as $item)
-        <div class="titulo2">
-            Nro Ficha: 00000{{$item->id_inscripcion}}
-        </div>
-        @endforeach
-    </div>
+<body style="padding: 1.5rem;">
+    <table class="table" style="width:100%;">
+        <thead>
+            <tr>
+                <th>
+                    <div style="display: flex; align-items: center;">
+                        <img src="{{ storage_path('app/public/asset-pdf/unu.png') }}" width="60px" height="70px" alt="logo unu">
+                    </div>
+                </th>
+                <th>
+                    <div style="text-align: center">
+                        <div class="mb-3" style="font-weight: 700; font-size:large;">
+                            UNIVERSIDAD NACIONAL DE UCAYALI
+                        </div>
+                        <div class="mb-3" style="font-weight: 700; font-size:medium;">
+                            ESCUELA DE POSGRADO
+                        </div>
+                        @foreach ($admisionn as $item)
+                        <div style="font-weight: 700; font-size:medium;">
+                            FICHA DE INSCRIPCION: {{$item->admision}}
+                        </div>
+                        @endforeach
+                    </div>
+                </th>
+                <th>
+                    <div style="display: flex; align-items: center;">
+                        <img src="{{ storage_path('app/public/asset-pdf/posgrado.png') }}" width="60px" height="70px" alt="logo posgrado">
+                    </div>
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <table class="table mt-4" style="width:100%;">
+        <thead>
+            <tr>
+                <th align="left" style="text-align: left">
+                    @foreach ($mencion as $item)
+                    <div class="titulo6">
+                        Sede: {{ $item->subprograma->programa->sede->sede }}
+                    </div>
+                    @endforeach
+                </th>
+                <th align="right" style="text-align: right">
+                    @foreach ($inscrip as $item)
+                    <div class="titulo6">
+                        Nro Ficha: 00000{{$item->id_inscripcion}}
+                    </div>
+                    @endforeach
+                </th>
+            </tr>
+        </thead>
+    </table>
     <div class="linea mt-1">
     </div>
+    <br>
     <div class="">
         <div class="mt-2">
             <div class="titulo2">
@@ -614,12 +608,12 @@
             <div>
                 <table>
                     <tr>
-                        <th><div class="titulo3 my-1">Fecha de inscripción</div></th>
+                        <th><div class="titulo3">Fecha de inscripción</div></th>
                         <th><div class="mx-2">:</div></th>
                         <th style="text-align: initial;">{{$fecha_actual}}</th>
                     </tr>
                     <tr>
-                        <th><div class="titulo3 my-1">Programa</div></th>
+                        <th><div class="titulo3">Programa</div></th>
                         <th><div class="mx-2">:</div></th>
                         @foreach ($mencion as $item)
                         <th style="text-align: initial;">{{ $item->subprograma->programa->descripcion_programa }}</th>
@@ -627,7 +621,7 @@
                     </tr>
                     <tr>
                         @foreach ($mencion as $item)
-                        <th><div class="titulo3 my-1">{{ $item->subprograma->programa->descripcion_programa }}</div></th>
+                        <th><div class="titulo3">{{ Str::ucfirst($item->subprograma->programa->descripcion_programa)  }}</div></th>
                         @endforeach
                         <th><div class="mx-2">:</div></th>
                         @foreach ($mencion as $item)
@@ -638,7 +632,7 @@
                         @foreach ($mencion as $item)
                         @if ($item->mencion == null)
                         @else
-                        <th><div class="titulo3 my-1">Mención</div></th>
+                        <th><div class="titulo3">Mención</div></th>
                         <th><div class="mx-2">:</div></th>
                         <th style="text-align: initial;">{{ $item->mencion }}</th>
                         @endif
@@ -647,77 +641,147 @@
                 </table>
             </div>
         </div>
-        <div class="mt-2">
-            <div class="titulo2">
-                INFORMACIÓN PERSONAL
-            </div>
-            <div class="linea mt-2 mb-2"></div>
-            <div>
-                <table>
-                    <tr>
-                        <th><div class="titulo3 my-1">Documento de identidad</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        <th style="text-align: initial;">{{ $persona->num_doc }}</th>
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Apellidos</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        <th style="text-align: initial;">{{ $persona->apell_pater }} {{ $persona->apell_mater }}</th>
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Nombres</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        <th style="text-align: initial;">{{ $persona->nombres }}</th>
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Fecha de nacimiento</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        <th style="text-align: initial;">{{ $persona->fecha_naci }}</th>
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Sexo</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        <th style="text-align: initial;">{{ $persona->sexo }}</th>
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Estado Civil</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        <th style="text-align: initial;">{{ $persona->est_civil_cod_est }}</th>
-                    </tr>
-                </table>
-            </div>
+        <br>
+        <table class="table" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="mt-2">
+                            <div class="titulo2">
+                                INFORMACIÓN PERSONAL
+                            </div>
+                            <div class="linea mt-2 mb-2"></div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th><div class="titulo3">Documento de identidad</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->num_doc }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Apellidos</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->apell_pater }} {{ $item->apell_mater }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Nombres</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->nombres }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Fecha de nacimiento</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->fecha_naci->format('d/m/Y') }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Sexo</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->sexo }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Estado Civil</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->EstadoCivil->est_civil }}</th>
+                                        @endforeach
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="mt-2">
+                            <div class="titulo2">
+                                INFORMACIÓN DE CONTACTO
+                            </div>
+                            <div class="linea mt-2 mb-2"></div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th><div class="titulo3">Domicilio</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->direccion }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Correo electronico</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->email }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Celular</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->celular1 }}</th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <th><div class="titulo3">Celular opcional</div></th>
+                                        <th><div class="mx-2">:</div></th>
+                                        @foreach ($persona as $item)
+                                        <th style="text-align: initial;">{{ $item->celular2 }}</th>
+                                        @endforeach
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <br>
+    <div class="mt-2">
+        <div class="titulo2">
+            INFORMACIÓN DE DOCUMENTOS
         </div>
-        <div class="mt-2">
-            <div class="titulo2">
-                INFORMACIÓN DE CONTACTO
-            </div>
-            <div class="linea mt-2 mb-2"></div>
-            <div>
-                <table>
-                    <tr>
-                        <th><div class="titulo3 my-1">Domicilio</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        <th style="text-align: initial;">{{ $persona->direccion }}</th>
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Correo electronico</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        <th style="text-align: initial;">{{ $persona->email }}</th>
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Celular</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        <th style="text-align: initial;">{{ $persona->celular1 }}</th>
-                    </tr>
-                    <tr>
-                        <th><div class="titulo3 my-1">Celular opcional</div></th>
-                        <th><div class="mx-2">:</div></th>
-                        <th style="text-align: initial;">{{ $persona->celular2 }}</th>
-                    </tr>
-                </table>
-            </div>
+        <div class="linea mt-2 mb-2"></div>
+        <div>
+            <table>
+                @php
+                    $value = 0;
+                @endphp
+                @foreach ($expedi as $item2)
+                    @foreach ($expedienteInscripcion as $item)
+                        @if($item2->cod_exp == $item->expediente_cod_exp)
+                        <tr>
+                            <th><div class="titulo3">{{ $item2->tipo_doc }}</div></th>
+                            <th><div class="mx-2">:</div></th>
+                            <th style="text-align: initial;">Entregado</th>
+                        </tr>
+                        @php
+                            $value=1;
+                        @endphp
+                        @endif
+                    @endforeach
+                    @if($value != 1)
+                        <tr>
+                            <th><div class="titulo3">{{ $item2->tipo_doc }}</div></th>
+                            <th><div class="mx-2">:</div></th>
+                            <th style="text-align: initial; color: red;">No Entregado</th>
+                        </tr>
+                    @endif
+                    @php
+                        $value=0;
+                    @endphp
+                @endforeach
+            </table>
         </div>
     </div>
+    <br>
     <div class="mt-2">
         <div class="titulo2">
             INFORMACIÓN DE PAGO
@@ -727,7 +791,7 @@
             <table>
                 @foreach ($inscripcion_pago as $item)
                 <tr>
-                    <th><div class="titulo3 my-1">Concepto de pago</div></th>
+                    <th><div class="titulo3">Concepto de pago</div></th>
                     <th><div class="mx-2">:</div></th>
                     <th style="text-align: initial;">{{ $item->ConceptoPago->concepto }}</th>
                 </tr>
@@ -744,10 +808,10 @@
         </div>
         <table class="mt-2 tablita" width="100%">
             <tr>
-                <th class="tabla4"><div class="titulo3">Nro</div></th>
-                <th class="tabla4" width="35%"><div class="titulo3">Fecha</div></th>
-                <th class="tabla4" width="35%"><div class="titulo3 ">Nro. Operación</div></th>
-                <th class="tabla4"><div class="titulo3 tabla">Importe</div></th>
+                <th class="tabla4" align="center"><div class="titulo4">Nro</div></th>
+                <th class="tabla4" width="35%" align="center"><div class="titulo4">Fecha</div></th>
+                <th class="tabla4" width="35%" align="center"><div class="titulo4">Nro. Operación</div></th>
+                <th class="tabla4" align="center"><div class="titulo4 tabla">Importe</div></th>
             </tr>
             @foreach ($inscripcion_pago as $item)
             <tr>
@@ -769,16 +833,45 @@
     <div class="mt-2">
         @foreach ($admisionn as $item)
         <div class="" style="text-align: justify;">
-            Hasta el ({{$final}}); caso contrario perderé mi ingreso y, el monto abonado por derecho de inscripcion, carpeta y prospecto de postulante, de
-acuerdo a los articulos 29 e), 81 y la tercera disposicion complementaria del Reglamento General de {{ $item->admision }}. En fe de lo cual firmo y estampo mi huella digital en el presente compromiso.
+            Declaro bajo juramento, que en caso de ingresar me comprometo a regualizar los documentos que me faltan hasta la fecha ({{$final}}); caso contrario perderé mi ingreso y, el monto abonado por derecho de inscripcion, de acuerdo a los articulos 29 e), 81 y la tercera disposicion complementaria del Reglamento General de Admisión.
         </div>
         @endforeach
     </div>
-    <br>
-    <div class="d-flex justify-content-end mt-1">
-        <div class="titulo4">
-            ESTADO: INSCRITO
-        </div>
-    </div>
+    <table class="table"  style="width:100%; margin-top: 1rem;">
+        <thead>
+            <tr>
+                <th class="" style="text-align: initial; font-size: small;">Para la posterior subida de expedientes pedientes, debera ingresar al sistema con su usuario y contraseña:</th>
+            </tr>
+        </thead>
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <th><div class="titulo3 my-1" style="font-size: small;">Usuario</div></th>
+                <th><div class="mx-2 my-1">:</div></th>
+                @foreach ($persona as $item)
+                <th class="my-1" style="text-align: initial; font-size: small;">{{ $item->num_doc }}</th>
+                @endforeach
+            </tr>
+            <tr>
+                <th><div class="titulo3 my-1" style="font-size: small;">Contraseña</div></th>
+                <th><div class="mx-2 my-1">:</div></th>
+                @foreach ($inscrip as $item)
+                <th class="my-1" style="text-align: initial; font-size: small;">{{$item->id_inscripcion}}</th>
+                @endforeach
+            </tr>
+        </thead>
+    </table>
+    <table class="table" style="width:100%;">
+        <thead>
+            <tr>
+                <th align="right" style="text-align: right;">
+                    <div class="titulo4">
+                        ESTADO: INSCRITO
+                    </div>
+                </th>
+            </tr>
+        </thead>
+    </table>
 </body>
 </html>

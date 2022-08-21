@@ -65,30 +65,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid">
-                    <div class="topnav">
-                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
-                            <div class="collapse navbar-collapse" id="topnav-menu-content">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link font-weight-bold" {{--  href="{{ route('inscripcion') }}"--}}> 
-                                            <i class="uil uil-book me-2"></i> Inscripción
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
             </header>
-    
-
-
-            <!-- ============================================================== -->
-            <!-- Start right Content here -->
-            <!-- ============================================================== -->
             <div class="main-content">
-
                 <div class="page-content">
                     <div class="container-fluid">
                         @yield('content')  
@@ -136,6 +114,8 @@
         <script src="{{ asset('/assets/js/jquery.backstretch.min.js') }}"></script>
         <script src="{{ asset('/assets/js/retina-1.1.0.min.js') }}"></script>
         <script src="{{ asset('/assets/js/scripts.js') }}"></script>
+
+        @yield('js')  
 
         @livewireScripts
 

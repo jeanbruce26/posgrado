@@ -9,7 +9,7 @@
 		<form action="{{ route('SubPrograma.store') }}" method="POST" class="row g-3">
 			@csrf
 			<div class="col-md-4">
-				<label class="form-label">Codigo Sub Programa *</label>
+				<label class="form-label">Código Sub Programa *</label>
 				<input type="text" class="form-control" name="cod_subprograma" maxlength="10" value="{{ old('cod_subprograma') }}">
 				@error('cod_subprograma')
 					<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -17,7 +17,7 @@
 			</div>
 			<div class="col-md-8">
 				<label class="form-label">Sub Programa *</label>
-				<input type="text" class="form-control" name="subprograma" value="{{ old('subprograma') }}">
+				<input type="text" class="form-control" name="subprograma" value="{{ old('subprograma') }}" onkeypress="return soloLetras(event)">
 				@error('subprograma')
 					<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 				@enderror
@@ -27,7 +27,7 @@
                     <select class="form-select" name="id_programa">
 						<option value="" selected>Seleccione</option>
 						@foreach ($pro as $item)
-						<option value="{{$item->id_programa}}">{{$item->descripcion_programa}}</option>
+						<option value="{{$item->id_programa}}">{{$item->sede->sede}} - {{$item->descripcion_programa}}</option>
 						@endforeach
                     </select>
                     @error('id_programa')
@@ -41,5 +41,27 @@
 		</form>
 
 	</div>
+
+	<script>
+		function soloLetras(e) {
+			var key = e.keyCode || e.which,
+				tecla = String.fromCharCode(key).toLowerCase(),
+				letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+				especiales = [8, 37, 39, 46],
+				tecla_especial = false;
+		
+			for (var i in especiales) {
+				if (key == especiales[i]) {
+				tecla_especial = true;
+				break;
+				}
+			}
+		
+			if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+				return false;
+			}
+		}
+	</script>
+
 
 @endsection

@@ -6,7 +6,6 @@
      <div class="col-lg-12">
           <div class="card">
                <div class="card-body f1">
-                    <h4 class="card-title mb-4">Ficha de Inscripcion Escuela de Posgrado</h4>
                     <div class="card">
                          <div class="card-body">
                               <form role="form" action="{{ route('inscripcion.store') }}" method="post" class="f1 row g-3 formulario-guardar" enctype="multipart/form-data">
@@ -34,7 +33,7 @@
                                                   <select class="form-select" name="tipo_doc_cod_tipo">
                                                        <option value="" selected>Seleccione</option>
                                                        @foreach ($tipo_doc as $item)
-                                                       <option value="{{$item->id_tipo_doc}}">{{$item->doc}}</option>
+                                                       <option value="{{$item->id_tipo_doc}}" {{ $item->id_tipo_doc == old('tipo_doc_cod_tipo') ? 'selected' : '' }}>{{$item->doc}}</option>
                                                        @endforeach
                                                   </select>
                                                   @error('tipo_doc_cod_tipo')
@@ -43,28 +42,28 @@
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Numero Documento (*)</label>
-                                                  <input type="text" class="form-control" name="num_doc">
+                                                  <input type="text" class="form-control" name="num_doc" value="{{ old('num_doc') }}" onkeypress="return  soloNumeros(event)">
                                                   @error('num_doc')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Apellido Paterno (*)</label>
-                                                  <input type="text" class="form-control" name="apell_pater">
+                                                  <input type="text" class="form-control" name="apell_pater" value="{{ old('apell_pater') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
                                                   @error('apell_pater')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Apellido Materno (*)</label>
-                                                  <input type="text" class="form-control"  name="apell_mater">
+                                                  <input type="text" class="form-control"  name="apell_mater" value="{{ old('apell_mater') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
                                                   @error('apell_mater')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Nombre (*)</label>
-                                                  <input type="text" class="form-control" name="nombres">
+                                                  <input type="text" class="form-control" name="nombres" value="{{ old('nombres') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
                                                   @error('nombres')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -72,14 +71,17 @@
                                              <div class="col-md-4">
                                                   <label class="form-label">Sexo (*)</label>
                                                   <select class="form-select" name="sexo">
-                                                       <option value="" selected>Seleccione</option>
-                                                       <option value="F">FEMENINO</option>
-                                                       <option value="M">MASCULINO</option>
+                                                       <option value="" selected>Seleccione...</option>
+                                                       <option value="FEMENINO" {{ 'FEMENINO' == old('sexo') ? 'selected' : '' }}>FEMENINO</option>
+                                                       <option value="MASCULINO" {{ 'MASCULINO' == old('sexo') ? 'selected' : '' }}>MASCULINO</option>
                                                   </select>
+                                                  @error('sexo')
+                                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                                  @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Fecha de Naciminto (*)</label>
-                                                  <input type="date" class="form-control" name="fecha_naci">
+                                                  <input type="date" class="form-control" value="{{ old('fecha_naci') }}" name="fecha_naci">
                                                   @error('fecha_naci')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -89,62 +91,68 @@
                                                   <select class="form-select" name="est_civil_cod_est">
                                                        <option value="" selected>Seleccione...</option>
                                                        @foreach ($estado_civil as $item)
-                                                       <option value="{{$item->cod_est}}">{{$item->est_civil}}</option>
+                                                       <option value="{{$item->cod_est}}" {{ $item->cod_est == old('est_civil_cod_est') ? 'selected' : '' }}>{{$item->est_civil}}</option>
                                                        @endforeach
                                                   </select>
+                                                  @error('est_civil_cod_est')
+                                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                                  @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Grado Academico (*)</label>
                                                   <select class="form-select" name="id_grado_academico">
                                                        <option value="" selected>Seleccione...</option>
                                                        @foreach ($grado as $item)
-                                                       <option value="{{$item->id_grado_academico}}">{{$item->nom_grado}}</option>
+                                                       <option value="{{$item->id_grado_academico}}" {{ $item->id_grado_academico == old('id_grado_academico') ? 'selected' : '' }}>{{$item->nom_grado}}</option>
                                                        @endforeach
                                                   </select>
+                                                  @error('id_grado_academico')
+                                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                                  @enderror
                                              </div>
                                              <div class="col-md-4">
-                                                  <label class="form-label">Especialidad (*)</label>
-                                                  <input type="text" class="form-control" name="especialidad">
+                                                  <label class="form-label">Especialidad</label>
+                                                  <input type="text" class="form-control" name="especialidad" value="{{ old('especialidad') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
                                                   @error('especialidad')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Celular (*)</label>
-                                                  <input type="text" class="form-control" name="celular1">
+                                                  <input type="text" class="form-control" name="celular1" value="{{ old('celular1') }}" style="text-transform: uppercase;" onkeypress="return  soloNumeros(event)">
                                                   @error('celular1')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Celular opcional</label>
-                                                  <input type="text" class="form-control" name="celular2">
+                                                  <input type="text" class="form-control" name="celular2" value="{{ old('celular2') }}" onkeypress="return  soloNumeros(event)">
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Discapacidad</label>
                                                   <select class="form-select" name="discapacidad_cod_disc">
                                                        <option value="" selected>Seleccione...</option>
                                                        @foreach ($tipo_dis as $item)
-                                                       <option value="{{$item->cod_disc}}">{{$item->discapacidad}}</option>
+                                                       <option value="{{$item->cod_disc}}" {{ $item->cod_disc == old('discapacidad_cod_disc') ? 'selected' : '' }}>{{$item->discapacidad}}</option>
                                                        @endforeach
                                                   </select>
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Email (*)</label>
-                                                  <input type="email" class="form-control" name="email">
+                                                  <input type="email" class="form-control" name="email" value="{{ old('email') }}">
                                                   @error('email')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Email opcional</label>
-                                                  <input type="email" class="form-control" name="email2">
+                                                  <input type="email" class="form-control" name="email2" value="{{ old('email2') }}">
                                              </div>
                                              <h5 class="text-secondary">Ubigeo de direccion</h5>
                                              <livewire:select-ubigeo/>
                                              <div class="col-md-12">
                                                   <label class="form-label">Direccion (*)</label>
-                                                  <input type="text" class="form-control" name="direccion">
+                                                  <input type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" style="text-transform: uppercase;">
                                                   @error('direccion')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -153,7 +161,7 @@
                                              <livewire:select-ubigeo-nacimiento/>
                                              <div class="col-md-4">
                                                   <label class="form-label">Año de Egreso (*)</label>
-                                                  <input type="int" class="form-control" name="año_egreso">
+                                                  <input type="int" class="form-control" name="año_egreso" value="{{ old('año_egreso') }}" maxlength="4" onkeypress="return  soloNumeros(event)">
                                                   @error('año_egreso')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -163,13 +171,16 @@
                                                   <select class="form-select" name="univer_cod_uni">
                                                        <option value="" selected>Seleccione...</option>
                                                        @foreach ($universidad as $item)
-                                                       <option value="{{$item->cod_uni}}">{{$item->universidad}}</option>
+                                                       <option value="{{$item->cod_uni}}" {{ $item->cod_uni == old('univer_cod_uni') ? 'selected' : '' }}>{{$item->universidad}}</option>
                                                        @endforeach
                                                   </select>
+                                                  @error('univer_cod_uni')
+                                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                                  @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Centro de Trabajo (*)</label>
-                                                  <input type="text" class="form-control"  name="centro_trab">
+                                                  <input type="text" class="form-control"  name="centro_trab" value="{{ old('centro_trab') }}" style="text-transform: uppercase;">
                                                   @error('centro_trab')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -188,7 +199,7 @@
                                              <h5 class="text-secondary">Programa</h5>
                                              <livewire:select-programa/>
                                              
-                                             <h5 class="text-secondary mt-3">Pagos</h5>
+                                             <h5 class="text-secondary mt-4">Documentos</h5>
                
                                              <table class="table table-striped">
                                                   <thead>
@@ -245,4 +256,77 @@
 </div>
 <!-- end row -->
      
+@endsection
+
+@section('js')
+
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+     <script>
+          $('.formulario-guardar').submit(function(e){
+               e.preventDefault();
+                    Swal.fire({
+                    title: '¿Realizar inscripción?',
+                    text: "¡Revise bien sus datos antes de realizar su inscripción!",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, realizar inscripción.',
+                    cancelButtonText: 'Cancelar'
+               }).then((result) => {
+                    if (result.isConfirmed) {
+                         Swal.fire(
+                              'Inscripcion realizada exitosamente.',
+                              'Su ficha de inscripcion se abrirá automaticamente.',
+                              'success'
+                         )
+                         this.submit();
+                    }
+               })
+          })
+     </script>
+
+     <script>
+          function soloNumeros(e) {
+          var key = e.keyCode || e.which,
+               tecla = String.fromCharCode(key).toLowerCase(),
+               letras = "1234567890.",
+               especiales = [8, 37, 39, 46],
+               tecla_especial = false;
+          
+          for (var i in especiales) {
+               if (key == especiales[i]) {
+               tecla_especial = true;
+               break;
+               }
+          }
+          
+          if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+               return false;
+          }
+          }
+     </script>
+
+     <script>
+          function soloLetras(e) {
+          var key = e.keyCode || e.which,
+               tecla = String.fromCharCode(key).toLowerCase(),
+               letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+               especiales = [8, 37, 39, 46],
+               tecla_especial = false;
+          
+          for (var i in especiales) {
+               if (key == especiales[i]) {
+               tecla_especial = true;
+               break;
+               }
+          }
+          
+          if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+               return false;
+          }
+          }
+     </script>
+
 @endsection
