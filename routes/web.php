@@ -35,7 +35,6 @@ Route::get('/user', function () {
     return view('user');
 });
 
-<<<<<<< HEAD
 
 
 Route::get('user', 'UserInscripcionController@index4')->name('user');
@@ -53,7 +52,7 @@ Route::get('inscripcion', 'UserInscripcionController@index4')->name('inscripcion
 // Route::post('user/inscripcion/paso2', 'UserInscripcionController@store2')->name('inscripcion.store2');
 // Route::get('user/inscripcion/paso3/{id_inscripcion}', 'UserInscripcionController@index3')->name('inscripcion.index3');
 // Route::post('user/inscripcion/paso3', 'UserInscripcionController@store3')->name('inscripcion.store3');
-=======
+
 Route::get('inscripcion', 'UserInscripcionController@index')->middleware('auth:pagos','pagos.estado')->name('inscripcion');
 Route::post('inscripcion', 'UserInscripcionController@check')->middleware('auth:pagos','pagos.estado')->name('check');
 Route::get('inscripcion/pagos', 'UserInscripcionController@index2')->middleware('auth:pagos','pagos.estado')->name('inscripcion.pagos');
@@ -61,12 +60,12 @@ Route::post('inscripcion/pagos', 'UserInscripcionController@mostrarPago')->middl
 Route::post('inscripcion/guardar-pagos', 'UserInscripcionController@guardarPago')->middleware('auth:pagos','pagos.estado')->name('inscripcion.guardar-pagos');
 Route::get('inscripcion/inscripcion/{id_inscripcion}', 'UserInscripcionController@inscripcion')->middleware('auth:pagos')->name('inscripcion.inscripcion');
 Route::post('inscripcion/inscripcion', 'UserInscripcionController@store')->name('inscripcion.store');
->>>>>>> 0e45e8b3dd0b0e0d3ea9d941926001e80d486bb0
+
+
+
 
 Route::get('inscripcion/login', 'InscripcionLoginController@index')->name('login');
 Route::post('inscripcion/login', 'InscripcionLoginController@store')->name('login.store');
 Route::post('inscripcion/logout', 'InscripcionLoginController@logout')->name('logout');
-<<<<<<< HEAD
-    
-=======
->>>>>>> 0e45e8b3dd0b0e0d3ea9d941926001e80d486bb0
+
+
