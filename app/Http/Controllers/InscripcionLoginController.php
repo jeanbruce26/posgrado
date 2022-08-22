@@ -19,8 +19,9 @@ class InscripcionLoginController extends Controller
      */
     public function index()
     {
+        $valor = 0;
         $admision = Admision::where('estado',1)->first();
-        return view('user.auth.validacion', compact('admision'));
+        return view('user.auth.validacion', compact('admision','valor'));
     }
 
     /**
@@ -61,9 +62,9 @@ class InscripcionLoginController extends Controller
         
         // $pago = Pago::where('dni',$request->dni)->where('nro_operacion',$request->nro_operacion)->where('estado',1)->orWhere('estado',2)->first();
         $pago = Pago::where('dni',$request->documento)->where('nro_operacion',$request->nro_operacion)->first();
-        // dd($pago);
+        $valor = 1;
         if(!$pago){
-            return back()->with('mensaje','Credenciales incorrectas');
+            return redirect()->back()->with(array('mensaje'=>'Credenciales incorrectas','documento'=>$request->documento,'nro_operacion'=>$request->nro_operacion,'tipo_documento'=>$request->tipo_documento,'valor'=>$valor));
         }
 
         if($pago->estado == 1){
