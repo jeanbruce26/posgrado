@@ -17,7 +17,7 @@
     
         <div class="mb-3">
             <label class="form-label">Numero de documento *</label>
-            <input type="text" wire:model="dni" name="documento" value="{{ old('documento') }}" class="form-control @error('documento') is-invalid @enderror" placeholder="Ingrese su número de documento" onkeypress="return soloNumeros(event)" id="miInput" onblur="limpiaNum()" disabled>
+            <input type="text" wire:model="dni" name="documento" value="{{ old('documento') }}" class="form-control @error('documento') is-invalid @enderror" placeholder="Ingrese su número de documento" onkeypress="return soloNumeros(event)" id="miInput" onblur="limpiaNum()" maxlength="9" disabled>
             {{-- @error('dni')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror --}}

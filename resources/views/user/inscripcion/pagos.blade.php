@@ -15,7 +15,7 @@
                             @csrf
                             <div class="col-md-4 d-flex flex-column justify-content-end align-items-star">
                                 <label class="d-flex justify-content-star align-items-center">Concepto de Pago *</label>
-                                <select class="form-select" name="concepto_pago">
+                                <select class="form-select" name="concepto_pago" >
                                     <option value="" selected>Seleccione</option>
                                     @foreach ($concepto as $item)
                                     <option value="{{$item->concepto_id}}" {{ $item->concepto_id == $concepto_id ? 'selected' : '' }}>{{$item->concepto}} - S/.{{$item->monto}}</option>
