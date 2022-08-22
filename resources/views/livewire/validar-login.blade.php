@@ -3,7 +3,7 @@
         @csrf
         <div class="mb-3">
             <label class="form-label">Tipo de Documento *</label>
-            <select wire:model="tipo_documento" class="form-select @error('tipo_documento') is-invalid @enderror" name="tipo_documento" onchange="documento.disabled  = this.value == 0">
+            <select wire:model="tipo_documento" class="form-select @error('tipo_documento') is-invalid @enderror" name="tipo_documento" onchange="documento.disabled  = this.value == 0; ShowSelected();" id="tipo_documento">
                 <option value="" selected>Seleccione</option>
                 @foreach ($tipo_doc as $item)
                 <option value="{{$item->id_tipo_doc}}" {{ old('tipo_documento') == $item->id_tipo_doc ? 'selected' : '' }} @if (session('tipo_documento')){{ session('tipo_documento') == $item->id_tipo_doc ? 'selected' : '' }}@endif>{{$item->doc}}</option>
@@ -14,7 +14,7 @@
     
         <div class="mb-3">
             <label class="form-label">Numero de documento *</label>
-            <input type="text" wire:model="dni" name="documento" value="{{ old('documento') }}@if (session('documento')){{ session('documento') }}@endif" class="form-control @error('documento') is-invalid @enderror" placeholder="Ingrese su número de documento" onkeypress="return soloNumeros(event)" id="miInput" onblur="limpiaNum()" maxlength="9" @if (session('valor')==0)disabled @endif>
+            <input type="text" id="documento" wire:model="dni" name="documento" value="{{ old('documento') }}@if (session('documento')){{ session('documento') }}@endif" class="form-control @error('documento') is-invalid @enderror" placeholder="Ingrese su número de documento" onkeypress="return soloNumeros(event)" id="miInput" onblur="limpiaNum()" maxlength="9" @if (session('valor')==0) @if ($errors->has('documento')) @else disabled @endif @else  @endif>
             @error('documento') <span class="error mt-1">{{ $message }}</span> @enderror
         </div>
     
@@ -27,6 +27,8 @@
         @if (session('mensaje'))
             <div class="alert alert-danger mt-1 mb-1">{{ session('mensaje') }}</div>
         @endif
+
+        
         
         <div class="mt-4">
             <button class="btn btn-primary w-100 w-sm waves-effect waves-light" type="submit">Ingresar</button>
@@ -68,6 +70,15 @@
         for(i = 0; i < tam; i++) {
             if(isNaN(val[i]))
                 document.getElementById("miInput2").value = '';
+        }
+    }
+
+    function ShowSelected() {
+        var cod = document.getElementById("tipo_documento").value;
+        if(cod == 1){
+            document.getElementById("documento").setAttribute("maxlength", "8");
+        }else{
+            document.getElementById("documento").setAttribute("maxlength", "9");
         }
     }
 </script>
