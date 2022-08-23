@@ -21,9 +21,6 @@
                                     <option value="{{$item->concepto_id}}" {{ $item->concepto_id == $concepto_id ? 'selected' : '' }}>{{$item->concepto}} - S/.{{$item->monto}}</option>
                                     @endforeach
                                 </select>
-                                @error('concepto_pago')
-                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
                             </div>
                             <div class="col-md-4 d-flex flex-column justify-content-end align-items-star">
                                 <label class="d-flex justify-content-star align-items-center">Tipo Documento *</label>
