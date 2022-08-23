@@ -14,7 +14,7 @@
     
         <div class="mb-3">
             <label class="form-label">Numero de documento *</label>
-            <input type="text" id="documento" wire:model="dni" name="documento" value="{{ old('documento') }}@if (session('documento')){{ session('documento') }}@endif" class="form-control @error('documento') is-invalid @enderror" placeholder="Ingrese su número de documento" onkeypress="return soloNumeros(event)" id="miInput" onblur="limpiaNum()" maxlength="9" @if (session('valor')==0) @if ($errors->has('documento')) @else disabled @endif @else  @endif>
+            <input type="text" id="documento" wire:model="dni" name="documento" value="{{ old('documento') }}@if (session('documento')){{ session('documento') }}@endif" class="form-control @error('documento') is-invalid @enderror" placeholder="Ingrese su número de documento" onkeypress="return soloNumeros(event)" id="miInput" onblur="limpiaNum()" maxlength="8" @if (session('valor')==0) @if ($errors->has('documento')) @else disabled @endif @else  @endif>
             @error('documento') <span class="error mt-1">{{ $message }}</span> @enderror
         </div>
     
