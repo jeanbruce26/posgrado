@@ -68,6 +68,7 @@ class ProgramaController extends Controller
     {
         $pro = Programa::find($id);
         $sede = Sede::all();
+        
         return view('Programa.edit', compact('sede'))->with('pro',$pro);
     }
 
@@ -85,6 +86,7 @@ class ProgramaController extends Controller
             'descripcion_programa'  =>  'required|max:30',
             'id_sede'  =>  'required|numeric',
         ]);
+        
         $pro = Programa::find($id);
         $pro->descripcion_programa = $request->descripcion_programa;
         $pro->id_sede = $request->id_sede;

@@ -1,7 +1,7 @@
 <div class="col-sm-12 row">
     <div class="col-md-12 mb-3">
         <label class="form-label">Sede (*)</label>
-        <select wire:model="selectedSede" class="form-select" name="id_sede">
+        <select wire:model="selectedSede" class="form-select sede" name="id_sede">
             <option value="" selected>Seleccione</option>
             @foreach ($sed as $item)
             <option value="{{$item->cod_sede}}" {{ $item->cod_sede == old('id_sede') ? 'selected' : '' }}>{{$item->sede}}</option>
@@ -14,7 +14,7 @@
     @if($selectedSede)
     <div class="col-md-4">
         <label class="form-label">Programa (*)</label>
-        <select wire:model="selectedPrograma" class="form-select" name="id_detatte_programa">
+        <select wire:model="selectedPrograma" class="form-select programa" name="id_detatte_programa">
             <option value="" selected>Seleccione</option>
             @foreach ($pro as $item)
             <option value="{{$item->id_programa}}" {{ $item->id_programa == old('id_programa') ? 'selected' : '' }}>{{$item->descripcion_programa}}</option>
@@ -33,7 +33,7 @@
         @foreach ($pro2 as $item)
         <label class="form-label">{{ $item->descripcion_programa }} (*)</label>
         @endforeach
-        <select wire:model="selectedSubPrograma" class="form-select" name="id_subprograma">
+        <select wire:model="selectedSubPrograma" class="form-select subprograma" name="id_subprograma">
             <option value="" selected>Seleccione</option>
             @foreach ($sub as $item)
             <option value="{{$item->id_subprograma}}" {{ $item->id_subprograma == old('id_subprograma') ? 'selected' : '' }}>{{$item->subprograma}}</option>
@@ -53,7 +53,7 @@
     @if (!is_null($valor))
     <div class="col-md-4">
         <label class="form-label">Mencion (*)</label>
-        <select wire:model="selectedMencion" class="form-select" name="id_mencion">
+        <select wire:model="selectedMencion" class="form-select mension" name="id_mencion">
             <option value="" selected>Seleccione</option>
             @foreach ($men as $item)
                 <option value="{{$item->id_mencion}}" {{ $item->id_mencion == old('id_mencion') ? 'selected' : '' }}>{{$item->mencion}}</option>

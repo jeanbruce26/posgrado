@@ -15,6 +15,8 @@ class Expediente extends Model
     protected $fillable = [
         'cod_exp',
         'tipo_doc',
+        'complemento',
+        'requerido',
         'estado',
     ];
 

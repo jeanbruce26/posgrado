@@ -25,14 +25,12 @@
                         <h5 class="card-header d-flex justify-content-star align-items-center">Requisitos para realizar su inscripción:</h5>
                         <div class="card-body">
                             <h5 class="card-title mb-3 d-flex justify-content-star align-items-center">Pido a usted, se sirva considerarme como tal, para el cual abjunto los requisitos que se solicitan:</h5>
-                            <p class="card-text d-flex justify-content-star align-items-center text-black-80" style="text-align: justify;">- Fotocopia AMPLIADA del Documento de Identidad. En casos de postulantes extranjeros fotocopia legalizada del Carnet de Extranjeria; o fotocopia legalizada con traducción oficial del pasaporte, en caso esté en otro idioma del español.</p>
-                            <p class="card-text d-flex justify-content-star align-items-center text-black-80">- Fotocopia de la partida de nacimiento.</p>
-                            <p class="card-text d-flex justify-content-star align-items-center text-black-80">- Copia del Grado Académico de Bachiller..</p>
+                            <p class="card-text d-flex justify-content-star align-items-center text-black-80" style="text-align: justify;">- Fotocopia AMPLIADA del Documento de Identidad. En casos de postulantes extranjeros fotocopia legalizada del Carnet de Extranjeria.</p>
+                            <p class="card-text d-flex justify-content-star align-items-center text-black-80">- Copia de Grado Academico. Mestrias (Bachiller). Doctorados (Maestro o Magister)</p>
+                            <p class="card-text d-flex justify-content-star align-items-center text-black-80">- Copia de constancia de la SUNEDU.</p>
                             <p class="card-text d-flex justify-content-star align-items-center text-black-80" style="text-align: justify;">- Copia del Certificado de Estudios. Para el caso de los graduadosen el extranjero presentar los certificados de estudios debidamente legalizados y traducidos oficialmente al castellano y visados por el Consulado del Perú en dicho país y por el Ministro de Relaciones Exteriores Peruano.</p>
-                            <p class="card-text d-flex justify-content-star align-items-center text-black-80">- Recibo de pago por derecho de inscripción (S/. 200.00).</p>
-                            <p class="card-text d-flex justify-content-star align-items-center text-black-80">- Tres (03) fotografías recientes de frente, en fondo blanco, tamaño carnet, sin anteojos de luna oscura..</p>
-                            <p class="card-text d-flex justify-content-star align-items-center text-black-80">- Certificados de 01 idiomas extranjero nivel básico certificado por el Centro de Idiomas de la UNU.</p>
-                            <p class="card-text d-flex justify-content-star align-items-center text-black-80">- Currículum Vitae documentado (de los ultimos 5 años).</p>
+                            <p class="card-text d-flex justify-content-star align-items-center text-black-80">- Certificado de idiomas extranjero. Certificado por el centro de idiomas de la UNU. Maestría (1 idioma). Doctorado (2 idiomas).</p>
+                            <p class="card-text d-flex justify-content-star align-items-center text-black-80">- Currículum Vitae documentado (de los ultimos 3 años).</p>
                             
                         </div>
                     </div>

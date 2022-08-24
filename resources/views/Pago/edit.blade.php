@@ -12,7 +12,7 @@
             
             <div class="col-6">
                 <label for="inputDNI" class="form-label">Documento *</label>
-                <input type="text" class="form-control" id="inputDNI" name="dni" maxlength="10" value="{{ $pago->dni }}" onkeypress="return soloNumeros(event)">
+                <input type="text" class="form-control" id="inputDNI" name="dni" maxlength="9" value="{{ $pago->dni }}" onkeypress="return soloNumeros(event)">
                 @error('dni')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror

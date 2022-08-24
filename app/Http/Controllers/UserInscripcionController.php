@@ -68,7 +68,7 @@ class UserInscripcionController extends Controller
             'concepto_pago' => ['required', 'numeric'],
         ]);
         if($request->numero_documento != auth('pagos')->user()->dni){
-            return back()->with('mensaje-dni','El dni ingresado no puede ser buscado o no lo pertenece.');
+            return back()->with(array('mensaje-dni'=>'El dni ingresado no puede ser buscado o no lo pertenece.','tipo_documento'=>$request->tipo_documento,'numero_documento'=>$request->numero_documento,'concepto_pago'=>$request->concepto_pago));
         }
         $concepto = ConceptoPago::all();
         $concepto_id = $request->concepto_pago;
@@ -82,7 +82,7 @@ class UserInscripcionController extends Controller
     public function guardarPago(Request $request)
     {
         if(!$request->seleccionar){
-            return back()->with('mensaje-seleccionar','Debe seleccionar su pago, para continuar con su inscripcion.');
+            return back()->with(array('mensaje-seleccionar'=>'Debe seleccionar su pago, para continuar con su inscripcion.','tipo_documento'=>$request->tipodoc_id,'numero_documento'=>$request->doc,'concepto_pago'=>$request->concepto_id,'enviar'=>1));
         }
 
         $admi = Admision::where('estado',1)->get();
@@ -294,7 +294,7 @@ class UserInscripcionController extends Controller
 
         auth('pagos')->logout();
 
-        return $pdf2->stream($nombre_pdf);;
+        return $pdf2->stream($nombre_pdf);
     }
 
     /**

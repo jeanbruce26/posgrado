@@ -11,47 +11,53 @@
                     <h5 class="card-header d-flex justify-content-star align-items-center">Mis pagos realizados:</h5>
                     <div class="card-body">
                         <h5 class="card-title mb-3 d-flex justify-content-star align-items-center">A continuación, selecciona tu Concepto de Pago y proporciona tu N° de Documento de Identidad:</h5>
-                        <form action="{{ route('inscripcion.pagos') }}" method="post" class="row g-3" novalidate>
+                        <form action="{{ route('inscripcion.pagos') }}" method="post" class="row g-3" name="formularioBuscar" novalidate>
                             @csrf
                             <div class="col-md-4 d-flex flex-column justify-content-end align-items-star">
                                 <label class="d-flex justify-content-star align-items-center">Concepto de Pago *</label>
-                                <select class="form-select" name="concepto_pago">
+                                <select class="form-select" name="concepto_pago" >
                                     <option value="" selected>Seleccione</option>
                                     @foreach ($concepto as $item)
-                                    <option value="{{$item->concepto_id}}" {{ $item->concepto_id == $concepto_id ? 'selected' : '' }}>{{$item->concepto}} - S/.{{$item->monto}}</option>
+                                    <option value="{{$item->concepto_id}}" {{ $item->concepto_id == old('concepto_pago') ? 'selected' : '' }} {{ $item->concepto_id == $concepto_id ? 'selected' : '' }} @if (session('concepto_pago')){{ session('concepto_pago') == $item->concepto_id ? 'selected' : '' }}@endif>{{$item->concepto}} - S/.{{$item->monto}}</option>
                                     @endforeach
                                 </select>
-                                @error('concepto_pago')
-                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
                             </div>
                             <div class="col-md-4 d-flex flex-column justify-content-end align-items-star">
                                 <label class="d-flex justify-content-star align-items-center">Tipo Documento *</label>
                                 <select class="form-select" name="tipo_documento">
                                     <option value="" selected>Seleccione</option>
                                     @foreach ($tipo_doc as $item)
-                                    <option value="{{$item->id_tipo_doc}}" {{ $item->id_tipo_doc == $tipodoc_id ? 'selected' : '' }}>{{$item->doc}}</option>
+                                    <option value="{{$item->id_tipo_doc}}" {{ $item->id_tipo_doc == old('tipo_documento') ? 'selected' : '' }} {{ $item->id_tipo_doc == $tipodoc_id ? 'selected' : '' }} @if (session('tipo_documento')){{ session('tipo_documento') == $item->id_tipo_doc ? 'selected' : '' }}@endif>{{$item->doc}}</option>
                                     @endforeach
                                 </select>
-                                @error('tipo_documento')
+                                {{-- @error('tipo_documento')
                                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
+                                @enderror --}}
                             </div>
                             <div class="col-md-3 d-flex flex-column justify-content-end align-items-star">
                                 <label class="d-flex justify-content-star align-items-center">Numero Documento *</label>
-                                <input type="text" class="form-control" name="numero_documento" value="{{ old('numero_documento', $doc) }}" onkeypress="return soloNumeros(event)">
-                                @error('numero_documento')
+                                <input type="text" class="form-control" name="numero_documento" value="{{ old('numero_documento', $doc) }}@if (session('numero_documento')){{ session('numero_documento') }}@endif" onkeypress="return soloNumeros(event)">
+                                {{-- @error('numero_documento')
                                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
+                                @enderror --}}
                             </div>
                             <div class="col-md-1 d-flex justify-content-center align-items-end">
-                                <button type="submit" class="btn btn-next">Buscar</button>
+                                <button type="submit" class="btn btn-success">Buscar</button>
                             </div>
+                            @if ($errors->any())
+                                <div class="alert alert-danger text-start">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             @if (session('mensaje-dni'))
                                 <div class="alert alert-danger mt-1 mb-1">{{ session('mensaje-dni') }}</div>
                             @endif
                         </form>
-                        <form action="{{ route('inscripcion.guardar-pagos') }}" method="post">
+                        <form action="{{ route('inscripcion.guardar-pagos') }}" method="post" onsubmit="formularioGuardar(event)">
                             @csrf
                             <div class="table-responsive">
                                 <table class="table table-editable table-nowrap align-middle table-edits">
@@ -91,10 +97,20 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <input type="hidden" name="concepto_id" value="{{ $concepto_id }}">
+                            <input type="hidden" name="tipodoc_id" value="{{ $tipodoc_id }}">
+                            <input type="hidden" name="doc" value="{{ $doc }}">
                             @if (session('mensaje-seleccionar'))
                                 <div class="alert alert-danger mt-1 mb-1">{{ session('mensaje-seleccionar') }}</div>
                             @endif
-                            <input type="hidden" name="concepto_id" value="{{ $concepto_id }}">
+                            <div id="mostrar">
+
+                            </div>
+                            {{-- @if (session('enviar'))
+                                <script>
+                                    document.formularioBuscar.submit()
+                                </script>
+                            @endif --}}
                             <div class="mt-3 d-flex justify-content-end">
                                 <button type="submit" class="btn btn-next">Guardar</button>
                             </div>
@@ -128,6 +144,20 @@
     
         if (letras.indexOf(tecla) == -1 && !tecla_especial) {
             return false;
+        }
+    }
+
+    function formularioGuardar(event){
+
+        const check = document.querySelector('#seleccionar');
+        console.log(check.checked)
+
+        if(check.checked == false){
+            // alert('seleccione su pago');
+            document.querySelector('#mostrar').innerHTML = "<div class='"+"alert alert-danger mt-1 mb-1'"+">Debe seleccionar su pago, para continuar con su inscripcion.</div>"
+            event.preventDefault();
+        }else{
+            this.submit();
         }
     }
 </script>

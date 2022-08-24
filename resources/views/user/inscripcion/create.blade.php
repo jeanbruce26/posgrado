@@ -30,7 +30,7 @@
                                         <div class="d-flex row g-3">
                                              <div class="col-md-4">
                                                   <label class="form-label">Tipo de Documento (*)</label>
-                                                  <select class="form-select" name="tipo_doc_cod_tipo">
+                                                  <select class="form-select tipoDoc" name="tipo_doc_cod_tipo" id="tipo_doc_cod_tipo" onchange="ShowSelected();">
                                                        <option value="" selected>Seleccione</option>
                                                        @foreach ($tipo_doc as $item)
                                                        <option value="{{$item->id_tipo_doc}}" {{ $item->id_tipo_doc == old('tipo_doc_cod_tipo') ? 'selected' : '' }}>{{$item->doc}}</option>
@@ -42,35 +42,35 @@
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Numero Documento (*)</label>
-                                                  <input type="text" class="form-control" name="num_doc" value="{{ old('num_doc') }}" onkeypress="return  soloNumeros(event)">
+                                                  <input type="text" class="form-control numDoc" id="num_doc" name="num_doc" maxlength="8" value="{{ old('num_doc') }}" onkeypress="return  soloNumeros(event)">
                                                   @error('num_doc')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Apellido Paterno (*)</label>
-                                                  <input type="text" class="form-control" name="apell_pater" value="{{ old('apell_pater') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
+                                                  <input type="text" class="form-control apePater" name="apell_pater" value="{{ old('apell_pater') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
                                                   @error('apell_pater')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Apellido Materno (*)</label>
-                                                  <input type="text" class="form-control"  name="apell_mater" value="{{ old('apell_mater') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
+                                                  <input type="text" class="form-control apeMater"  name="apell_mater" value="{{ old('apell_mater') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
                                                   @error('apell_mater')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Nombre (*)</label>
-                                                  <input type="text" class="form-control" name="nombres" value="{{ old('nombres') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
+                                                  <input type="text" class="form-control nomb" name="nombres" value="{{ old('nombres') }}" style="text-transform: uppercase;" onkeypress="return  soloLetras(event)">
                                                   @error('nombres')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Sexo (*)</label>
-                                                  <select class="form-select" name="sexo">
+                                                  <select class="form-select sexo" name="sexo">
                                                        <option value="" selected>Seleccione...</option>
                                                        <option value="FEMENINO" {{ 'FEMENINO' == old('sexo') ? 'selected' : '' }}>FEMENINO</option>
                                                        <option value="MASCULINO" {{ 'MASCULINO' == old('sexo') ? 'selected' : '' }}>MASCULINO</option>
@@ -81,14 +81,14 @@
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Fecha de Naciminto (*)</label>
-                                                  <input type="date" class="form-control" value="{{ old('fecha_naci') }}" name="fecha_naci">
+                                                  <input type="date" class="form-control fechaNaci" value="{{ old('fecha_naci') }}" name="fecha_naci">
                                                   @error('fecha_naci')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Estado Civil (*)</label>
-                                                  <select class="form-select" name="est_civil_cod_est">
+                                                  <select class="form-select estCivil" name="est_civil_cod_est">
                                                        <option value="" selected>Seleccione...</option>
                                                        @foreach ($estado_civil as $item)
                                                        <option value="{{$item->cod_est}}" {{ $item->cod_est == old('est_civil_cod_est') ? 'selected' : '' }}>{{$item->est_civil}}</option>
@@ -100,7 +100,7 @@
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Grado Academico (*)</label>
-                                                  <select class="form-select" name="id_grado_academico">
+                                                  <select class="form-select gradoAcademico" name="id_grado_academico">
                                                        <option value="" selected>Seleccione...</option>
                                                        @foreach ($grado as $item)
                                                        <option value="{{$item->id_grado_academico}}" {{ $item->id_grado_academico == old('id_grado_academico') ? 'selected' : '' }}>{{$item->nom_grado}}</option>
@@ -119,7 +119,7 @@
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Celular (*)</label>
-                                                  <input type="text" class="form-control" name="celular1" value="{{ old('celular1') }}" style="text-transform: uppercase;" onkeypress="return  soloNumeros(event)">
+                                                  <input type="text" class="form-control cel" name="celular1" value="{{ old('celular1') }}" style="text-transform: uppercase;" onkeypress="return  soloNumeros(event)">
                                                   @error('celular1')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -139,7 +139,7 @@
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Email (*)</label>
-                                                  <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                                  <input type="email" class="form-control email" name="email" value="{{ old('email') }}">
                                                   @error('email')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -152,7 +152,7 @@
                                              <livewire:select-ubigeo/>
                                              <div class="col-md-12">
                                                   <label class="form-label">Direccion (*)</label>
-                                                  <input type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" style="text-transform: uppercase;">
+                                                  <input type="text" class="form-control direc" name="direccion" value="{{ old('direccion') }}" style="text-transform: uppercase;">
                                                   @error('direccion')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -161,14 +161,14 @@
                                              <livewire:select-ubigeo-nacimiento/>
                                              <div class="col-md-4">
                                                   <label class="form-label">Año de Egreso (*)</label>
-                                                  <input type="int" class="form-control" name="año_egreso" value="{{ old('año_egreso') }}" maxlength="4" onkeypress="return  soloNumeros(event)">
+                                                  <input type="int" class="form-control anioEgreso" name="año_egreso" value="{{ old('año_egreso') }}" maxlength="4" onkeypress="return  soloNumeros(event)">
                                                   @error('año_egreso')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Universidad (*)</label>
-                                                  <select class="form-select" name="univer_cod_uni">
+                                                  <select class="form-select universidad" name="univer_cod_uni">
                                                        <option value="" selected>Seleccione...</option>
                                                        @foreach ($universidad as $item)
                                                        <option value="{{$item->cod_uni}}" {{ $item->cod_uni == old('univer_cod_uni') ? 'selected' : '' }}>{{$item->universidad}}</option>
@@ -180,7 +180,7 @@
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Centro de Trabajo (*)</label>
-                                                  <input type="text" class="form-control"  name="centro_trab" value="{{ old('centro_trab') }}" style="text-transform: uppercase;">
+                                                  <input type="text" class="form-control centroTrab"  name="centro_trab" value="{{ old('centro_trab') }}" style="text-transform: uppercase;">
                                                   @error('centro_trab')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -205,29 +205,39 @@
                                                   <thead>
                                                        <tr>
                                                             <th>Tipo de Documento</th>
+                                                            <th></th>
                                                             <th>Acción</th>
                                                             <th class="col-1">FORMATO</th>
                                                        </tr>
                                                   </thead>
                                                   
                                                   <tbody>
+                                                       <script>
+                                                            var con = 0;
+                                                       </script>
                                                        @foreach ($expediente as $item)
                                                        <tr>
                                                             <td>
                                                                  <label class="form-label mt-2 mb-2">{{ $item->tipo_doc }} (*)</label>
                                                             </td>
-                                   
                                                             <td>
-                                                                 <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito" 
-                                                                      type="file" 
-                                                                      name="nom_exped{{ $item->cod_exp }}"
-                                                                 >
+                                                                 <label class="form-label mt-2 mb-2">{{ $item->complemento }}</label>
+                                                            </td>
+
+                                                            <td class="col-md-5">
+                                                                 <input id="expediente" class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito nomExp{{ $item->cod_exp }}" type="file" name="nom_exped{{ $item->cod_exp }}"
+                                                            @if($item->requerido == 1)
+                                                                 required
+                                                            @endif>
                                                             </td>
                                                             <td>
                                                                  <label class="form-label mt-2 mb-2">PDF</label>
                                                             </td> 
                                                        </tr>
+
                                                        @endforeach
+                                                       <script>
+                                                       </script>
                                                   </tbody>
                                              </table>
                                              <div class="col-md-6">
@@ -265,6 +275,55 @@
      <script>
           $('.formulario-guardar').submit(function(e){
                e.preventDefault();
+               var id_sede, id_detatte_programa, id_subprograma, id_mencion;
+               id_sede = $(".sede").val();
+               id_detatte_programa = $(".programa").val();
+               id_subprograma = $(".subprograma").val();
+               id_mencion = $(".mension").val();if(con==1){
+                    Swal.fire({
+                         icon: 'error',
+                         title: 'Campos de textos vacios',
+                         text: '¡Ingrese los campos de textos requeridos!'
+                    })
+               }
+
+               if(id_sede.length==0 || id_detatte_programa.length==0 || id_subprograma.length==0){
+                    Swal.fire({
+                         icon: 'error',
+                         title: 'Campos de textos vacios',
+                         text: '¡Ingrese los campos de textos requeridos!'
+                    })
+               }else if(id_mencion!=null){
+                    if(id_mencion.length==0){
+                         Swal.fire({
+                         icon: 'error',
+                         title: 'Campos de textos vacios',
+                         text: '¡Ingrese los campos de textos requeridos!'
+                    })
+                    }else{
+                         Swal.fire({
+                         title: '¿Realizar inscripción?',
+                         text: "¡Revise bien sus datos antes de realizar su inscripción!",
+                         icon: 'question',
+                         showCancelButton: true,
+                         confirmButtonColor: '#3085d6',
+                         cancelButtonColor: '#d33',
+                         confirmButtonText: 'Si, realizar inscripción.',
+                         cancelButtonText: 'Cancelar'
+                         }).then((result) => {
+                              if (result.isConfirmed) {
+                                   Swal.fire(
+                                        'Inscripcion realizada exitosamente.',
+                                        'Su ficha de inscripcion se abrirá automaticamente.',
+                                        'success'
+                                   )
+                                   this.submit();
+                                   
+                              }
+                         })
+                    }
+                    
+               }else{
                     Swal.fire({
                     title: '¿Realizar inscripción?',
                     text: "¡Revise bien sus datos antes de realizar su inscripción!",
@@ -274,17 +333,21 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Si, realizar inscripción.',
                     cancelButtonText: 'Cancelar'
-               }).then((result) => {
-                    if (result.isConfirmed) {
-                         Swal.fire(
-                              'Inscripcion realizada exitosamente.',
-                              'Su ficha de inscripcion se abrirá automaticamente.',
-                              'success'
-                         )
-                         this.submit();
-                    }
-               })
+                    }).then((result) => {
+                         if (result.isConfirmed) {
+                              Swal.fire(
+                                   'Inscripcion realizada exitosamente.',
+                                   'Su ficha de inscripcion se abrirá automaticamente.',
+                                   'success'
+                              )
+                              this.submit();
+                              
+                         }
+                    })
+               }
           })
+          
+          
      </script>
 
      <script>
@@ -326,6 +389,15 @@
           if (letras.indexOf(tecla) == -1 && !tecla_especial) {
                return false;
           }
+          }
+
+          function ShowSelected() {
+               var cod = document.getElementById("tipo_doc_cod_tipo").value;
+               if(cod == 1){
+                    document.getElementById("num_doc").setAttribute("maxlength", "8");
+               }else{
+                    document.getElementById("num_doc").setAttribute("maxlength", "9");
+               }
           }
      </script>
 

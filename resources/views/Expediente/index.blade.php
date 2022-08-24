@@ -13,6 +13,8 @@
 				<tr class="col-sm-12">
 					<th class="col-1">Código</th>
 					<th>Tipo de documento</th>
+					<th>Texto complementario</th>
+					<th class="col-1">Requerido</th>
 					<th class="col-2">Estado</th>
 					<th class="col-1">Acciones</th>
 				</tr>
@@ -24,11 +26,19 @@
 				<tr>
 					<td>{{$expediente->cod_exp}}</td>
 					<td>{{$expediente->tipo_doc}}</td>
+					<td>{{$expediente->complemento}}</td>
+					<td>
+                        @if($expediente->requerido == 1)
+                            Si
+                        @else
+                            No
+                        @endif
+                    </td>
 					<td>
                         @if($expediente->estado == 1)
-                            <div class="p-1 bg-info text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">Activo</div></td>
+                            <div class="p-1 bg-info text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">Activo</div>
                         @else
-                            <div class="p-1 bg-danger text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">Inactivo</div></td>
+                            <div class="p-1 bg-danger text-white rounded-pill d-flex justify-content-center align-items-center text-center w-75">Inactivo</div>
                         @endif
                     </td>
 					<td class="d-flex justify-content-star">
