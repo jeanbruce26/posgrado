@@ -40,6 +40,7 @@ class ExpedienteController extends Controller
         $request->validate([
             'tipo_doc'  =>  'required|max:200',
             'complemento'  =>  'string|max:200',
+            'requerido'  =>  'required|numeric',
             'estado'  =>  'required|numeric',
         ]);
         Expediente::create($request->all());
@@ -81,6 +82,7 @@ class ExpedienteController extends Controller
         $request->validate([
             'tipo_doc'  =>  'required|max:45',
             'complemento'  =>  'string|max:200',
+            'requerido'  =>  'required|numeric',
             'estado'  =>  'required|numeric',
         ]);
         $exp = Expediente::find($id);

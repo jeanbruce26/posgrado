@@ -26,10 +26,22 @@
 				@enderror
 			</div>
 
+			<div class="col-6">
+                <label for="inputRequerido" class="form-label">Requerido *</label>
+                <select id="inputRequerido" class="form-select" name="requerido">
+                    <option value="" selected>Seleccione</option>
+                    <option value="1" {{ $exp->requerido == 1 ? 'selected' : '' }}> Si</option>
+                    <option value="2" {{ $exp->requerido == 2 ? 'selected' : '' }}> No</option>
+                </select>
+                @error('requerido')
+                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
+
             <div class="col-6">
-                <label for="inputMonto" class="form-label">Estado *</label>
+                <label for="inputEstado" class="form-label">Estado *</label>
                 <select id="inputEstado" class="form-select" name="estado">
-                    <option selected>Seleccione</option>
+                    <option value="" selected>Seleccione</option>
                     <option value="1" {{ $exp->estado == 1 ? 'selected' : '' }}> Activo</option>
                     <option value="2" {{ $exp->estado == 2 ? 'selected' : '' }}> Inactivo</option>
                 </select>

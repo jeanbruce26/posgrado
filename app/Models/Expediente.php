@@ -16,6 +16,7 @@ class Expediente extends Model
         'cod_exp',
         'tipo_doc',
         'complemento',
+        'requerido',
         'estado',
     ];
 

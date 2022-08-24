@@ -222,7 +222,7 @@
                                                             </td>
                                    
                                                             <td class="col-md-5">
-                                                                 <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito" 
+                                                                 <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito nomExp{{ $item->cod_exp }}" 
                                                                       type="file" 
                                                                       name="nom_exped{{ $item->cod_exp }}"
                                                                  >
@@ -269,6 +269,48 @@
      <script>
           $('.formulario-guardar').submit(function(e){
                e.preventDefault();
+               var id_sede, id_detatte_programa, id_subprograma, id_mencion;
+               id_sede = $(".sede").val();
+               id_detatte_programa = $(".programa").val();
+               id_subprograma = $(".subprograma").val();
+               id_mencion = $(".mension").val();
+
+               if(id_sede.length==0 || id_detatte_programa.length==0 || id_subprograma.length==0){
+                    Swal.fire({
+                         icon: 'error',
+                         title: 'Campos de textos vacios',
+                         text: '¡Ingrese los campos de textos requeridos!'
+                    })
+               }else if(id_mencion!=null){
+                    if(id_mencion.length==0){
+                         Swal.fire({
+                         icon: 'error',
+                         title: 'Campos de textos vacios',
+                         text: '¡Ingrese los campos de textos requeridos!'
+                    })
+                    }else{
+                         Swal.fire({
+                         title: '¿Realizar inscripción?',
+                         text: "¡Revise bien sus datos antes de realizar su inscripción!",
+                         icon: 'question',
+                         showCancelButton: true,
+                         confirmButtonColor: '#3085d6',
+                         cancelButtonColor: '#d33',
+                         confirmButtonText: 'Si, realizar inscripción.',
+                         cancelButtonText: 'Cancelar'
+                         }).then((result) => {
+                              if (result.isConfirmed) {
+                                   Swal.fire(
+                                        'Inscripcion realizada exitosamente.',
+                                        'Su ficha de inscripcion se abrirá automaticamente.',
+                                        'success'
+                                   )
+                                   this.submit();
+                              }
+                         })
+                    }
+                    
+               }else{
                     Swal.fire({
                     title: '¿Realizar inscripción?',
                     text: "¡Revise bien sus datos antes de realizar su inscripción!",
@@ -278,16 +320,17 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Si, realizar inscripción.',
                     cancelButtonText: 'Cancelar'
-               }).then((result) => {
-                    if (result.isConfirmed) {
-                         Swal.fire(
-                              'Inscripcion realizada exitosamente.',
-                              'Su ficha de inscripcion se abrirá automaticamente.',
-                              'success'
-                         )
-                         this.submit();
-                    }
-               })
+                    }).then((result) => {
+                         if (result.isConfirmed) {
+                              Swal.fire(
+                                   'Inscripcion realizada exitosamente.',
+                                   'Su ficha de inscripcion se abrirá automaticamente.',
+                                   'success'
+                              )
+                              this.submit();
+                         }
+                    })
+               }
           })
      </script>
 
