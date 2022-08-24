@@ -25,6 +25,18 @@
 				@enderror
 			</div>
 
+			<div class="col-md-12">
+				<label for="inputRequerido" class="form-label">Requerido *</label>
+                <select class="form-select" name="requerido">
+                    <option value="" selected>Seleccione</option>
+                    <option value="1">Si</option>
+                    <option value="2">No</option>
+                </select>
+                @error('requerido')
+                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+			</div>
+
             <div class="col-md-12">
 				<label for="inputEstado" class="form-label">Estado *</label>
                 <select class="form-select" name="estado">
