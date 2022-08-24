@@ -20,7 +20,7 @@
                                     @foreach ($concepto as $item)
                                     <option value="{{$item->concepto_id}}" {{ $item->concepto_id == old('concepto_pago') ? 'selected' : '' }} {{ $item->concepto_id == $concepto_id ? 'selected' : '' }} @if (session('concepto_pago')){{ session('concepto_pago') == $item->concepto_id ? 'selected' : '' }}@endif>{{$item->concepto}} - S/.{{$item->monto}}</option>
                                     @endforeach
-                                </select>   
+                                </select>
                             </div>
                             <div class="col-md-4 d-flex flex-column justify-content-end align-items-star">
                                 <label class="d-flex justify-content-star align-items-center">Tipo Documento *</label>
