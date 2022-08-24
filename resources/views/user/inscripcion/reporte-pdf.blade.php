@@ -796,7 +796,7 @@
                     <th style="text-align: initial;">{{ $item->ConceptoPago->concepto }}</th>
                 </tr>
                 <tr>
-                    <th><div class="titulo3 my-1">Monto</div></th>
+                    <th><div class="titulo3">Monto</div></th>
                     <th><div class="mx-2">:</div></th>
                     <th style="text-align: initial;">S/. {{ $item->ConceptoPago->monto }}</th>
                 </tr>
@@ -847,17 +847,17 @@
     <table>
         <thead>
             <tr>
-                <th><div class="titulo3 my-1" style="font-size: small;">Usuario</div></th>
-                <th><div class="mx-2 my-1">:</div></th>
+                <th><div class="titulo3" style="font-size: small;">Usuario</div></th>
+                <th><div class="mx-2">:</div></th>
                 @foreach ($persona as $item)
-                <th class="my-1" style="text-align: initial; font-size: small;">{{ $item->num_doc }}</th>
+                <th class="" style="text-align: initial; font-size: small;">{{ $item->num_doc }}</th>
                 @endforeach
             </tr>
             <tr>
-                <th><div class="titulo3 my-1" style="font-size: small;">Contraseña</div></th>
-                <th><div class="mx-2 my-1">:</div></th>
+                <th><div class="titulo3" style="font-size: small;">Contraseña</div></th>
+                <th><div class="mx-2">:</div></th>
                 @foreach ($inscrip as $item)
-                <th class="my-1" style="text-align: initial; font-size: small;">{{$item->id_inscripcion}}</th>
+                <th class="" style="text-align: initial; font-size: small;">{{$item->id_inscripcion}}</th>
                 @endforeach
             </tr>
         </thead>

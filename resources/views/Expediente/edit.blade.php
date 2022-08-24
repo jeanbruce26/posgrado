@@ -18,6 +18,14 @@
                     @enderror
             </div>
 
+			<div class="col-md-6">
+				<label class="form-label">Texto complemento del documento</label>
+				<input type="text" class="form-control" name="complemento" value="{{ $exp->complemento }}">
+				@error('complemento')
+					<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+				@enderror
+			</div>
+
             <div class="col-6">
                 <label for="inputMonto" class="form-label">Estado *</label>
                 <select id="inputEstado" class="form-select" name="estado">

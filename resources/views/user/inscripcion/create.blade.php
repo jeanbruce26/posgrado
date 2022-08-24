@@ -205,6 +205,7 @@
                                                   <thead>
                                                        <tr>
                                                             <th>Tipo de Documento</th>
+                                                            <th></th>
                                                             <th>Acción</th>
                                                             <th class="col-1">FORMATO</th>
                                                        </tr>
@@ -216,8 +217,11 @@
                                                             <td>
                                                                  <label class="form-label mt-2 mb-2">{{ $item->tipo_doc }} (*)</label>
                                                             </td>
-                                   
                                                             <td>
+                                                                 <label class="form-label mt-2 mb-2">{{ $item->complemento }}</label>
+                                                            </td>
+                                   
+                                                            <td class="col-md-5">
                                                                  <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito" 
                                                                       type="file" 
                                                                       name="nom_exped{{ $item->cod_exp }}"

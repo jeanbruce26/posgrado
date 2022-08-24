@@ -11,13 +11,21 @@
 
             <div class="col-md-6">
 				<label for="inputExp" class="form-label">Tipo de Documento *</label>
-				<input type="text" class="form-control" id="inputExp" name="tipo_doc" maxlength="45" value="{{ old('tipo_doc') }}" onkeypress="return soloLetras(event)">
+				<input type="text" class="form-control" id="inputExp" name="tipo_doc" maxlength="200" value="{{ old('tipo_doc') }}" onkeypress="return soloLetras(event)">
 				@error('tipo_doc')
 					<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
 				@enderror
 			</div>
 
-            <div class="col-md-6">
+			<div class="col-md-6">
+				<label class="form-label">Texto complemento del documento</label>
+				<input type="text" class="form-control" name="complemento" value="{{ old('complemento') }}">
+				@error('complemento')
+					<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+				@enderror
+			</div>
+
+            <div class="col-md-12">
 				<label for="inputEstado" class="form-label">Estado *</label>
                 <select class="form-select" name="estado">
                     <option value="" selected>Seleccione</option>

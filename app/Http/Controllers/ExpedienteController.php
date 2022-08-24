@@ -38,7 +38,8 @@ class ExpedienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tipo_doc'  =>  'required|max:45',
+            'tipo_doc'  =>  'required|max:200',
+            'complemento'  =>  'string|max:200',
             'estado'  =>  'required|numeric',
         ]);
         Expediente::create($request->all());
@@ -79,6 +80,7 @@ class ExpedienteController extends Controller
     {
         $request->validate([
             'tipo_doc'  =>  'required|max:45',
+            'complemento'  =>  'string|max:200',
             'estado'  =>  'required|numeric',
         ]);
         $exp = Expediente::find($id);
