@@ -226,25 +226,20 @@
                                    
                                                             <td class="col-md-5">
 
-                                                                 <input id="expediente" class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito expediente{{$item->cod_exp}}" 
+                                                                 <input id="expediente" class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito" 
 
                                                                       type="file" 
                                                                       name="nom_exped{{$item->cod_exp}}"
                                                                  >
+                                                                 
                                                             </td>
-                                                            <script>
-                                                                 var requerido = <?=$item->requerido;?>;
-                                                                 if(requerido == 2){
-                                                                      con = 1;
-                                                                 }
-                                                                 console.log(requerido)
-
-                                                            </script>
                                                             <td>
                                                                  <label class="form-label mt-2 mb-2">PDF</label>
                                                             </td> 
                                                        </tr>
                                                        @endforeach
+                                                       <script>
+                                                       </script>
                                                   </tbody>
                                              </table>
                                              <div class="col-md-6">
@@ -286,7 +281,13 @@
                id_sede = $(".sede").val();
                id_detatte_programa = $(".programa").val();
                id_subprograma = $(".subprograma").val();
-               id_mencion = $(".mension").val();
+               id_mencion = $(".mension").val();if(con==1){
+                    Swal.fire({
+                         icon: 'error',
+                         title: 'Campos de textos vacios',
+                         text: '¡Ingrese los campos de textos requeridos!'
+                    })
+               }
 
                if(id_sede.length==0 || id_detatte_programa.length==0 || id_subprograma.length==0){
                     Swal.fire({
@@ -319,6 +320,7 @@
                                         'success'
                                    )
                                    this.submit();
+                                   
                               }
                          })
                     }
@@ -341,10 +343,13 @@
                                    'success'
                               )
                               this.submit();
+                              
                          }
                     })
                }
           })
+          
+          
      </script>
 
      <script>
