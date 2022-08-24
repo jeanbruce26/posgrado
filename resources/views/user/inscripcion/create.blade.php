@@ -30,7 +30,7 @@
                                         <div class="d-flex row g-3">
                                              <div class="col-md-4">
                                                   <label class="form-label">Tipo de Documento (*)</label>
-                                                  <select class="form-select tipoDoc" name="tipo_doc_cod_tipo">
+                                                  <select class="form-select tipoDoc" name="tipo_doc_cod_tipo" id="tipo_doc_cod_tipo" onchange="ShowSelected();">
                                                        <option value="" selected>Seleccione</option>
                                                        @foreach ($tipo_doc as $item)
                                                        <option value="{{$item->id_tipo_doc}}" {{ $item->id_tipo_doc == old('tipo_doc_cod_tipo') ? 'selected' : '' }}>{{$item->doc}}</option>
@@ -42,7 +42,7 @@
                                              </div>
                                              <div class="col-md-4">
                                                   <label class="form-label">Numero Documento (*)</label>
-                                                  <input type="text" class="form-control numDoc" name="num_doc" value="{{ old('num_doc') }}" onkeypress="return  soloNumeros(event)">
+                                                  <input type="text" class="form-control numDoc" id="num_doc" name="num_doc" maxlength="8" value="{{ old('num_doc') }}" onkeypress="return  soloNumeros(event)">
                                                   @error('num_doc')
                                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                                   @enderror
@@ -212,6 +212,9 @@
                                                   </thead>
                                                   
                                                   <tbody>
+                                                       <script>
+                                                            var con = 0;
+                                                       </script>
                                                        @foreach ($expediente as $item)
                                                        <tr>
                                                             <td>
@@ -222,11 +225,19 @@
                                                             </td>
                                    
                                                             <td class="col-md-5">
-                                                                 <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito" 
+                                                                 <input id="expediente" class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito expediente{{$item->cod_exp}}" 
                                                                       type="file" 
-                                                                      name="nom_exped{{ $item->cod_exp }}"
+                                                                      name="nom_exped{{$item->cod_exp}}"
                                                                  >
                                                             </td>
+                                                            <script>
+                                                                 var requerido = <?=$item->requerido;?>;
+                                                                 if(requerido == 2){
+                                                                      con = 1;
+                                                                 }
+                                                                 console.log(requerido)
+
+                                                            </script>
                                                             <td>
                                                                  <label class="form-label mt-2 mb-2">PDF</label>
                                                             </td> 
@@ -330,6 +341,15 @@
           if (letras.indexOf(tecla) == -1 && !tecla_especial) {
                return false;
           }
+          }
+
+          function ShowSelected() {
+               var cod = document.getElementById("tipo_doc_cod_tipo").value;
+               if(cod == 1){
+                    document.getElementById("num_doc").setAttribute("maxlength", "8");
+               }else{
+                    document.getElementById("num_doc").setAttribute("maxlength", "9");
+               }
           }
      </script>
 
