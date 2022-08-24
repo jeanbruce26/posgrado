@@ -294,7 +294,7 @@ class UserInscripcionController extends Controller
 
         auth('pagos')->logout();
 
-        return $pdf2->stream($nombre_pdf);;
+        return $pdf2->stream($nombre_pdf);
     }
 
     /**
