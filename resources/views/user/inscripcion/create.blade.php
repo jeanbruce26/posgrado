@@ -226,10 +226,10 @@
 
                                                             <td class="col-md-5">
                                                                  <input id="expediente" class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-secondary btn-sm colorsito nomExp{{ $item->cod_exp }}" type="file" name="nom_exped{{ $item->cod_exp }}"
-                                                            @if($item->requerido == 1)
-                                                                 required
-                                                            @endif>
-                                                            </td>
+                                                                 @if($item->requerido == 1)
+                                                                      required
+                                                                 @endif>
+                                                                 </td>
                                                             <td>
                                                                  <label class="form-label mt-2 mb-2">PDF</label>
                                                             </td> 
