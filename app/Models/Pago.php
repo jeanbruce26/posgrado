@@ -9,8 +9,9 @@ class Pago extends Authenticatable
 {
     use HasFactory;
 
-
     protected $primaryKey = "pago_id";
+
+    protected $dates = ['fecha_pago'];
 
     protected $table = 'pago';
     protected $fillable = [
