@@ -18,21 +18,24 @@ class Inscripcion extends Model
         'estado',
         'admision_cod_admi',
         'id_mencion',
-        'inscripcion',
+        'inscripcion'
     ];
 
     public $timestamps = false;
 
+    // Persona
     public function Persona(){
         return $this->belongsTo(Persona::class,
         'persona_idpersona','idpersona');
     }
 
+    // Admision
     public function Admision(){
         return $this->belongsTo(Admision::class,
         'admision_cod_admi','cod_admi');
     }
 
+    // Mencion
     public function Mencion(){
         return $this->belongsTo(Mencion::class,
         'id_mencion','id_mencion');

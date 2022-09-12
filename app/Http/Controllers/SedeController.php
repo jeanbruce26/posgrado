@@ -16,8 +16,9 @@ class SedeController extends Controller
      */
     public function index()
     {
-        $se = Sede::orderBy('cod_sede','ASC')->paginate();
-        return view('Sede.index', compact('se'));
+        $sede = Sede::orderBy('cod_sede','ASC')->paginate(10);
+        $plan = Plan::all();
+        return view('Sede.index', compact('sede', 'plan'));
     }
 
     /**
@@ -27,8 +28,7 @@ class SedeController extends Controller
      */
     public function create()
     {
-        $plan = Plan::all();
-        return view('Sede.create', compact('plan'));
+        //
     }
 
     /**
@@ -43,7 +43,13 @@ class SedeController extends Controller
             'sede'  =>  'required|max:30',
             'id_plan'  =>  'required',
         ]);
-        Sede::create($request->all());
+
+        $sede = Sede::create([
+            "sede" => $request->sede,
+            "id_plan" => $request->id_plan
+        ]);
+        
+        session()->flash('new', '¡Sede Creada Satisfactoriamente!');
         return redirect()->route('Sede.index');
     }
 
@@ -66,9 +72,7 @@ class SedeController extends Controller
      */
     public function edit($id)
     {
-        $se = Sede::find($id);
-        $plan = Plan::all();
-        return view('Sede.edit', compact('plan'))->with('se',$se);
+        //
     }
 
     /**
@@ -84,11 +88,16 @@ class SedeController extends Controller
             'sede'  =>  'required|max:30',
             'id_plan'  =>  'required',
         ]);
+
         $sede = Sede::find($id);
-        $sede->sede = $request->get('sede');
-        $sede->id_plan = $request->get('id_plan');
+        $sede->sede = $request->sede;
+        $sede->id_plan = $request->id_plan;
         $sede->save();
-        return redirect()->route('Sede.index')->with('success', 'Sede actualizado correctamente');
+        if($sede->save()){
+            return redirect(to: '/Sede')->with('edit', '¡Sede Actualizada Satisfactoriamente!');
+        }else{
+            exit();
+        }
     }
 
     /**

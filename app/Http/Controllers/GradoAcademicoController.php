@@ -10,14 +10,8 @@ class GradoAcademicoController extends Controller
 {
     public function index()
     {
-        $gra = GradoAcademico::orderBy('id_grado_academico','ASC')->paginate();
-        return view('GradoAcademico.index', compact('gra'));
-    }
-
-    public function create()
-    {
-        $gradoAca = GradoAcademico::all();
-        return view('GradoAcademico.create', compact('gradoAca'));
+        $grado = GradoAcademico::orderBy('id_grado_academico','ASC')->paginate(10);
+        return view('GradoAcademico.index', compact('grado'));
     }
 
     public function store(Request $request)
@@ -25,14 +19,13 @@ class GradoAcademicoController extends Controller
         $request->validate([
             'nom_grado'  =>  'required|string|max:45',
         ]);
-        GradoAcademico::create($request->all());
-        return redirect()->route('GradoAcademico.index');
-    }
 
-    public function edit($id)
-    {
-        $gradoAca = GradoAcademico::find($id);
-        return view('GradoAcademico.edit')->with('gradoAca',$gradoAca);
+        $grado = GradoAcademico::create([
+            "nom_grado" => $request->nom_grado
+        ]);
+        
+        session()->flash('new', 'Grado Académico Creado Satisfactoriamente!');
+        return redirect()->route('GradoAcademico.index');
     }
 
     public function update(Request $request, $id)
@@ -40,8 +33,14 @@ class GradoAcademicoController extends Controller
         $request->validate([
             'nom_grado'  =>  'required|string|max:45',
         ]);
-        $gradoAca = GradoAcademico::find($id);
-        $gradoAca ->update($request->all());
-        return redirect()->route('GradoAcademico.index');
+
+        $grado = GradoAcademico::find($id);
+        $grado ->update($request->all());
+
+        if($grado->save()){
+            return redirect(to: '/GradoAcademico')->with('edit', 'Grado Académico Actualizado Satisfactoriamente');
+        }else{
+            exit();
+        }
     }
 }

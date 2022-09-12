@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Inscripcion;
-use App\Models\ExpedienteInscripcion;
-use App\Models\Persona;
-use App\Models\Admision;
-use App\Models\DetallePrograma;
 use App\Models\Expediente;
+use Illuminate\Http\Request;
+
 
 class InscripcionController extends Controller
 {

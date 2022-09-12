@@ -10,7 +10,7 @@ class UniversidadController extends Controller
 {
 public function index()
 {
-    $uni = Universidad::orderBy('cod_uni','ASC')->paginate();
+    $uni = Universidad::orderBy('cod_uni','ASC')->paginate(10);
     return view('Universidad.index', compact('uni'));
 }
 

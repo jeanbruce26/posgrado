@@ -15,8 +15,9 @@ class MencionController extends Controller
      */
     public function index()
     {
-        $mencion = Mencion::orderBy('id_mencion','ASC')->paginate();
-        return view('Mencion.index', compact('mencion'));
+        $mencion = Mencion::orderBy('id_mencion','ASC')->paginate(10);
+        $sub = SubPrograma::all();
+        return view('Mencion.index', compact('mencion', 'sub'));
     }
 
     /**
@@ -26,8 +27,7 @@ class MencionController extends Controller
      */
     public function create()
     {
-        $sub = SubPrograma::all();
-        return view('Mencion.create', compact('sub'));
+        //
     }
 
     /**
@@ -43,7 +43,14 @@ class MencionController extends Controller
             'mencion'  =>  'max:200',
             'id_subprograma'  =>  'required|numeric',
         ]);
-        Mencion::create($request->all());
+
+        $mencion = Mencion::create([
+            "cod_mencion" => $request->cod_mencion,
+            "mencion" =>$request->mencion,
+            "id_subprograma" => $request->id_subprograma
+        ]);
+        
+        session()->flash('new', '¡Mención Creado Satisfactoriamente!');
         return redirect()->route('Mencion.index');
     }
 
@@ -66,9 +73,7 @@ class MencionController extends Controller
      */
     public function edit($id)
     {
-        $mencion = Mencion::find($id);
-        $sub = SubPrograma::all();
-        return view('Mencion.edit', compact('sub'))->with('mencion',$mencion);
+        //
     }
 
     /**
@@ -85,9 +90,14 @@ class MencionController extends Controller
             'mencion'  =>  'max:200',
             'id_subprograma'  =>  'required|numeric',
         ]);
+
         $mencion = Mencion::find($id);
-        $mencion ->update($request->all());
-        return redirect()->route('Mencion.index');
+        $mencion->update($request->all());
+        if($mencion->save()){
+            return redirect(to: '/Mencion')->with('edit', '¡Mención Actualizado Satisfactoriamente!');
+        }else{
+            exit();
+        }
     }
 
     /**

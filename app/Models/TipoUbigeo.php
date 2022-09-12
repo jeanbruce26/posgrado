@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TipoUbigeo extends Model
 {
+    use HasFactory;
+    
     protected $primaryKey = "cod_tipo";
 
     protected $table = 'tipo_ubigeo';

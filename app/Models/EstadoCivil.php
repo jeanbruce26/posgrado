@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class EstadoCivil extends Model
 {
+    use HasFactory;
+
     protected $table = 'est_civil';
     protected $fillable = [
         'cod_est',
-        'est_civil',
- 
+        'est_civil'
     ];
 
     public $timestamps = false;

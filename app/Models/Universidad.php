@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Universidad extends Model
 {
+    use HasFactory;
+    
     protected $primaryKey = "cod_uni";
 
     protected $table = 'univer';

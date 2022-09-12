@@ -16,8 +16,9 @@ class ProgramaController extends Controller
      */
     public function index()
     {
-        $pro = Programa::orderBy('id_programa','ASC')->paginate();
-        return view('Programa.index', compact('pro'));
+        $pro = Programa::orderBy('id_programa','ASC')->paginate(10);
+        $sede = Sede::all();
+        return view('Programa.index', compact('pro', 'sede'));
     }
 
     /**
@@ -27,8 +28,7 @@ class ProgramaController extends Controller
      */
     public function create()
     {
-        $sede = Sede::all();
-        return view('Programa.create', compact('sede'));
+        //
     }
 
     /**
@@ -43,7 +43,13 @@ class ProgramaController extends Controller
             'descripcion_programa'  =>  'required|max:30',
             'id_sede'  =>  'required',
         ]);
-        Programa::create($request->all());
+
+        $pro = Programa::create([
+            "descripcion_programa" => $request->descripcion_programa,
+            "id_sede" => $request->id_sede
+        ]);
+        
+        session()->flash('new', 'Programa Creado Satisfactoriamente!');
         return redirect()->route('Programa.index');
     }
 
@@ -66,10 +72,7 @@ class ProgramaController extends Controller
      */
     public function edit($id)
     {
-        $pro = Programa::find($id);
-        $sede = Sede::all();
-        
-        return view('Programa.edit', compact('sede'))->with('pro',$pro);
+        //
     }
 
     /**
@@ -86,11 +89,18 @@ class ProgramaController extends Controller
             'descripcion_programa'  =>  'required|max:30',
             'id_sede'  =>  'required|numeric',
         ]);
-        
+
         $pro = Programa::find($id);
         $pro->descripcion_programa = $request->descripcion_programa;
         $pro->id_sede = $request->id_sede;
         $pro->save();
+        if($pro->save()){
+            return redirect(to: '/Programa')->with('edit', 'Programa Actualizado Satisfactoriamente');
+        }else{
+            exit();
+        }
+        
+        
         return redirect()->route('Programa.index');
     }
 

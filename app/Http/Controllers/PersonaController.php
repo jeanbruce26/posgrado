@@ -15,7 +15,7 @@ class PersonaController extends Controller
 {
     public function index()
     {
-        $perso = Persona::orderBy('idpersona','ASC')->paginate();
+        $perso = Persona::orderBy('idpersona','ASC')->paginate(10);
         return view('Persona.index', compact('perso'));
     }
 
@@ -35,7 +35,6 @@ class PersonaController extends Controller
 
     public function show($id)
     {
-        $persona = Persona::find($id);
-        return view('Persona.show', compact('persona'));
+        
     }
 }

@@ -15,8 +15,9 @@ class SubProgramaController extends Controller
      */
     public function index()
     {
-        $sub = SubPrograma::orderBy('id_subprograma','ASC')->paginate();
-        return view('SubPrograma.index', compact('sub'));
+        $sub = SubPrograma::orderBy('id_subprograma','ASC')->paginate(10);
+        $pro = Programa::all();
+        return view('SubPrograma.index', compact('sub', 'pro'));
     }
 
     /**
@@ -26,8 +27,7 @@ class SubProgramaController extends Controller
      */
     public function create()
     {
-        $pro = Programa::all();
-        return view('SubPrograma.create', compact('pro'));
+        //
     }
 
     /**
@@ -43,7 +43,14 @@ class SubProgramaController extends Controller
             'subprograma'  =>  'required|max:200',
             'id_programa'  =>  'required|numeric',
         ]);
-        SubPrograma::create($request->all());
+
+        $sub = SubPrograma::create([
+            "cod_subprograma" => $request->cod_subprograma,
+            "subprograma" => $request->subprograma,
+            "id_programa" => $request->id_programa
+        ]);
+        
+        session()->flash('new', '¡Sub Programa Creado Satisfactoriamente!');
         return redirect()->route('SubPrograma.index');
     }
 
@@ -66,9 +73,7 @@ class SubProgramaController extends Controller
      */
     public function edit($id)
     {
-        $sub = SubPrograma::find($id);
-        $pro = Programa::all();
-        return view('SubPrograma.edit', compact('pro'))->with('sub',$sub);
+        //
     }
 
     /**
@@ -85,9 +90,17 @@ class SubProgramaController extends Controller
             'subprograma'  =>  'required|max:200',
             'id_programa'  =>  'required|numeric',
         ]);
-        $mencion = SubPrograma::find($id);
-        $mencion ->update($request->all());
-        return redirect()->route('SubPrograma.index');
+
+        $sub = SubPrograma::find($id);
+        $sub->cod_subprograma = $request->cod_subprograma;
+        $sub->subprograma = $request->subprograma;
+        $sub->id_programa = $request->id_programa;
+        $sub->save();
+        if($sub->save()){
+            return redirect(to: '/SubPrograma')->with('edit', '¡Sub Programa Actualizado Satisfactoriamente!');
+        }else{
+            exit();
+        }
     }
 
     /**

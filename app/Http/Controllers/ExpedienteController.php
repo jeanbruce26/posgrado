@@ -15,7 +15,7 @@ class ExpedienteController extends Controller
      */
     public function index()
     {
-        $exp = Expediente::orderBy('cod_exp','ASC')->paginate();
+        $exp = Expediente::orderBy('cod_exp','ASC')->paginate(10);
         return view('Expediente.index', compact('exp'));
     }
 
@@ -26,7 +26,7 @@ class ExpedienteController extends Controller
      */
     public function create()
     {
-        return view('Expediente.create');
+        //
     }
 
     /**
@@ -39,11 +39,19 @@ class ExpedienteController extends Controller
     {
         $request->validate([
             'tipo_doc'  =>  'required|max:200',
-            'complemento'  =>  'string|max:200',
+            'complemento'  =>  'nullable|string|max:200',
             'requerido'  =>  'required|numeric',
             'estado'  =>  'required|numeric',
         ]);
-        Expediente::create($request->all());
+
+        $exp = Expediente::create([
+            "tipo_doc" => $request->tipo_doc,
+            "complemento" => $request->complemento,
+            "requerido" => $request->requerido,
+            "estado" => $request->estado
+        ]);
+        
+        session()->flash('new', 'Expediente Creado Satisfactoriamente!');
         return redirect()->route('Expediente.index');
     }
 
@@ -66,8 +74,7 @@ class ExpedienteController extends Controller
      */
     public function edit($id)
     {
-        $exp = Expediente::find($id);
-        return view('Expediente.edit')->with('exp',$exp);
+        //
     }
 
     /**
@@ -81,13 +88,19 @@ class ExpedienteController extends Controller
     {
         $request->validate([
             'tipo_doc'  =>  'required|max:45',
-            'complemento'  =>  'string|max:200',
+            'complemento'  =>  'nullable|string|max:200',
             'requerido'  =>  'required|numeric',
             'estado'  =>  'required|numeric',
         ]);
+
         $exp = Expediente::find($id);
-        $exp->update($request->all());
-        return redirect()->route('Expediente.index');
+        $exp ->update($request->all());
+
+        if($exp->save()){
+            return redirect(to: '/Expediente')->with('edit', 'Expediente Actualizado Satisfactoriamente');
+        }else{
+            exit();
+        }
     }
 
     /**

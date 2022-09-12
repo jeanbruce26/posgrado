@@ -14,7 +14,7 @@ class ConceptoPagoController extends Controller
      */
     public function index()
     {
-        $conPago = ConceptoPago::orderBy('concepto_id','ASC')->paginate();
+        $conPago = ConceptoPago::orderBy('concepto_id','ASC')->paginate(10);
         return view('ConceptoPago.index', compact('conPago'));
     }
 
@@ -25,7 +25,7 @@ class ConceptoPagoController extends Controller
      */
     public function create()
     {
-        return view('ConceptoPago.create');
+        //
     }
 
     /**
@@ -39,9 +39,16 @@ class ConceptoPagoController extends Controller
         $request->validate([
             'concepto'  =>  'required|max:45',
             'monto'  =>  'required|numeric',
-            'estado'  =>  'required|max:11',
+            'estado'  =>  'required|max:11'
         ]);
-        ConceptoPago::create($request->all());
+
+        $conPago = ConceptoPago::create([
+            "concepto" => $request->concepto,
+            "monto" => $request->monto,
+            "estado" => $request->estado
+        ]);
+        
+        session()->flash('new', '¡Concepto de Pago Creado Satisfactoriamente!');
         return redirect()->route('ConceptoPago.index');
     }
 
@@ -64,8 +71,7 @@ class ConceptoPagoController extends Controller
      */
     public function edit($id)
     {
-        $concepPago = ConceptoPago::find($id);
-        return view('ConceptoPago.edit')->with('concepPago',$concepPago);
+        //
     }
 
     /**
@@ -82,9 +88,14 @@ class ConceptoPagoController extends Controller
             'monto'  =>  'required|numeric',
             'estado'  =>  'required|numeric',
         ]);
-        $concepPago = ConceptoPago::find($id);
-        $concepPago ->update($request->all());
-        return redirect()->route('ConceptoPago.index');
+        $conPago = ConceptoPago::find($id);
+        $conPago ->update($request->all());
+
+        if($conPago->save()){
+            return redirect(to: '/ConceptoPago')->with('edit', '¡Concepto de Pago Actualizado Satisfactoriamente');
+        }else{
+            exit();
+        }
     }
 
     /**

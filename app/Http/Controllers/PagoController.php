@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pago;
 use App\Models\CanalPago;
 use Illuminate\Http\Request;
-use App\Models\Pago;
-use App\Models\TipoPago;
-use App\Models\ConceptoPago;
 
 class PagoController extends Controller
 {
@@ -18,7 +16,8 @@ class PagoController extends Controller
     public function index()
     {
         $pago = Pago::orderBy('pago_id','ASC')->paginate(10);
-        return view('Pago.index', compact('pago'));
+        $canalPago = CanalPago::all();
+        return view('Pago.index', compact('pago', 'canalPago'));
     }
 
     /**
@@ -28,8 +27,7 @@ class PagoController extends Controller
      */
     public function create()
     {
-        $canal = CanalPago::all();
-        return view('Pago.create', compact('canal'));
+        //
     }
 
     /**
@@ -45,10 +43,19 @@ class PagoController extends Controller
             'nro_operacion'  =>  'required|numeric',
             'monto'  =>  'required|numeric',
             'fecha_pago'  =>  'required|date',
-            'estado'  =>  'required|numeric',
-            'canal_pago_id'  =>  'required|numeric',
+            'canal_pago_id'  =>  'required|numeric'
         ]);
-        Pago::create($request->all());
+
+        $persona = Pago::create([
+            "dni" => $request->dni,
+            "nro_operacion" =>$request->nro_operacion,
+            "monto" => $request->monto,
+            "fecha_pago" => $request->fecha_pago,
+            "estado" => 1,
+            "canal_pago_id" => $request->canal_pago_id
+        ]);
+        
+        session()->flash('new', '¡Pago Creado Satisfactoriamente!');
         return redirect()->route('Pago.index');
     }
 
@@ -71,9 +78,7 @@ class PagoController extends Controller
      */
     public function edit($id)
     {
-        $pago = Pago::find($id);
-        $canal = CanalPago::all();
-        return view('Pago.edit', compact('canal','pago'))->with('pago',$pago);
+        //
     }
 
     /**
@@ -85,17 +90,22 @@ class PagoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $pago = Pago::find($id);
+
         $request->validate([
             'dni'  =>  'required|min:8',
             'nro_operacion'  =>  'required|numeric',
             'monto'  =>  'required|numeric',
             'fecha_pago'  =>  'required|date',
-            'estado'  =>  'required|numeric',
             'canal_pago_id'  =>  'required|numeric',
         ]);
         $pago = Pago::find($id);
-        $pago ->update($request->all());
-        return redirect()->route('Pago.index');
+        $pago->update($request->all());
+        if($pago->save()){
+            return redirect(to: '/Pago')->with('edit', '¡Pago Actualizado Satisfactoriamente!');
+        }else{
+            exit();
+        }
     }
 
     /**

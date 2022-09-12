@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UbigeoPersona extends Model
 {
+    use HasFactory;
+    
     protected $primaryKey = "cod_ubi_pers";
 
     protected $table = 'ubi_pers';

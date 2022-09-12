@@ -15,7 +15,7 @@ class AdmisionController extends Controller
     public function index()
     {
         // auth()->attempt();
-        $admi = Admision::orderBy('cod_admi','ASC')->paginate();
+        $admi = Admision::orderBy('cod_admi','ASC')->paginate(10);
         return view('Admision.index', compact('admi'));
     }
 
@@ -26,7 +26,7 @@ class AdmisionController extends Controller
      */
     public function create()
     {
-        return view('Admision.create');
+        //
     }
 
     /**
@@ -41,7 +41,13 @@ class AdmisionController extends Controller
             'admision'  =>  'required|max:45',
             'estado'  =>  'required|numeric',
         ]);
-        Admision::create($request->all());
+
+        $admi = Admision::create([
+            "admision" => $request->admision,
+            "estado" => $request->estado
+        ]);
+        
+        session()->flash('new', '¡Admisión Creada Satisfactoriamente!');
         return redirect()->route('Admision.index');
     }
 
@@ -64,8 +70,7 @@ class AdmisionController extends Controller
      */
     public function edit($id)
     {
-        $admi = Admision::find($id);
-        return view('Admision.edit')->with('admi',$admi);
+        //
     }
 
     /**
@@ -83,7 +88,11 @@ class AdmisionController extends Controller
         ]);
         $admi = Admision::find($id);
         $admi->update($request->all());
-        return redirect()->route('Admision.index');
+        if($admi->save()){
+            return redirect(to: '/Admision')->with('edit', '¡Admisión Actualizada Satisfactoriamente');
+        }else{
+            exit();
+        }
     }
 
     /**

@@ -9,6 +9,8 @@ class HistorialInscripcion extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "cod_histo";
+
     protected $table = 'histo_inscr';
     protected $fillable = [
         'cod_histo',

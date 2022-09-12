@@ -1,38 +1,102 @@
-@extends ('admin')
+@extends('admin')
 
 @section('content')
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header align-items-center">
+                    <div class=" d-flex justify-content-between">
+                        <h4 class="card-title mb-0 flex-grow-1 fw-bold">PLAN</h4>
+                        <a href="#newModal" type="button" class="btn btn-lg btn-primary pull-right d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#newModal">Nuevo <i class="ri-add-circle-fill ms-1"></i></a>
+                    </div>
+                        {{-- Modal Nuevo --}}
+                        <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="newModal" aria-hidden="true">
+                            <div class="modal-dialog modal-x1 modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Crear Plan</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ route('Plan.store') }}" method="POST">
+                                    @csrf
+                                        <div class="modal-body row g-3">
+                                            <div class="mb-3 col-md-12">
+                                                <label for="inputPlan" class="form-label">Plan *</label>
+                                                <input type="text" class="form-control" id="inputPlan" name="plan" maxlength="10">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer col-12 d-flex justify-content-between">
+                                            <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-lg" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-lg">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Modal Nuevo --}}
+                </div><!-- end card header -->
 
-	<div class="col-sm-12">
-		
-		<h2 class="d-flex justify-content-between">Plan
-		<a href="{{ url('/Plan/create') }}" class="btn btn-primary d-flex justify-content-center align-items-center text-center">Nuevo <i class="fas fa-plus-circle ms-1"></i></a>
-		</h2>
+                <div class="card-body">
+                    <div class="live-preview">
+                        <div class="table-responsive">
+                            <table class="table align-middle table-nowrap mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="col-1">Código</th>
+                                        <th>Plan</th>
+                                        <th class="col-1">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($plan as $item)
+                                        <tr>
+                                            <td>{{$item->id_plan}}</td>
+                                            <td>{{$item->plan}}</td>
+                                            <td class="d-flex justify-content-star">
+                                                <a href="#editModal" type="button" class="link-success fs-15" data-bs-toggle="modal" data-bs-target="#editModal{{$item->id_plan}}"><i class="bx bx-edit bx-sm bx-burst-hover"></i></a>
 
-		<table class="table table-hover table-striped">
-			<thead>
-				<tr>
-					<th class="col-md-1">Código</th>
-					<th>Plan</th>
-					<th class="col-md-1">Acciones</th>
-				</tr>
-			</thead>
+                                                {{-- Modal Editar --}}
+                                                <div class="modal fade" id="editModal{{$item->id_plan}}" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+                                                    <div class="modal-dialog modal-x1 modal-dialog-scrollable">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Editar Admisión</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form action="{{ route('Plan.update',$item->id_plan) }}" method="POST">
+                                                            @csrf @method('PUT')
+                                                                <div class="modal-body row g-3">
+                                                                    <div class="mb-3 col-md-12">
+                                                                        <label for="inputPlan" class="form-label">Plan</label>
+                                                                        <input type="text" class="form-control" id="inputPlan" name="plan" value="{{ $item->plan }}">
+                                                                    </div>
+                                                                    <div class="modal-footer col-12 d-flex justify-content-between">
+                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-lg" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-lg">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{-- Modal Editar --}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-			<tbody>
-				@foreach ($plan as $p)
-
-				<tr>
-					<td>{{$p->id_plan}}</td>
-					<td>{{$p->plan}}</td>
-					<td class="d-flex justify-content-star">
-                        <a	href="{{ route('Plan.edit',$p->id_plan) }}" type="button" class="btn btn-success d-flex justify-content-center align-items-center text-center">Editar <i class="fas fa-edit ms-1"></i></a>
-					</td>
-				</tr>
-
-				@endforeach
-			</tbody>
-		</table>
-		{!! $plan->render() !!}
-
-	</div>
+                    <div class="d-none code-view">
+                        <pre class="language-markup" style="height: 275px;"><code>&lt;table class=&quot;table table-nowrap&quot;&gt;
+                    </div>
+                </div><!-- end card-body -->
+            </div><!-- end card -->
+        </div>
+        {!! $plan->render() !!}
+    </div>
+    <!-- end row -->
 
 @endsection

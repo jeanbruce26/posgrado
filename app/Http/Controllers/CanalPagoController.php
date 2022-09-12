@@ -14,8 +14,8 @@ class CanalPagoController extends Controller
      */
     public function index()
     {
-        $canal = CanalPago::orderBy('canal_pago_id','ASC')->paginate();
-        return view('CanalPago.index', compact('canal'));
+        $canalPa = CanalPago::orderBy('canal_pago_id','ASC')->paginate(10);
+        return view('CanalPago.index', compact('canalPa'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CanalPagoController extends Controller
      */
     public function create()
     {
-        return view('CanalPago.create');
+        
     }
 
     /**
@@ -39,7 +39,12 @@ class CanalPagoController extends Controller
         $request->validate([
             'descripcion'  =>  'required|max:200',
         ]);
-        CanalPago::create($request->all());
+
+        $canalPa = CanalPago::create([
+            "descripcion" => $request->descripcion,
+        ]);
+        
+        session()->flash('new', '¡Canal de Pago Creado Satisfactoriamente!');
         return redirect()->route('CanalPago.index');
     }
 
@@ -62,8 +67,7 @@ class CanalPagoController extends Controller
      */
     public function edit($id)
     {
-        $canal = CanalPago::find($id);
-        return view('CanalPago.edit')->with('canal',$canal);
+        //
     }
 
     /**
@@ -78,9 +82,14 @@ class CanalPagoController extends Controller
         $request->validate([
             'descripcion'  =>  'required|max:200',
         ]);
-        $canal = CanalPago::find($id);
-        $canal ->update($request->all());
-        return redirect()->route('CanalPago.index');
+        $canalPa = CanalPago::find($id);
+        $canalPa ->update($request->all());
+        if($canalPa->save()){
+            return redirect(to: '/CanalPago')->with('edit', '¡Canal de Pago Actualizado Satisfactoriamente');
+        }else{
+            exit();
+        }
+        
     }
 
     /**

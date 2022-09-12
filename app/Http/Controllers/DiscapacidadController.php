@@ -10,7 +10,7 @@ class DiscapacidadController extends Controller
 {
     public function index()
     {
-        $disc = Discapacidad::orderBy('cod_disc','ASC')->paginate();
+        $disc = Discapacidad::orderBy('cod_disc','ASC')->paginate(10);
         return view('Discapacidad.index', compact('disc'));
 
     }

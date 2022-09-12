@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Persona extends Model
 {
     protected $primaryKey = "idpersona";
-    protected $dates = ['fecha_naci'];
 
     protected $table = 'persona';
     protected $fillable = [

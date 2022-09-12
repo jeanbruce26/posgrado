@@ -9,7 +9,6 @@ class Pago extends Authenticatable
 {
     use HasFactory;
 
-
     protected $primaryKey = "pago_id";
 
     protected $table = 'pago';

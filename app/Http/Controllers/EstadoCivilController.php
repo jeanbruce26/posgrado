@@ -10,7 +10,7 @@ class EstadoCivilController extends Controller
 {
     public function index()
     {
-        $esta = EstadoCivil::orderBy('cod_est','ASC')->paginate();
+        $esta = EstadoCivil::orderBy('cod_est','ASC')->paginate(10);
         return view('EstadoCivil.index', compact('esta'));
 
     }

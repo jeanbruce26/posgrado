@@ -14,7 +14,7 @@ class HistorialInscripcionController extends Controller
      */
     public function index()
     {
-        $histoIns = HistorialInscripcion::orderBy('cod_histo','ASC')->paginate();
+        $histoIns = HistorialInscripcion::orderBy('cod_histo','ASC')->paginate(10);
         return view('HistorialInscripcion.index', compact('histoIns'));
     }
 

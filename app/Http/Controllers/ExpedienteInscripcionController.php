@@ -14,7 +14,7 @@ class ExpedienteInscripcionController extends Controller
      */
     public function index()
     {
-        $expInsc = ExpedienteInscripcion::orderBy('cod_ex_insc','ASC')->paginate();
+        $expInsc = ExpedienteInscripcion::orderBy('cod_ex_insc','ASC')->paginate(10);
         return view('ExpedienteInscripcion.index', compact('expInsc'));
     }
 
