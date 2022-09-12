@@ -248,6 +248,7 @@
     left: 0;
     z-index: 1002;
     background-color: var(--vz-header-bg);
+    background-color: #142e52;
     -webkit-transition: all 0.1s ease-out;
     transition: all 0.1s ease-out;
 }
@@ -12717,6 +12718,10 @@ span.flatpickr-weekday {
 }
 .auth-bg-login {
     background: #1a9933;
+    background: #0a2e5c;
+}
+.auth-bg-login {
+    background: #0a2e5c;
 }
 .auth-bg-cover > .bg-overlay {
     background-image: url(../images/cover-pattern.png);

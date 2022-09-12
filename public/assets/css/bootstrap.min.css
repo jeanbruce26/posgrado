@@ -29,6 +29,7 @@
     --vz-gray-800: #343a40;
     --vz-gray-900: #212529;
     --vz-primary: #4b38b3;
+    --vz-primary: #0a2e5c;
     --vz-secondary: #3577f1;
     --vz-success: #1a9933;
     --vz-info: #299cdb;
@@ -37,6 +38,7 @@
     --vz-light: #f3f6f9;
     --vz-dark: #212529;
     --vz-primary-rgb: 75, 56, 179;
+    --vz-primary-rgb: #0a2e5c;
     --vz-secondary-rgb: 53, 119, 241;
     --vz-success-rgb: 26, 153, 51;
     --vz-info-rgb: 41, 156, 219;
@@ -3060,12 +3062,21 @@ fieldset:disabled .btn {
     color: #fff;
     background-color: #403098;
     border-color: #3c2d8f;
+    background-color: #0a2e5c;
+    border-color: #0a2e5c;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #092243;
+    border-color: #092243;
 }
 .btn-check:focus + .btn-primary,
 .btn-primary:focus {
     color: #fff;
     background-color: #403098;
     border-color: #3c2d8f;
+    background-color: #0a2e5c;
+    border-color: #0a2e5c;
     -webkit-box-shadow: 0 0 0 0 rgba(102, 86, 190, 0.5);
     box-shadow: 0 0 0 0 rgba(102, 86, 190, 0.5);
 }
@@ -3077,6 +3088,8 @@ fieldset:disabled .btn {
     color: #fff;
     background-color: #3c2d8f;
     border-color: #382a86;
+    background-color: #0a2e5c;
+    border-color: #0a2e5c;
 }
 .btn-check:active + .btn-primary:focus,
 .btn-check:checked + .btn-primary:focus,
@@ -3688,6 +3701,8 @@ fieldset:disabled .btn {
 .btn-lg {
     padding: 0.4rem 0.65rem;
     font-size: 0.915625rem;
+    padding: 0.7rem 1.2rem;
+    font-size: 1.015625rem;
     border-radius: 0.3rem;
 }
 .btn-group-sm > .btn,
