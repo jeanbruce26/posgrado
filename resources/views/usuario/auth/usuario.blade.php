@@ -34,7 +34,7 @@
         <!-- auth page content -->
         <div class="auth-page-content">
             <div class="container">
-                <div class="row">
+                <div class="row mt-3">
                     <div class="col-lg-12 d-flex justify-content-center align-items-center mt-4">
                         <div class="text-center text-white">
                             <div>
@@ -59,16 +59,16 @@
                 </div>
                 <!-- end row -->
 
-                <div class="row justify-content-center">
+                <div class="row justify-content-center mt-4">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="card mt-4">
 
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
-                                    <h5 class="fw-bold">Formulario de validación de pago.</h5>
+                                    <h5 class="fw-bold">Inicie Sesión</h5>
                                 </div>
                                 
-                                <livewire:validar-login/>
+                                <livewire:usuario-login/>
 
                             </div>
                             <!-- end card body -->

@@ -15,7 +15,7 @@ class PagoController extends Controller
      */
     public function index()
     {
-        $pago = Pago::orderBy('pago_id','ASC')->paginate(10);
+        $pago = Pago::orderBy('pago_id','DESC')->paginate(10);
         $canalPago = CanalPago::all();
         return view('Pago.index', compact('pago', 'canalPago'));
     }

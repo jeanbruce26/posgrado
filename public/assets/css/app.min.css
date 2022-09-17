@@ -12656,11 +12656,6 @@ span.flatpickr-weekday {
         height: 280px;
     }
 }
-.auth-one-bg {
-    background-image: url(../images/unu-login2.jpg);
-    background-position: center;
-    background-size: cover;
-}
 .auth-one-bg .bg-overlay {
     background: -webkit-gradient(
         linear,
@@ -12711,13 +12706,7 @@ span.flatpickr-weekday {
     background-color: var(--vz-card-bg);
     padding: 2px 16px;
 }
-.auth-bg-cover {
-    /* background: linear-gradient(-45deg, #4b38b3 50%, #45cb85); */
-    /* background: #3bc87e; */
-    background: #1a9933;
-}
 .auth-bg-login {
-    background: #1a9933;
     background: #0a2e5c;
 }
 .auth-bg-login {
