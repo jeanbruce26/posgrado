@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'pagos',
         ],
+        'usuarios' => [
+            'driver' => 'session',
+            'provider' => 'usuarios',
+        ],
     ],
 
     /*
@@ -77,6 +81,11 @@ return [
         'pagos' => [
             'driver' => 'eloquent',
             'model' => App\Models\Pago::class,
+        ],
+
+        'usuarios' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Inscripcion::class,
         ],
     ],
 
