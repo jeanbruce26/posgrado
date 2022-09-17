@@ -364,7 +364,7 @@
 }
 @media (min-width: 768px) {
     .topbar-user {
-        background-color: var(--vz-topbar-user-bg);
+        background-color: #e7ecf6;
     }
 }
 .topbar-user .dropdown-menu {
@@ -5870,7 +5870,7 @@ button {
 .btn-ghost-secondary:active,
 .btn-ghost-secondary:focus,
 .btn-ghost-secondary:hover {
-    color: #3577f1;
+    color: #88adf1;
     background-color: rgba(53, 119, 241, 0.1);
 }
 .btn-ghost-success {
@@ -5934,7 +5934,7 @@ button {
     background-color: rgba(33, 37, 41, 0.1);
 }
 .btn-ghost-secondary {
-    color: var(--vz-gray-700);
+    color: #ced4da;
 }
 .btn-label {
     position: relative;

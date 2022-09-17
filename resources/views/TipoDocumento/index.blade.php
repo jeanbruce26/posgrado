@@ -21,7 +21,7 @@
 				<tr>
 					<td>{{$ti->id_tipo_doc}}</td>
 					<td>{{$ti->doc}}</td>
-									</tr>
+				</tr>
 
 				@endforeach
 			</tbody>

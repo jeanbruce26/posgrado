@@ -1,14 +1,21 @@
 @extends('admin')
 
 @section('content')
-    
+
+    @if ($errors->any())
+        <div class="alert alert-danger alert-border-left alert-dismissible fade shadow show" role="alert">
+            <i class="ri-error-warning-line me-3 align-middle fs-16"></i> <strong>Errror al registrar Pago</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header align-items-center">
                     <div class=" d-flex justify-content-between">
                         <h4 class="card-title mb-0 flex-grow-1 fw-bold">PAGO</h4>
-                        <a href="#newModal" type="button" class="btn btn-lg btn-primary pull-right d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#newModal">Nuevo <i class="ri-add-circle-fill ms-1"></i></a>
+                        <a href="#newModal" type="button" class="btn btn-x1 btn-primary pull-right d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#newModal">Nuevo <i class="ri-add-circle-fill ms-1"></i></a>
                     </div>
                         {{-- Modal Nuevo --}}
                         <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="newModal" aria-hidden="true">
@@ -18,28 +25,29 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Crear Pago</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('Pago.store') }}" method="POST">
+                                    <form action="{{ route('Pago.store') }}" method="POST" id="formu">
                                     @csrf
                                         <div class="modal-body row g-3">
                                             <div class="mb-3 col-md-4">
                                                 <label for="inputDNI" class="form-label">Documento *</label>
-                                                <input type="text" class="form-control" id="inputDNI" name="dni" maxlength="9" onkeypress="return soloNumeros(event)" required>
+                                                <input type="text" class="form-control" id="inputDNI" name="dni" minlength="8" maxlength="9" onkeypress="return soloNumeros(event)" pattern="[1-9]+" required>
+                                                
                                             </div>
                                             <div class="mb-3 col-md-4">
                                                 <label for="inputNumOpe" class="form-label">Número de Operación *</label>
-                                                <input type="text" class="form-control" id="inputNumOpe" name="nro_operacion" onkeypress="return soloNumeros(event)">
+                                                <input type="text" class="form-control" id="inputNumOpe" name="nro_operacion" onkeypress="return soloNumeros(event)" pattern="[1-9]+" required>
                                             </div>
                                             <div class="mb-3 col-md-4">
                                                 <label for="inputMonto" class="form-label">Monto *</label>
-                                                <input type="text" class="form-control" id="inputMonto" name="monto" onkeypress="return soloNumeros(event)">
+                                                <input type="text" class="form-control" id="inputMonto" name="monto" onkeypress="return soloNumeros(event)" pattern="[1-9]{1-13}" required>
                                             </div>
                                             <div class="mb-3 col-md-4">
                                                 <label for="inputFechaPago" class="form-label">Fecha de Pago *</label>
-                                                <input type="date" class="form-control" id="inputFechaPago" name="fecha_pago"> 
+                                                <input type="date" class="form-control" id="inputFechaPago" name="fecha_pago" required> 
                                             </div>
                                             <div class="mb-3 col-md-4">
                                                 <label for="inputCanalPago" class="form-label">Canal de Pago *</label>
-                                                <select class="form-select" name="canal_pago_id">
+                                                <select class="form-select" name="canal_pago_id" required>
                                                     <option value="" selected>Seleccione</option>
                                                     @foreach ($canalPago as $item)
                                                         <option value="{{$item->canal_pago_id}}">{{$item->descripcion}}</option>
@@ -48,8 +56,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer col-12 d-flex justify-content-between">
-                                            <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-lg" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-lg">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
+                                            <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="ri-add-circle-fill ms-1"></i></button>
                                         </div>
                                     </form>
                                 </div>
@@ -129,33 +137,33 @@
                                                                 <div class="modal-body row g-3">
                                                                     <div class="mb-3 col-md-4">
                                                                         <label for="inputDNI" class="form-label">Documento *</label>
-                                                                        <input type="text" class="form-control" id="inputDNI" name="dni" maxlength="9" value="{{ $item->dni }}" onkeypress="return soloNumeros(event)">
+                                                                        <input type="text" class="form-control" id="inputDNI" name="dni" maxlength="9" value="{{ $item->dni }}" onkeypress="return soloNumeros(event)" pattern="[1-9]+" required>
                                                                     </div>
                                                                     <div class="mb-3 col-md-4">
                                                                         <label for="inputNumOpe" class="form-label">Número de Operación *</label>
-                                                                        <input type="text" class="form-control" id="inputNumOpe" name="nro_operacion" maxlength="10" value="{{ $item->nro_operacion }}" onkeypress="return soloNumeros(event)">
+                                                                        <input type="text" class="form-control" id="inputNumOpe" name="nro_operacion" maxlength="10" value="{{ $item->nro_operacion }}" onkeypress="return soloNumeros(event)" pattern="[1-9]+" required>
                                                                     </div>
                                                                     <div class="mb-3 col-md-4">
                                                                         <label for="inputMonto" class="form-label">Monto *</label>
-                                                                        <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" value="{{ $item->monto }}" onkeypress="return soloNumeros(event)">
+                                                                        <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" value="{{ $item->monto }}" onkeypress="return soloNumeros(event)" required>
                                                                     </div>
                                                                     <div class="mb-3 col-md-4">
                                                                         <label for="inputFechaPago" class="form-label">Fecha de Pago *</label>
-                                                                        <input type="date" class="form-control" id="inputFechaPago" name="fecha_pago" value="{{ $item->fecha_pago }}">
+                                                                        <input type="date" class="form-control" id="inputFechaPago" name="fecha_pago" value="{{ $item->fecha_pago }}" required>
                                                                     </div>
                                                                     <div class="mb-3 col-md-4">
-                                                                        <label for="inputModalidadPago" class="form-label">Modalidad de Pago *</label>
-                                                                        <select class="form-select" name="canal_pago_id">
+                                                                        <label for="inputModalidadPago" class="form-label">Canal de Pago *</label>
+                                                                        <select class="form-select" name="canal_pago_id" required>
                                                                             <option value="" selected>Seleccione</option>
-                                                                            @foreach ($canalPago as $item)
-                                                                                <option value="{{$item->canal_pago_id  }}" {{ $item->canal_pago_id == $item->canal_pago_id ? 'selected' : '' }}>{{$item->descripcion}}</option>
+                                                                            @foreach ($canalPago as $itemca)
+                                                                                <option value="{{$itemca->canal_pago_id  }}" {{ $itemca->canal_pago_id == $item->canal_pago_id ? 'selected' : '' }}>{{$itemca->descripcion}}</option>
                                                                             @endforeach
                                                                         </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer col-12 d-flex justify-content-between">
-                                                                    <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-lg" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                                    <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-lg">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
+                                                                    <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                                    <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
                                                                 </div>
                                                             </form>
                                                         </div>

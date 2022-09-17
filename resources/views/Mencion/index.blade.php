@@ -31,7 +31,7 @@
                                             </div>
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label">Sub Programa *</label>
-                                                <select class="form-select" name="id_subprograma">
+                                                <select class="form-select" name="id_subprograma" required>
                                                     <option value="" selected>Seleccione</option>
                                                     @foreach ($sub as $item)
                                                     <option value="{{$item->id_subprograma}}">{{$item->programa->sede->sede}} - {{$item->programa->descripcion_programa}} - {{$item->subprograma}}</option>
@@ -100,7 +100,7 @@
                                                                     </div>
                                                                     <div class="mb-3 col-md-12">
                                                                         <label class="form-label">Sub Programa *</label>
-                                                                        <select class="form-select" name="id_subprograma">
+                                                                        <select class="form-select" name="id_subprograma" required>
                                                                             <option value="" selected>Seleccione</option>
                                                                             @foreach ($sub as $itemsu)
                                                                                 <option value="{{$itemsu->id_subprograma}}" {{ $itemsu->id_subprograma == $item->id_subprograma ? 'selected' : '' }}>{{$itemsu->subprograma}}</option>
