@@ -110,7 +110,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-lg" data-bs-dismiss="modal"> <i class=" ri-close-line me-1 ri-lg"></i>Cerrar</a>
+                                                                    <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"> <i class=" ri-close-line me-1 ri-lg"></i>Cerrar</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -134,16 +134,17 @@
                                                                     <div class="modal-body">
                                                                         <div class="mb-3">
                                                                             <label for="recipient-name" class="col-form-label">Estado:</label>
-                                                                            <select id="inputEstado" class="form-select" name="estado">
+                                                                            <select id="inputEstado" class="form-select" name="estado" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 <option value="Activo" {{ $item->estado == "Activo" ? 'selected' : '' }}> Activo</option>
                                                                                 <option value="Inactivo" {{ $item->estado == "Inactivo" ? 'selected' : '' }}> Inactivo</option>
                                                                             </select>
+                                                                            <label for="" id="lblEstado"></label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer col-12 d-flex justify-content-between">
-                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-lg" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-lg">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
+                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
                                                                     </div>
                                                                 </form>
                                                             </div>

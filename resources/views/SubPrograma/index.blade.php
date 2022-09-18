@@ -8,7 +8,7 @@
                 <div class="card-header align-items-center">
                     <div class=" d-flex justify-content-between">
                         <h4 class="card-title mb-0 flex-grow-1 fw-bold">SUB PROGRAMA</h4>
-                        <a href="#newModal" type="button" class="btn btn-lg btn-primary pull-right d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#newModal">Nuevo <i class="ri-add-circle-fill ms-1"></i></a>
+                        <a href="#newModal" type="button" class="btn btn-x1 btn-primary pull-right d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#newModal">Nuevo <i class="ri-add-circle-fill ms-1"></i></a>
                     </div>
                         {{-- Modal Nuevo --}}
                         <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="newModal" aria-hidden="true">
@@ -23,17 +23,17 @@
                                         <div class="modal-body row g-3">
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label">Código Sub Programa *</label>
-                                                <input type="text" class="form-control" name="cod_subprograma" maxlength="10">
+                                                <input type="text" class="form-control" name="cod_subprograma" maxlength="10" required>
                                             </div>
                                     
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label">Sub Programa *</label>
-                                                <input type="text" class="form-control" name="subprograma" onkeypress="return soloLetras(event)">
+                                                <input type="text" class="form-control" name="subprograma" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
                                             </div>
 
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label">Programa *</label>
-                                            <select class="form-select" name="id_programa">
+                                            <select class="form-select" name="id_programa" required>
                                                 <option value="" selected>Seleccione</option>
                                                 @foreach ($pro as $item)
                                                 <option value="{{$item->id_programa}}">{{$item->sede->sede}} - {{$item->descripcion_programa}}</option>
@@ -42,8 +42,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer col-12 d-flex justify-content-between">
-                                            <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-lg" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-lg">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
+                                            <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="ri-add-circle-fill ms-1"></i></button>
                                         </div>
                                     </form>
                                 </div>
@@ -88,17 +88,17 @@
                                                                 <div class="modal-body row g-3">
                                                                     <div class="mb-3 col-md-12">
                                                                         <label class="form-label">Codigo Mención *</label>
-                                                                        <input type="text" class="form-control"  name="cod_subprograma" value="{{ $item->cod_subprograma }}">
+                                                                        <input type="text" class="form-control"  name="cod_subprograma" value="{{ $item->cod_subprograma }}" required>
                                                                     </div>
                                                         
                                                                     <div class="mb-3 col-md-12">
                                                                         <label class="form-label">Mención *</label>
-                                                                        <input type="text" class="form-control" name="subprograma" value="{{ $item->subprograma }}" onkeypress="return soloLetras(event)">
+                                                                        <input type="text" class="form-control" name="subprograma" value="{{ $item->subprograma }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
                                                                     </div>
 
                                                                     <div class="mb-3 col-md-12">
                                                                         <label class="form-label">Programa *</label>
-                                                                        <select class="form-select" name="id_programa">
+                                                                        <select class="form-select" name="id_programa" required>
                                                                             <option value="" selected>Seleccione</option>
                                                                             @foreach ($pro as $itempro)
                                                                             <option value="{{$itempro->id_programa}}" {{ $itempro->id_programa == $item->id_programa ? 'selected' : '' }}>{{$itempro->descripcion_programa}}</option>
@@ -106,8 +106,8 @@
                                                                         </select>
                                                                     </div>
                                                                     <div class="modal-footer col-12 d-flex justify-content-between">
-                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-lg" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-lg">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
+                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
                                                                     </div>
                                                                 </div>
                                                             </form>

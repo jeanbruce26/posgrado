@@ -137,7 +137,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-lg" data-bs-dismiss="modal"> <i class=" ri-close-line me-1 ri-lg"></i>Cerrar</a>
+                                                                <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"> <i class=" ri-close-line me-1 ri-lg"></i>Cerrar</a>
                                                             </div>
                                                         </div>
                                                     </div>

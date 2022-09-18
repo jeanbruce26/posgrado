@@ -40,7 +40,7 @@ class PagoController extends Controller
     {
         $request->validate([
             'dni'  =>  'required|min:8',
-            'nro_operacion'  =>  'required|numeric',
+            'nro_operacion'  =>  'required|unique:pago,nro_operacion|numeric',
             'monto'  =>  'required|numeric',
             'fecha_pago'  =>  'required|date',
             'canal_pago_id'  =>  'required|numeric'

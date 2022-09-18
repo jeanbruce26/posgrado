@@ -8,7 +8,7 @@
                 <div class="card-header align-items-center">
                     <div class=" d-flex justify-content-between">
                         <h4 class="card-title mb-0 flex-grow-1 fw-bold">SEDE</h4>
-                        <a href="#newModal" type="button" class="btn btn-lg btn-primary pull-right d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#newModal">Nuevo <i class="ri-add-circle-fill ms-1"></i></a>
+                        <a href="#newModal" type="button" class="btn btn-x1 btn-primary pull-right d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#newModal">Nuevo <i class="ri-add-circle-fill ms-1"></i></a>
                     </div>
                         {{-- Modal Nuevo --}}
                         <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="newModal" aria-hidden="true">
@@ -23,12 +23,12 @@
                                         <div class="modal-body row g-3">
                                             <div class="mb-3 col-md-12">
                                                 <label for="inputSede" class="form-label">Sede *</label>
-                                                <input type="text" class="form-control" id="inputSede" name="sede" onkeypress="return soloLetras(event)">
+                                                <input type="text" class="form-control" id="inputSede" name="sede" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>>
                                             </div>
                                     
                                             <div class="mb-3 col-md-12">
                                                 <label for="inputPlan" class="form-label">Plan *</label>
-                                                <select id="inputPlan" class="form-select" name="id_plan">
+                                                <select id="inputPlan" class="form-select" name="id_plan" required>
                                                     <option value="" selected>Seleccione</option>
                                                     @foreach ($plan as $item)
                                                     <option value="{{$item->id_plan}}">{{$item->plan}}</option>
@@ -37,8 +37,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer col-12 d-flex justify-content-between">
-                                            <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-lg" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-lg">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
+                                            <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="ri-add-circle-fill ms-1"></i></button>
                                         </div>
                                     </form>
                                 </div>
@@ -81,12 +81,12 @@
                                                                 <div class="modal-body row g-3">
                                                                     <div class="mb-3 col-md-12">
                                                                         <label for="inputSede" class="form-label">Sede</label>
-                                                                        <input type="text" class="form-control" id="inputSede" maxlength="45" name="sede" value="{{ $item->sede }}" onkeypress="return soloLetras(event)">
+                                                                        <input type="text" class="form-control" id="inputSede" maxlength="45" name="sede" value="{{ $item->sede }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
                                                                     </div>
                                                         
                                                                     <div class="mb-3 col-md-12">
                                                                         <label for="inputPlan" class="form-label">Plan *</label>
-                                                                        <select id="inputPlan" class="form-select" name="id_plan">
+                                                                        <select id="inputPlan" class="form-select" name="id_plan" required>
                                                                             <option value="" selected>Seleccione</option>
                                                                             @foreach ($plan as $itemplan)
                                                                             <option value="{{$itemplan->id_plan}}" {{ $itemplan->id_plan == $item->id_plan ? 'selected' : '' }}>{{$itemplan->plan}}</option>
@@ -94,8 +94,8 @@
                                                                         </select>
                                                                     </div>
                                                                     <div class="modal-footer col-12 d-flex justify-content-between">
-                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-lg" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-lg">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
+                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
                                                                     </div>
                                                                 </div>
                                                             </form>
