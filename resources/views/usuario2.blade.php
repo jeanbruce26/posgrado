@@ -181,6 +181,14 @@
                 'success'
             )
         });
+
+        window.addEventListener('confirmacion-actualizacion-documentos', event =>{
+            Swal.fire(
+                '!Docuementos guardados!',
+                'Sus documentos fueron guardados satisfactoriamente.',
+                'success'
+            )
+        });
     </script>
 </body>
 

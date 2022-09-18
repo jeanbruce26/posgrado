@@ -2,10 +2,12 @@
     <div class="tab-content">
         <div class="tab-pane fade show active">
             <div class="card">
-                <h4 class="card-header d-flex fw-bold justify-content-star align-items-center">Bienvenido {{$nombre}}</h4>
+                <h4 class="card-header d-flex fw-bold justify-content-star align-items-center">Bienvenido {{$nombre}}.</h4>
+                @if ($contador != 6)
                 <div class="card-body">
-                    <h5 class="d-flex justify-content-star align-items-center mt-2">Usted tiene expedientes pendientes por subir a la plataforma, por favor<a href="" class="mx-2 fw-bold" hover="text-decor"> presione aquí </a>para ingresar.</h5>
+                    <h5 class="d-flex justify-content-star align-items-center mt-2">Usted tiene expedientes pendientes por subir a la plataforma, por favor<a href="{{route('usuarios.create')}}" class="mx-2 fw-bold" hover="text-decor"> presione aquí </a>para ingresar.</h5>
                 </div>
+                @endif
             </div>
             <div class="card-text px-5 my-2 d-flex justify-content-around row g-3">
                 <div class="col-1"></div>

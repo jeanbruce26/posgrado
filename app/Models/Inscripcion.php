@@ -12,6 +12,8 @@ class Inscripcion extends Authenticatable
 
     protected $primaryKey = 'id_inscripcion';
 
+    protected $dates = ['fecha_inscripcion'];
+
     protected $table = 'inscripcion';
     protected $fillable = [
         'id_inscripcion',
@@ -19,7 +21,8 @@ class Inscripcion extends Authenticatable
         'estado',
         'admision_cod_admi',
         'id_mencion',
-        'inscripcion'
+        'inscripcion',
+        'fecha_inscripcion'
     ];
 
     public $timestamps = false;

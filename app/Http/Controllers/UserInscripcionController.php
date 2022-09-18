@@ -67,13 +67,14 @@ class UserInscripcionController extends Controller
         $admision3 = Admision::where('estado',1)->first();
         $admi = $admision3->admision;
 
-        $fecha_actual = date('d/m/Y');
+        $fecha_actual = $inscripcion->fecha_inscripcion->format('h:i:s a d/m/Y');
+        $fecha_actual2 = $inscripcion->fecha_inscripcion->format('d-m-Y');
         $mencion = Mencion::where('id_mencion',$inscripcion->id_mencion)->get();
         $admisionn = Admision::where('estado',1)->get();
         $inscrip = Inscripcion::where('id_inscripcion',$id)->get();
         $tiempo = 6;
         $valor = '+ '.intval($tiempo).' month';
-        $final = date('j-m-Y',strtotime($fecha_actual.$valor));
+        $final = date('j-m-Y',strtotime($fecha_actual2.$valor));
         $per = Persona::where('idpersona', $inscripcion->persona_idpersona)->get();
         $expedienteInscripcion = ExpedienteInscripcion::where('id_inscripcion',$id)->get();
         $expedi = Expediente::all();

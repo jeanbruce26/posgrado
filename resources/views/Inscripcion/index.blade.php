@@ -16,6 +16,7 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th class="col-1">Código</th>
+                                        <th>Documento</th>
                                         <th>Persona</th>
                                         <th>Admisión</th>
                                         <th>Programa</th>
@@ -30,6 +31,7 @@
                                         @if($item->persona_idpersona!=null)
                                             <tr>
                                                 <td>{{$item->id_inscripcion}}</td>
+                                                <td>{{$item->persona->num_doc}}</td>
                                                 <td>{{$item->persona->nombres}} {{$item->persona->apell_pater}} {{$item->persona->apell_mater}}</td>
                                                 <td>{{$item->admision->admision}}</td>
                                                 <td>{{$item->mencion->subprograma->subprograma}} - {{$item->mencion->mencion}}</td>

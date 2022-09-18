@@ -9,14 +9,7 @@
                 <div class="tab-content">
                         <div class="tab-pane fade show active">
 
-                            @if (session('success'))
-                                <div class="alert alert-success m-3 alert-dismissible fade show" role="alert">
-                                    <strong>{{ session('success') }}.</strong>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            @endif
-
-                            <livewire:usuario/>
+                            <livewire:usuario-create/>
     
                         </div>
                         <!-- end tab pane -->

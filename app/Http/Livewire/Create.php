@@ -247,6 +247,8 @@ class Create extends Component
 
     public function inscripcion()
     {
+        date_default_timezone_set("America/Lima");
+        
         // dd($this->all());
         $this->resetErrorBag();
         if($this->pasoactual == 2){
@@ -312,13 +314,46 @@ class Create extends Component
         }else{
             $persona_buscar_datos = Persona::where('num_doc',$dni)->first();
             $idpersona = $persona_buscar_datos->idpersona;
-        }
+            $persona_datos = Persona::find($idpersona);
+            $persona_datos->update([
+                'apell_pater' => $this->apellido_paterno,
+                'apell_mater' => $this->apellido_materno,
+                'nombres' => $this->nombres,
+                'direccion' => $this->direccion,
+                'celular1' => $this->celular,
+                'celular2' => $this->celular_opcional,
+                'sexo' => $this->genero,
+                'fecha_naci' => $this->fecha_nacimiento,
+                'email' => $this->correo,
+                'email2' => $this->correo_opcional,
+                'año_egreso' => $this->año_egreso,
+                'centro_trab' => $this->trabajo,
+                'discapacidad_cod_disc' => $this->discapacidad,
+                'est_civil_cod_est' => $this->estado_civil,
+                'univer_cod_uni' => $this->universidad,
+                'id_grado_academico' => $this->grado_academico,
+                'especialidad' => $this->especialidad,
+            ]);
 
-        
+            $ubigeo_distrito = Distrito::select('ubigeo')->where('id',$this->distrito_direccion)->first();
+            $ubigeo_direccion = UbigeoPersona::where('tipo_ubigeo_cod_tipo',1)->where('persona_idpersona',$idpersona)->first();
+            $ubigeo_direccion->update([
+                'id_distrito' => $this->distrito_direccion,
+                'ubigeo' => $ubigeo_distrito->ubigeo,
+            ]);
+
+            $ubigeo_nacimiento = Distrito::select('ubigeo')->where('id',$this->distrito_nacimiento)->first();
+            $ubigeo_nacimiento_persona = UbigeoPersona::where('tipo_ubigeo_cod_tipo',2)->where('persona_idpersona',$idpersona)->first();
+            $ubigeo_nacimiento_persona->update([
+                'id_distrito' => $this->distrito_nacimiento,
+                'ubigeo' => $ubigeo_nacimiento->ubigeo,
+            ]);
+        }
 
         $inscripcion = Inscripcion::find($this->id_inscripcion);
         $inscripcion->persona_idpersona = $idpersona;
         $inscripcion->id_mencion = $this->mencion_combo;
+        $inscripcion->fecha_inscripcion = now();
         $inscripcion->save();
 
         $estadoExpediente = "Enviado";
@@ -343,7 +378,7 @@ class Create extends Component
                 $path = $admi. '/' .$this->id_inscripcion. '/';
                 $filename = $nombreExpediente.".".$data->extension();
                 $data = $this->$name;
-                $data->storeAs($path, $filename, 'imagen_publico');
+                $data->storeAs($path, $filename, 'files_publico');
 
                 ExpedienteInscripcion::create([
                     "nom_exped" => $filename,

@@ -44,7 +44,7 @@ return [
             'throw' => false,
         ],
 
-        'imagen_publico' => [
+        'files_publico' => [
             'driver' => 'local',
             'root' => public_path(),
         ],
