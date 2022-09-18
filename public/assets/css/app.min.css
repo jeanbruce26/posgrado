@@ -1445,8 +1445,8 @@
     text-decoration: underline;
 }
 [data-layout="vertical"][data-sidebar="dark"] .navbar-menu {
-    background: var(--vz-vertical-menu-bg-dark);
-    border-right: 1px solid var(--vz-vertical-menu-bg-dark);
+    background: #142e52;
+    border-right: 1px solid #142e52;
 }
 [data-layout="vertical"][data-sidebar="dark"]
     .navbar-menu
@@ -1572,14 +1572,14 @@
 }
 [data-layout="vertical"][data-sidebar="dark"][data-sidebar-size="sm"]
     .navbar-brand-box {
-    background: var(--vz-vertical-menu-bg-dark);
+    background: #142e52;
 }
 [data-layout="vertical"][data-sidebar="dark"][data-sidebar-size="sm"]
     .navbar-menu
     .navbar-nav
     .nav-item:hover
     > .menu-dropdown {
-    background: var(--vz-vertical-menu-bg-dark);
+    background: #142e52;
 }
 [data-layout="vertical"][data-sidebar="dark"][data-sidebar-size="sm"]
     .navbar-menu
