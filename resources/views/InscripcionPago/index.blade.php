@@ -31,7 +31,7 @@
                                             @if($item->Inscripcion->persona_idpersona==null)
                                                 <td>{{$item->inscripcion_id}} - Alumno No Inscrito</td>
                                             @else
-                                                <td>{{$item->inscripcion_id}} - {{ $item->inscripcion->persona->nombres }} {{ $item->inscripcion->persona->apell_pater }} {{ $item->inscripcion->persona->apell_mater }}</td>
+                                                <td>{{$item->inscripcion_id}} - {{ $item->inscripcion->persona->apell_pater }} {{ $item->inscripcion->persona->apell_mater }}, {{ $item->inscripcion->persona->nombres }}</td>
                                             @endif
                                             <td>{{$item->pago->monto}}</td>
                                             <td>{{$item->ConceptoPago->concepto}}</td>

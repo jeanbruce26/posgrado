@@ -18,9 +18,9 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Crear Admisión</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('Admision.store') }}" method="POST">
-                                    @csrf
-                                        <div class="modal-body row g-3">
+                                    <div class="modal-body row g-3">
+                                        <form action="{{ route('Admision.store') }}" method="POST">
+                                            @csrf
                                             <div class="mb-3 col-md-12">
                                                 <label for="inputAdmision" class="form-label">Admisión *</label>
                                                 <input type="text" class="form-control" id="inputAdmision" name="admision" maxlength="45" value="{{ old('admision') }}" required>

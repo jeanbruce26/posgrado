@@ -70,8 +70,8 @@
                                             <td>{{$item->subprograma->programa->descripcion_programa}}</td>
                                             <td>{{$item->subprograma->subprograma}}</td>
                                                 @if (is_null($item->cod_mencion) && is_null($item->mencion))
-                                                    <td class="text-danger"><i class="ri-close-circle-line fs-17 align-middle"></i> Sin Mención</td>
-                                                    <td class="text-danger"><i class="ri-close-circle-line fs-17 align-middle"></i> Sin Mención</td>
+                                                    <td>Sin Mención</td>
+                                                    <td>Sin Mención</td>
                                                 @else
                                                     <td>{{$item->cod_mencion}}</td>
                                                     <td>{{$item->mencion}}</td>

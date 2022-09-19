@@ -24,9 +24,9 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Crear Concepto de Pago</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('ConceptoPago.store') }}" method="POST">
-                                    @csrf
-                                        <div class="modal-body row g-3">
+                                    <div class="modal-body row g-3">
+                                        <form action="{{ route('ConceptoPago.store') }}" method="POST">
+                                            @csrf
                                             <div class="mb-3 col-md-12">
                                                 <label for="inputConcepto" class="form-label">Concepto *</label>
                                                 <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
@@ -45,12 +45,12 @@
                                                     <option value="2"> Inactivo</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer col-12 d-flex justify-content-between">
-                                            <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="ri-add-circle-fill ms-1"></i></button>
-                                        </div>
-                                    </form>
+                                            <div class="modal-footer col-12 d-flex justify-content-between">
+                                                <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="ri-add-circle-fill ms-1"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -94,9 +94,9 @@
                                                                 <h5 class="modal-title" id="exampleModalLabel">Editar Conbcepto de Pago</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('ConceptoPago.update',$item->concepto_id) }}" method="POST">
-                                                            @csrf @method('PUT')
-                                                                <div class="modal-body row g-3">
+                                                            <div class="modal-body row g-3">
+                                                                <form action="{{ route('ConceptoPago.update',$item->concepto_id) }}" method="POST">
+                                                                    @csrf @method('PUT')
                                                                     <div class="mb-3 col-md-12">
                                                                         <label for="inputConcepto" class="form-label">Concepto *</label>
                                                                         <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" value="{{ $item->concepto }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
@@ -119,8 +119,8 @@
                                                                         <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
                                                                         <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
                                                                     </div>
-                                                                </div>
-                                                            </form>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

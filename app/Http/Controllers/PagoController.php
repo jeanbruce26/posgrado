@@ -90,8 +90,6 @@ class PagoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $pago = Pago::find($id);
-
         $request->validate([
             'dni'  =>  'required|min:8',
             'nro_operacion'  =>  'required|numeric',

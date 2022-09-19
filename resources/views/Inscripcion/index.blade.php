@@ -15,10 +15,10 @@
                             <table class="table align-middle table-nowrap mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="col-1">Código</th>
+                                        <th class="col-1">ID</th>
                                         <th>Documento</th>
                                         <th>Persona</th>
-                                        <th>Admisión</th>
+                                        {{-- <th>Admisión</th> --}}
                                         <th>Programa</th>
                                         <th class="col-1">Estado</th>
                                         <th class="col-1">Expedientes</th>
@@ -32,9 +32,15 @@
                                             <tr>
                                                 <td>{{$item->id_inscripcion}}</td>
                                                 <td>{{$item->persona->num_doc}}</td>
-                                                <td>{{$item->persona->nombres}} {{$item->persona->apell_pater}} {{$item->persona->apell_mater}}</td>
-                                                <td>{{$item->admision->admision}}</td>
-                                                <td>{{$item->mencion->subprograma->subprograma}} - {{$item->mencion->mencion}}</td>
+                                                <td>{{$item->persona->apell_pater}} {{$item->persona->apell_mater}}, {{$item->persona->nombres}}</td>
+                                                {{-- <td>{{$item->admision->admision}}</td> --}}
+                                                <td>
+                                                    @if($item->mencion->mencion == null)
+                                                        {{$item->mencion->subprograma->subprograma}}
+                                                    @else
+                                                        {{$item->mencion->subprograma->subprograma}} - {{$item->mencion->mencion}}
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ( $item->estado == "Activo")
                                                         <span class="badge bg-success">Activo</span>
@@ -129,9 +135,9 @@
                                                                     <h5 class="modal-title" id="exampleModalLabel">Editar Estado de Inscripción</h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
-                                                                <form action="{{ route('Inscripcion.update',$item->id_inscripcion) }}" method="POST">
-                                                                @csrf @method('PUT')
-                                                                    <div class="modal-body">
+                                                                <div class="modal-body">
+                                                                    <form action="{{ route('Inscripcion.update',$item->id_inscripcion) }}" method="POST">
+                                                                        @csrf @method('PUT')
                                                                         <div class="mb-3">
                                                                             <label for="recipient-name" class="col-form-label">Estado:</label>
                                                                             <select id="inputEstado" class="form-select" name="estado" required>
