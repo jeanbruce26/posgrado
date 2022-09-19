@@ -50,7 +50,13 @@
                                                                 <div class="mb-3">
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="col-md-4">
-                                                                            <label>{{ $item->TipoDocumento->doc  }}</label>
+                                                                            <label>
+                                                                                @if($item->num_doc == 8)
+                                                                                    DNI
+                                                                                @else
+                                                                                    Carnet de Extranjería
+                                                                                @endif
+                                                                            </label>
                                                                             <input class="form-control" type="text" value="{{ $item->num_doc }}" disabled>
                                                                         </div>
                                                                         <div class="col-md-4">

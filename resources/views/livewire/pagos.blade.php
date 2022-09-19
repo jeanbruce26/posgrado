@@ -58,7 +58,7 @@
                         @foreach ($pago as $item)
                         <tr>
                             <th scope="row">{{$num = $num + 1}}</th>
-                            <td>{{$item->fecha_pago->format('d/m/Y')}}</td>
+                            <td>{{date('d-m-Y', strtotime($item->fecha_pago))}}</td>
                             <td>{{$item->nro_operacion}}</td>
                             <td>{{$item->monto}}</td>
                             <td align="center">

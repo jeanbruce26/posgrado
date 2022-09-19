@@ -678,7 +678,7 @@
                                         <th><div class="titulo3">Fecha de nacimiento</div></th>
                                         <th><div class="mx-2">:</div></th>
                                         @foreach ($persona as $item)
-                                        <th style="text-align: initial;">{{ $item->fecha_naci->format('d/m/Y') }}</th>
+                                        <th style="text-align: initial;">{{date('d-m-Y', strtotime($item->fecha_naci)) }}</th>
                                         @endforeach
                                     </tr>
                                     <tr>
@@ -816,7 +816,7 @@
             @foreach ($inscripcion_pago as $item)
             <tr>
                 <th class="tabla4"><div class="titulo5">{{ $item->pago->pago_id }}</div></th>
-                <th class="tabla4"><div class="titulo5">{{ $item->pago->fecha_pago->format('d/m/Y') }}</div></th>
+                <th class="tabla4"><div class="titulo5">{{date('d-m-Y', strtotime($item->pago->fecha_pago)) }}</div></th>
                 <th class="tabla4"><div class="titulo5">{{ $item->pago->nro_operacion }}</div></th>
                 <th class="tabla4"><div class="titulo5">{{ $item->pago->monto }}</div></th>
             </tr>
