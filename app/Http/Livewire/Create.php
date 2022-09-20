@@ -76,6 +76,7 @@ class Create extends Component
     public $totalpasos = 2;
     public $pasoactual = 0;
     public $check = false;
+    public $opcion = 0;
 
     // protected $listeners = ['inscripcion'];
     
@@ -102,7 +103,7 @@ class Create extends Component
             $this->apellido_paterno = $persona_buscar_datos->apell_pater;
             $this->apellido_materno = $persona_buscar_datos->apell_mater;
             $this->nombres = $persona_buscar_datos->nombres;
-            $this->fecha_nacimiento = $persona_buscar_datos->fecha_naci->format('Y-m-d');
+            $this->fecha_nacimiento = date('Y-m-d', strtotime($persona_buscar_datos->fecha_naci));
             $this->genero = $persona_buscar_datos->sexo;
             $this->estado_civil = $persona_buscar_datos->est_civil_cod_est;
             $this->grado_academico = $persona_buscar_datos->id_grado_academico;
@@ -168,6 +169,12 @@ class Create extends Component
         }
     }
 
+    public function validarUltimoPaso(){  
+        $this->resetErrorBag();
+        $this->validacion();
+        $this->dispatchBrowserEvent('abrir-modal');
+    }
+
     public function validacion(){
         if($this->pasoactual == 1){
             $this->validate([
@@ -195,6 +202,27 @@ class Create extends Component
                 'universidad' => 'required|numeric',
                 'trabajo' => 'required|string',
             ]);
+        }else if($this->pasoactual == 2){
+            $this->validate([
+                'sede_combo' => 'required|numeric',
+                'programa_combo' => 'required|numeric',
+                'subprograma_combo' => 'required|numeric',
+                'mencion_combo' => 'required|numeric',
+                'check' => 'accepted',
+            ]);
+            $expe = Expediente::where('estado',1)->get();
+            foreach($expe as $item){
+                $nombre = 'expediente'.$item->cod_exp;
+                if($item->requerido == 1){
+                    $this->validate([
+                        $nombre => 'required|mimes:pdf|max:10024',
+                    ]);
+                }else{
+                    $this->validate([
+                        $nombre => 'nullable|mimes:pdf|max:10024',
+                    ]);
+                }
+            }
         }
     }
 
@@ -250,17 +278,8 @@ class Create extends Component
         date_default_timezone_set("America/Lima");
         
         // dd($this->all());
+
         $this->resetErrorBag();
-        if($this->pasoactual == 2){
-            $this->validate([
-                'sede_combo' => 'required|numeric',
-                'programa_combo' => 'required|numeric',
-                'subprograma_combo' => 'required|numeric',
-                'mencion_combo' => 'required|numeric',
-                'check' => 'accepted',
-            ]);
-            
-        }
 
         //FORMULARIO 1
 

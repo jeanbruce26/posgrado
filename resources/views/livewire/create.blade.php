@@ -275,6 +275,10 @@
 
                     <h5 class="mt-4 fw-bold">Documentos requeridos.</h5>
 
+                    @if ($errors->any())
+                    <div class="alert alert-danger mt-2 mb-2 text-center">Ingrese sus documentos.</div>
+                    @endif
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -293,7 +297,7 @@
                                 </td>
                                 <td class="col-md-4">
                                     {{-- <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-dark btn-sm colorsito nomExp{{ $item->cod_exp }}" type="file" wire:model="expediente" @if($item->requerido == 1)required pattern="[a-z]{1,15}" title="El expediente es requerido"@endif> --}}
-                                    <input class="mt-2 mb-2 form-control form-control-sm btn btn-primary @error('expediente{{$item->cod_exp}}') is-invalid  @enderror" type="file" style="color:azure" wire:model="expediente{{$item->cod_exp}}" @if ($item->requerido == 1) required pattern="[a-zA-ZÀ-ÿ ]{1,15}" title="El expediente es requerido"@endif accept=".pdf">
+                                    <input class="mt-2 mb-2 form-control form-control-sm btn btn-primary @error('expediente{{$item->cod_exp}}') is-invalid  @enderror" type="file" style="color:azure" wire:model="expediente{{$item->cod_exp}}" @if ($item->requerido == 1) required @endif accept=".pdf">
                                 </td>
                                 <td class="col-md-1">
                                 </td> 
@@ -312,7 +316,12 @@
             @enderror
             <div class="d-flex align-items-start justify-content-between gap-3 mt-4">
                 <button type="button" class="btn btn-secondary text-decoration-none btn-label" wire:click="disminuirPaso()"><i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>Anterior</button>
-                <button type="button" class="btn btn-primary btn-label right" @if($check == false) disabled @endif  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="ri-arrow-up-line label-icon align-middle fs-16 ms-2"></i>Inscribirse</button>  
+                <button type="button" class="btn btn-primary btn-label right" @if($check == false) disabled @endif wire:click="validarUltimoPaso()" ><i class="ri-arrow-up-line label-icon align-middle fs-16 ms-2"></i>Inscribirse</button>  
+                <script>
+                    window.addEventListener('abrir-modal', event => {
+                        $('#staticBackdrop').modal('show');
+                    })
+                </script>
                 <!-- staticBackdrop Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
