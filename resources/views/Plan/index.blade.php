@@ -18,12 +18,14 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Crear Plan</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('Plan.store') }}" method="POST">
-                                    @csrf
-                                        <div class="modal-body row g-3">
-                                            <div class="mb-3 col-md-12">
-                                                <label for="inputPlan" class="form-label">Plan *</label>
-                                                <input type="text" class="form-control" id="inputPlan" name="plan" maxlength="10" pattern="[1-9]{1-10}" required>
+                                    <div class="modal-body">
+                                        <form action="{{ route('Plan.store') }}" method="POST">
+                                            @csrf
+                                            <div class="col-sm-12 row g-3">
+                                                <div class="mb-3 col-md-12">
+                                                    <label for="inputPlan" class="form-label">Plan *</label>
+                                                    <input type="text" class="form-control" id="inputPlan" name="plan" maxlength="10" required>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer col-12 d-flex justify-content-between">
@@ -64,17 +66,19 @@
                                                                 <h5 class="modal-title" id="exampleModalLabel">Editar Admisión</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('Plan.update',$item->id_plan) }}" method="POST">
-                                                            @csrf @method('PUT')
-                                                                <div class="modal-body row g-3">
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label for="inputPlan" class="form-label">Plan</label>
-                                                                        <input type="text" class="form-control" id="inputPlan" name="plan" value="{{ $item->plan }}" pattern="[1-9]{1-13}" required>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('Plan.update',$item->id_plan) }}" method="POST">
+                                                                    @csrf @method('PUT')
+                                                                    <div class="col-sm-12 row g-3">
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label for="inputPlan" class="form-label">Plan</label>
+                                                                            <input type="text" class="form-control" id="inputPlan" name="plan" value="{{ $item->plan }}" required>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="modal-footer col-12 d-flex justify-content-between">
-                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
-                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer col-12 d-flex justify-content-between">
+                                                                    <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                                    <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
                                                                 </div>
                                                             </form>
                                                         </div>

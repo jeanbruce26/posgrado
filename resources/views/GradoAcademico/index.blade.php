@@ -18,12 +18,14 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Crear Grado Académico</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('GradoAcademico.store') }}" method="POST">
-                                    @csrf
-                                        <div class="modal-body row g-3">
-                                            <div class="mb-3 col-md-12">
-                                                <label for="inputGradoAca" class="form-label">Grado Académico *</label>
-                                                <input type="text" class="form-control" id="inputGradoAca" name="nom_grado" maxlength="45" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                    <div class="modal-body">
+                                        <form action="{{ route('GradoAcademico.store') }}" method="POST">
+                                            @csrf
+                                            <div class="col-sm-12 row g-3">
+                                                <div class="mb-3 col-md-12">
+                                                    <label for="inputGradoAca" class="form-label">Grado Académico *</label>
+                                                    <input type="text" class="form-control" id="inputGradoAca" name="nom_grado" maxlength="45" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer col-12 d-flex justify-content-between">
@@ -64,18 +66,19 @@
                                                                 <h5 class="modal-title" id="exampleModalLabel">Editar Grado Académico</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('GradoAcademico.update',$item->id_grado_academico) }}" method="POST">
-                                                            @csrf @method('PUT')
-                                                                <div class="modal-body row g-3">
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label for="inputGradoAca" class="form-label">Grado Académico</label>
-                                                                        <input type="text" class="form-control" id="inputGradoAca" name="nom_grado" value="{{ $item->nom_grado }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('GradoAcademico.update',$item->id_grado_academico) }}" method="POST">
+                                                                    @csrf @method('PUT')
+                                                                    <div class="col-sm-12 row g-3">
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label for="inputGradoAca" class="form-label">Grado Académico</label>
+                                                                            <input type="text" class="form-control" id="inputGradoAca" name="nom_grado" value="{{ $item->nom_grado }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                                        </div>
                                                                     </div>
-
-                                                                    <div class="modal-footer col-12 d-flex justify-content-between">
-                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
-                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer col-12 d-flex justify-content-between">
+                                                                    <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                                    <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
                                                                 </div>
                                                             </form>
                                                         </div>

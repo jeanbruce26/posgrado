@@ -18,35 +18,37 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Crear Expediente</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('Expediente.store') }}" method="POST">
-                                    @csrf
-                                        <div class="modal-body row g-3">
-                                            <div class="mb-3 col-md-12">
-                                                <label for="inputExp" class="form-label">Tipo de Documento *</label>
-                                                <input type="text" class="form-control" id="inputExp" name="tipo_doc" maxlength="200" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
-                                            </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('Expediente.store') }}" method="POST">
+                                            @csrf
+                                            <div class="col-sm-12 row g-3">
+                                                <div class="mb-3 col-md-12">
+                                                    <label for="inputExp" class="form-label">Tipo de Documento *</label>
+                                                    <input type="text" class="form-control" id="inputExp" name="tipo_doc" maxlength="200" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                </div>
 
-                                            <div class="mb-3 col-md-12">
-                                                <label class="form-label">Texto complemento del documento</label>
-                                                <input type="text" class="form-control" name="complemento" maxlength="200" required>
-                                            </div>
+                                                <div class="mb-3 col-md-12">
+                                                    <label class="form-label">Texto complemento del documento</label>
+                                                    <input type="text" class="form-control" name="complemento" maxlength="200" required>
+                                                </div>
 
-                                            <div class="mb-3 col-md-6">
-                                                <label for="inputRequerido" class="form-label">Requerido *</label>
-                                                <select class="form-select" name="requerido" required>
-                                                    <option value="" selected>Seleccione</option>
-                                                    <option value="1">Si</option>
-                                                    <option value="2">No</option>
-                                                </select>
-                                            </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="inputRequerido" class="form-label">Requerido *</label>
+                                                    <select class="form-select" name="requerido" required>
+                                                        <option value="" selected>Seleccione</option>
+                                                        <option value="1">Si</option>
+                                                        <option value="2">No</option>
+                                                    </select>
+                                                </div>
 
-                                            <div class="mb-3 col-md-6">
-                                                <label for="inputEstado" class="form-label">Estado *</label>
-                                                <select class="form-select" name="estado" required>
-                                                    <option value="" selected>Seleccione</option>
-                                                    <option value="1">Activo</option>
-                                                    <option value="2">Inactivo</option>
-                                                </select>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="inputEstado" class="form-label">Estado *</label>
+                                                    <select class="form-select" name="estado" required>
+                                                        <option value="" selected>Seleccione</option>
+                                                        <option value="1">Activo</option>
+                                                        <option value="2">Inactivo</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer col-12 d-flex justify-content-between">
@@ -111,40 +113,39 @@
                                                                 <h5 class="modal-title" id="exampleModalLabel">Editar Expediente</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('Expediente.update',$item->cod_exp) }}" method="POST">
-                                                            @csrf @method('PUT')
-                                                                <div class="modal-body row g-3">
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label for="inputExp" class="form-label">Tipo de Documento *</label>
-                                                                        <input type="text" class="form-control" id="inputExp" name="tipo_doc"  value="{{ $item->tipo_doc }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('Expediente.update',$item->cod_exp) }}" method="POST">
+                                                                    @csrf @method('PUT')
+                                                                    <div class="col-sm-12 row g-3">
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label for="inputExp" class="form-label">Tipo de Documento *</label>
+                                                                            <input type="text" class="form-control" id="inputExp" name="tipo_doc"  value="{{ $item->tipo_doc }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                                        </div>
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label class="form-label">Texto complemento del documento</label>
+                                                                            <input type="text" class="form-control" name="complemento" value="{{ $item->complemento }}" required>
+                                                                        </div>
+                                                                        <div class="mb-3 col-md-6">
+                                                                            <label for="inputRequerido" class="form-label">Requerido *</label>
+                                                                            <select id="inputRequerido" class="form-select" name="requerido" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                <option value="1" {{ $item->requerido == 1 ? 'selected' : '' }}> Si</option>
+                                                                                <option value="2" {{ $item->requerido == 2 ? 'selected' : '' }}> No</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="mb-3 col-md-6">
+                                                                            <label for="inputEstado" class="form-label">Estado *</label>
+                                                                            <select id="inputEstado" class="form-select" name="estado" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                <option value="1" {{ $item->estado == 1 ? 'selected' : '' }}> Activo</option>
+                                                                                <option value="2" {{ $item->estado == 2 ? 'selected' : '' }}> Inactivo</option>
+                                                                            </select>
+                                                                        </div>
                                                                     </div>
-                                                        
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label class="form-label">Texto complemento del documento</label>
-                                                                        <input type="text" class="form-control" name="complemento" value="{{ $item->complemento }}" required>
-                                                                    </div>
-
-                                                                    <div class="mb-3 col-md-6">
-                                                                        <label for="inputRequerido" class="form-label">Requerido *</label>
-                                                                        <select id="inputRequerido" class="form-select" name="requerido" required>
-                                                                            <option value="" selected>Seleccione</option>
-                                                                            <option value="1" {{ $item->requerido == 1 ? 'selected' : '' }}> Si</option>
-                                                                            <option value="2" {{ $item->requerido == 2 ? 'selected' : '' }}> No</option>
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <div class="mb-3 col-md-6">
-                                                                        <label for="inputEstado" class="form-label">Estado *</label>
-                                                                        <select id="inputEstado" class="form-select" name="estado" required>
-                                                                            <option value="" selected>Seleccione</option>
-                                                                            <option value="1" {{ $item->estado == 1 ? 'selected' : '' }}> Activo</option>
-                                                                            <option value="2" {{ $item->estado == 2 ? 'selected' : '' }}> Inactivo</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="modal-footer col-12 d-flex justify-content-between">
-                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
-                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer col-12 d-flex justify-content-between">
+                                                                    <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                                    <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
                                                                 </div>
                                                             </form>
                                                         </div>

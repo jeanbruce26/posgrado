@@ -173,19 +173,19 @@
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputNumDoc" class="form-label">Documento *</label>
-                                                                            <input type="text" class="form-control" id="inputNumDoc" name="num_doc" maxlength="9" value="{{ $item->num_doc }}" onkeypress="return soloNumeros(event)" pattern="[0-9]+" required>
+                                                                            <input type="text" class="form-control" id="inputNumDoc" name="num_doc" maxlength="9" value="{{ $item->num_doc }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{8,9}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputNombres" class="form-label">Nombres *</label>
-                                                                            <input type="text" class="form-control" id="inputNombres" name="nombres" maxlength="45" value="{{ $item->nombres }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                                            <input type="text" class="form-control" id="inputNombres" name="nombres" maxlength="45" value="{{ $item->nombres }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,45}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputApePater" class="form-label">Apellido Paterno *</label>
-                                                                            <input type="text" class="form-control" id="inputApePater" name="apell_pater" maxlength="45" value="{{ $item->apell_pater }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                                            <input type="text" class="form-control" id="inputApePater" name="apell_pater" maxlength="45" value="{{ $item->apell_pater }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,45}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputApeMater" class="form-label">Apellido Materno *</label>
-                                                                            <input type="text" class="form-control" id="inputApeMater" name="apell_mater" maxlength="45" value="{{ $item->apell_mater }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                                            <input type="text" class="form-control" id="inputApeMater" name="apell_mater" maxlength="45" value="{{ $item->apell_mater }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,45}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputFechaNaci" class="form-label">Fecha de Nacimiento *</label>
@@ -225,12 +225,12 @@
                                                                         @endif
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputCelular" class="form-label">Celular *</label>
-                                                                            <input type="text" class="form-control" id="inputCelular" name="celular1" maxlength="9" value="{{ $item->celular1 }}" onkeypress="return soloNumeros(event)" pattern="[0-9]+" required>
+                                                                            <input type="text" class="form-control" id="inputCelular" name="celular1" maxlength="9" value="{{ $item->celular1 }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{9}" required>
                                                                         </div>
                                                                         @if ($item->celular2 != null)
                                                                             <div class="mb-3 col-md-4">
                                                                                 <label for="inputCelular2" class="form-label">Celular Opcional</label>
-                                                                                <input type="text" class="form-control" id="inputCelular2" name="celular2" maxlength="9" value="{{ $item->celular2 }}" onkeypress="return soloNumeros(event)" pattern="[0-9]+">
+                                                                                <input type="text" class="form-control" id="inputCelular2" name="celular2" maxlength="9" value="{{ $item->celular2 }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{9}">
                                                                             </div>
                                                                         @endif
                                                                         <div class="mb-3 col-md-4">
@@ -258,7 +258,7 @@
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputAnioEgreso" class="form-label">Año de Egreso *</label>
-                                                                            <input type="text" class="form-control" id="inputAnioEgreso" name="año_egreso" maxlength="4" value="{{ $item->año_egreso }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{1,4}" required>
+                                                                            <input type="text" class="form-control" id="inputAnioEgreso" name="año_egreso" maxlength="4" value="{{ $item->año_egreso }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{4}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputGradoAca" class="form-label">Grado Académico *</label>
@@ -271,7 +271,7 @@
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputEspecialidad" class="form-label">Especialidad</label>
-                                                                            <input type="text" class="form-control" id="inputEspecialidad" name="especialidad" maxlength="4" value="{{ $item->especialidad }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}">
+                                                                            <input type="text" class="form-control" id="inputEspecialidad" name="especialidad" maxlength="4" value="{{ $item->especialidad }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,45}">
                                                                         </div>
                                                                     </div>
                                                                 </div>

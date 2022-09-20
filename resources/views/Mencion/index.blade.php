@@ -18,25 +18,27 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Crear Mención</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('Mencion.store') }}" method="POST">
-                                    @csrf
-                                        <div class="modal-body row g-3">
-                                            <div class="mb-3 col-md-12">
-                                                <label class="form-label">Código Mención</label>
-                                                <input type="text" class="form-control" name="cod_mencion" maxlength="10">
-                                            </div>
-                                            <div class="mb-3 col-md-12">
-                                                <label class="form-label">Mención</label>
-                                                <input type="text" class="form-control" name="mencion" onkeypress="return soloLetras(event)">
-                                            </div>
-                                            <div class="mb-3 col-md-12">
-                                                <label class="form-label">Sub Programa *</label>
-                                                <select class="form-select" name="id_subprograma" required>
-                                                    <option value="" selected>Seleccione</option>
-                                                    @foreach ($sub as $item)
-                                                    <option value="{{$item->id_subprograma}}">{{$item->programa->sede->sede}} - {{$item->programa->descripcion_programa}} - {{$item->subprograma}}</option>
-                                                    @endforeach
-                                                </select>
+                                    <div class="modal-body">
+                                        <form action="{{ route('Mencion.store') }}" method="POST">
+                                            @csrf
+                                            <div class="col-sm-12 row g-3">
+                                                <div class="mb-3 col-md-12">
+                                                    <label class="form-label">Código Mención</label>
+                                                    <input type="text" class="form-control" name="cod_mencion" maxlength="10">
+                                                </div>
+                                                <div class="mb-3 col-md-12">
+                                                    <label class="form-label">Mención</label>
+                                                    <input type="text" class="form-control" name="mencion" onkeypress="return soloLetras(event)">
+                                                </div>
+                                                <div class="mb-3 col-md-12">
+                                                    <label class="form-label">Sub Programa *</label>
+                                                    <select class="form-select" name="id_subprograma" required>
+                                                        <option value="" selected>Seleccione</option>
+                                                        @foreach ($sub as $item)
+                                                        <option value="{{$item->id_subprograma}}">{{$item->programa->sede->sede}} - {{$item->programa->descripcion_programa}} - {{$item->subprograma}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer col-12 d-flex justify-content-between">
@@ -87,25 +89,27 @@
                                                                 <h5 class="modal-title" id="exampleModalLabel">Editar Pago</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('Mencion.update',$item->id_mencion) }}" method="POST">
-                                                            @csrf @method('PUT')
-                                                                <div class="modal-body row g-3">
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label class="form-label">Código Mención *</label>
-                                                                        <input type="text" class="form-control"  name="cod_mencion" maxlength="50" value="{{ $item->cod_mencion }}">
-                                                                    </div>
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label class="form-label">Mención *</label>
-                                                                        <input type="text" class="form-control" name="mencion" maxlength="200" value="{{ $item->mencion }}" onkeypress="return soloLetras(event)">
-                                                                    </div>
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label class="form-label">Sub Programa *</label>
-                                                                        <select class="form-select" name="id_subprograma" required>
-                                                                            <option value="" selected>Seleccione</option>
-                                                                            @foreach ($sub as $itemsu)
-                                                                                <option value="{{$itemsu->id_subprograma}}" {{ $itemsu->id_subprograma == $item->id_subprograma ? 'selected' : '' }}>{{$itemsu->subprograma}}</option>
-                                                                            @endforeach
-                                                                        </select>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('Mencion.update',$item->id_mencion) }}" method="POST">
+                                                                    @csrf @method('PUT')
+                                                                    <div class="col-sm-12 row g-3">
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label class="form-label">Código Mención *</label>
+                                                                            <input type="text" class="form-control"  name="cod_mencion" maxlength="50" value="{{ $item->cod_mencion }}">
+                                                                        </div>
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label class="form-label">Mención *</label>
+                                                                            <input type="text" class="form-control" name="mencion" maxlength="200" value="{{ $item->mencion }}" onkeypress="return soloLetras(event)">
+                                                                        </div>
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label class="form-label">Sub Programa *</label>
+                                                                            <select class="form-select" name="id_subprograma" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                @foreach ($sub as $itemsu)
+                                                                                    <option value="{{$itemsu->id_subprograma}}" {{ $itemsu->id_subprograma == $item->id_subprograma ? 'selected' : '' }}>{{$itemsu->subprograma}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer col-12 d-flex justify-content-between">

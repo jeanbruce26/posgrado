@@ -18,22 +18,24 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Crear Pago</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body row g-3">
+                                    <div class="modal-body">
                                         <form action="{{ route('CanalPago.store') }}" method="POST">
                                             @csrf
-                                            <div class="col-md-12">
-                                                <label class="form-label">Canal de Pago *</label>
-                                                <input type="text" class="form-control"  name="descripcion" maxlength="200" value="{{ old('descripcion') }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
-                                                {{-- @error('descripcion')
-                                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                                @enderror --}}
+                                            <div class="col-sm-12 row g-3">
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Canal de Pago *</label>
+                                                    <input type="text" class="form-control"  name="descripcion" maxlength="200" value="{{ old('descripcion') }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                    {{-- @error('descripcion')
+                                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                                    @enderror --}}
+                                                </div>
                                             </div>
-                                            <div class="modal-footer col-12 d-flex justify-content-between">
-                                                <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="ri-add-circle-fill ms-1"></i></button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer col-12 d-flex justify-content-between">
+                                            <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="ri-add-circle-fill ms-1"></i></button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -67,19 +69,21 @@
                                                                 <h5 class="modal-title" id="exampleModalLabel">Editar Pago</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <div class="modal-body row g-3">
+                                                            <div class="modal-body">
                                                                 <form action="{{ route('CanalPago.update',$item->canal_pago_id) }}" method="POST">
-                                                                @csrf @method('PUT')
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label class="form-label">Canal de Pago *</label>
-                                                                        <input type="text" class="form-control" name="descripcion" value="{{ $item->descripcion }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                                    @csrf @method('PUT')
+                                                                    <div class="col-sm-12 row g-3">
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label class="form-label">Canal de Pago *</label>
+                                                                            <input type="text" class="form-control" name="descripcion" value="{{ $item->descripcion }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="modal-footer col-12 d-flex justify-content-between">
-                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
+                                                                </div>
+                                                                <div class="modal-footer col-12 d-flex justify-content-between">
+                                                                    <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                                    <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>

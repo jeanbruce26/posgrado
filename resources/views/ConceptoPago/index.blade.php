@@ -24,33 +24,35 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Crear Concepto de Pago</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body row g-3">
+                                    <div class="modal-body">
                                         <form action="{{ route('ConceptoPago.store') }}" method="POST">
                                             @csrf
-                                            <div class="mb-3 col-md-12">
-                                                <label for="inputConcepto" class="form-label">Concepto *</label>
-                                                <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                            <div class="col-sm-12 row g-3">
+                                                <div class="mb-3 col-md-12">
+                                                    <label for="inputConcepto" class="form-label">Concepto *</label>
+                                                    <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                </div>
+                                        
+                                                <div class="mb-3 col-md-12">
+                                                    <label for="inputMonto" class="form-label">Monto *</label>
+                                                    <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" onkeypress="return soloNumeros(event)" pattern="[0-9]{1-13}" required>
+                                                </div>
+                                        
+                                                <div class="mb-3 col-md-12">
+                                                    <label for="inputEstado" class="form-label">Estado *</label>
+                                                    <select id="inputEstado" class="form-select" name="estado" required>
+                                                        <option value="" selected>Seleccione</option>
+                                                        <option value="1"> Activo</option>
+                                                        <option value="2"> Inactivo</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                    
-                                            <div class="mb-3 col-md-12">
-                                                <label for="inputMonto" class="form-label">Monto *</label>
-                                                <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" onkeypress="return soloNumeros(event)" pattern="[1-9]{1-13}" required>
-                                            </div>
-                                    
-                                            <div class="mb-3 col-md-12">
-                                                <label for="inputEstado" class="form-label">Estado *</label>
-                                                <select id="inputEstado" class="form-select" name="estado" required>
-                                                    <option value="" selected>Seleccione</option>
-                                                    <option value="1"> Activo</option>
-                                                    <option value="2"> Inactivo</option>
-                                                </select>
-                                            </div>
-                                            <div class="modal-footer col-12 d-flex justify-content-between">
-                                                <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="ri-add-circle-fill ms-1"></i></button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer col-12 d-flex justify-content-between">
+                                            <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                            <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="ri-add-circle-fill ms-1"></i></button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -94,33 +96,35 @@
                                                                 <h5 class="modal-title" id="exampleModalLabel">Editar Conbcepto de Pago</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <div class="modal-body row g-3">
+                                                            <div class="modal-body">
                                                                 <form action="{{ route('ConceptoPago.update',$item->concepto_id) }}" method="POST">
                                                                     @csrf @method('PUT')
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label for="inputConcepto" class="form-label">Concepto *</label>
-                                                                        <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" value="{{ $item->concepto }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                                    <div class="col-sm-12 row g-3">
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label for="inputConcepto" class="form-label">Concepto *</label>
+                                                                            <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" value="{{ $item->concepto }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                                        </div>
+                                                            
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label for="inputMonto" class="form-label">Monto *</label>
+                                                                            <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" value="{{ $item->monto }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{1-13}" required>
+                                                                        </div>
+                                                            
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label for="inputEstado" class="form-label">Estado *</label>
+                                                                            <select id="inputEstado" class="form-select" name="estado" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                <option value="1" {{ $item->estado == 1 ? 'selected' : '' }}> Activo</option>
+                                                                                <option value="2" {{ $item->estado == 2 ? 'selected' : '' }}> Inactivo</option>
+                                                                            </select>
+                                                                        </div>
                                                                     </div>
-                                                        
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label for="inputMonto" class="form-label">Monto *</label>
-                                                                        <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" value="{{ $item->monto }}" onkeypress="return soloNumeros(event)" pattern="[1-9]{1-13}" required>
-                                                                    </div>
-                                                        
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label for="inputEstado" class="form-label">Estado *</label>
-                                                                        <select id="inputEstado" class="form-select" name="estado" required>
-                                                                            <option value="" selected>Seleccione</option>
-                                                                            <option value="1" {{ $item->estado == 1 ? 'selected' : '' }}> Activo</option>
-                                                                            <option value="2" {{ $item->estado == 2 ? 'selected' : '' }}> Inactivo</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="modal-footer col-12 d-flex justify-content-between">
-                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
+                                                                </div>
+                                                                <div class="modal-footer col-12 d-flex justify-content-between">
+                                                                    <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                                    <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>

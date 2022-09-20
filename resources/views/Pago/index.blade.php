@@ -31,16 +31,16 @@
                                             <div class="col-sm-12 row g-3">
                                                 <div class="mb-3 col-md-4">
                                                     <label for="inputDNI" class="form-label">Documento *</label>
-                                                    <input type="text" class="form-control" id="inputDNI" name="dni" minlength="8" maxlength="9" onkeypress="return soloNumeros(event)" pattern="[1-9]+" required>
+                                                    <input type="text" class="form-control" id="inputDNI" name="dni" minlength="8" maxlength="9" onkeypress="return soloNumeros(event)" pattern="[0-9]{8,9}" required>
                                                     
                                                 </div>
                                                 <div class="mb-3 col-md-4">
                                                     <label for="inputNumOpe" class="form-label">Número de Operación *</label>
-                                                    <input type="text" class="form-control" id="inputNumOpe" name="nro_operacion" onkeypress="return soloNumeros(event)" pattern="[1-9]+" required>
+                                                    <input type="text" class="form-control" id="inputNumOpe" name="nro_operacion" onkeypress="return soloNumeros(event)" maxlength="10" pattern="[0-9]{1,10}" required>
                                                 </div>
                                                 <div class="mb-3 col-md-4">
                                                     <label for="inputMonto" class="form-label">Monto *</label>
-                                                    <input type="text" class="form-control" id="inputMonto" name="monto" onkeypress="return soloNumeros(event)" pattern="[1-9]{1-13}" required>
+                                                    <input type="text" class="form-control" id="inputMonto" name="monto" onkeypress="return soloNumeros(event)" pattern="[0-9]{1-13}" required>
                                                 </div>
                                                 <div class="mb-3 col-md-4">
                                                     <label for="inputFechaPago" class="form-label">Fecha de Pago *</label>
@@ -140,11 +140,11 @@
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputDNI" class="form-label">Documento *</label>
-                                                                            <input type="text" class="form-control" id="inputDNI" name="dni" maxlength="9" value="{{ $item->dni }}" onkeypress="return soloNumeros(event)" pattern="[1-9]+" required>
+                                                                            <input type="text" class="form-control" id="inputDNI" name="dni" minlength="8" maxlength="9" value="{{ $item->dni }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{8,9}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputNumOpe" class="form-label">Número de Operación *</label>
-                                                                            <input type="text" class="form-control" id="inputNumOpe" name="nro_operacion" maxlength="10" value="{{ $item->nro_operacion }}" onkeypress="return soloNumeros(event)" pattern="[1-9]+" required>
+                                                                            <input type="text" class="form-control" id="inputNumOpe" name="nro_operacion" maxlength="10" value="{{ $item->nro_operacion }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{1,10}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
                                                                             <label for="inputMonto" class="form-label">Monto *</label>

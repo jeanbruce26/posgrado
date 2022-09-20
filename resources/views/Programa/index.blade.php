@@ -18,22 +18,24 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Crear Programa</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('Programa.store') }}" method="POST">
-                                    @csrf
-                                        <div class="modal-body row g-3">
-                                            <div class="mb-3 col-md-12">
-                                                <label for="inputPrograma" class="form-label">Programa *</label>
-                                                <input type="text" class="form-control" id="inputPrograma" name="descripcion_programa" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
-                                            </div>
-                                    
-                                            <div class="mb-3 col-md-12">
-                                                <label class="form-label">Sede *</label>
-                                                <select class="form-select" name="id_sede" required>
-                                                    <option value="" selected>Seleccione</option>
-                                                    @foreach ($sede as $item)
-                                                    <option value="{{$item->cod_sede}}">{{$item->sede}}</option>
-                                                    @endforeach
-                                                </select>
+                                    <div class="modal-body">
+                                        <form action="{{ route('Programa.store') }}" method="POST">
+                                            @csrf
+                                            <div class="col-sm-12 row g-3">
+                                                <div class="mb-3 col-md-12">
+                                                    <label for="inputPrograma" class="form-label">Programa *</label>
+                                                    <input type="text" class="form-control" id="inputPrograma" name="descripcion_programa" onkeypress="return soloLetras(event)" maxlength="50" pattern="[a-zA-ZÀ-ÿ ]{2,50}" required>
+                                                </div>
+                                        
+                                                <div class="mb-3 col-md-12">
+                                                    <label class="form-label">Sede *</label>
+                                                    <select class="form-select" name="id_sede" required>
+                                                        <option value="" selected>Seleccione</option>
+                                                        @foreach ($sede as $item)
+                                                        <option value="{{$item->cod_sede}}">{{$item->sede}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer col-12 d-flex justify-content-between">
@@ -76,27 +78,29 @@
                                                                 <h5 class="modal-title" id="exampleModalLabel">Editar Programa</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('Programa.update',$item->id_programa) }}" method="POST">
-                                                            @csrf @method('PUT')
-                                                                <div class="modal-body row g-3">
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label for="inputPrograma" class="form-label">Programa *</label>
-                                                                        <input type="text" class="form-control" id="inputPrograma" name="descripcion_programa" value="{{ $item->descripcion_programa }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('Programa.update',$item->id_programa) }}" method="POST">
+                                                                    @csrf @method('PUT')
+                                                                    <div class="col-sm-12 row g-3">
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label for="inputPrograma" class="form-label">Programa *</label>
+                                                                            <input type="text" class="form-control" id="inputPrograma" name="descripcion_programa" value="{{ $item->descripcion_programa }}" onkeypress="return soloLetras(event)" maxlength="50" pattern="[a-zA-ZÀ-ÿ ]{2,50}" required>
+                                                                        </div>
+                                                            
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label for="inputPlan" class="form-label">Sede *</label>
+                                                                            <select id="inputPlan" class="form-select" name="id_sede" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                @foreach ($sede as $itemse)
+                                                                                <option value="{{$itemse->cod_sede}}" {{ $itemse->cod_sede == $item->id_sede ? 'selected' : '' }}>{{$itemse->sede}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
                                                                     </div>
-                                                        
-                                                                    <div class="mb-3 col-md-12">
-                                                                        <label for="inputPlan" class="form-label">Sede *</label>
-                                                                        <select id="inputPlan" class="form-select" name="id_sede" required>
-                                                                            <option value="" selected>Seleccione</option>
-                                                                            @foreach ($sede as $itemse)
-                                                                            <option value="{{$itemse->cod_sede}}" {{ $itemse->cod_sede == $item->id_sede ? 'selected' : '' }}>{{$itemse->sede}}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="modal-footer col-12 d-flex justify-content-between">
-                                                                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                                                                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
-                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer col-12 d-flex justify-content-between">
+                                                                    <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
+                                                                    <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
                                                                 </div>
                                                             </form>
                                                         </div>

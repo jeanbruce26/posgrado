@@ -293,7 +293,7 @@
                                 </td>
                                 <td class="col-md-4">
                                     {{-- <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-dark btn-sm colorsito nomExp{{ $item->cod_exp }}" type="file" wire:model="expediente" @if($item->requerido == 1)required pattern="[a-z]{1,15}" title="El expediente es requerido"@endif> --}}
-                                    <input class="mt-2 mb-2 form-control form-control-sm btn btn-primary @error('expediente{{$item->cod_exp}}') is-invalid  @enderror" type="file" style="color:azure" wire:model="expediente{{$item->cod_exp}}" @if ($item->requerido == 1) required pattern="[a-z]{1,15}" title="El expediente es requerido"@endif accept=".pdf">
+                                    <input class="mt-2 mb-2 form-control form-control-sm btn btn-primary @error('expediente{{$item->cod_exp}}') is-invalid  @enderror" type="file" style="color:azure" wire:model="expediente{{$item->cod_exp}}" @if ($item->requerido == 1) required pattern="[a-zA-ZÀ-ÿ ]{1,15}" title="El expediente es requerido"@endif accept=".pdf">
                                 </td>
                                 <td class="col-md-1">
                                 </td> 
