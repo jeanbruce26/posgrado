@@ -23,17 +23,17 @@
                                             @csrf
                                             <div class="col-sm-12 row g-3">
                                                 <div class="mb-3 col-md-12">
-                                                    <label class="form-label">Código Sub Programa *</label>
+                                                    <label class="form-label">Código Sub Programa <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="cod_subprograma" maxlength="10" required>
                                                 </div>
                                         
                                                 <div class="mb-3 col-md-12">
-                                                    <label class="form-label">Sub Programa *</label>
+                                                    <label class="form-label">Sub Programa <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="subprograma" onkeypress="return soloLetras(event)" maxlength="200" pattern="[a-zA-ZÀ-ÿ ]{2,200}" required>
                                                 </div>
 
                                                 <div class="mb-3 col-md-12">
-                                                    <label class="form-label">Programa *</label>
+                                                    <label class="form-label">Programa <span class="text-danger">*</span></label>
                                                     <select class="form-select" name="id_programa" required>
                                                         <option value="" selected>Seleccione</option>
                                                         @foreach ($pro as $item)
@@ -90,17 +90,17 @@
                                                                     @csrf @method('PUT')
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label class="form-label">Codigo Mención *</label>
+                                                                            <label class="form-label">Codigo Mención <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control"  name="cod_subprograma" value="{{ $item->cod_subprograma }}" required>
                                                                         </div>
                                                             
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label class="form-label">Sub Programa *</label>
+                                                                            <label class="form-label">Sub Programa <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" name="subprograma" value="{{ $item->subprograma }}" onkeypress="return soloLetras(event)" maxlength="200" pattern="[a-zA-ZÀ-ÿ ]{2,200}" required>
                                                                         </div>
 
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label class="form-label">Programa *</label>
+                                                                            <label class="form-label">Programa <span class="text-danger">*</span></label>
                                                                             <select class="form-select" name="id_programa" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach ($pro as $itempro)

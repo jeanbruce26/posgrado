@@ -23,7 +23,7 @@
                                             @csrf
                                             <div class="col-sm-12 row g-3">
                                                 <div class="col-md-12">
-                                                    <label class="form-label">Canal de Pago *</label>
+                                                    <label class="form-label">Canal de Pago <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control"  name="descripcion" maxlength="200" value="{{ old('descripcion') }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
                                                     {{-- @error('descripcion')
                                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -74,7 +74,7 @@
                                                                     @csrf @method('PUT')
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label class="form-label">Canal de Pago *</label>
+                                                                            <label class="form-label">Canal de Pago <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" name="descripcion" value="{{ $item->descripcion }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
                                                                         </div>
                                                                     </div>

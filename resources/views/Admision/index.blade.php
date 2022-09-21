@@ -23,12 +23,12 @@
                                         @csrf
                                         <div class="col-sm-12 row g-3">
                                             <div class="mb-3 col-md-12">
-                                                <label for="inputAdmision" class="form-label">Admisión *</label>
+                                                <label for="inputAdmision" class="form-label">Admisión <span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="inputAdmision" name="admision" maxlength="45" value="{{ old('admision') }}" required>
                                             </div>
                                     
                                             <div class="mb-3 col-md-12">
-                                                <label class="form-label">Estado *</label>
+                                                <label class="form-label">Estado <span class="text-danger">*</span></label>
                                                 <select class="form-select" name="estado" required>
                                                         <option value="" selected>Seleccione</option>
                                                         <option value="1">Activo</option>
@@ -90,12 +90,12 @@
                                                                     @csrf @method('PUT')
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label for="inputAdmision" class="form-label">Admisión *</label>
+                                                                            <label for="inputAdmision" class="form-label">Admisión <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputAdmision" name="admision" value="{{ $item->admision }}" required>
                                                                         </div>
                                                             
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label class="form-label">Estado *</label>
+                                                                            <label class="form-label">Estado <span class="text-danger">*</span></label>
                                                                             <select class="form-select" name="estado" required>
                                                                                     <option value="" selected>Seleccione</option>
                                                                                     <option value="1" {{ 1 == $item->estado ? 'selected' : '' }}>Activo</option>

@@ -172,27 +172,27 @@
                                                                     @csrf @method('PUT')
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputNumDoc" class="form-label">Documento *</label>
+                                                                            <label for="inputNumDoc" class="form-label">Documento <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputNumDoc" name="num_doc" maxlength="9" value="{{ $item->num_doc }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{8,9}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputNombres" class="form-label">Nombres *</label>
+                                                                            <label for="inputNombres" class="form-label">Nombres <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputNombres" name="nombres" maxlength="45" value="{{ $item->nombres }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,45}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputApePater" class="form-label">Apellido Paterno *</label>
+                                                                            <label for="inputApePater" class="form-label">Apellido Paterno <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputApePater" name="apell_pater" maxlength="45" value="{{ $item->apell_pater }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,45}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputApeMater" class="form-label">Apellido Materno *</label>
+                                                                            <label for="inputApeMater" class="form-label">Apellido Materno <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputApeMater" name="apell_mater" maxlength="45" value="{{ $item->apell_mater }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,45}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputFechaNaci" class="form-label">Fecha de Nacimiento *</label>
+                                                                            <label for="inputFechaNaci" class="form-label">Fecha de Nacimiento <span class="text-danger">*</span></label>
                                                                             <input type="date" class="form-control" id="inputFechaNaci" name="fecha_naci" value="{{ $item->fecha_naci }}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputSexo" class="form-label">Sexo *</label>
+                                                                            <label for="inputSexo" class="form-label">Sexo <span class="text-danger">*</span></label>
                                                                             <select id="inputSexo" class="form-select" name="sexo" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 <option value="MASCULINO" {{ $item->sexo == 'MASCULINO' ? 'selected' : '' }}>MASCULINO</option>
@@ -200,7 +200,7 @@
                                                                             </select>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputEstCivil" class="form-label">Estado Civil *</label>
+                                                                            <label for="inputEstCivil" class="form-label">Estado Civil <span class="text-danger">*</span></label>
                                                                             <select class="form-select" name="est_civil_cod_est" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach ($estCivil as $itemestd)
@@ -209,7 +209,7 @@
                                                                             </select>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputDireccion" class="form-label">Dirección *</label>
+                                                                            <label for="inputDireccion" class="form-label">Dirección <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputDireccion" name="direccion" maxlength="45" value="{{ $item->direccion }}" required>
                                                                         </div>
                                                                         @if($item->discapacidad_cod_disc != null)
@@ -224,7 +224,7 @@
                                                                             </div>
                                                                         @endif
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputCelular" class="form-label">Celular *</label>
+                                                                            <label for="inputCelular" class="form-label">Celular <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputCelular" name="celular1" maxlength="9" value="{{ $item->celular1 }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{9}" required>
                                                                         </div>
                                                                         @if ($item->celular2 != null)
@@ -234,7 +234,7 @@
                                                                             </div>
                                                                         @endif
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputEmail" class="form-label">Email *</label>
+                                                                            <label for="inputEmail" class="form-label">Email <span class="text-danger">*</span></label>
                                                                             <input type="email" class="form-control" id="inputEmail" name="email" value="{{ $item->email }}" required>
                                                                         </div>
                                                                         @if($item->email2 != null)
@@ -244,11 +244,11 @@
                                                                             </div>
                                                                         @endif
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputCenTrabajo" class="form-label">Centro de Trabajo *</label>
+                                                                            <label for="inputCenTrabajo" class="form-label">Centro de Trabajo <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputCenTrabajo" name="centro_trab" maxlength="45" value="{{ $item->centro_trab }}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputUniver" class="form-label">Universidad *</label>
+                                                                            <label for="inputUniver" class="form-label">Universidad <span class="text-danger">*</span></label>
                                                                             <select class="form-select" name="univer_cod_uni" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach ($uni as $itemuni)
@@ -257,11 +257,11 @@
                                                                             </select>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputAnioEgreso" class="form-label">Año de Egreso *</label>
+                                                                            <label for="inputAnioEgreso" class="form-label">Año de Egreso <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputAnioEgreso" name="año_egreso" maxlength="4" value="{{ $item->año_egreso }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{4}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-4">
-                                                                            <label for="inputGradoAca" class="form-label">Grado Académico *</label>
+                                                                            <label for="inputGradoAca" class="form-label">Grado Académico <span class="text-danger">*</span></label>
                                                                             <select class="form-select" name="id_grado_academico" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach ($gradoAca as $itemgra)
@@ -269,10 +269,12 @@
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
-                                                                        <div class="mb-3 col-md-4">
-                                                                            <label for="inputEspecialidad" class="form-label">Especialidad</label>
-                                                                            <input type="text" class="form-control" id="inputEspecialidad" name="especialidad" maxlength="4" value="{{ $item->especialidad }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,45}">
-                                                                        </div>
+                                                                        @if($item->especialidad != null)
+                                                                            <div class="mb-3 col-md-4">
+                                                                                <label for="inputEspecialidad" class="form-label">Especialidad</label>
+                                                                                <input type="text" class="form-control" id="inputEspecialidad" name="especialidad" maxlength="4" value="{{ $item->especialidad }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,45}">
+                                                                            </div>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer col-12 d-flex justify-content-between">

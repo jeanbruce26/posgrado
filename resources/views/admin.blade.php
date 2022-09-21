@@ -151,13 +151,13 @@
                             <div class="collapse menu-dropdown" id="sidebarApps">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="{{ route('Inscripcion.index') }}" class="nav-link" data-key="t-analytics"> Inscripcion </a>
+                                        <a href="{{ route('Inscripcion.index') }}" class="nav-link" data-key="t-analytics"> Inscripción </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('InscripcionPago.index') }}" class="nav-link" data-key="t-analytics"> Inscripcion de Pago </a>
+                                        <a href="{{ route('InscripcionPago.index') }}" class="nav-link" data-key="t-analytics"> Inscripción de Pago </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('HistorialInscripcion.index') }}" class="nav-link" data-key="t-analytics"> Historial de Inscripcion </a>
+                                        <a href="{{ route('HistorialInscripcion.index') }}" class="nav-link" data-key="t-analytics"> Historial de Inscripción </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('Pago.index') }}" class="nav-link" data-key="t-analytics"> Pago </a>
@@ -182,7 +182,7 @@
                                         <a href="{{ route('ConceptoPago.index') }}" class="nav-link" data-key="t-analytics"> Concepto de Pago </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('Admision.index') }}" class="nav-link" data-key="t-analytics"> Admision </a>
+                                        <a href="{{ route('Admision.index') }}" class="nav-link" data-key="t-analytics"> Admisión </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('Plan.index') }}" class="nav-link" data-key="t-analytics"> Plan </a>
@@ -191,10 +191,10 @@
                                         <a href="{{ route('Expediente.index') }}" class="nav-link" data-key="t-analytics"> Expediente </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('GradoAcademico.index') }}" class="nav-link" data-key="t-analytics"> Grado Academico </a>
+                                        <a href="{{ route('GradoAcademico.index') }}" class="nav-link" data-key="t-analytics"> Grado Académico </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('Mencion.index') }}" class="nav-link" data-key="t-analytics"> Mencion </a>
+                                        <a href="{{ route('Mencion.index') }}" class="nav-link" data-key="t-analytics"> Mención </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('Programa.index') }}" class="nav-link" data-key="t-analytics"> Programa </a>
@@ -250,6 +250,16 @@
                                     </div>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
+                            @endif
+
+                            @if(\Session::has('dupli'))
+                                <div class="alert alert-danger alert-border-left alert-dismissible fade shadow show" role="alert">
+                                    <div>
+                                        <i class="ri-error-warning-line me-3 align-middle fs-16"></i><strong>{{ \Session::get('dupli') }}</strong>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                
                             @endif
                             @yield('content')
 

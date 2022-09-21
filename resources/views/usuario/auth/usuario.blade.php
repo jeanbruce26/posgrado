@@ -65,7 +65,7 @@
 
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
-                                    <h5 class="fw-bold">Inicie Sesión</h5>
+                                    <h5 class="fw-bold">Iniciar Sesión</h5>
                                 </div>
                                 
                                 <livewire:usuario-login/>

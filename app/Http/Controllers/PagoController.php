@@ -38,27 +38,42 @@ class PagoController extends Controller
      */
     public function store(Request $request)
     {
-        //aqui haras la validacion
+        $encontrado = false;
 
-        $request->validate([
-            'dni'  =>  'required|min:8',
-            'nro_operacion'  =>  'required|unique:pago,nro_operacion|numeric',
-            'monto'  =>  'required|numeric',
-            'fecha_pago'  =>  'required|date',
-            'canal_pago_id'  =>  'required|numeric'
-        ]);
+        $pago = Pago::all();
+        foreach ($pago as $item) {
+            if($item->fecha_pago == $request->fecha_pago && $item->nro_operacion == $request->nro_operacion){
+                $encontrado = true;
+            }
+            // dump($encontrado, $item->fecha_pago, $request->fecha_pago, $item->nro_operacion, $request->nro_operacion);
+        }
 
-        $persona = Pago::create([
-            "dni" => $request->dni,
-            "nro_operacion" =>$request->nro_operacion,
-            "monto" => $request->monto,
-            "fecha_pago" => $request->fecha_pago,
-            "estado" => 1,
-            "canal_pago_id" => $request->canal_pago_id
-        ]);
-        
-        session()->flash('new', '¡Pago Creado Satisfactoriamente!');
-        return redirect()->route('Pago.index');
+        if($encontrado == true){
+            session()->flash('dupli', '¡El Pago ingresado ya fue registrado!');
+            return redirect()->route('Pago.index');
+        }else{
+            $request->validate([
+                'dni'  =>  'required|min:8',
+                'nro_operacion'  =>  'required|numeric',
+                'monto'  =>  'required|numeric',
+                'fecha_pago'  =>  'required|date',
+                'canal_pago_id'  =>  'required|numeric'
+            ]);
+            
+    
+            $pago = Pago::create([
+                "dni" => $request->dni,
+                "nro_operacion" =>$request->nro_operacion,
+                "monto" => $request->monto,
+                "fecha_pago" => $request->fecha_pago,
+                "estado" => 1,
+                "canal_pago_id" => $request->canal_pago_id
+            ]);
+            
+            session()->flash('new', '¡Pago Creado Satisfactoriamente!');
+            return redirect()->route('Pago.index');
+        }
+
     }
 
     /**
