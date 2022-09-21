@@ -31,7 +31,7 @@
                                                     <input type="text" class="form-control" name="mencion" onkeypress="return soloLetras(event)">
                                                 </div>
                                                 <div class="mb-3 col-md-12">
-                                                    <label class="form-label">Sub Programa *</label>
+                                                    <label class="form-label">Sub Programa <span class="text-danger">*</span></label>
                                                     <select class="form-select" name="id_subprograma" required>
                                                         <option value="" selected>Seleccione</option>
                                                         @foreach ($sub as $item)
@@ -94,15 +94,15 @@
                                                                     @csrf @method('PUT')
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label class="form-label">Código Mención *</label>
+                                                                            <label class="form-label">Código Mención </label>
                                                                             <input type="text" class="form-control"  name="cod_mencion" maxlength="50" value="{{ $item->cod_mencion }}">
                                                                         </div>
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label class="form-label">Mención *</label>
+                                                                            <label class="form-label">Mención </label>
                                                                             <input type="text" class="form-control" name="mencion" maxlength="200" value="{{ $item->mencion }}" onkeypress="return soloLetras(event)">
                                                                         </div>
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label class="form-label">Sub Programa *</label>
+                                                                            <label class="form-label">Sub Programa <span class="text-danger">*</span></label>
                                                                             <select class="form-select" name="id_subprograma" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach ($sub as $itemsu)

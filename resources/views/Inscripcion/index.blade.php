@@ -139,7 +139,7 @@
                                                                     <form action="{{ route('Inscripcion.update',$item->id_inscripcion) }}" method="POST">
                                                                         @csrf @method('PUT')
                                                                         <div class="mb-3">
-                                                                            <label for="recipient-name" class="col-form-label">Estado:</label>
+                                                                            <label for="recipient-name" class="col-form-label">Estado <span class="text-danger">*</span></label>
                                                                             <select id="inputEstado" class="form-select" name="estado" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 <option value="Activo" {{ $item->estado == "Activo" ? 'selected' : '' }}> Activo</option>

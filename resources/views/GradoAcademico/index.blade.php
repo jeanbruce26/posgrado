@@ -23,7 +23,7 @@
                                             @csrf
                                             <div class="col-sm-12 row g-3">
                                                 <div class="mb-3 col-md-12">
-                                                    <label for="inputGradoAca" class="form-label">Grado Académico *</label>
+                                                    <label for="inputGradoAca" class="form-label">Grado Académico <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="inputGradoAca" name="nom_grado" maxlength="45" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
                                                 </div>
                                             </div>
@@ -71,7 +71,7 @@
                                                                     @csrf @method('PUT')
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label for="inputGradoAca" class="form-label">Grado Académico</label>
+                                                                            <label for="inputGradoAca" class="form-label">Grado Académico <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputGradoAca" name="nom_grado" value="{{ $item->nom_grado }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
                                                                         </div>
                                                                     </div>

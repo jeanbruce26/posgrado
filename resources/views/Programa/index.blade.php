@@ -23,12 +23,12 @@
                                             @csrf
                                             <div class="col-sm-12 row g-3">
                                                 <div class="mb-3 col-md-12">
-                                                    <label for="inputPrograma" class="form-label">Programa *</label>
+                                                    <label for="inputPrograma" class="form-label">Programa <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="inputPrograma" name="descripcion_programa" onkeypress="return soloLetras(event)" maxlength="50" pattern="[a-zA-ZÀ-ÿ ]{2,50}" required>
                                                 </div>
                                         
                                                 <div class="mb-3 col-md-12">
-                                                    <label class="form-label">Sede *</label>
+                                                    <label class="form-label">Sede <span class="text-danger">*</span></label>
                                                     <select class="form-select" name="id_sede" required>
                                                         <option value="" selected>Seleccione</option>
                                                         @foreach ($sede as $item)
@@ -83,12 +83,12 @@
                                                                     @csrf @method('PUT')
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label for="inputPrograma" class="form-label">Programa *</label>
+                                                                            <label for="inputPrograma" class="form-label">Programa <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputPrograma" name="descripcion_programa" value="{{ $item->descripcion_programa }}" onkeypress="return soloLetras(event)" maxlength="50" pattern="[a-zA-ZÀ-ÿ ]{2,50}" required>
                                                                         </div>
                                                             
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label for="inputPlan" class="form-label">Sede *</label>
+                                                                            <label for="inputPlan" class="form-label">Sede <span class="text-danger">*</span></label>
                                                                             <select id="inputPlan" class="form-select" name="id_sede" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach ($sede as $itemse)

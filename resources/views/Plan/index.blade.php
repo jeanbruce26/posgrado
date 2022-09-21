@@ -23,7 +23,7 @@
                                             @csrf
                                             <div class="col-sm-12 row g-3">
                                                 <div class="mb-3 col-md-12">
-                                                    <label for="inputPlan" class="form-label">Plan *</label>
+                                                    <label for="inputPlan" class="form-label">Plan <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="inputPlan" name="plan" maxlength="10" required>
                                                 </div>
                                             </div>
@@ -71,7 +71,7 @@
                                                                     @csrf @method('PUT')
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label for="inputPlan" class="form-label">Plan</label>
+                                                                            <label for="inputPlan" class="form-label">Plan <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputPlan" name="plan" value="{{ $item->plan }}" required>
                                                                         </div>
                                                                     </div>

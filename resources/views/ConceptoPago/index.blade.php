@@ -3,7 +3,7 @@
 @section('content')
     @if ($errors->any())
     <div class="alert alert-danger alert-border-left alert-dismissible fade shadow show" role="alert">
-        <i class="ri-error-warning-line me-3 align-middle fs-16"></i> <strong>Errror al registrar o actualizar Concepto de Pago</strong>
+        <i class="ri-error-warning-line me-3 align-middle fs-16"></i> <strong>Errror al registrar o editar Concepto de Pago</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
@@ -29,17 +29,17 @@
                                             @csrf
                                             <div class="col-sm-12 row g-3">
                                                 <div class="mb-3 col-md-12">
-                                                    <label for="inputConcepto" class="form-label">Concepto *</label>
+                                                    <label for="inputConcepto" class="form-label">Concepto <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
                                                 </div>
                                         
                                                 <div class="mb-3 col-md-12">
-                                                    <label for="inputMonto" class="form-label">Monto *</label>
+                                                    <label for="inputMonto" class="form-label">Monto <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" onkeypress="return soloNumeros(event)" pattern="[0-9]{1-13}" required>
                                                 </div>
                                         
                                                 <div class="mb-3 col-md-12">
-                                                    <label for="inputEstado" class="form-label">Estado *</label>
+                                                    <label for="inputEstado" class="form-label">Estado <span class="text-danger">*</span></label>
                                                     <select id="inputEstado" class="form-select" name="estado" required>
                                                         <option value="" selected>Seleccione</option>
                                                         <option value="1"> Activo</option>
@@ -101,17 +101,17 @@
                                                                     @csrf @method('PUT')
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label for="inputConcepto" class="form-label">Concepto *</label>
+                                                                            <label for="inputConcepto" class="form-label">Concepto <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" value="{{ $item->concepto }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
                                                                         </div>
                                                             
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label for="inputMonto" class="form-label">Monto *</label>
+                                                                            <label for="inputMonto" class="form-label">Monto <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" value="{{ $item->monto }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{1-13}" required>
                                                                         </div>
                                                             
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label for="inputEstado" class="form-label">Estado *</label>
+                                                                            <label for="inputEstado" class="form-label">Estado <span class="text-danger">*</span></label>
                                                                             <select id="inputEstado" class="form-select" name="estado" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 <option value="1" {{ $item->estado == 1 ? 'selected' : '' }}> Activo</option>

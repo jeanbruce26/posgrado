@@ -23,7 +23,7 @@
                                             @csrf
                                             <div class="col-sm-12 row g-3">
                                                 <div class="mb-3 col-md-12">
-                                                    <label for="inputExp" class="form-label">Tipo de Documento *</label>
+                                                    <label for="inputExp" class="form-label">Tipo de Documento <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="inputExp" name="tipo_doc" maxlength="200" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
                                                 </div>
 
@@ -33,7 +33,7 @@
                                                 </div>
 
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="inputRequerido" class="form-label">Requerido *</label>
+                                                    <label for="inputRequerido" class="form-label">Requerido <span class="text-danger">*</span></label>
                                                     <select class="form-select" name="requerido" required>
                                                         <option value="" selected>Seleccione</option>
                                                         <option value="1">Si</option>
@@ -42,7 +42,7 @@
                                                 </div>
 
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="inputEstado" class="form-label">Estado *</label>
+                                                    <label for="inputEstado" class="form-label">Estado <span class="text-danger">*</span></label>
                                                     <select class="form-select" name="estado" required>
                                                         <option value="" selected>Seleccione</option>
                                                         <option value="1">Activo</option>
@@ -118,7 +118,7 @@
                                                                     @csrf @method('PUT')
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label for="inputExp" class="form-label">Tipo de Documento *</label>
+                                                                            <label for="inputExp" class="form-label">Tipo de Documento <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputExp" name="tipo_doc"  value="{{ $item->tipo_doc }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-12">
@@ -126,7 +126,7 @@
                                                                             <input type="text" class="form-control" name="complemento" value="{{ $item->complemento }}" required>
                                                                         </div>
                                                                         <div class="mb-3 col-md-6">
-                                                                            <label for="inputRequerido" class="form-label">Requerido *</label>
+                                                                            <label for="inputRequerido" class="form-label">Requerido <span class="text-danger">*</span></label>
                                                                             <select id="inputRequerido" class="form-select" name="requerido" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 <option value="1" {{ $item->requerido == 1 ? 'selected' : '' }}> Si</option>
@@ -134,7 +134,7 @@
                                                                             </select>
                                                                         </div>
                                                                         <div class="mb-3 col-md-6">
-                                                                            <label for="inputEstado" class="form-label">Estado *</label>
+                                                                            <label for="inputEstado" class="form-label">Estado <span class="text-danger">*</span></label>
                                                                             <select id="inputEstado" class="form-select" name="estado" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 <option value="1" {{ $item->estado == 1 ? 'selected' : '' }}> Activo</option>

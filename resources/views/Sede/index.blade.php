@@ -23,12 +23,12 @@
                                             @csrf
                                             <div class="col-sm-12 row g-3">
                                                 <div class="mb-3 col-md-12">
-                                                    <label for="inputSede" class="form-label">Sede *</label>
+                                                    <label for="inputSede" class="form-label">Sede <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="inputSede" name="sede" onkeypress="return soloLetras(event)" maxlength="45" pattern="[a-zA-ZÀ-ÿ ]{2,45}" required>
                                                 </div>
                                         
                                                 <div class="mb-3 col-md-12">
-                                                    <label for="inputPlan" class="form-label">Plan *</label>
+                                                    <label for="inputPlan" class="form-label">Plan <span class="text-danger">*</span></label>
                                                     <select id="inputPlan" class="form-select" name="id_plan" required>
                                                         <option value="" selected>Seleccione</option>
                                                         @foreach ($plan as $item)
@@ -83,12 +83,12 @@
                                                                     @csrf @method('PUT')
                                                                     <div class="col-sm-12 row g-3">
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label for="inputSede" class="form-label">Sede</label>
+                                                                            <label for="inputSede" class="form-label">Sede <span class="text-danger">*</span></label>
                                                                             <input type="text" class="form-control" id="inputSede" maxlength="45" name="sede" value="{{ $item->sede }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,45}" required>
                                                                         </div>
                                                             
                                                                         <div class="mb-3 col-md-12">
-                                                                            <label for="inputPlan" class="form-label">Plan *</label>
+                                                                            <label for="inputPlan" class="form-label">Plan <span class="text-danger">*</span></label>
                                                                             <select id="inputPlan" class="form-select" name="id_plan" required>
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach ($plan as $itemplan)
