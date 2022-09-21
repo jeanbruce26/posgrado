@@ -760,7 +760,7 @@
                         <tr>
                             <th><div class="titulo3">{{ $item2->tipo_doc }}</div></th>
                             <th><div class="mx-2">:</div></th>
-                            <th style="text-align: initial;">Entregado</th>
+                            <th style="text-align: initial;">Entregado ({{date('d/m/Y', strtotime($item->fecha_entre))}})</th>
                         </tr>
                         @php
                             $value=1;
@@ -816,7 +816,7 @@
             @foreach ($inscripcion_pago as $item)
             <tr>
                 <th class="tabla4"><div class="titulo5">{{ $item->pago->pago_id }}</div></th>
-                <th class="tabla4"><div class="titulo5">{{date('d-m-Y', strtotime($item->pago->fecha_pago)) }}</div></th>
+                <th class="tabla4"><div class="titulo5">{{date('d/m/Y', strtotime($item->pago->fecha_pago)) }}</div></th>
                 <th class="tabla4"><div class="titulo5">{{ $item->pago->nro_operacion }}</div></th>
                 <th class="tabla4"><div class="titulo5">{{ $item->pago->monto }}</div></th>
             </tr>

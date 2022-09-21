@@ -38,6 +38,8 @@ class PagoController extends Controller
      */
     public function store(Request $request)
     {
+        //aqui haras la validacion
+
         $request->validate([
             'dni'  =>  'required|min:8',
             'nro_operacion'  =>  'required|unique:pago,nro_operacion|numeric',
