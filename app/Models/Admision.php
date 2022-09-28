@@ -16,6 +16,7 @@ class Admision extends Model
         'cod_admi',
         'admision',
         'estado',
+        'fecha_fin',
     ];
 
     public $timestamps = false;

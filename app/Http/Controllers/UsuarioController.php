@@ -25,6 +25,11 @@ class UsuarioController extends Controller
         return view('usuario.usuario.create');
     }
 
+    public function edit()
+    {
+        return view('usuario.usuario.update');
+    }
+
     public function pdf($id)
     {
         date_default_timezone_set("America/Lima");

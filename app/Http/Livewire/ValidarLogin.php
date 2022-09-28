@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Admision;
 use App\Models\InscripcionPago;
 use App\Models\Pago;
 use App\Models\TipoDocumento;
@@ -32,6 +33,8 @@ class ValidarLogin extends Component
 
     public function login()
     {
+        date_default_timezone_set("America/Lima");
+
         if($this->tipo_documento == 1){
             $data = $this->validate([
                 'tipo_documento' => 'required|numeric',
@@ -46,8 +49,18 @@ class ValidarLogin extends Component
             ]);
         }
 
+        $admision = Admision::where('estado',1)->first();
+        $valor = '+ 2 day';
+        $final = date('d-m-Y',strtotime($admision->fecha_fin.$valor));
+
+        // dd(date('Y-m-d', strtotime($final)), date('Y-m-d', strtotime(today())));
+
         $pago = Pago::where('dni',$this->documento)->where('nro_operacion',$this->numero_operacion)->first();
 
+        if(date('Y-m-d', strtotime($final)) == date('Y-m-d', strtotime(today()))){
+            return redirect()->back()->with(array('mensaje'=>'El proceso de Admisión se termino.'));
+        }
+        
         if(!$pago){
             return redirect()->back()->with(array('mensaje'=>'Credenciales incorrectas'));
         }
