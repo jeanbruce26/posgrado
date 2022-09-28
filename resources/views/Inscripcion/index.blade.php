@@ -5,8 +5,17 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
+
                 <div class="card-header align-items-center d-flex">
                     <h4 class="card-title mb-0 flex-grow-1 fw-bold">INSCRIPCIÓN</h4>
+                    <div class="col-sm">
+                        <div class="d-flex justify-content-sm-end">
+                            <div class="search-box ms-2">
+                                <input type="text" class="form-control search" placeholder="Buscar...">
+                                <i class="ri-search-line search-icon"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div><!-- end card header -->
 
                 <div class="card-body">
