@@ -189,6 +189,11 @@
                 'success'
             )
         });
+
+        window.addEventListener('userStore', event => {
+            $('#addModal'+event.detail.id).modal('hide');
+        })
+
     </script>
 </body>
 

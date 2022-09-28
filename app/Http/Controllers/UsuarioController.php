@@ -78,6 +78,8 @@ class UsuarioController extends Controller
         $ins->inscripcion = $nombre_pdf;
         $ins->save();
 
-        return redirect()->route('usuarios.index')->with('success','Documentos subidos satisfactoriamente');
+        session()->flash('message', 'Documento ingresado correctamente.');
+
+        return redirect()->route('usuarios.edit');
     }
 }
