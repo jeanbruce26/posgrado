@@ -4,22 +4,34 @@ namespace App\Http\Livewire;
 
 use App\Models\Admision;
 use App\Models\Expediente;
-use App\Models\ExpedienteInscripcion;
 use Livewire\Component;
 
-class Usuario extends Component
+class UsuarioUpdate extends Component
 {
+    public $expediente_update;
+
+    public function guardar()
+    {
+        $this->validate([
+            'expediente_update' => 'required|mimes:pdf',
+        ]);
+        dd($this->all());
+    }   
+
     public function render()
     {
         $nombre = ucfirst(strtolower(auth('usuarios')->user()->persona->apell_pater)) . ' ' . ucfirst(strtolower(auth('usuarios')->user()->persona->apell_mater)) . ', ' . ucwords(strtolower(auth('usuarios')->user()->persona->nombres));
-        $contador = ExpedienteInscripcion::where('id_inscripcion',auth('usuarios')->user()->id_inscripcion)->count();
+
         $admision = Admision::where('estado',1)->first();
-        
-        return view('livewire.usuario', [
+        $valor = '+ 2 day';
+        $final = date('d-m-Y',strtotime($admision->fecha_fin.$valor));
+        $fecha = date('d-m-Y', strtotime(today()));
+
+        return view('livewire.usuario-update', [
             'nombre' => $nombre,
             'expediente' => Expediente::all(),
-            'contador' => $contador,
-            'fecha_admision' => $admision->fecha_fin,
+            'final' => $final,
+            'fecha' => $fecha
         ]);
     }
 }
