@@ -3,13 +3,16 @@
         <div class="tab-pane fade show active">
             <div class="card">
                 <h4 class="card-header d-flex fw-bold justify-content-star align-items-center">Bienvenido {{$nombre}}.</h4>
+                
+                @if (date('Y/m/d', strtotime($fecha_admision)) >= date('Y/m/d', strtotime(today())))
                 <div class="card-body">
                     {{-- <h5 class="d-flex justify-content-star align-items-center mt-2">Usted tiene expedientes pendientes por subir a la plataforma, por favor<a href="{{route('usuarios.create')}}" class="mx-2 fw-bold" hover="text-decor"> presione aquí </a>para ingresar.</h5> --}}
                     @if ($contador != 6)
                     <div class="alert alert-warning my-3">Usted tiene expedientes pendientes por subir a la plataforma, por favor complete el formulario debido.</div>
                     @endif
-                    <div class="alert alert-info my-3">Recuerde que la fecha limite para actualizar sus expedientes es ({{date('d/m/Y', strtotime($fecha_admision))}}).</div>
+                    <div class="alert alert-info my-3">Recuerde que la fecha limite para actualizar sus expedientes es el ({{date('d/m/Y', strtotime($fecha_admision))}}).</div>
                 </div>
+                @endif
             </div>
             <div class="card-text px-5 my-2 d-flex justify-content-around row g-3">
                 <div class="col-1"></div>
