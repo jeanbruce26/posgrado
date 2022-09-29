@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Pago;
 use App\Models\CanalPago;
 use Illuminate\Http\Request;
 
 class PagoController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
