@@ -51,6 +51,6 @@ Route::get('usuarios/login', [App\Http\Controllers\UsuarioLoginController::class
 Route::post('usuarios/logout', [App\Http\Controllers\UsuarioLoginController::class, 'logout'])->name('usuario.usuario.logout');
 
 Route::get('usuarios', [App\Http\Controllers\UsuarioController::class, 'index'])->middleware('auth.usuarios')->name('usuarios.index');
-Route::get('usuarios/actualizar', [App\Http\Controllers\UsuarioController::class, 'create'])->middleware('auth.usuarios')->name('usuarios.create');
-Route::get('usuarios/actualizar/documentos', [App\Http\Controllers\UsuarioController::class, 'edit'])->middleware('auth.usuarios')->name('usuarios.edit');
+Route::get('usuarios/documentos', [App\Http\Controllers\UsuarioController::class, 'edit'])->middleware('auth.usuarios')->name('usuarios.edit');
 Route::get('usuarios/pdf/{id}', [App\Http\Controllers\UsuarioController::class, 'pdf'])->middleware('auth.usuarios')->name('usuario.pdf');
+
