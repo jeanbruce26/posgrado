@@ -32,13 +32,18 @@ Route::resource('HistorialInscripcion', 'HistorialInscripcionController');
 Route::resource('ExpedienteInscripcion', 'ExpedienteInscripcionController');
 Route::resource('Expediente', 'ExpedienteController');
 
+//RUTA ERRORS
+Route::get('errorLogin', function(){
+    return view('usuario.errors.errorLogin');
+});
+
 //RUTAS DE LA PARTE DE INSCRIPCION DE USUARIOS
 Route::get('inscripcion', 'UserInscripcionController@index')->middleware('auth:pagos','pagos.estado')->name('inscripcion');
 Route::get('inscripcion/pagos', 'UserInscripcionController@index2')->middleware('auth:pagos','pagos.estado')->name('inscripcion.pagos');
 Route::get('inscripcion/inscripcion/{id}', 'UserInscripcionController@inscripcion')->middleware('auth:pagos')->name('inscripcion.inscripcion');
 Route::get('inscripcion/pdf/{id}', [App\Http\Controllers\UserInscripcionController::class, 'pdf'])->middleware('auth:pagos')->name('usuario-pdf');
 
-Route::get('inscripcion/login', [App\Http\Controllers\InscripcionLoginController::class, 'index'])->name('usuario.login');
+Route::get('inscripcion/login', [App\Http\Controllers\InscripcionLoginController::class, 'index'])->middleware('insc')->name('usuario.login');
 Route::post('inscripcion/logout', [App\Http\Controllers\InscripcionLoginController::class, 'logout'])->name('usuario.logout');
 
 //RUTAS DE LOS USUARIOS PARA QUE SUBAN SUS EXPEDIENTES FALTANTES
