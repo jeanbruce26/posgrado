@@ -65,5 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'pagos.estado' => \App\Http\Middleware\EstadoPago::class,
         'insc' => \App\Http\Middleware\CheckInsc::class,
+        'auth.usuarios' => \App\Http\Middleware\AuthUsuarios::class,
+        'auth.pagos' => \App\Http\Middleware\AuthPagos::class,
     ];
 }
