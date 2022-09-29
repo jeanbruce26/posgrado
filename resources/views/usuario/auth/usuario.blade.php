@@ -64,8 +64,8 @@
                         <div class="card mt-4">
 
                             <div class="card-body p-4">
-                                <div class="text-center mt-2">
-                                    <h5 class="fw-bold">Iniciar Sesión</h5>
+                                <div class="text-center mt-2 mb-2">
+                                    <h4 class="fw-bold text-uppercase">Formulario de subida de expedientes</h4>
                                 </div>
                                 
                                 <livewire:usuario-login/>

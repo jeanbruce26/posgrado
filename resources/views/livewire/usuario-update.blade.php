@@ -38,10 +38,7 @@
                             <th class="col-md-3">Observación</th>
                             <th class="col-md-1">Estado</th>
                             <th class="col-md-1">Archivo</th>
-                            @if ($final == $fecha)
-                            @else
                             <th class="col-md-1">Acción</th>
-                            @endif
                         </tr>
                     </thead>
         
@@ -61,9 +58,8 @@
                                         <td>
                                             <a target="_blank" href="{{asset('Admision 2022 - I/'.$expInscripcion->id_inscripcion.'/'.$expInscripcion->nom_exped)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="bx bxs-file-pdf bx-sm bx-burst-hover"></i></a>
                                         </td>
-                                        @if ($final == $fecha)
-                                        @else
                                         <td>
+                                            @if ($final >= $fecha)
                                             <a href="#editModal" type="button" class="link-success fs-15" data-bs-toggle="modal" data-bs-target="#editModal{{$expInscripcion->cod_ex_insc}}"><i class="bx bx-edit bx-sm bx-burst-hover"></i></a>
 
                                             {{-- Modal Show --}}
@@ -134,8 +130,10 @@
                                                 </div>
                                             </div>
                                             {{-- Modal Show --}}
+                                            @else
+                                            <span><strong>-</strong></span>
+                                            @endif
                                         </td>
-                                        @endif
                                     </tr>
                                     @php
                                         $value=1;

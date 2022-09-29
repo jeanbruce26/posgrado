@@ -129,8 +129,8 @@ class UsuarioUpdate extends Component
 
         $admision = Admision::where('estado',1)->first();
         $valor = '+ 2 day';
-        $final = date('d-m-Y',strtotime($admision->fecha_fin.$valor));
-        $fecha = date('d-m-Y', strtotime(today()));
+        $final = date('Y/m/d',strtotime($admision->fecha_fin.$valor));
+        $fecha = date('Y/m/d', strtotime(today()));
 
         return view('livewire.usuario-update', [
             'nombre' => $nombre,

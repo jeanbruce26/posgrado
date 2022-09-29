@@ -57,7 +57,7 @@ class ValidarLogin extends Component
 
         $pago = Pago::where('dni',$this->documento)->where('nro_operacion',$this->numero_operacion)->first();
 
-        if(date('Y-m-d', strtotime($final)) == date('Y-m-d', strtotime(today()))){
+        if(date('Y-m-d', strtotime($final)) <= date('Y-m-d', strtotime(today()))){
             return redirect()->back()->with(array('mensaje'=>'El proceso de Admisión se termino.'));
         }
         

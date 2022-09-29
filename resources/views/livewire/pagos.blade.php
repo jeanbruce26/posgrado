@@ -9,7 +9,7 @@
                 <select class="form-select @error('concepto_pago2') is-invalid @enderror" wire:model="concepto_pago2" aria-label="Default select example">
                     <option value="" selected>Seleccione</option>
                     @foreach ($concepto_pago as $item)
-                    <option value="{{$item->concepto_id}}" {{ old('concepto_pago2') == $item->concepto_id ? 'selected' : '' }}>{{$item->concepto}}</option>
+                    <option value="{{$item->concepto_id}}" {{ old('concepto_pago2') == $item->concepto_id ? 'selected' : '' }}>{{$item->concepto}} - S/. {{$item->monto}}</option>
                     @endforeach
                 </select>
             </div>
