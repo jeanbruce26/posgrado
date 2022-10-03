@@ -24,10 +24,12 @@ abstract class DatabaseInspectionCommand extends Command
      */
     protected $typeMappings = [
         'bit' => 'string',
+        'citext' => 'string',
         'enum' => 'string',
         'geometry' => 'string',
         'geomcollection' => 'string',
         'linestring' => 'string',
+        'ltree' => 'string',
         'multilinestring' => 'string',
         'multipoint' => 'string',
         'multipolygon' => 'string',
@@ -149,7 +151,7 @@ abstract class DatabaseInspectionCommand extends Command
      */
     protected function getSqliteTableSize(ConnectionInterface $connection, string $table)
     {
-        $result = $connection->selectOne('SELECT SUM(pgsize) FROM dbstat WHERE name=?', [
+        $result = $connection->selectOne('SELECT SUM(pgsize) AS size FROM dbstat WHERE name=?', [
             $table,
         ]);
 

@@ -357,4 +357,11 @@
             e.value = e.value.toUpperCase();
         }
     </script>
+
+    {{-- <script>
+        $('#universidad').select2();
+        $('#universidad').on('change', function(){
+            @this.set('universidad', this.value)
+        })
+    </script> --}}
 @endpush
