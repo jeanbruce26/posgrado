@@ -24,6 +24,8 @@ class UsuarioUpdate extends Component
 
     public function guardar($id)
     {
+        date_default_timezone_set("America/Lima");
+
         $this->resetErrorBag();
         $this->resetValidation();
 
@@ -47,6 +49,10 @@ class UsuarioUpdate extends Component
             $filename = $nombreExpediente.".".$data->extension();
             $data = $this->expediente_update;
             $data->storeAs($path, $filename, 'files_publico');
+
+            $expe_inscripcion = ExpedienteInscripcion::where('cod_ex_insc',$id)->first();
+            $expe_inscripcion->fecha_entre = today();
+            $expe_inscripcion->save();
 
             $this->reset(['expediente_add','expediente_update']);
             $this->expediente_update = null;
