@@ -5,27 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubPrograma extends Model
+class Coordinador extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = "id_subprograma";
+    protected $primaryKey = "coordinador_id";
 
-    protected $table = 'subprograma';
+    protected $table = 'coordinador';
     protected $fillable = [
-        'id_subprograma',
-        'cod_subprograma',
-        'subprograma',
-        'id_programa',
+        'coordinador_id',
+        'trabajador_id',
         'facultad_id',
+        'categoria_docente',
     ];
 
     public $timestamps = false;
-    
-    // Programa
-    public function Programa(){
-        return $this->belongsTo(Programa::class,
-        'id_programa','id_programa');
+
+    // Trabajador
+    public function Trabajador(){
+        return $this->belongsTo(Trabajador::class,
+        'trabajador_id','trabajador_id');
     }
 
     // Facultad
