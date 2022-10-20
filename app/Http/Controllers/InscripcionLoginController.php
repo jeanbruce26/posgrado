@@ -15,7 +15,7 @@ class InscripcionLoginController extends Controller
     public function index()
     {
         $admision = Admision::where('estado',1)->first();
-        return view('usuario.auth.login', compact('admision'));
+        return view('modulo_inscripcion.auth.login', compact('admision'));
     }
 
     public function logout(Request $request)

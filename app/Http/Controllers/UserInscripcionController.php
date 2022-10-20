@@ -32,19 +32,19 @@ class UserInscripcionController extends Controller
      */
     public function index()
     {
-        return view('usuario.inscripcion.terminos-condiciones');
+        return view('modulo_inscripcion.inscripcion.terminos-condiciones');
     }
 
     public function index2()
     {
         $concepto = ConceptoPago::all();
         $tipo_doc = TipoDocumento::all();
-        return view('usuario.inscripcion.pagos', compact('concepto', 'tipo_doc'));
+        return view('modulo_inscripcion.inscripcion.pagos', compact('concepto', 'tipo_doc'));
     }
 
     public function inscripcion($id)
     {
-        return view('usuario.inscripcion.create', compact('id'));
+        return view('modulo_inscripcion.inscripcion.create', compact('id'));
     }
 
     public function pdf($id)
@@ -93,8 +93,8 @@ class UserInscripcionController extends Controller
         ];
 
         $nombre_pdf = 'FICHA_INSCRIPCION.pdf';
-        $pdf = PDF::loadView('usuario.inscripcion.reporte-pdf', $data)->save(public_path($admi.'/'.$id.'/'). $nombre_pdf);
-        $pdf2 = PDF::loadView('usuario.inscripcion.reporte-pdf', $data);
+        $pdf = PDF::loadView('modulo_inscripcion.inscripcion.reporte-pdf', $data)->save(public_path($admi.'/'.$id.'/'). $nombre_pdf);
+        $pdf2 = PDF::loadView('modulo_inscripcion.inscripcion.reporte-pdf', $data);
 
         $ins = Inscripcion::find($id);
         $ins->inscripcion = $nombre_pdf;

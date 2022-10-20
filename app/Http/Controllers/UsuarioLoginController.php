@@ -12,7 +12,7 @@ class UsuarioLoginController extends Controller
     public function index()
     {
         $admision = Admision::where('estado',1)->first();
-        return view('usuario.auth.usuario', compact('admision'));
+        return view('modulo_inscripcion.auth.usuario', compact('admision'));
     }
 
     public function logout(Request $request)

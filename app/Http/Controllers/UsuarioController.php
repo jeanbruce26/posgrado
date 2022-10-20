@@ -17,17 +17,17 @@ class UsuarioController extends Controller
 {
     public function index()
     {
-        return view('usuario.usuario.index');
+        return view('modulo_inscripcion.usuario.index');
     }
 
     public function create()
     {
-        return view('usuario.usuario.create');
+        return view('modulo_inscripcion.usuario.create');
     }
 
     public function edit()
     {
-        return view('usuario.usuario.update');
+        return view('modulo_inscripcion.usuario.update');
     }
 
     public function pdf($id)
@@ -72,7 +72,7 @@ class UsuarioController extends Controller
         ];
 
         $nombre_pdf = 'FICHA_INSCRIPCION.pdf';
-        $pdf = PDF::loadView('usuario.inscripcion.reporte-pdf', $data)->save(public_path($admi.'/'.$id.'/'). $nombre_pdf);
+        $pdf = PDF::loadView('modulo_inscripcion.inscripcion.reporte-pdf', $data)->save(public_path($admi.'/'.$id.'/'). $nombre_pdf);
 
         $ins = Inscripcion::find($id);
         $ins->inscripcion = $nombre_pdf;
