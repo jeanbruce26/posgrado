@@ -15,7 +15,7 @@ class AdmisionController extends Controller
     public function index()
     {
         // auth()->attempt();
-        $admi = Admision::orderBy('cod_admi','DESC')->paginate(10);
+        $admi = Admision::orderBy('cod_admi','DESC')->get();
         return view('Admision.index', compact('admi'));
     }
 

@@ -38,6 +38,8 @@
     <!-- gridjs css -->
     <link rel="stylesheet" href="{{ asset('assets/libs/gridjs/theme/mermaid.min.css') }}">
 
+    @yield('css')
+
 </head>
 
 <body>
@@ -372,6 +374,8 @@
 
     <!-- Sweet Alerts js -->
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+
+    @yield('javascript')
 </body>
 
 </html>

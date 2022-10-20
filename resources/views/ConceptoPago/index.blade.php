@@ -1,5 +1,9 @@
 @extends('admin')
 
+@section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+@endsection
+
 @section('content')
     @if ($errors->any())
     <div class="alert alert-danger alert-border-left alert-dismissible fade shadow show" role="alert">
@@ -62,7 +66,7 @@
                 <div class="card-body">
                     <div class="live-preview">
                         <div class="table-responsive">
-                            <table class="table align-middle table-nowrap mb-0">
+                            <table class="table align-middle table-nowrap table-bordered dt-responsive text-dark" id="tablaConceptoPago">
                                 <thead class="table-light">
                                     <tr>
                                         <th class="col-1">Código</th>
@@ -143,8 +147,31 @@
                 </div><!-- end card-body -->
             </div><!-- end card -->
         </div>
-        {!! $conPago->render() !!}
     </div>
     <!-- end row -->
 
+@endsection
+
+@section('javascript')
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $('#tablaConceptoPago').DataTable({
+        autoWidth: true,
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por páginas",
+            "zeroRecords": "Nada encontrado - disculpa",
+            "info": "Mostrando la página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+            "order": "desc",
+            "paginate": {
+                "next": "Siguiente",
+                "previous": "Anterior",
+            }
+        }
+    });
+</script>
 @endsection

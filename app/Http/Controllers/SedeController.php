@@ -16,7 +16,7 @@ class SedeController extends Controller
      */
     public function index()
     {
-        $sede = Sede::orderBy('cod_sede','ASC')->paginate(10);
+        $sede = Sede::all();
         $plan = Plan::all();
         return view('Sede.index', compact('sede', 'plan'));
     }

@@ -15,7 +15,7 @@ class PersonaController extends Controller
 {
     public function index()
     {
-        $perso = Persona::orderBy('idpersona','ASC')->paginate(10);
+        $perso = Persona::all();
         $disca = Discapacidad::all();
         $estCivil = EstadoCivil::all();
         $uni = Universidad::all();

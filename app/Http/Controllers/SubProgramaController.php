@@ -15,7 +15,7 @@ class SubProgramaController extends Controller
      */
     public function index()
     {
-        $sub = SubPrograma::orderBy('id_subprograma','ASC')->paginate(10);
+        $sub = SubPrograma::all();
         $pro = Programa::all();
         return view('SubPrograma.index', compact('sub', 'pro'));
     }

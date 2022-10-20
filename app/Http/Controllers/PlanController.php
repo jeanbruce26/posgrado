@@ -14,7 +14,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $plan = Plan::orderBy('id_plan','ASC')->paginate(10);
+        $plan = Plan::all();
         return view('Plan.index', compact('plan'));
         
     }

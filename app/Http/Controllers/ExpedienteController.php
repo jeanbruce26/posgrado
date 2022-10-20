@@ -15,7 +15,7 @@ class ExpedienteController extends Controller
      */
     public function index()
     {
-        $exp = Expediente::orderBy('cod_exp','ASC')->paginate(10);
+        $exp = Expediente::orderBy('cod_exp','ASC')->get();
         return view('Expediente.index', compact('exp'));
     }
 

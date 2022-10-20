@@ -10,7 +10,7 @@ class GradoAcademicoController extends Controller
 {
     public function index()
     {
-        $grado = GradoAcademico::orderBy('id_grado_academico','ASC')->paginate(10);
+        $grado = GradoAcademico::orderBy('id_grado_academico','ASC')->get();
         return view('GradoAcademico.index', compact('grado'));
     }
 

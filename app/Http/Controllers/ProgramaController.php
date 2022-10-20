@@ -16,7 +16,7 @@ class ProgramaController extends Controller
      */
     public function index()
     {
-        $pro = Programa::orderBy('id_programa','ASC')->paginate(10);
+        $pro = Programa::all();
         $sede = Sede::all();
         return view('Programa.index', compact('pro', 'sede'));
     }

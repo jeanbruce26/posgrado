@@ -14,7 +14,7 @@ class ConceptoPagoController extends Controller
      */
     public function index()
     {
-        $conPago = ConceptoPago::orderBy('concepto_id','ASC')->paginate(10);
+        $conPago = ConceptoPago::orderBy('concepto_id','ASC')->get();
         return view('ConceptoPago.index', compact('conPago'));
     }
 

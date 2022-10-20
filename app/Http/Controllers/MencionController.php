@@ -15,7 +15,7 @@ class MencionController extends Controller
      */
     public function index()
     {
-        $mencion = Mencion::orderBy('id_mencion','ASC')->paginate(10);
+        $mencion = Mencion::orderBy('id_mencion','ASC')->get();
         $sub = SubPrograma::all();
         return view('Mencion.index', compact('mencion', 'sub'));
     }
