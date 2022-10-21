@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ModuloInscripcion\Usuario;
 
 use App\Models\Admision;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UsuarioLoginController extends Controller
 {

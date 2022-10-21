@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ModuloInscripcion\Inscripcion;
 
 use App\Models\Admision;
 use App\Models\ConceptoPago;
@@ -22,6 +22,7 @@ use App\Models\UbigeoPersona;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
 
 class UserInscripcionController extends Controller
 {

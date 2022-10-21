@@ -38,19 +38,19 @@ Route::get('errorLogin', function(){
 });
 
 //RUTAS DE LA PARTE DE INSCRIPCION DE USUARIOS
-Route::get('inscripcion', 'UserInscripcionController@index')->middleware('auth.pagos','pagos.estado')->name('inscripcion');
-Route::get('inscripcion/pagos', 'UserInscripcionController@index2')->middleware('auth.pagos','pagos.estado')->name('inscripcion.pagos');
-Route::get('inscripcion/inscripcion/{id}', 'UserInscripcionController@inscripcion')->middleware('auth.pagos')->name('inscripcion.inscripcion');
-Route::get('inscripcion/pdf/{id}', [App\Http\Controllers\UserInscripcionController::class, 'pdf'])->middleware('auth.pagos')->name('usuario-pdf');
+Route::get('inscripcion', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'index'])->middleware('auth.pagos','pagos.estado')->name('inscripcion');
+Route::get('inscripcion/pagos', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'index2'])->middleware('auth.pagos','pagos.estado')->name('inscripcion.pagos');
+Route::get('inscripcion/inscripcion/{id}', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'inscripcion'])->middleware('auth.pagos')->name('inscripcion.inscripcion');
+Route::get('inscripcion/pdf/{id}', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'pdf'])->middleware('auth.pagos')->name('usuario-pdf');
 
-Route::get('inscripcion/login', [App\Http\Controllers\InscripcionLoginController::class, 'index'])->middleware('insc')->name('usuario.login');
-Route::post('inscripcion/logout', [App\Http\Controllers\InscripcionLoginController::class, 'logout'])->name('usuario.logout');
+Route::get('inscripcion/login', [App\Http\Controllers\ModuloInscripcion\Inscripcion\InscripcionLoginController::class, 'index'])->middleware('insc')->name('usuario.login');
+Route::post('inscripcion/logout', [App\Http\Controllers\ModuloInscripcion\Inscripcion\InscripcionLoginController::class, 'logout'])->name('usuario.logout');
 
 //RUTAS DE LOS USUARIOS PARA QUE SUBAN SUS EXPEDIENTES FALTANTES
-Route::get('usuarios/login', [App\Http\Controllers\UsuarioLoginController::class, 'index'])->name('usuario.usuario.login');
-Route::post('usuarios/logout', [App\Http\Controllers\UsuarioLoginController::class, 'logout'])->name('usuario.usuario.logout');
+Route::get('usuarios/login', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioLoginController::class, 'index'])->name('usuario.usuario.login');
+Route::post('usuarios/logout', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioLoginController::class, 'logout'])->name('usuario.usuario.logout');
 
-Route::get('usuarios', [App\Http\Controllers\UsuarioController::class, 'index'])->middleware('auth.usuarios')->name('usuarios.index');
-Route::get('usuarios/documentos', [App\Http\Controllers\UsuarioController::class, 'edit'])->middleware('auth.usuarios')->name('usuarios.edit');
-Route::get('usuarios/pdf/{id}', [App\Http\Controllers\UsuarioController::class, 'pdf'])->middleware('auth:usuarios')->name('usuario.pdf');
+Route::get('usuarios', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'index'])->middleware('auth.usuarios')->name('usuarios.index');
+Route::get('usuarios/documentos', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'edit'])->middleware('auth.usuarios')->name('usuarios.edit');
+Route::get('usuarios/pdf/{id}', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'pdf'])->middleware('auth:usuarios')->name('usuario.pdf');
 

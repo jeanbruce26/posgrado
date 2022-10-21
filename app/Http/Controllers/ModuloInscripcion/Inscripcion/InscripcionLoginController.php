@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ModuloInscripcion\Inscripcion;
 
 use App\Models\Admision;
 use App\Models\InscripcionPago;
 use App\Models\Pago;
 use App\Models\TipoDocumento;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class InscripcionLoginController extends Controller
 {
