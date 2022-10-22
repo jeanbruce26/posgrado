@@ -7,39 +7,48 @@ Route::get('login', [App\Http\Controllers\AdminLoginController::class, 'login'])
 Route::post('logout', [App\Http\Controllers\AdminLoginController::class, 'logout'])->name('admin.logout');
 
 //CONTROLADORES
-Route::get('', [App\Http\Controllers\AdminLoginController::class, 'administrador'])->middleware('auth:admin','auth.administrador')->name('admin.index');
 
-Route::resource ('TipoUbigeo','TipoUbigeoController')->middleware('auth:admin','auth.administrador');
+Route::middleware(['auth:admin','auth.administrador'])->group(function () {
 
-Route::resource ('TipoDocumento','TipoDocumentoController')->middleware('auth:admin','auth.administrador');
-Route::resource ('GradoAcademico','GradoAcademicoController')->middleware('auth:admin','auth.administrador');
-Route::resource ('Universidad','UniversidadController')->middleware('auth:admin','auth.administrador');
-Route::resource ('EstadoCivil','EstadoCivilController')->middleware('auth:admin','auth.administrador');
-Route::resource ('Discapacidad','DiscapacidadController')->middleware('auth:admin','auth.administrador');
-Route::resource ('Persona','PersonaController')->middleware('auth:admin','auth.administrador');
-Route::resource ('UbigeoPersona','UbigeoPersonaController')->middleware('auth:admin','auth.administrador');
-
-Route::resource ('Sede','SedeController')->middleware('auth:admin','auth.administrador');
-Route::resource ('Programa','ProgramaController')->middleware('auth:admin','auth.administrador');
-Route::resource ('Plan','PlanController')->middleware('auth:admin');
-Route::resource ('Mencion', 'MencionController')->middleware('auth:admin','auth.administrador');
-Route::resource ('SubPrograma', 'SubProgramaController')->middleware('auth:admin','auth.administrador');
-
-Route::resource('Admision', 'AdmisionController')->middleware('auth:admin','auth.administrador');
-Route::resource('Inscripcion', 'InscripcionController')->middleware('auth:admin','auth.administrador');
-Route::resource('Pago', 'PagoController')->middleware('auth:admin','auth.administrador');
-Route::resource('CanalPago', 'CanalPagoController')->middleware('auth:admin','auth.administrador');
-Route::resource('InscripcionPago', 'InscripcionPagoController')->middleware('auth:admin','auth.administrador');
-Route::resource('ConceptoPago', 'ConceptoPagoController')->middleware('auth:admin','auth.administrador');
-Route::resource('HistorialInscripcion', 'HistorialInscripcionController')->middleware('auth:admin','auth.administrador');
-Route::resource('ExpedienteInscripcion', 'ExpedienteInscripcionController')->middleware('auth:admin','auth.administrador');
-Route::resource('Expediente', 'ExpedienteController')->middleware('auth:admin','auth.administrador');
-
-Route::get('administrador/coordinador', [App\Http\Controllers\CoordinadorController::class, 'index'])->middleware('auth:admin','auth.administrador')->name('admin.coordinador.index');
-
+    Route::get('', [App\Http\Controllers\AdminLoginController::class, 'administrador'])->name('admin.index');
+    
+    Route::resource ('TipoUbigeo','TipoUbigeoController');
+    
+    Route::resource ('TipoDocumento','TipoDocumentoController');
+    Route::resource ('GradoAcademico','GradoAcademicoController');
+    Route::resource ('Universidad','UniversidadController');
+    Route::resource ('EstadoCivil','EstadoCivilController');
+    Route::resource ('Discapacidad','DiscapacidadController');
+    Route::resource ('Persona','PersonaController');
+    Route::resource ('UbigeoPersona','UbigeoPersonaController');
+    
+    Route::resource ('Sede','SedeController');
+    Route::resource ('Programa','ProgramaController');
+    Route::resource ('Plan','PlanController');
+    Route::resource ('Mencion', 'MencionController');
+    Route::resource ('SubPrograma', 'SubProgramaController');
+    
+    Route::resource('Admision', 'AdmisionController');
+    Route::resource('Inscripcion', 'InscripcionController');
+    Route::resource('Pago', 'PagoController');
+    Route::resource('CanalPago', 'CanalPagoController');
+    Route::resource('InscripcionPago', 'InscripcionPagoController');
+    Route::resource('ConceptoPago', 'ConceptoPagoController');
+    Route::resource('HistorialInscripcion', 'HistorialInscripcionController');
+    Route::resource('ExpedienteInscripcion', 'ExpedienteInscripcionController');
+    Route::resource('Expediente', 'ExpedienteController');
+    
+    Route::get('administrador/coordinador', [App\Http\Controllers\CoordinadorController::class, 'index'])->name('admin.coordinador.index');
+});
 
 //CONTROLADOR DEL MODULO DE COORDINADORES
-Route::get('coordinador/index', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'index'])->middleware('auth:admin','auth.coordinador')->name('coordinador.index');
+
+Route::prefix('coordinador')->middleware(['auth:admin','auth.coordinador'])->group(function () {
+
+    Route::get('/index', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'index'])->name('coordinador.index');
+    
+});
+
 
 
 //RUTA ERRORS
