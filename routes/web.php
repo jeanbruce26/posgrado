@@ -32,9 +32,13 @@ Route::resource('HistorialInscripcion', 'HistorialInscripcionController');
 Route::resource('ExpedienteInscripcion', 'ExpedienteInscripcionController');
 Route::resource('Expediente', 'ExpedienteController');
 
+Route::get('administrador/coordinador', [App\Http\Controllers\CoordinadorController::class, 'index'])->name('admin.coordinador.index');
+
+
+
 //RUTA ERRORS
 Route::get('errorLogin', function(){
-    return view('usuario.errors.errorLogin');
+    return view('modulo_inscripcion.errors.errorLogin');
 });
 
 //RUTAS DE LA PARTE DE INSCRIPCION DE USUARIOS
@@ -54,3 +58,6 @@ Route::get('usuarios', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioCo
 Route::get('usuarios/documentos', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'edit'])->middleware('auth.usuarios')->name('usuarios.edit');
 Route::get('usuarios/pdf/{id}', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'pdf'])->middleware('auth:usuarios')->name('usuario.pdf');
 
+
+//SUPER ADMIN
+//password => super-admin

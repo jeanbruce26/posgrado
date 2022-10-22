@@ -40,6 +40,8 @@
 
     @yield('css')
 
+    @livewireStyles
+
 </head>
 
 <body>
@@ -141,9 +143,28 @@
                         <li class="menu-title"><span data-key="t-menu">Menú</span></li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{ url('/dash.index') }}" role="button" aria-expanded="false" aria-controls="sidebarDashboard">
+                            <a class="nav-link menu-link" href="/" role="button" aria-expanded="false" aria-controls="sidebarDashboard">
                                 <i class="mdi mdi-speedometer"></i> <span data-key="t-apps">Dashboard</span>
                             </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarUser" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                                <i class="mdi mdi-account-group-outline"></i> <span data-key="t-apps">Usuarios</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarUser">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="" class="nav-link" data-key="t-analytics"> Docente </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.coordinador.index') }}" class="nav-link" data-key="t-analytics"> Coordinador de Unidad </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" class="nav-link" data-key="t-analytics"> Administrativo </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
 
                         <li class="nav-item">
@@ -376,6 +397,8 @@
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
     @yield('javascript')
+
+    @livewireScripts
 </body>
 
 </html>

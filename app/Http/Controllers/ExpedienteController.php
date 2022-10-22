@@ -16,7 +16,7 @@ class ExpedienteController extends Controller
     public function index()
     {
         $exp = Expediente::orderBy('cod_exp','ASC')->get();
-        return view('Expediente.index', compact('exp'));
+        return view('modulo_administrador.Expediente.index', compact('exp'));
     }
 
     /**

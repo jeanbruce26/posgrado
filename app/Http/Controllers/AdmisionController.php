@@ -16,7 +16,7 @@ class AdmisionController extends Controller
     {
         // auth()->attempt();
         $admi = Admision::orderBy('cod_admi','DESC')->get();
-        return view('Admision.index', compact('admi'));
+        return view('modulo_administrador.Admision.index', compact('admi'));
     }
 
     /**

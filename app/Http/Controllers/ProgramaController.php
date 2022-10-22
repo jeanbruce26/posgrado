@@ -18,7 +18,7 @@ class ProgramaController extends Controller
     {
         $pro = Programa::all();
         $sede = Sede::all();
-        return view('Programa.index', compact('pro', 'sede'));
+        return view('modulo_administrador.Programa.index', compact('pro', 'sede'));
     }
 
     /**

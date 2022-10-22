@@ -20,7 +20,7 @@ class PersonaController extends Controller
         $estCivil = EstadoCivil::all();
         $uni = Universidad::all();
         $gradoAca = GradoAcademico::all();
-        return view('Persona.index', compact('perso', 'disca', 'estCivil', 'uni', 'gradoAca'));
+        return view('modulo_administrador.Persona.index', compact('perso', 'disca', 'estCivil', 'uni', 'gradoAca'));
     }
 
     public function create()
@@ -30,7 +30,7 @@ class PersonaController extends Controller
         $esta= EstadoCivil::all();
         $uni= Universidad::all();
         $gra= GradoAcademico::all();
-        return view('Persona.create', compact('tipodo','tipodis','esta','uni','gra'));
+        return view('modulo_administrador.Persona.create', compact('tipodo','tipodis','esta','uni','gra'));
     }
 
     public function store(){

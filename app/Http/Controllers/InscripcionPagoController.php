@@ -15,7 +15,7 @@ class InscripcionPagoController extends Controller
     public function index()
     {
         $inscPago = InscripcionPago::orderBy('inscripcion_pago_id','DESC')->get();
-        return view('InscripcionPago.index', compact('inscPago'));
+        return view('modulo_administrador.InscripcionPago.index', compact('inscPago'));
     }
 
     /**

@@ -19,7 +19,7 @@ class InscripcionController extends Controller
         $insc = Inscripcion::orderBy('id_inscripcion','DESC')->get();
         $expediente = Expediente::all();
         $cantidadExp = Expediente::count();
-        return view('Inscripcion.index', compact('insc', 'expediente', 'cantidadExp'));
+        return view('modulo_administrador.Inscripcion.index', compact('insc', 'expediente', 'cantidadExp'));
     }
 
     /**

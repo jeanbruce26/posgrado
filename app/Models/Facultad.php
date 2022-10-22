@@ -15,6 +15,7 @@ class Facultad extends Model
     protected $fillable = [
         'facultad_id',
         'facultad',
+        'facultad_estado',
     ];
 
     public $timestamps = false;

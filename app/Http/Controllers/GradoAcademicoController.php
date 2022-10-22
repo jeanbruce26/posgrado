@@ -11,7 +11,7 @@ class GradoAcademicoController extends Controller
     public function index()
     {
         $grado = GradoAcademico::orderBy('id_grado_academico','ASC')->get();
-        return view('GradoAcademico.index', compact('grado'));
+        return view('modulo_administrador.GradoAcademico.index', compact('grado'));
     }
 
     public function store(Request $request)

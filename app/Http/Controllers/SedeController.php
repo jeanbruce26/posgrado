@@ -18,7 +18,7 @@ class SedeController extends Controller
     {
         $sede = Sede::all();
         $plan = Plan::all();
-        return view('Sede.index', compact('sede', 'plan'));
+        return view('modulo_administrador.Sede.index', compact('sede', 'plan'));
     }
 
     /**

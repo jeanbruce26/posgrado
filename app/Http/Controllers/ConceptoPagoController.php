@@ -15,7 +15,7 @@ class ConceptoPagoController extends Controller
     public function index()
     {
         $conPago = ConceptoPago::orderBy('concepto_id','ASC')->get();
-        return view('ConceptoPago.index', compact('conPago'));
+        return view('modulo_administrador.ConceptoPago.index', compact('conPago'));
     }
 
     /**

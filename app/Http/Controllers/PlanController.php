@@ -15,7 +15,7 @@ class PlanController extends Controller
     public function index()
     {
         $plan = Plan::all();
-        return view('Plan.index', compact('plan'));
+        return view('modulo_administrador.Plan.index', compact('plan'));
         
     }
 

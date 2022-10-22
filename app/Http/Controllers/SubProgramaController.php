@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Programa;
+use App\Models\Facultad;
 use App\Models\SubPrograma;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,8 @@ class SubProgramaController extends Controller
     {
         $sub = SubPrograma::all();
         $pro = Programa::all();
-        return view('SubPrograma.index', compact('sub', 'pro'));
+        $facu = Facultad::all();
+        return view('modulo_administrador.SubPrograma.index', compact('sub', 'pro', 'facu'));
     }
 
     /**
@@ -42,12 +44,14 @@ class SubProgramaController extends Controller
             'cod_subprograma'  =>  'required|max:10',
             'subprograma'  =>  'required|max:200',
             'id_programa'  =>  'required|numeric',
+            'facultad'  =>  'required|numeric',
         ]);
 
         $sub = SubPrograma::create([
             "cod_subprograma" => $request->cod_subprograma,
             "subprograma" => $request->subprograma,
-            "id_programa" => $request->id_programa
+            "id_programa" => $request->id_programa,
+            "facultad_id" => $request->facultad
         ]);
         
         session()->flash('new', '¡Sub Programa Creado Satisfactoriamente!');
@@ -89,12 +93,14 @@ class SubProgramaController extends Controller
             'cod_subprograma'  =>  'required|max:10',
             'subprograma'  =>  'required|max:200',
             'id_programa'  =>  'required|numeric',
+            'facultad'  =>  'required|numeric',
         ]);
 
         $sub = SubPrograma::find($id);
         $sub->cod_subprograma = $request->cod_subprograma;
         $sub->subprograma = $request->subprograma;
         $sub->id_programa = $request->id_programa;
+        $sub->facultad_id = $request->facultad;
         $sub->save();
         if($sub->save()){
             return redirect(to: '/SubPrograma')->with('edit', '¡Sub Programa Actualizado Satisfactoriamente!');

@@ -45,6 +45,16 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                                
+                                                <div class="mb-3 col-md-12">
+                                                    <label class="form-label">Facultad <span class="text-danger">*</span></label>
+                                                    <select class="form-select" name="facultad" required>
+                                                        <option value="" selected>Seleccione</option>
+                                                        @foreach ($facu as $item)
+                                                        <option value="{{$item->facultad_id}}">{{$item->facultad}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer col-12 d-flex justify-content-between">
@@ -109,6 +119,16 @@
                                                                                 <option value="" selected>Seleccione</option>
                                                                                 @foreach ($pro as $itempro)
                                                                                 <option value="{{$itempro->id_programa}}" {{ $itempro->id_programa == $item->id_programa ? 'selected' : '' }}>{{$itempro->descripcion_programa}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                
+                                                                        <div class="mb-3 col-md-12">
+                                                                            <label class="form-label">Facultad <span class="text-danger">*</span></label>
+                                                                            <select class="form-select" name="facultad" required>
+                                                                                <option value="" selected>Seleccione</option>
+                                                                                @foreach ($facu as $itemFa)
+                                                                                <option value="{{$itemFa->facultad_id}}"  {{ $itemFa->facultad_id == $item->facultad_id ? 'selected' : '' }}>{{$itemFa->facultad}}</option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>

@@ -19,7 +19,7 @@ class PagoController extends Controller
     {
         $pago = Pago::all();
         $canalPago = CanalPago::all();
-        return view('Pago.index', compact('pago', 'canalPago'));
+        return view('modulo_administrador.Pago.index', compact('pago', 'canalPago'));
     }
 
     /**

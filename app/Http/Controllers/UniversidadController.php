@@ -11,12 +11,12 @@ class UniversidadController extends Controller
 public function index()
 {
     $uni = Universidad::orderBy('cod_uni','ASC')->paginate(10);
-    return view('Universidad.index', compact('uni'));
+    return view('modulo_administrador.Universidad.index', compact('uni'));
 }
 
 public function create()
 {
-    return view('Universidad.create');
+    return view('modulo_administrador.Universidad.create');
 }
 
 public function store(Request $request)
@@ -50,7 +50,7 @@ public function show($id)
 public function edit($id)
 {
     $uni = Universidad::find($id);
-    return view('Universidad.edit')->with('uni',$uni);
+    return view('modulo_administrador.Universidad.edit')->with('uni',$uni);
 }
 
 /**

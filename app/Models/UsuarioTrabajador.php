@@ -11,20 +11,19 @@ class UsuarioTrabajador extends Model
 
     protected $primaryKey = "usuario_id";
 
-    protected $table = 'usuario_trabajador';
+    protected $table = 'usuario';
     protected $fillable = [
         'usuario_id',
-        
         'usuario_nombre',
-        'usuario_ncontraseña',
-        'trabajador_id',
+        'usuario_contraseña',
+        'trabajador_tipo_trabajador_id',
     ];
 
     public $timestamps = false;
 
     // Trabajador
-    public function Trabajador(){
-        return $this->belongsTo(Trabajador::class,
-        'trabajador_id','trabajador_id');
+    public function TrabajadorTipoTrabajador(){
+        return $this->belongsTo(TrabajadorTipoTrabajador::class,
+        'trabajador_tipo_trabajador_id','trabajador_tipo_trabajador_id');
     }
 }

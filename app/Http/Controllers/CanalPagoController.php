@@ -15,7 +15,7 @@ class CanalPagoController extends Controller
     public function index()
     {
         $canalPa = CanalPago::orderBy('canal_pago_id','ASC')->get();
-        return view('CanalPago.index', compact('canalPa'));
+        return view('modulo_administrador.CanalPago.index', compact('canalPa'));
     }
 
     /**

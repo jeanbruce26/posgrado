@@ -17,7 +17,7 @@ class MencionController extends Controller
     {
         $mencion = Mencion::orderBy('id_mencion','ASC')->get();
         $sub = SubPrograma::all();
-        return view('Mencion.index', compact('mencion', 'sub'));
+        return view('modulo_administrador.Mencion.index', compact('mencion', 'sub'));
     }
 
     /**

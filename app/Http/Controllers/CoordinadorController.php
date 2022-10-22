@@ -15,7 +15,7 @@ class CoordinadorController extends Controller
      */
     public function index()
     {
-        //
+        return view('modulo_administrador.Usuario.Coordinador.index');
     }
 
     /**
