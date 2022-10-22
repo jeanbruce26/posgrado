@@ -10,6 +10,7 @@ use App\Models\UsuarioTrabajador;
 use App\Models\Coordinador as CoordinadorModel;
 use App\Models\TipoDocumento;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 
 class Coordinador extends Component
 {
@@ -173,7 +174,8 @@ class Coordinador extends Component
 
         $usuario = UsuarioTrabajador::create([
             "usuario_nombre" => $this->username,
-            "usuario_contraseña" => Hash::make($this->password),
+            "usuario_correo" => $this->correo,
+            "usuario_contraseña" => Crypt::encryptString($this->password),
             "trabajador_tipo_trabajador_id" => $trabajador_tipo_trabajador_id,
         ]);
 
@@ -275,8 +277,9 @@ class Coordinador extends Component
 
         $usuario = UsuarioTrabajador::where('trabajador_tipo_trabajador_id', $this->traba_id)->first();
         $usuario->usuario_nombre = $this->username_update;
+        $usuario->usuario_correo = $this->correo_update;
         if($this->password_update){
-            $usuario->usuario_contraseña = Hash::make($this->password_update);
+            $usuario->usuario_contraseña = Crypt::encryptString($this->password_update);
         }
         $usuario->save();
 

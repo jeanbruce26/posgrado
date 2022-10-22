@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class UsuarioTrabajador extends Model
+class UsuarioTrabajador extends Authenticatable
 {
     use HasFactory;
+
+    // protected $casts = [
+    //     'usuario_contraseña' => 'encrypted',
+    // ];
 
     protected $primaryKey = "usuario_id";
 
@@ -15,6 +20,7 @@ class UsuarioTrabajador extends Model
     protected $fillable = [
         'usuario_id',
         'usuario_nombre',
+        'usuario_correo',
         'usuario_contraseña',
         'trabajador_tipo_trabajador_id',
     ];

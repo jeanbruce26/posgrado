@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         'insc' => \App\Http\Middleware\CheckInsc::class,
         'auth.usuarios' => \App\Http\Middleware\AuthUsuarios::class,
         'auth.pagos' => \App\Http\Middleware\AuthPagos::class,
+        'auth.administrador' => \App\Http\Middleware\AuthAdministrador::class,
+        'auth.coordinador' => \App\Http\Middleware\AuthCoordinador::class,
     ];
 }
