@@ -143,11 +143,11 @@
                         <li class="menu-title"><span data-key="t-menu">Menú</span></li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="/" role="button" aria-expanded="false" aria-controls="sidebarDashboard">
+                            <a class="nav-link menu-link" href="#" role="button" aria-expanded="false" aria-controls="sidebarDashboard">
                                 <i class="mdi mdi-speedometer"></i> <span data-key="t-apps">Dashboard</span>
                             </a>
                         </li>
-
+{{-- 
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarUser" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                                 <i class="mdi mdi-account-group-outline"></i> <span data-key="t-apps">Usuarios</span>
@@ -165,7 +165,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> --}}
 
                     </ul>
                 </div>

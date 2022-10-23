@@ -47,9 +47,17 @@ class Login extends Component
                     auth('admin')->login($usuario);
                     return redirect()->route('admin.index');
                 }
+                if($tra_tipo_tra->tipo_trabajador_id == 3){
+                    // auth('admin')->login($usuario);
+                    // return redirect()->route('coordinador.index');
+                }
                 if($tra_tipo_tra->tipo_trabajador_id == 2){
                     auth('admin')->login($usuario);
                     return redirect()->route('coordinador.index');
+                }
+                if($tra_tipo_tra->tipo_trabajador_id == 1){
+                    // auth('admin')->login($usuario);
+                    // return redirect()->route('coordinador.index');
                 }
             }else{
                 return redirect()->back()->with(array('mensaje'=>'Credenciales incorrectas'));
