@@ -46,6 +46,7 @@ Route::middleware(['auth:admin','auth.administrador'])->group(function () {
 Route::prefix('coordinador')->middleware(['auth:admin','auth.coordinador'])->group(function () {
 
     Route::get('/index', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'index'])->name('coordinador.index');
+    Route::get('/{id}/inscripciones', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'inscripciones'])->name('coordinador.inscripciones');
     
 });
 

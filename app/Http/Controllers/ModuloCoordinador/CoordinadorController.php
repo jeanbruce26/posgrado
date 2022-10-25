@@ -11,4 +11,9 @@ class CoordinadorController extends Controller
     {
         return view('modulo_coordinador.index');
     }
+    
+    public function inscripciones($id)
+    {
+        return view('modulo_coordinador.inscripcion', compact('id'));
+    }
 }
