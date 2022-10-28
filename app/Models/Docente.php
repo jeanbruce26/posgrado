@@ -17,6 +17,7 @@ class Docente extends Model
         'trabajador_id',
         'docente_cv',
         'docente_tipo_docente',
+        'docente_estado',
     ];
 
     public $timestamps = false;

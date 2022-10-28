@@ -16,6 +16,7 @@ class TrabajadorTipoTrabajador extends Model
         'trabajador_tipo_trabajador_id',
         'trabajador_id',
         'tipo_trabajador_id',
+        'trabajador_tipo_trabajador_estado',
     ];
 
     public $timestamps = false;

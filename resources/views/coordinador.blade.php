@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>POSGRADO</title>
+    <title>Posgrado</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- App favicon -->
@@ -143,7 +143,7 @@
                         <li class="menu-title"><span data-key="t-menu">Menú</span></li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="#" role="button" aria-expanded="false" aria-controls="sidebarDashboard">
+                            <a class="nav-link menu-link" href="{{route('coordinador.index')}}" role="button" aria-expanded="false" aria-controls="sidebarDashboard">
                                 <i class="mdi mdi-speedometer"></i> <span data-key="t-apps">Dashboard</span>
                             </a>
                         </li>
@@ -327,6 +327,9 @@
 
     <!-- Sweet Alerts js -->
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+
+    <!--jquery cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     @yield('javascript')
 

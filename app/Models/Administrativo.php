@@ -16,6 +16,7 @@ class Administrativo extends Model
         'administrativo_id',
         'area_id',
         'trabajador_id',
+        'administrativo_estado',
     ];
 
     public $timestamps = false;

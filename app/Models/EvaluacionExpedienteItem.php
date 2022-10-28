@@ -16,6 +16,7 @@ class EvaluacionExpedienteItem extends Model
         'evaluacion_expediente_item_id',
         'evaluacion_expediente_item',
         'evaluacion_expediente_titulo_id',
+        'evaluacion_expediente_puntaje',
     ];
 
     public $timestamps = false;

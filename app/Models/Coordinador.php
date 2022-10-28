@@ -17,6 +17,7 @@ class Coordinador extends Model
         'trabajador_id',
         'facultad_id',
         'categoria_docente',
+        'coordinador_estado',
     ];
 
     public $timestamps = false;

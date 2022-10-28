@@ -15,16 +15,16 @@ class EvaluacionExpediente extends Model
     protected $fillable = [
         'evaluacion_expediente_id',
         'evaluacion_expediente_nota',
-        'evaluacion_expediente_item_id',
+        'evaluacion_expediente_titulo_id',
         'evaluacion_id',
     ];
 
     public $timestamps = false;
 
-    // Evaluacion Expediente Item
-    public function EvaluacionExpedienteItem(){
-        return $this->belongsTo(EvaluacionExpedienteItem::class,
-        'evaluacion_expediente_item_id','evaluacion_expediente_item_id');
+    // Evaluacion Expediente Titulo
+    public function EvaluacionExpedienteTitulo(){
+        return $this->belongsTo(EvaluacionExpedienteTitulo::class,
+        'evaluacion_expediente_titulo_id','evaluacion_expediente_titulo_id');
     }
 
     // Evaluacion 

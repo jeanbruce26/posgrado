@@ -11,7 +11,7 @@
 <script>   
     window.addEventListener('errorInscripcion', event => {
         Swal.fire(
-        'No cuenta con inscripciones para esta Mención',
+        'No cuenta con inscritos',
         '',
         'error'
         )
