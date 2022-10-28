@@ -155,7 +155,7 @@
                             <div class="collapse menu-dropdown" id="sidebarUser">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="" class="nav-link" data-key="t-analytics"> Docente </a>
+                                        <a href="{{ route('admin.docente.index') }}" class="nav-link" data-key="t-analytics"> Docente </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('admin.coordinador.index') }}" class="nav-link" data-key="t-analytics"> Coordinador de Unidad </a>

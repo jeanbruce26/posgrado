@@ -3,16 +3,19 @@
 namespace App\Http\Livewire\ModuloAdministrador\Usuario;
 
 use Livewire\Component;
-use App\Models\Facultad;
 use App\Models\Trabajador;
 use App\Models\TrabajadorTipoTrabajador;
 use App\Models\UsuarioTrabajador;
-use App\Models\Coordinador as CoordinadorModel;
 use App\Models\TipoDocumento;
+use App\Models\Docente as DocenteModel;
 use Illuminate\Support\Facades\Crypt;
+use Livewire\WithFileUploads;
 
-class Coordinador extends Component
+
+class Docente extends Component
 {
+    use WithFileUploads;
+
     public $tipo_documento;
     public $documento;
     public $nombres;
@@ -20,11 +23,11 @@ class Coordinador extends Component
     public $direccion;
     public $correo;
     public $grado;
-    public $categoria;
-    public $facultad;
+    public $cv;
+    public $tipo_docente;
     public $username;
     public $password;
-    public $tipo_trabajador = 2;
+    public $tipo_trabajador = 1;
 
     public $tipo_documento_update;
     public $documento_update;
@@ -33,18 +36,16 @@ class Coordinador extends Component
     public $direccion_update;
     public $correo_update;
     public $grado_update;
-    public $categoria_update;
-    public $facultad_update;
+    public $cv_update;
+    public $tipo_docente_update;
     public $username_update;
     public $password_update;
 
-    public $facultad_antiguo;
-
-    public $traba_id;
-
     public $modo = 1;
 
-    protected $listeners = ['render', 'deleteCoordinador'];
+    public $trabajaTipo; //Trabajador Tipo Trabajador
+
+    protected $listeners = ['render', 'deleteDocente'];
 
     public function updated($propertyName)
     {
@@ -58,8 +59,8 @@ class Coordinador extends Component
                     'direccion' => 'required|string',
                     'correo' => 'required|email',
                     'grado' => 'required|string',
-                    'categoria' => 'required|string',
-                    'facultad' => 'required|numeric',
+                    'cv' => 'nullable|file|mimes:pdf|max:10024',
+                    'tipo_docente' => 'required|string',
                     'username' => 'required|string',
                     'password' => 'required',
                 ]);
@@ -72,8 +73,8 @@ class Coordinador extends Component
                     'direccion' => 'required|string',
                     'correo' => 'required|email',
                     'grado' => 'required|string',
-                    'categoria' => 'required|string',
-                    'facultad' => 'required|numeric',
+                    'cv' => 'nullable|file|mimes:pdf|max:10024',
+                    'tipo_docente' => 'required|string',
                     'username' => 'required|string',
                     'password' => 'required',
                 ]);
@@ -91,8 +92,8 @@ class Coordinador extends Component
             'direccion',
             'correo',
             'grado',
-            'categoria',
-            'facultad',
+            'cv',
+            'tipo_docente',
             'username',
             'password',
             'tipo_documento_update', 
@@ -102,8 +103,8 @@ class Coordinador extends Component
             'direccion_update',
             'correo_update',
             'grado_update',
-            'categoria_update',
-            'facultad_update',
+            'cv_update',
+            'tipo_docente_update',
             'username_update',
             'password_update'
         );
@@ -118,6 +119,10 @@ class Coordinador extends Component
     public function crear()
     {
         if($this->tipo_documento == 1){
+            if ($this->tipo_docente == 2) {
+                # code...
+            }
+
             $this->validate([
                 'tipo_documento' => 'required|numeric',
                 'documento' => 'required|digits:8|numeric',
@@ -126,8 +131,8 @@ class Coordinador extends Component
                 'direccion' => 'required|string',
                 'correo' => 'required|email',
                 'grado' => 'required|string',
-                'categoria' => 'required|string',
-                'facultad' => 'required|numeric',
+                'cv' => 'required|file|mimes:pdf|max:10024',
+                'tipo_docente' => 'required|string',
                 'username' => 'required|string',
                 'password' => 'required',
             ]);
@@ -140,8 +145,8 @@ class Coordinador extends Component
                 'direccion' => 'required|string',
                 'correo' => 'required|email',
                 'grado' => 'required|string',
-                'categoria' => 'required|string',
-                'facultad' => 'required|numeric',
+                'cv' => 'required|file|mimes:pdf|max:10024',
+                'tipo_docente' => 'required|string',
                 'username' => 'required|string',
                 'password' => 'required',
             ]);
@@ -158,10 +163,10 @@ class Coordinador extends Component
 
         $trabajador_id = $trabajador->trabajador_id;
 
-        $coordinador = CoordinadorModel::create([
+        $docente = DocenteModel::create([
             "trabajador_id" => $trabajador_id,
-            "facultad_id" => $this->facultad,
-            "categoria_docente" => $this->categoria,
+            "docente_tipo_docente" => $this->tipo_docente,
+
         ]);
 
         $trabajador_tipo_trabajador = TrabajadorTipoTrabajador::create([
@@ -178,26 +183,35 @@ class Coordinador extends Component
             "trabajador_tipo_trabajador_id" => $trabajador_tipo_trabajador_id,
         ]);
 
-        $facu = Facultad::find($this->facultad);
-        $facu->facultad_estado = 2;
-        $facu->save();
+        $data = $this->cv;
+            
+        if($data != null){
+            $path =  'Docente/' .$docente->docente_id. '/';
+            $filename = "cv.".$data->extension();
+            $data = $this->cv;
+            $data->storeAs($path, $filename, 'files_publico');
 
-        session()->flash('message', 'Coordinador creado satisfactoriamente.');
+            $doc = DocenteModel::find($docente->docente_id);
+            $doc->docente_cv = $filename;
+            $doc->save();
+        }
+
+        session()->flash('message', 'Docente creado satisfactoriamente.');
 
         $this->dispatchBrowserEvent('modalCrear');
 
         $this->limpiar();
 
-        return redirect()->route('admin.coordinador.index');
+        return redirect()->route('admin.docente.index');
     }
 
-    public function cargarTrabajador($id)
+    public function cargarDocente($id)
     {
         $this->modo = 2;
 
-        $this->traba_id = $id;
+        $this->trabajaTipo = $id;
 
-        $tra = TrabajadorTipoTrabajador::find($this->traba_id);
+        $tra = TrabajadorTipoTrabajador::find($this->trabajaTipo);
 
         if(strlen($tra->Trabajador->trabajador_numero_documento) == 8){
             $this->tipo_documento_update = 1;
@@ -211,14 +225,13 @@ class Coordinador extends Component
         $this->direccion_update = $tra->Trabajador->trabajador_direccion;
         $this->grado_update = $tra->Trabajador->trabajador_grado;
 
-        $cor = CoordinadorModel::where('trabajador_id', $tra->trabajador_id)->first();
-        
-        $this->facultad_update = $cor->facultad_id;
-        $this->facultad_antiguo =  $cor->facultad_id;
-        $this->categoria_update = $cor->categoria_docente;
-        
+        $doc = DocenteModel::where('trabajador_id', $tra->trabajador_id)->first();
+
+        // $this
+        $this->tipo_docente_update = $doc->docente_tipo_docente;
+
         $use = UsuarioTrabajador::where('trabajador_tipo_trabajador_id', $id)->first();
-        
+
         $this->username_update = $use->usuario_nombre;
         $this->password_update = "";
     }
@@ -236,8 +249,8 @@ class Coordinador extends Component
                 'direccion_update' => 'required|string',
                 'correo_update' => 'required|email',
                 'grado_update' => 'required|string',
-                'categoria_update' => 'required|string',
-                'facultad_update' => 'required|numeric',
+                'tipo_docente_update' => 'required|string',
+                'cv_update' => 'nullable|file|mimes:pdf|max:10024',
                 'username_update' => 'required|string',
                 'password_update' => 'nullable',
             ]);
@@ -250,14 +263,14 @@ class Coordinador extends Component
                 'direccion_update' => 'required|string',
                 'correo_update' => 'required|email',
                 'grado_update' => 'required|string',
-                'categoria_update' => 'required|string',
-                'facultad_update' => 'required|numeric',
+                'tipo_docente_update' => 'required|string',
+                'cv_update' => 'nullable|file|mimes:pdf|max:10024',
                 'username_update' => 'required|string',
                 'password_update' => 'nullable',
             ]);
         }
 
-        $tra = TrabajadorTipoTrabajador::find($this->traba_id);
+        $tra = TrabajadorTipoTrabajador::find($this->trabajaTipo);
 
         $trabajador = Trabajador::find($tra->trabajador_id);
         $trabajador->trabajador_nombres = $this->nombres_update;
@@ -268,35 +281,38 @@ class Coordinador extends Component
         $trabajador->trabajador_grado = $this->grado_update;
         $trabajador->save();
 
-        $coordinador = CoordinadorModel::where('trabajador_id', $tra->trabajador_id)->first();
-        $coordinador->trabajador_id = $tra->trabajador_id;
-        $coordinador->facultad_id = $this->facultad_update;
-        $coordinador->categoria_docente = $this->categoria_update;
-        $coordinador->save();
+        $docente = DocenteModel::where('trabajador_id', $tra->trabajador_id)->first();
+        $docente->trabajador_id = $tra->trabajador_id;
+        $docente->docente_tipo_docente = $this->tipo_docente_update;
+        $docente->save();
 
-        $usuario = UsuarioTrabajador::where('trabajador_tipo_trabajador_id', $this->traba_id)->first();
+        $data = $this->cv_update;
+        if($data != null){
+            $path =  'Docente/' .$docente->docente_id. '/';
+            $filename = "cv.".$data->extension();
+            $data = $this->cv_update;
+            $data->storeAs($path, $filename, 'files_publico');
+
+            $doc = DocenteModel::find($docente->docente_id);
+            $doc->docente_cv = $filename;
+            $doc->save();
+        }
+
+        $usuario = UsuarioTrabajador::where('trabajador_tipo_trabajador_id', $this->trabajaTipo)->first();
         $usuario->usuario_nombre = $this->username_update;
         $usuario->usuario_correo = $this->correo_update;
         if($this->password_update){
             $usuario->usuario_contraseña = Crypt::encryptString($this->password_update);
         }
         $usuario->save();
-
-        $facu = Facultad::find($this->facultad_antiguo);
-        $facu->facultad_estado = 1;
-        $facu->save();
-
-        $facu = Facultad::find($this->facultad_update);
-        $facu->facultad_estado = 2;
-        $facu->save();
         
-        session()->flash('message', 'Coordinador actualizado satisfactoriamente.');
+        session()->flash('message', 'Docente actualizado satisfactoriamente.');
 
-        $this->dispatchBrowserEvent('modalActualizar', ['id' => $this->traba_id]);
+        $this->dispatchBrowserEvent('modalActualizar', ['id' => $this->trabajaTipo]);
 
         $this->limpiar();
 
-        return redirect()->route('admin.coordinador.index');
+        return redirect()->route('admin.docente.index');
     }
 
     public function eliminar($id)
@@ -304,28 +320,22 @@ class Coordinador extends Component
         $this->dispatchBrowserEvent('delete', ['id' => $id]);
     }
 
-    public function deleteCoordinador(TrabajadorTipoTrabajador $id)
+    public function deleteDocente(TrabajadorTipoTrabajador $id)
     {
-        $id_tra = $id->trabajador_id;
-        $coordinador = CoordinadorModel::where('trabajador_id', $id->trabajador_id)->first();
-        $facu = Facultad::find($coordinador->facultad_id);
-        $facu->facultad_estado = 1;
-        $facu->save();
-        $coordinador->delete();
-        $usuario = UsuarioTrabajador::where('trabajador_tipo_trabajador_id', $id->trabajador_tipo_trabajador_id)->first()->delete();
-        $id->delete();
-        $trabajador = Trabajador::find($id_tra)->delete();
+        // $id_tra = $id->trabajador_id;
+        // $docente = DocenteModel::where('trabajador_id', $id->trabajador_id)->first()->delete();;
+        // $usuario = UsuarioTrabajador::where('trabajador_tipo_trabajador_id', $id->trabajador_tipo_trabajador_id)->first()->delete();
+        // $id->delete();
+        // $trabajador = Trabajador::find($id_tra)->delete();
 
-        session()->flash('message', 'Coordinador eliminado satisfactoriamente.');
+        session()->flash('message', 'Usuario de Docente desactivado satisfactoriamente.');
     }
 
     public function render()
     {
-        return view('livewire.modulo-administrador.usuario.coordinador',[
-            'facu' => Facultad::where('facultad_estado',1)->get(),
-            'facu2' => Facultad::all(),
+        return view('livewire.modulo-administrador.usuario.docente',[
             'tipo_doc' => TipoDocumento::all(),
-            'mostrar_coordinador' => TrabajadorTipoTrabajador::where('tipo_trabajador_id',$this->tipo_trabajador)->get(),
+            'mostrar_docente' => TrabajadorTipoTrabajador::where('tipo_trabajador_id',$this->tipo_trabajador)->get(),
         ]);
     }
 }

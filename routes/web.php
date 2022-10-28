@@ -39,6 +39,7 @@ Route::middleware(['auth:admin','auth.administrador'])->group(function () {
     Route::resource('Expediente', 'ExpedienteController');
     
     Route::get('administrador/coordinador', [App\Http\Controllers\CoordinadorController::class, 'index'])->name('admin.coordinador.index');
+    Route::get('administrador/docente', [App\Http\Controllers\DocenteController::class, 'index'])->name('admin.docente.index');
 });
 
 //CONTROLADOR DEL MODULO DE COORDINADORES

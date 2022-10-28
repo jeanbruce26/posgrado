@@ -10,20 +10,20 @@
             <div class="card">
                 <div class="card-header align-items-center">
                     <div class=" d-flex justify-content-between align-items-center">
-                        <h4 class="card-title mb-0 flex-grow-1 fw-bold">CORDINADOR DE UNIDAD</h4>
-                        <a href="#newCoordinador" type="button" wire:click="modo()"
+                        <h4 class="card-title mb-0 flex-grow-1 fw-bold">DOCENTE</h4>
+                        <a href="#newDocente" type="button" wire:click="modo()"
                             class="btn btn-x1 btn-primary pull-right d-flex justify-content-center align-items-center"
-                            data-bs-toggle="modal" data-bs-target="#newCoordinador">Nuevo <i
+                            data-bs-toggle="modal" data-bs-target="#newDocente">Nuevo <i
                                 class="ri-add-circle-fill ms-1"></i>
                         </a>
 
                         {{-- Modal Nuevo --}}
-                        <div wire:ignore.self class="modal fade" id="newCoordinador" tabindex="-1"
-                            aria-labelledby="newCoordinador" aria-hidden="true">
+                        <div wire:ignore.self class="modal fade" id="newDocente" tabindex="-1"
+                            aria-labelledby="newDocente" aria-hidden="true">
                             <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Crear Coordinador de Unidad</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Crear Docente</h5>
                                         <button type="button" wire:click="limpiar()" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -40,7 +40,7 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                    @error('tipo_documento') <span class="error text-danger" >{{ $message }}</span> @enderror
+                                                    @error('tipo_documento') <span class="error text-danger" >{{ $message }} </span> @enderror
                                                 </div>
 
                                                 <div class="mb-3 col-md-6">
@@ -91,29 +91,21 @@
                                                 </div>
 
                                                 <div class="mb-3 col-md-6">
-                                                    <label class="form-label">Categoria <span
+                                                    <label class="form-label">Tipo de Docente <span
                                                             class="text-danger">*</span></label>
-                                                    <select class="form-select @error('categoria') is-invalid  @enderror" wire:model="categoria">
+                                                    <select class="form-select @error('tipo_docente') is-invalid  @enderror" wire:model="tipo_docente">
                                                         <option value="" selected>Seleccione</option>
-                                                        <option>DOCENTE PRINCIPAL</option>
-                                                        <option>DOCENTE AUXILIAR</option>
-                                                        <option>DOCENTE ASOCIADO</option>
-                                                        <option>DOCENTE CONTRATADO</option>
+                                                        <option>DOCENTE INTERNO</option>
+                                                        <option>DOCENTE EXTERNO</option>
                                                     </select>
-                                                    @error('categoria') <span class="error text-danger" >{{ $message }}</span> @enderror
+                                                    @error('tipo_docente') <span class="error text-danger" >{{ $message }}</span> @enderror
                                                 </div>
 
                                                 <div class="mb-3 col-md-12">
-                                                    <label class="form-label">Facultad <span
+                                                    <label class="form-label">CV     <span
                                                             class="text-danger">*</span></label>
-                                                    <select class="form-select @error('facultad') is-invalid  @enderror" wire:model="facultad">
-                                                        <option value="" selected>Seleccione</option>
-                                                        @foreach ($facu as $item)
-                                                            <option value="{{ $item->facultad_id }}">
-                                                                {{ $item->facultad }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('facultad') <span class="error text-danger" >{{ $message }}</span> @enderror
+                                                    <input class="form-control @error('cv') is-invalid  @enderror form-control-sm btn btn-primary" type="file" style="color:azure" wire:model="cv" accept=".pdf">
+                                                    @error('cv') <span class="error text-danger" >{{ $message }}</span> @enderror
                                                 </div>
                                                 
                                                 <div class="col-md-6">
@@ -157,33 +149,35 @@
                                         <th class="col-2">Nombres</th>
                                         <th class="col-1">Grado</th>
                                         <th class="col-2">Correo</th>
-                                        <th class="col-2">Facultad</th>
+                                        <th class="col-2">Tipo de Docente</th>
                                         <th class="col-1">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($mostrar_coordinador as $item)
+                                    @foreach ($mostrar_docente as $item)
+                                        @php
+                                            $docente = App\Models\Docente::where('trabajador_id',$item->trabajador_id)->first();
+                                            $trabajador_tipo_trabajador_id = $item->trabajador_tipo_trabajador_id;
+                                        @endphp
                                         <tr>
                                             <td>{{$item->trabajador_id}}</td>
                                             <td>{{$item->Trabajador->trabajador_numero_documento}}</td>
                                             <td>{{$item->Trabajador->trabajador_nombres}} {{$item->Trabajador->trabajador_apellidos}}</td>
                                             <td>{{$item->Trabajador->trabajador_grado}}</td>
                                             <td>{{$item->Trabajador->trabajador_correo}}</td>
-                                            @php
-                                                $coor = App\Models\Coordinador::where('trabajador_id',$item->trabajador_id)->first();
-                                                $trabajador_tipo_trabajador_id = $item->trabajador_tipo_trabajador_id;
-                                            @endphp
-                                            <td>{{$coor->Facultad->facultad}}</td>
+                                            @if($docente)
+                                                <td>{{$docente->docente_tipo_docente}}</td>
+                                            @endif
                                             <td align="center">
                                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                    <a href="#updateCoordinador" type="button" class="fs-15 btn btn-outline-success d-flex align-items-center" wire:click="cargarTrabajador({{$trabajador_tipo_trabajador_id}})" data-bs-toggle="modal" data-bs-target="#updateCoordinador{{$trabajador_tipo_trabajador_id}}"><i class="bx bx-edit bx-sm bx-burst-hover"></i></a>
+                                                    <a href="#updateDocente" type="button" class="fs-15 btn btn-outline-success d-flex align-items-center" wire:click="cargarDocente({{$trabajador_tipo_trabajador_id}})" data-bs-toggle="modal" data-bs-target="#updateDocente{{$trabajador_tipo_trabajador_id}}"><i class="bx bx-edit bx-sm bx-burst-hover"></i></a>
                                                     {{-- Modal Actualizar --}}
-                                                    <div wire:ignore.self class="modal fade" id="updateCoordinador{{$trabajador_tipo_trabajador_id}}" tabindex="-1"
-                                                        aria-labelledby="updateCoordinador" aria-hidden="true">
+                                                    <div wire:ignore.self class="modal fade" id="updateDocente{{$trabajador_tipo_trabajador_id}}" tabindex="-1"
+                                                        aria-labelledby="updateDocente" aria-hidden="true">
                                                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Actualizar Coordinador de Unidad</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Actualizar Docente</h5>
                                                                     <button type="button" wire:click="limpiar()" class="btn-close" data-bs-dismiss="modal"
                                                                         aria-label="Close"></button>
                                                                 </div>
@@ -251,29 +245,22 @@
                                                                             </div>
 
                                                                             <div class="mb-3 col-md-6" style="text-align: left">
-                                                                                <label class="form-label">Categoria <span
+                                                                                <label class="form-label">Tipo de Docente <span
                                                                                         class="text-danger">*</span></label>
-                                                                                <select class="form-select @error('categoria_update') is-invalid  @enderror" wire:model="categoria_update">
+                                                                                <select class="form-select @error('tipo_docente_update') is-invalid  @enderror" wire:model="tipo_docente_update">
                                                                                     <option value="" selected>Seleccione</option>
-                                                                                    <option value="DOCENTE PRINCIPAL">DOCENTE PRINCIPAL</option>
-                                                                                    <option value="DOCENTE AUXILIAR">DOCENTE AUXILIAR</option>
-                                                                                    <option value="DOCENTE ASOCIADO">DOCENTE ASOCIADO</option>
-                                                                                    <option value="DOCENTE CONTRATADO">DOCENTE CONTRATADO</option>
+                                                                                    <option value="DOCENTE INTERNO">DOCENTE INTERNO</option>
+                                                                                    <option value="DOCENTE EXTERNO">DOCENTE EXTERNO</option>
                                                                                 </select>
-                                                                                {{-- @error('categoria_update') <span class="error text-danger" >{{ $message }}</span> @enderror --}}
+                                                                                {{-- @error('tipo_docente_update') <span class="error text-danger" >{{ $message }}</span> @enderror --}}
                                                                             </div>
 
                                                                             <div class="mb-3 col-md-12" style="text-align: left">
-                                                                                <label class="form-label">Facultad <span
-                                                                                        class="text-danger">*</span></label>
-                                                                                <select class="form-select @error('facultad_update') is-invalid  @enderror" wire:model="facultad_update">
-                                                                                    <option value="" selected>Seleccione</option>
-                                                                                    @foreach ($facu2 as $item)
-                                                                                        <option value="{{ $item->facultad_id }}" @if($item->facultad_estado == 2) disabled @endif>
-                                                                                            {{ $item->facultad }}</option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                                {{-- @error('facultad_update') <span class="error text-danger" >{{ $message }}</span> @enderror --}}
+                                                                                <div>
+                                                                                    <label class="form-label">CV <span
+                                                                                            class="text-danger">*</span></label>
+                                                                                </div>
+                                                                                <input class="form-control @error('cv_update') is-invalid  @enderror form-control-sm btn btn-primary" type="file" style="color:azure" wire:model="cv_update" accept=".pdf">
                                                                             </div>
                                                                             
                                                                             <div class="col-md-6" style="text-align: left">
@@ -286,7 +273,7 @@
                                                                             <div class="col-md-6" style="text-align: left">
                                                                                 <label class="form-label">Contraseña <span
                                                                                         class="text-danger"></span></label>
-                                                                                <input type="password" class="form-control @error('password_update') is-invalid  @enderror" wire:model="password_update" placeholder="Ingrese su contraseña">
+                                                                                <input type="password" class="form-control @error('password_update') is-invalid  @enderror" wire:model="password_update" placeholder="Ingrese su nueva contraseña">
                                                                                 {{-- @error('password_update') <span class="error text-danger" >{{ $message }}</span> @enderror --}}
                                                                             </div>
                                                                         </div>
