@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Inscripcion;
 use App\Models\Mencion;
+use App\Models\Evaluacion;
+use App\Models\Puntaje;
 
 class Inscripciones extends Component
 {
@@ -19,6 +21,48 @@ class Inscripciones extends Component
     public $id_mencion;
     public $search = '';
     public $mostrar = 10;
+
+    public function evaExpe($id)
+    {
+        // href="{{route('coordinador.expediente',$item->id_inscripcion)}}" 
+
+        $evaluacion = Evaluacion::where('inscripcion_id',$id)->first();
+        $puntaje = Puntaje::where('puntaje_estado',1)->first();
+        
+        // dd($id, $evaluacion, $puntaje->puntaje_id);
+
+        if($evaluacion){
+            return redirect()->route('coordinador.expediente',$evaluacion->evaluacion_id);
+        }else{
+            $eva = Evaluacion::create([
+                "evaluacion_estado" => 1,
+                "puntaje_id" => $puntaje->puntaje_id,
+                "inscripcion_id" => $id,
+            ]);
+            
+            return redirect()->route('coordinador.expediente',$eva->evaluacion_id);
+        }
+
+
+    }
+
+
+    public function evaEntre($id)
+    {
+        $evaluacion = Evaluacion::where('inscripcion_id',$id)->first();
+        
+        if($evaluacion){
+            if($evaluacion->nota_expediente){
+                return redirect()->route('coordinador.entrevista',$evaluacion->evaluacion_id);
+            }else{
+                // session()->flash('message', 'Falta completar la Evaluacion de Expedientes.');
+                $this->dispatchBrowserEvent('errorEntrevista');
+            }
+        }else{
+            // session()->flash('message', 'Falta completar la Evaluacion de Expedientes.');
+            $this->dispatchBrowserEvent('errorEntrevista');
+        }
+    }
 
     public function render()
     {

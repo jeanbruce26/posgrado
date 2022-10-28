@@ -49,6 +49,9 @@
                     </thead>
                     <tbody>
                         @foreach ($inscripciones as $item)
+                        @php
+                            $evalu = App\Models\Evaluacion::where('inscripcion_id', $item->id_inscripcion)->first();
+                        @endphp
                         <tr>
                             <td scope="row" class="fw-bold" align="center">{{$item->id_inscripcion}}</td>
                             <td>{{$item->apell_pater}} {{$item->apell_mater}}, {{$item->nombres}}</td>
@@ -56,12 +59,36 @@
                             <td>{{$item->num_doc}}</td>
                             <td>+51 {{$item->celular1}}</td>
                             <td align="center">
-                                <button type="button" class="btn btn-sm btn-info     btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-info btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                @if ($evalu)
+                                    @if ($evalu->nota_expediente != null)
+                                    <span class="badge badge-soft-info ms-2"><i class="ri-check-double-line label-icon align-middle fs-12"></i></span>
+                                    @endif
+                                @endif
                             </td>
                             <td align="center">
-                                <button type="button" class="btn btn-sm btn-success btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                <button wire:click="evaEntre({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-success btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                @if ($evalu)
+                                    @if ($evalu->nota_entrevista != null)
+                                    <span class="badge badge-soft-info ms-2"><i class="ri-check-double-line label-icon align-middle fs-12"></i></span>
+                                    @endif
+                                @endif
                             </td>
-                            <td align="center"><span class="badge badge-soft-success"><i class="ri-check-double-line label-icon align-middle fs-12 me-1"></i>Good</span></td>
+                            <td align="center">
+                                @if ($evalu)
+                                    @if ($evalu->evaluacion_estado == 1)
+                                    <span class="badge badge-soft-warning"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Por Evaluar</span>
+                                    @endif
+                                    @if ($evalu->evaluacion_estado == 2)
+                                    <span class="badge badge-soft-danger"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Evaluacion Observada</span>
+                                    @endif
+                                    @if ($evalu->evaluacion_estado == 3)
+                                    <span class="badge badge-soft-success"><i class="ri-check-double-line label-icon align-middle fs-12 me-1"></i>Evaluado</span>
+                                    @endif
+                                @else
+                                <span class="badge badge-soft-warning"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Por Evaluar</span>
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

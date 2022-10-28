@@ -16,4 +16,14 @@ class CoordinadorController extends Controller
     {
         return view('modulo_coordinador.inscripcion', compact('id'));
     }
+
+    public function expediente($id)
+    {
+        return view('modulo_coordinador.expediente', compact('id'));
+    }
+
+    public function entrevista($id)
+    {
+        return view('modulo_coordinador.entrevista', compact('id'));
+    }
 }

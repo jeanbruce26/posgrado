@@ -23,6 +23,7 @@ class UsuarioTrabajador extends Authenticatable
         'usuario_correo',
         'usuario_contraseña',
         'trabajador_tipo_trabajador_id',
+        'usuario_estado',
     ];
 
     public $timestamps = false;

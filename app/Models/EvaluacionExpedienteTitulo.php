@@ -15,6 +15,7 @@ class EvaluacionExpedienteTitulo extends Model
     protected $fillable = [
         'evaluacion_expediente_titulo_id',
         'evaluacion_expediente_titulo',
+        'evaluacion_expediente_titulo_puntaje_maximo',
     ];
 
     public $timestamps = false;
