@@ -154,6 +154,7 @@ class Coordinador extends Component
             "trabajador_correo" => $this->correo,
             "trabajador_direccion" => $this->direccion,
             "trabajador_grado" => $this->grado,
+            "trabajador_estado" => 1,
         ]);
 
         $trabajador_id = $trabajador->trabajador_id;
@@ -162,11 +163,13 @@ class Coordinador extends Component
             "trabajador_id" => $trabajador_id,
             "facultad_id" => $this->facultad,
             "categoria_docente" => $this->categoria,
+            "coordinador_estado" => 1,
         ]);
 
         $trabajador_tipo_trabajador = TrabajadorTipoTrabajador::create([
             "trabajador_id" => $trabajador_id,
             "tipo_trabajador_id" => $this->tipo_trabajador,
+            "trabajador_tipo_trabajador_estado" => 1,
         ]);
 
         $trabajador_tipo_trabajador_id = $trabajador_tipo_trabajador->trabajador_tipo_trabajador_id;
@@ -176,6 +179,7 @@ class Coordinador extends Component
             "usuario_correo" => $this->correo,
             "usuario_contraseña" => Crypt::encryptString($this->password),
             "trabajador_tipo_trabajador_id" => $trabajador_tipo_trabajador_id,
+            "usuario_estado" => 1,
         ]);
 
         $facu = Facultad::find($this->facultad);

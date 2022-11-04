@@ -173,7 +173,7 @@
                                                 $coor = App\Models\Coordinador::where('trabajador_id',$item->trabajador_id)->first();
                                                 $trabajador_tipo_trabajador_id = $item->trabajador_tipo_trabajador_id;
                                             @endphp
-                                            <td>{{$coor->Facultad->facultad}}</td>
+                                            <td>{{str_replace('FACULTAD DE','',$coor->Facultad->facultad)}}</td>
                                             <td align="center">
                                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                                     <a href="#updateCoordinador" type="button" class="fs-15 btn btn-outline-success d-flex align-items-center" wire:click="cargarTrabajador({{$trabajador_tipo_trabajador_id}})" data-bs-toggle="modal" data-bs-target="#updateCoordinador{{$trabajador_tipo_trabajador_id}}"><i class="bx bx-edit bx-sm bx-burst-hover"></i></a>

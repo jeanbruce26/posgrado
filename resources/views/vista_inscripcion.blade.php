@@ -57,7 +57,7 @@
                                 <span class="logo-lg">
                                     <div class="d-flex justify-content-center align-items-center">
                                         <img src="{{ asset('assets/images/LogoPosgradoSF.png') }}" alt="" height="45" width="40">
-                                        <span class="fw-bold text-white fs-2 ms-2 align-self-center text-uppercase">Posgrado</span>
+                                        <span style="color: #0a2e5c;" class="fw-bold fs-2 ms-2 align-self-center text-uppercase">Posgrado</span>
                                     </div>
                                 </span>
                             </a>

@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none">
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
+    data-sidebar-image="none">
 
 <head>
 
     <meta charset="utf-8" />
     <title>Posgrado</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
@@ -26,7 +27,7 @@
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
-    
+
     <link href="{{ asset('assets/css/mermaid.min.css') }}" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
@@ -37,6 +38,9 @@
 
     <!-- gridjs css -->
     <link rel="stylesheet" href="{{ asset('assets/libs/gridjs/theme/mermaid.min.css') }}">
+
+    {{-- toastify js --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     @yield('css')
 
@@ -50,68 +54,83 @@
     <div id="layout-wrapper">
 
         <header id="page-topbar">
-    <div class="layout-width">
-        <div class="navbar-header">
-            <div class="d-flex">
-                <!-- LOGO -->
-                <div class="navbar-brand-box horizontal-logo">
-                    <a class="logo">
-                        <span class="logo-sm">
-                            <img src="{{ asset('/user/images/LogoPosgradoSF.png') }}" alt="" height="30" width="25">
-                        </span>
-                    </a>
-                </div>
+            <div class="layout-width">
+                <div class="navbar-header">
+                    <div class="d-flex">
+                        <!-- LOGO -->
+                        <div class="navbar-brand-box horizontal-logo">
+                            <a class="logo">
+                                <span class="logo-sm">
+                                    <img src="{{ asset('/user/images/LogoPosgradoSF.png') }}" alt=""
+                                        height="30" width="25">
+                                </span>
+                            </a>
+                        </div>
 
-                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger shadow-none" id="topnav-hamburger-icon">
-                    <span class="hamburger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                </button>
-            </div>
-
-            <div class="d-flex align-items-center">
-
-                <div class="ms-1 header-item d-none d-sm-flex">
-                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle shadow-none" data-toggle="fullscreen">
-                        <i class='bx bx-fullscreen fs-22'></i>
-                    </button>
-                </div>
-
-                <div class="dropdown ms-sm-3 header-item topbar-user">
-                    <button type="button" class="btn shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{{asset('assets/images/avatar.png')}}" alt="Header Avatar">
-                            <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_nombres}} {{auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_apellidos}}</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{auth('admin')->user()->TrabajadorTipoTrabajador->TipoTrabajador->tipo_trabajador}}</span>
+                        <button type="button"
+                            class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger shadow-none"
+                            id="topnav-hamburger-icon">
+                            <span class="hamburger-icon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
                             </span>
-                        </span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <h6 class="dropdown-header">¡Bienvenido!</h6>
+                        </button>
+                    </div>
 
-                        <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Perfil</span></a>
-                        
-                        <div class="dropdown-divider"></div>
+                    <div class="d-flex align-items-center">
 
-                        {{-- <a class="dropdown-item" href="#"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a> --}}
+                        <div class="ms-1 header-item d-none d-sm-flex">
+                            <button type="button"
+                                class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle shadow-none"
+                                data-toggle="fullscreen">
+                                <i class='bx bx-fullscreen fs-22'></i>
+                            </button>
+                        </div>
 
-                        <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> {{ __('Cerrar sesión') }}
-                        </a>
+                        <div class="dropdown ms-sm-3 header-item topbar-user">
+                            <button type="button" class="btn shadow-none" id="page-header-user-dropdown"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="d-flex align-items-center">
+                                    <img class="rounded-circle header-profile-user"
+                                        src="{{ asset('assets/images/avatar.png') }}" alt="Header Avatar">
+                                    <span class="text-start ms-xl-2">
+                                        <span
+                                            class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_nombres }}
+                                            {{ auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_apellidos }}</span>
+                                        <span
+                                            class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{ auth('admin')->user()->TrabajadorTipoTrabajador->TipoTrabajador->tipo_trabajador }}</span>
+                                    </span>
+                                </span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- item-->
+                                <h6 class="dropdown-header">¡Bienvenido!</h6>
 
-                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                                <a class="dropdown-item" href="#"><i
+                                        class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
+                                        class="align-middle">Perfil</span></a>
+
+                                <div class="dropdown-divider"></div>
+
+                                {{-- <a class="dropdown-item" href="#"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a> --}}
+
+                                <a class="dropdown-item" href="{{ route('admin.logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
+                                    {{ __('Cerrar sesión') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST"
+                                    class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</header>
+        </header>
         <!-- ========== App Menu ========== -->
         <div class="app-menu navbar-menu">
             <!-- LOGO -->
@@ -123,12 +142,14 @@
                     </span>
                     <span class="logo-lg">
                         <div class="d-flex justify-content-center align-items-center">
-                            <img src="{{ asset('user/images/LogoPosgradoSF.png') }}" alt="" height="35" width="30">
+                            <img src="{{ asset('user/images/LogoPosgradoSF.png') }}" alt="" height="35"
+                                width="30">
                             <span class="fw-bold text-white fs-3 ms-2 align-self-center text-uppercase">Posgrado</span>
                         </div>
                     </span>
                 </a>
-                <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+                <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
+                    id="vertical-hover">
                     <i class="ri-record-circle-line"></i>
                 </button>
             </div>
@@ -143,30 +164,11 @@
                         <li class="menu-title"><span data-key="t-menu">Menú</span></li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{route('coordinador.index')}}" role="button" aria-expanded="false" aria-controls="sidebarDashboard">
-                                <i class="mdi mdi-speedometer"></i> <span data-key="t-apps">Dashboard</span>
+                            <a class="nav-link menu-link" href="{{ route('coordinador.index') }}" role="button"
+                                aria-expanded="false" aria-controls="sidebarDashboard">
+                                <i class="mdi mdi-view-grid-plus-outline"></i> <span data-key="t-apps">Inicio</span>
                             </a>
                         </li>
-{{-- 
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarUser" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                                <i class="mdi mdi-account-group-outline"></i> <span data-key="t-apps">Usuarios</span>
-                            </a>
-                            <div class="collapse menu-dropdown" id="sidebarUser">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link" data-key="t-analytics"> Docente </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.coordinador.index') }}" class="nav-link" data-key="t-analytics"> Coordinador de Unidad </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link" data-key="t-analytics"> Administrativo </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li> --}}
-
                     </ul>
                 </div>
                 <!-- Sidebar -->
@@ -188,33 +190,39 @@
 
                     <div class="row">
                         <div class="col">
-                            @if(\Session::has('edit'))
-                                <div class="alert alert-success alert-border-left alert-dismissible fade shadow show" role="alert">
+                            @if (\Session::has('edit'))
+                                <div class="alert alert-success alert-border-left alert-dismissible fade shadow show"
+                                    role="alert">
                                     <div>
-                                        <i class="ri-check-double-line me-3 align-middle fs-16"></i><strong>{{ \Session::get('edit') }}</strong>
+                                        <i
+                                            class="ri-check-double-line me-3 align-middle fs-16"></i><strong>{{ \Session::get('edit') }}</strong>
                                     </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
                                 </div>
-                                
                             @endif
 
-                            @if(session('new'))
-                                <div class="alert alert-success alert-border-left alert-dismissible fade shadow show" role="alert">
+                            @if (session('new'))
+                                <div class="alert alert-success alert-border-left alert-dismissible fade shadow show"
+                                    role="alert">
                                     <div>
                                         {{ \Session::get('new') }}
                                     </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
                                 </div>
                             @endif
 
-                            @if(\Session::has('dupli'))
-                                <div class="alert alert-danger alert-border-left alert-dismissible fade shadow show" role="alert">
+                            @if (\Session::has('dupli'))
+                                <div class="alert alert-danger alert-border-left alert-dismissible fade shadow show"
+                                    role="alert">
                                     <div>
-                                        <i class="ri-error-warning-line me-3 align-middle fs-16"></i><strong>{{ \Session::get('dupli') }}</strong>
+                                        <i
+                                            class="ri-error-warning-line me-3 align-middle fs-16"></i><strong>{{ \Session::get('dupli') }}</strong>
                                     </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
                                 </div>
-                                
                             @endif
                             @yield('content')
 
@@ -230,7 +238,9 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12">
-                            <script>document.write(new Date().getFullYear())</script> © Posgrado.
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script> © Posgrado.
                         </div>
                     </div>
                 </div>
@@ -249,14 +259,14 @@
                 letras = "1234567890.",
                 especiales = [8, 37, 39, 46],
                 tecla_especial = false;
-        
+
             for (var i in especiales) {
                 if (key == especiales[i]) {
-                tecla_especial = true;
-                break;
+                    tecla_especial = true;
+                    break;
                 }
             }
-        
+
             if (letras.indexOf(tecla) == -1 && !tecla_especial) {
                 return false;
             }
@@ -270,14 +280,14 @@
                 letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
                 especiales = [8, 37, 39, 46],
                 tecla_especial = false;
-        
+
             for (var i in especiales) {
                 if (key == especiales[i]) {
-                tecla_especial = true;
-                break;
+                    tecla_especial = true;
+                    break;
                 }
             }
-        
+
             if (letras.indexOf(tecla) == -1 && !tecla_especial) {
                 return false;
             }
@@ -304,7 +314,7 @@
     <script src="{{ asset('assets/libs/swiper/swiper-bundle.min.js') }}"></script>
 
     <!-- Dashboard init -->
-    <script src="{{ asset('assets/js/pages/dashboard-ecommerce.init.js') }}"></script>  
+    <script src="{{ asset('assets/js/pages/dashboard-ecommerce.init.js') }}"></script>
 
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
@@ -329,7 +339,10 @@
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <!--jquery cdn-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    {{-- toastify js --}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     @yield('javascript')
 

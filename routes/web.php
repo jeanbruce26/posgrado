@@ -38,6 +38,9 @@ Route::middleware(['auth:admin','auth.administrador'])->group(function () {
     Route::resource('ExpedienteInscripcion', 'ExpedienteInscripcionController');
     Route::resource('Expediente', 'ExpedienteController');
     
+    Route::get('administrador/trabajador', [App\Http\Controllers\TrabajadorController::class, 'index'])->name('admin.trabajador.index');
+    
+    
     Route::get('administrador/coordinador', [App\Http\Controllers\CoordinadorController::class, 'index'])->name('admin.coordinador.index');
     Route::get('administrador/docente', [App\Http\Controllers\DocenteController::class, 'index'])->name('admin.docente.index');
 });
@@ -50,6 +53,7 @@ Route::prefix('coordinador')->middleware(['auth:admin','auth.coordinador'])->gro
     Route::get('/{id}/inscripciones', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'inscripciones'])->name('coordinador.inscripciones');
     Route::get('/evaluacion/{id}/expediente', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'expediente'])->name('coordinador.expediente');
     Route::get('/evaluacion/{id}/entrevista', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'entrevista'])->name('coordinador.entrevista');
+    Route::get('/reportes/{id}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'reportes'])->name('coordinador.reportes');
     
 });
 
@@ -75,8 +79,6 @@ Route::post('usuarios/logout', [App\Http\Controllers\ModuloInscripcion\Usuario\U
 
 Route::get('usuarios', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'index'])->middleware('auth.usuarios')->name('usuarios.index');
 Route::get('usuarios/documentos', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'edit'])->middleware('auth.usuarios')->name('usuarios.edit');
-Route::get('usuarios/pdf/{id}', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'pdf'])->middleware('auth:usuarios')->name('usuario.pdf');
-
 
 //SUPER ADMIN
 //password => super-admin

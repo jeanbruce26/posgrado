@@ -12,6 +12,7 @@ use App\Models\Puntaje;
 class Inscripciones extends Component
 {
     use WithPagination;
+    
     protected $paginationTheme = 'bootstrap';
     protected $queryString = [
         'search' => ['except' => ''],
@@ -19,17 +20,17 @@ class Inscripciones extends Component
     ];
 
     public $id_mencion;
+    public $boton = 'disabled';
     public $search = '';
     public $mostrar = 10;
 
     public function evaExpe($id)
     {
-        // href="{{route('coordinador.expediente',$item->id_inscripcion)}}" 
+        date_default_timezone_set("America/Lima");
+        $fecha = today();
 
         $evaluacion = Evaluacion::where('inscripcion_id',$id)->first();
         $puntaje = Puntaje::where('puntaje_estado',1)->first();
-        
-        // dd($id, $evaluacion, $puntaje->puntaje_id);
 
         if($evaluacion){
             return redirect()->route('coordinador.expediente',$evaluacion->evaluacion_id);
@@ -38,12 +39,11 @@ class Inscripciones extends Component
                 "evaluacion_estado" => 1,
                 "puntaje_id" => $puntaje->puntaje_id,
                 "inscripcion_id" => $id,
+                "fecha_expediente" => $fecha,
             ]);
             
             return redirect()->route('coordinador.expediente',$eva->evaluacion_id);
         }
-
-
     }
 
 
@@ -86,11 +86,22 @@ class Inscripciones extends Component
             ->join('programa','subprograma.id_programa','=','programa.id_programa')
             ->where('mencion.id_mencion',$idmencion)
             ->first();
-        // dd($inscripciones);
+
+        $inscripciones_count = Inscripcion::join('mencion','inscripcion.id_mencion','=','mencion.id_mencion')
+            ->where('mencion.id_mencion',$idmencion)
+            ->count();
+        
+        $evaluaciones_count = Evaluacion::join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+            ->join('mencion','inscripcion.id_mencion','=','mencion.id_mencion')
+            ->where('mencion.id_mencion',$idmencion)
+            ->where('evaluacion.evaluacion_estado','!=',1)
+            ->count();
 
         return view('livewire.modulo-coordinador.inscripciones', [
             'inscripciones' => $inscripciones,
             'mencion' => $mencion,
+            'evaluaciones_count' => $evaluaciones_count,
+            'inscripciones_count' => $inscripciones_count,
         ]);
     }
 }

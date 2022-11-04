@@ -121,14 +121,16 @@ class Expediente extends Component
         if($eva){
             $eva->evaluacion_expediente_nota = $this->nota;
             $eva->save();
-            session()->flash('message', 'Nota actualizada satisfactoriamente.');
+            // session()->flash('message', 'Nota actualizada satisfactoriamente.');
+            $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Nota actualizada satisfactoriamente.']);
         }else{
             $eva_expe = EvaluacionExpediente::create([
                 "evaluacion_expediente_nota" => $this->nota,
                 "evaluacion_expediente_titulo_id" => $this->id_eva_exp,
                 "evaluacion_id" => $this->evaluacion_id,
             ]);
-            session()->flash('message', 'Nota agregada satisfactoriamente.');
+            $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Nota agregada satisfactoriamente.']);
+            // session()->flash('message', 'Nota agregada satisfactoriamente.');
         }
 
         $this->limpiar();
@@ -160,13 +162,18 @@ class Expediente extends Component
 
     public function evaluarExpediente()
     {
+        date_default_timezone_set("America/Lima");
         $evaluacion = Evaluacion::find($this->evaluacion_id);
         $inscripcion = Inscripcion::find($evaluacion->inscripcion_id);
         $evaluacion->nota_expediente = $this->total;
         if($this->total <= $evaluacion->Puntaje->puntaje_minimo_expediente){
             $evaluacion->evaluacion_observacion = 'Puntaje minimo no alcanzado en la Evaluacion de Expedientes.';
             $evaluacion->evaluacion_estado = 2;
+
+            $evaluacion->nota_entrevista = 0;
+            $evaluacion->nota_final = 0 + $this->total;
         }
+        $evaluacion->fecha_entrevista = today();
         $evaluacion->save();
         return redirect()->route('coordinador.inscripciones',$inscripcion->id_mencion);
     }

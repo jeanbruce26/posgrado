@@ -40,6 +40,9 @@
     
     <script src="https://unpkg.com/boxicons@2.0.9/dist/boxicons.js"></script>
 
+    {{-- toastify js --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     @livewireStyles
 
 </head>
@@ -61,7 +64,7 @@
                                 <span class="logo-lg">
                                     <div class="d-flex justify-content-center align-items-center">
                                         <img src="{{ asset('assets/images/LogoPosgradoSF.png') }}" alt="" height="45" width="40">
-                                        <span class="fw-bold text-white fs-2 ms-2 align-self-center text-uppercase">Posgrado</span>
+                                        <span style="color: #0a2e5c;" class="fw-bold fs-2 ms-2 align-self-center text-uppercase">Posgrado</span>
                                     </div>
                                 </span>
                             </a>
@@ -160,7 +163,6 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('assets/js/pages/select2.init.js') }}"></script>
 
-
     <!-- Sweet Alerts js -->
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
@@ -169,6 +171,11 @@
 
     {{-- SweetAlert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
+
+    {{-- toastify js --}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    @yield('javascript')
 
     @livewireScripts
     @stack('js')
@@ -189,10 +196,6 @@
                 'success'
             )
         });
-
-        window.addEventListener('userStore', event => {
-            $('#addModal'+event.detail.id).modal('hide');
-        })
 
     </script>
 </body>

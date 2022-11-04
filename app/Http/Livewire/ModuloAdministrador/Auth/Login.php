@@ -30,7 +30,7 @@ class Login extends Component
             'password' => 'required',
         ]);
 
-        $usuario = UsuarioTrabajador::where('usuario_correo',$this->correo)->first();
+        $usuario = UsuarioTrabajador::where('usuario_correo',$this->correo)->where('usuario_estado',1)->first();
 
 
         if(!$usuario){

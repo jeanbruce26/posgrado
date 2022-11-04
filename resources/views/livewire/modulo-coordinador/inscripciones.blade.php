@@ -15,7 +15,11 @@
                 </h5>
                 @endif
             </div>
-            <div class="w-md"></div>
+            @if($inscripciones_count != $evaluaciones_count)
+            <button type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Ver acta de evaluación" disabled><span>Ver acta de evaluación</span></button>
+            @else
+            <a target="_blank" href="{{route('coordinador.reportes',$id_mencion)}}" type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Ver acta de evaluación"><span>Ver acta de evaluación</span></a>
+            @endif
         </div>
     </div>
     <div class="card">
@@ -70,7 +74,7 @@
                                 <button wire:click="evaEntre({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-success btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                 @if ($evalu)
                                     @if ($evalu->nota_entrevista != null)
-                                    <span class="badge badge-soft-info ms-2"><i class="ri-check-double-line label-icon align-middle fs-12"></i></span>
+                                    <span class="badge badge-soft-success ms-2"><i class="ri-check-double-line label-icon align-middle fs-12"></i></span>
                                     @endif
                                 @endif
                             </td>

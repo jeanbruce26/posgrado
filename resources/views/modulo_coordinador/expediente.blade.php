@@ -30,5 +30,19 @@
             }
         })
     })
+
+    window.addEventListener('notificacionNota', event => {
+        // alert('Name updated to: ' + event.detail.message);
+        Toastify({
+            text: event.detail.message,
+            close: true,
+            duration: 4000,
+            stopOnFocus: true,
+            newWindow: true,
+            style: {
+                background: "#44d54b",
+            }
+        }).showToast();
+    })
 </script>
 @endsection

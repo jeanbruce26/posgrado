@@ -21,6 +21,8 @@ class Evaluacion extends Model
         'evaluacion_estado',
         'puntaje_id',
         'inscripcion_id',
+        'fecha_expediente',
+        'fecha_entrevista',
     ];
 
     public $timestamps = false;

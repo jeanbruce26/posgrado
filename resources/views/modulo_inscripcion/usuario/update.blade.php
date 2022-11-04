@@ -12,3 +12,25 @@
 </div>
 
 @endsection
+
+@section('javascript')
+    <script>
+        window.addEventListener('userStore', event => {
+            $('#addModal').modal('hide');
+            $('#editModal').modal('hide');
+        })
+
+        window.addEventListener('notificacionExpe', event => {
+        Toastify({
+            text: event.detail.message,
+            close: true,
+            duration: 5000,
+            stopOnFocus: true,
+            newWindow: true,
+            style: {
+                background: event.detail.color,
+            }
+        }).showToast();
+    })
+    </script>
+@endsection

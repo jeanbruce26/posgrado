@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>POSGRADO</title>
+    <title>Posgrado</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- App favicon -->
@@ -32,16 +32,19 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
 
     <link href="{{ asset('https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('https://unpkg.com/boxicons@latest/css/boxicons.min.css') }}">
+
     <script src="https://unpkg.com/boxicons@2.0.9/dist/boxicons.js"></script>
 
     <!-- gridjs css -->
     <link rel="stylesheet" href="{{ asset('assets/libs/gridjs/theme/mermaid.min.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     @yield('css')
 
     @livewireStyles
-
 </head>
 
 <body>
@@ -74,7 +77,7 @@
             <div class="d-flex align-items-center">
 
                 <div class="ms-1 header-item d-none d-sm-flex">
-                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle shadow-none" data-toggle="fullscreen">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-dark rounded-circle shadow-none" data-toggle="fullscreen">
                         <i class='bx bx-fullscreen fs-22'></i>
                     </button>
                 </div>
@@ -154,6 +157,9 @@
                             </a>
                             <div class="collapse menu-dropdown" id="sidebarUser">
                                 <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.trabajador.index') }}" class="nav-link" data-key="t-analytics"> Trabajador </a>
+                                    </li>
                                     <li class="nav-item">
                                         <a href="{{ route('admin.docente.index') }}" class="nav-link" data-key="t-analytics"> Docente </a>
                                     </li>
@@ -386,8 +392,8 @@
     <!-- gridjs init -->
     <script src="{{ asset('assets/js/pages/gridjs.init.js') }}"></script>
 
-
     <script src="{{ asset('assets/libs/list.js/list.min.js') }}"></script>
+
     <script src="{{ asset('assets/libs/list.pagination.js/list.pagination.min.js') }}"></script>
 
     <!-- listjs init -->
@@ -395,6 +401,11 @@
 
     <!-- Sweet Alerts js -->
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+
+    <!--jquery cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     @yield('javascript')
 

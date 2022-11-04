@@ -9,7 +9,7 @@
                         $expInsc = App\Models\ExpedienteInscripcion::where('id_inscripcion', auth('usuarios')->user()->id_inscripcion)->get();
                         $value = 0;
                     @endphp
-                    @if (session()->has('message'))
+                    {{-- @if (session()->has('message'))
                         <div class="alert alert-success alert-border-left alert-dismissible fade shadow show fw-bold" role="alert">
                             <i class="ri-check-double-line me-3 align-middle"></i> <strong> {{ session('message') }} </strong> 
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -20,7 +20,7 @@
                             <i class="ri-error-warning-line me-3 align-middle"></i> <strong> {{ session('error') }} </strong> 
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                    @endif
+                    @endif --}}
                     @if ($errors->any())
                     <div class="alert alert-danger my-4 alert-dismissible shadow fade show fw-bold" role="alert">
                         <strong> Error al momento de subir su documento. </strong> 
@@ -61,10 +61,10 @@
                                                 </td>
                                                 <td>
                                                     @if ($final >= $fecha)
-                                                    <a href="#editModal" type="button" class="link-success fs-15" data-bs-toggle="modal" data-bs-target="#editModal{{$expInscripcion->cod_ex_insc}}"><i class="bx bx-edit bx-sm bx-burst-hover"></i></a>
+                                                    <a href="#editModal" wire:click="cargarCodExpIns({{$expInscripcion->cod_ex_insc}})" type="button" class="link-success fs-15" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bx bx-edit bx-sm bx-burst-hover"></i></a>
 
                                                     {{-- Modal Show --}}
-                                                    <div wire:ignore.self class="modal fade" id="editModal{{$expInscripcion->cod_ex_insc}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+                                                    <div wire:ignore.self class="modal fade" id="editModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="editModal" aria-hidden="true">
                                                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -124,7 +124,7 @@
 
                                                                     <div class="modal-footer">
                                                                         <button type="button" wire:click="limpiar()" class="btn btn-danger text-decoration-none btn-label" data-bs-dismiss="modal"><i class="ri-close-line me-1 ri-lg label-icon align-middle fs-16 me-2"></i>Cancelar</button>
-                                                                        <button type="button" wire:click="guardar({{$expInscripcion->cod_ex_insc}})" class="btn btn-primary btn-label right"><i class="ri-arrow-up-line label-icon align-middle fs-16 ms-2"></i>Guardar</button>  
+                                                                        <button type="button" wire:click="guardar()" class="btn btn-primary btn-label right"><i class="ri-arrow-up-line label-icon align-middle fs-16 ms-2"></i>Guardar</button>  
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -149,9 +149,9 @@
                                             <td class="text-danger"><i class="ri-close-circle-line fs-17 align-middle"></i> No enviado</td>
                                             <td><p class="ms-3">-</p></td>
                                             <td>
-                                                <a href="#addModal" type="button" class="link-success fs-15" data-bs-toggle="modal" data-bs-target="#addModal{{ $exp->cod_exp }}"><i class='bx bx-add-to-queue bx-sm bx-burst-hover text-info'></i></a>
+                                                <a href="#addModal" type="button" wire:click="cargarCodExpeAdd({{ $exp->cod_exp }})" class="link-success fs-15" data-bs-toggle="modal" data-bs-target="#addModal"><i class='bx bx-add-to-queue bx-sm bx-burst-hover text-info'></i></a>
                                                 {{-- Modal Show --}}
-                                                <div wire:ignore.self class="modal fade" id="addModal{{ $exp->cod_exp }}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="addModal" aria-hidden="true">
+                                                <div wire:ignore.self class="modal fade" id="addModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="addModal" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -190,7 +190,7 @@
 
                                                                 <div class="modal-footer">
                                                                     <button type="button" wire:click="limpiar()" class="btn btn-danger text-decoration-none btn-label" data-bs-dismiss="modal"><i class="ri-close-line me-1 ri-lg label-icon align-middle fs-16 me-2"></i>Cancelar</button>
-                                                                    <button type="button" wire:click="agregar({{ $exp->cod_exp }})" class="btn btn-primary btn-label right"><i class="ri-arrow-up-line label-icon align-middle fs-16 ms-2"></i>Guardar</button>  
+                                                                    <button type="button" wire:click="agregar()" class="btn btn-primary btn-label right"><i class="ri-arrow-up-line label-icon align-middle fs-16 ms-2"></i>Guardar</button>  
                                                                 </div>
                                                             </form>
 
