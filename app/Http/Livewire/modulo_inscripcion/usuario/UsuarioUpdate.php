@@ -72,7 +72,7 @@ class UsuarioUpdate extends Component
             $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Error al momento de subir su documento (documento vacio).', 'color' => '#ea4b43']);
         }
 
-        $this->dispatchBrowserEvent('userStore', ['id' => $this->cod_exp_ins]);
+        $this->dispatchBrowserEvent('userEdit');
     }   
 
     public function limpiar()

@@ -17,6 +17,9 @@
     <script>
         window.addEventListener('userStore', event => {
             $('#addModal').modal('hide');
+        })
+
+        window.addEventListener('userEdit', event => {
             $('#editModal').modal('hide');
         })
 
