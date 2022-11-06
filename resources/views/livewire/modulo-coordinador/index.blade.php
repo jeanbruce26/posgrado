@@ -74,9 +74,9 @@
                 <div class="card-body">
                     <div class="live-preview">
                         <div class="table-responsive">
-                            <table class="table align-middle table-nowrap table-bordered dt-responsive text-dark">
-                                <thead class="table-light">
-                                    <tr>
+                            <table class="table table-hover align-middle table-nowrap table-bordered mb-0">
+                                <thead>
+                                    <tr align="center" style="background-color: rgb(179, 197, 245)">
                                         <th class="col-1">ID</th>
                                         <th>Inscripcion</th>
                                         <th>Programa</th>
@@ -86,14 +86,24 @@
                                 <tbody>
                                     @foreach ($mostrarInscripcion as $item)
                                         <tr>
-                                            <td>{{$item->id_inscripcion}}</td>
+                                            <td align="center" class="fw-bold">{{$item->id_inscripcion}}</td>
                                             <td>{{$item->Persona->apell_pater}} {{$item->Persona->apell_mater}}, {{$item->Persona->nombres}}</td>
-                                            @if ($item->mencion == null)
-                                            <td>- MAESTRIA: {{$item->subprograma}}</td>
-                                            @else
-                                            <td>- MAESTRIA: {{$item->subprograma}} <br> - MENCION: {{$item->mencion}}</td>
-                                            @endif
                                             <td>
+                                                @if ($item->mencion == null)
+                                                    @if ($item->descripcion_programa == 'DOCTORADO')
+                                                    DOCTORADO EN {{$item->subprograma}}
+                                                    @else
+                                                    MAESTRIA EN {{$item->subprograma}}
+                                                    @endif
+                                                @else
+                                                    @if ($item->descripcion_programa == 'DOCTORADO')
+                                                    DOCTORADO EN {{$item->subprograma}}
+                                                    @else
+                                                    MAESTRIA EN {{$item->subprograma}} <br> CON MENCION EN {{$item->mencion}}
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td align="center">
                                                 {{date('h:i A - d/m/Y', strtotime($item->fecha_inscripcion))}}
                                             </td>
                                         </tr>

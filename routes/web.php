@@ -2,13 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Route::get('login-prueba', function(){
+//     return view('modulo_administrador.Auth.login2');
+// });
+
 // CONTROLADOR DEL LOGIN ADMINISTRADOR
 Route::get('login', [App\Http\Controllers\AdminLoginController::class, 'login'])->name('admin.login');
 Route::post('logout', [App\Http\Controllers\AdminLoginController::class, 'logout'])->name('admin.logout');
 
 //CONTROLADORES
 
-Route::middleware(['auth:admin','auth.administrador'])->group(function () {
+Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])->group(function () {
 
     Route::get('', [App\Http\Controllers\AdminLoginController::class, 'administrador'])->name('admin.index');
     
@@ -29,20 +33,17 @@ Route::middleware(['auth:admin','auth.administrador'])->group(function () {
     Route::resource ('SubPrograma', 'SubProgramaController');
     
     Route::resource('Admision', 'AdmisionController');
-    Route::resource('Inscripcion', 'InscripcionController');
-    Route::resource('Pago', 'PagoController');
+    Route::get('/inscripcion', [App\Http\Controllers\InscripcionController::class, 'index'])->name('admin.inscripcion.index');
+    Route::get('/pago', [App\Http\Controllers\PagoController::class, 'index'])->name('admin.pago.index');
     Route::resource('CanalPago', 'CanalPagoController');
-    Route::resource('InscripcionPago', 'InscripcionPagoController');
+    Route::get('/inscripcion-pago', [App\Http\Controllers\InscripcionPagoController::class, 'index'])->name('admin.inscripcion-pago.index');
     Route::resource('ConceptoPago', 'ConceptoPagoController');
     Route::resource('HistorialInscripcion', 'HistorialInscripcionController');
     Route::resource('ExpedienteInscripcion', 'ExpedienteInscripcionController');
     Route::resource('Expediente', 'ExpedienteController');
     
-    Route::get('administrador/trabajador', [App\Http\Controllers\TrabajadorController::class, 'index'])->name('admin.trabajador.index');
-    
-    
-    Route::get('administrador/coordinador', [App\Http\Controllers\CoordinadorController::class, 'index'])->name('admin.coordinador.index');
-    Route::get('administrador/docente', [App\Http\Controllers\DocenteController::class, 'index'])->name('admin.docente.index');
+    Route::get('/trabajador', [App\Http\Controllers\TrabajadorController::class, 'index'])->name('admin.trabajador.index');
+    Route::get('/usuario', [App\Http\Controllers\UsuarioTrabajadorController::class, 'index'])->name('admin.user.index');
 });
 
 //CONTROLADOR DEL MODULO DE COORDINADORES

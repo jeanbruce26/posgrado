@@ -40,7 +40,7 @@
             stopOnFocus: true,
             newWindow: true,
             style: {
-                background: "#44d54b",
+                background: "#2eb867",
             }
         }).showToast();
     })

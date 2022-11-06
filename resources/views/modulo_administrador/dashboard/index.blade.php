@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-Hola
+<h1>Dashboard</h1>
 @endsection
 
 @section('javascript')

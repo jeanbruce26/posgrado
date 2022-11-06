@@ -22,6 +22,7 @@ class Index extends Component
 
         $mostrarInscripcion = Inscripcion::join('mencion','inscripcion.id_mencion','=','mencion.id_mencion')
             ->join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
+            ->join('programa','subprograma.id_programa','=','programa.id_programa')
             ->where('subprograma.facultad_id',$this->facultad->Facultad->facultad_id)->orderBy('id_inscripcion','DESC')
             ->take(10)->skip(0)->get();
         // dd($mostrarInscripcion);

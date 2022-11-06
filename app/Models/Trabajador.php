@@ -20,6 +20,7 @@ class Trabajador extends Model
         'trabajador_correo',
         'trabajador_direccion',
         'trabajador_grado',
+        'trabajador_perfil',
         'trabajador_estado',
     ];
 

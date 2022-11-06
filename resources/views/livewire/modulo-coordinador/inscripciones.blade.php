@@ -66,7 +66,7 @@
                                 <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-info btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                 @if ($evalu)
                                     @if ($evalu->nota_expediente != null)
-                                    <span class="badge badge-soft-info ms-2"><i class="ri-check-double-line label-icon align-middle fs-12"></i></span>
+                                    <span class="badge text-bg-info ms-2"><i class="ri-check-double-line label-icon align-middle fs-12"></i></span>
                                     @endif
                                 @endif
                             </td>
@@ -74,23 +74,23 @@
                                 <button wire:click="evaEntre({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-success btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                 @if ($evalu)
                                     @if ($evalu->nota_entrevista != null)
-                                    <span class="badge badge-soft-success ms-2"><i class="ri-check-double-line label-icon align-middle fs-12"></i></span>
+                                    <span class="badge text-bg-success ms-2"><i class="ri-check-double-line label-icon align-middle fs-12"></i></span>
                                     @endif
                                 @endif
                             </td>
                             <td align="center">
                                 @if ($evalu)
                                     @if ($evalu->evaluacion_estado == 1)
-                                    <span class="badge badge-soft-warning"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Por Evaluar</span>
+                                    <span class="badge text-bg-warning"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Por Evaluar</span>
                                     @endif
                                     @if ($evalu->evaluacion_estado == 2)
-                                    <span class="badge badge-soft-danger"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Evaluacion Observada</span>
+                                    <span class="badge text-bg-danger"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Evaluacion Observada</span>
                                     @endif
                                     @if ($evalu->evaluacion_estado == 3)
-                                    <span class="badge badge-soft-success"><i class="ri-check-double-line label-icon align-middle fs-12 me-1"></i>Evaluado</span>
+                                    <span class="badge text-bg-success"><i class="ri-check-double-line label-icon align-middle fs-12 me-1"></i>Evaluado</span>
                                     @endif
                                 @else
-                                <span class="badge badge-soft-warning"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Por Evaluar</span>
+                                <span class="badge text-bg-warning"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Por Evaluar</span>
                                 @endif
                             </td>
                         </tr>
