@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-10 m-auto">
+    <div class="col-lg-10 col-md-12 col-xl-8 m-auto">
         
         <livewire:modulo_inscripcion.usuario.usuario-update/>
     
@@ -15,12 +15,8 @@
 
 @section('javascript')
     <script>
-        window.addEventListener('userStore', event => {
-            $('#addModal').modal('hide');
-        })
-
-        window.addEventListener('userEdit', event => {
-            $('#editModal').modal('hide');
+        window.addEventListener('modalExpediente', event => {
+            $('#modalExpediente').modal('hide');
         })
 
         window.addEventListener('notificacionExpe', event => {

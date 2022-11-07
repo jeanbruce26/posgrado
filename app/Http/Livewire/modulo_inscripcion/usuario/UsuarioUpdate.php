@@ -17,123 +17,121 @@ class UsuarioUpdate extends Component
 {
     use WithFileUploads;
 
-    public $expediente_update;
-    public $expediente_add;
+    public $expediente;
+    public $expediente_inscripcion_model;
+    public $expediente_model_2;
+    public $expediente_nombre;
     public $cod_exp;
     public $cod_exp_ins;
+    public $iteration;
+    public $titulo = 'Ingresar Documento';
+    public $modo = 1;
 
-    // public function updated($propertyName)
-    // {
-    //     $this->validateOnly($propertyName, [
-    //         'expediente_add' => 'required|mimes:pdf|max:2024',
-    //     ]);
-    // }
-
-    public function cargarCodExpIns($id)
+    public function updated($propertyName)
     {
-        $this->cod_exp_ins = $id;
+        $this->validateOnly($propertyName, [
+            'expediente' => 'nullable|mimes:pdf|max:10024',
+        ]);
     }
 
-    public function guardar()
+    public function cargarCodExpIns(ExpedienteInscripcion $id)
     {
-        date_default_timezone_set("America/Lima");
-
-        $this->resetErrorBag();
-        $this->resetValidation();
-
-        $this->validate([
-            'expediente_update' => 'nullable|mimes:pdf',
-        ]);
-
-        $admision3 = Admision::where('estado',1)->first();
-        $admi = $admision3->admision;
-
-        $expe_ins = ExpedienteInscripcion::where('cod_ex_insc',$this->cod_exp_ins)->first();
-        
-        $nombreExpediente = $expe_ins->Expediente->tipo_doc;
-
-        $data = $this->expediente_update;
-    
-        if($data != null){
-            $path = $admi. '/' .auth('usuarios')->user()->id_inscripcion. '/';
-            $filename = $nombreExpediente.".".$data->extension();
-            $data = $this->expediente_update;
-            $data->storeAs($path, $filename, 'files_publico');
-
-            $expe_inscripcion = ExpedienteInscripcion::where('cod_ex_insc',$this->cod_exp_ins)->first();
-            $expe_inscripcion->fecha_entre = today();
-            $expe_inscripcion->save();
-
-            $this->reset('expediente_add','expediente_update');
-            $this->expediente_update = null;
-
-            $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Documento actualizado satisfactoriamente.', 'color' => '#44bb76']);
-        }else{
-            $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Error al momento de subir su documento (documento vacio).', 'color' => '#ea4b43']);
-        }
-
-        $this->dispatchBrowserEvent('userEdit');
-    }   
+        $this->expediente_inscripcion_model = $id;
+        $this->cod_exp_ins = $id->cod_ex_insc;
+        $this->modo = 2;
+        $this->titulo = 'Actualizar Documento';
+        $this->expediente_nombre = $id->Expediente->tipo_doc;
+    }
 
     public function limpiar()
     {
         $this->resetValidation();
-        $this->reset('expediente_add','expediente_update');
-        $this->expediente_add = null;
-        $this->expediente_update = null;
+        $this->reset('expediente');
+        $this->expediente = null;
+        $this->iteration++;
     }
 
-    public function cargarCodExpeAdd($id)
+    public function cargarCodExpeAdd(Expediente $id)
     {
-        $this->cod_exp = $id;
+        $this->expediente_model_2 = $id;
+        $this->cod_exp = $id->cod_exp;
+        $this->modo = 1;
+        $this->expediente_nombre = $id->tipo_doc;
+        $this->titulo = 'Ingresar Documento';
     }
 
-    public function agregar()
+    public function guardarExpediente()
     {
-        $this->resetErrorBag();
-        $this->resetValidation();
+        if($this->modo == 1){
+            $this->resetErrorBag();
+            $this->resetValidation();
 
-        // dd($this->all());
-
-        $this->validate([
-            'expediente_add' => 'nullable|mimes:pdf|max:2024',
-        ]);
-
-        $estadoExpediente = "Enviado";
-
-        $admision3 = Admision::where('estado',1)->first();
-        $admi = $admision3->admision;
-
-        $expe = Expediente::where('cod_exp',$this->cod_exp)->first();
-
-        $nombreExpediente = $expe->tipo_doc;
-
-        $data = $this->expediente_add;
-    
-        if($data != null){
-            $path = $admi. '/' .auth('usuarios')->user()->id_inscripcion. '/';
-            $filename = $nombreExpediente.".".$data->extension();
-            $data = $this->expediente_add;
-            $data->storeAs($path, $filename, 'files_publico');
-
-            ExpedienteInscripcion::create([
-                "nom_exped" => $filename,
-                "estado" => $estadoExpediente,
-                "expediente_cod_exp" => $this->cod_exp,
-                "id_inscripcion" => auth('usuarios')->user()->id_inscripcion,
+            $this->validate([
+                'expediente' => 'nullable|mimes:pdf|max:10024',
             ]);
 
-            $this->reset(['expediente_add','expediente_update']);
-            $this->expediente_add = null;
+            $estado_expediente = "Enviado";
 
-            $this->pdfUser(auth('usuarios')->user()->id_inscripcion);
+            $admision = Admision::where('estado',1)->first()->admision;
 
-            $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Documento ingresado satisfactoriamente.', 'color' => '#44bb76']);
+            $data = $this->expediente;
+        
+            if($data != null){
+                $path = $admision. '/' .auth('usuarios')->user()->id_inscripcion. '/';
+                $filename = $this->expediente_nombre.".".$data->extension();
+                $data = $this->expediente;
+                $data->storeAs($path, $filename, 'files_publico');
+
+                ExpedienteInscripcion::create([
+                    "nom_exped" => $filename,
+                    "estado" => $estado_expediente,
+                    "expediente_cod_exp" => $this->cod_exp,
+                    "id_inscripcion" => auth('usuarios')->user()->id_inscripcion,
+                ]);
+
+                $this->limpiar();
+
+                $this->pdfUser(auth('usuarios')->user()->id_inscripcion);
+
+                $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Documento ingresado satisfactoriamente.', 'color' => '#44bb76']);
+            }else{
+                $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Error al momento de subir su documento (documento vacio).', 'color' => '#ea4b43']);
+            }
         }else{
-            $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Error al momento de subir su documento (documento vacio).', 'color' => '#ea4b43']);
+            date_default_timezone_set("America/Lima");
+
+            $this->resetErrorBag();
+            $this->resetValidation();
+
+            $this->validate([
+                'expediente' => 'nullable|mimes:pdf|max:10024',
+            ]);
+
+            $admision = Admision::where('estado',1)->first()->admision;
+
+            $data = $this->expediente;
+        
+            if($data != null){
+                $path = $admision. '/' .auth('usuarios')->user()->id_inscripcion. '/';
+                $filename = $this->expediente_nombre.".".$data->extension();
+                $data = $this->expediente;
+                $data->storeAs($path, $filename, 'files_publico');
+
+                $expe_inscripcion = ExpedienteInscripcion::find($this->cod_exp_ins);
+                $expe_inscripcion->fecha_entre = now();
+                $expe_inscripcion->save();
+
+                $this->limpiar();
+                
+                $this->pdfUser(auth('usuarios')->user()->id_inscripcion);
+
+                $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Documento actualizado satisfactoriamente.', 'color' => '#44bb76']);
+            }else{
+                $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Error al momento de subir su documento (documento vacio).', 'color' => '#ea4b43']);
+            }
         }
 
-        $this->dispatchBrowserEvent('userStore', ['id' => $this->cod_exp]);
+        $this->dispatchBrowserEvent('modalExpediente');
     }
 
     public function pdfUser($id)
@@ -196,7 +194,7 @@ class UsuarioUpdate extends Component
 
         return view('livewire.modulo_inscripcion.usuario.usuario-update', [
             'nombre' => $nombre,
-            'expediente' => Expediente::all(),
+            'expediente_model' => Expediente::all(),
             'final' => $final,
             'fecha' => $fecha
         ]);
