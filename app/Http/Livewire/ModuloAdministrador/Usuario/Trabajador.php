@@ -7,6 +7,7 @@ use App\Models\AreaAdministrativo;
 use App\Models\Coordinador;
 use App\Models\Docente;
 use App\Models\Facultad;
+use App\Models\HistorialAdministrativo;
 use Livewire\Component;
 use App\Models\TipoDocumento;
 use App\Models\TipoTrabajador;
@@ -40,6 +41,7 @@ class Trabajador extends Component
     public $correo;
     public $grado;
     public $perfil;
+    public $iteration;
     
     public $trabajador_id;
 
@@ -138,6 +140,7 @@ class Trabajador extends Component
     public function modo()
     {
         $this->modo = 1;
+        $this->limpiar();
     }
 
     public function limpiar()
@@ -145,6 +148,8 @@ class Trabajador extends Component
         $this->resetErrorBag();
         $this->reset('tipo_documento','documento','nombres','apellidos','direccion','correo','grado','perfil');
         $this->modo = 1;
+        $this->perfil = null;
+        $this->iteration++;
     }
 
     public function cambiarEstado(TrabajadorModel $trabajador)
@@ -160,6 +165,8 @@ class Trabajador extends Component
             }
         }
         $trabajador->save();
+
+        $this->subirHistorial($trabajador->trabajador_id,'Actualizacion de trabajador','trabajador');
     }
 
     public function cargarTrabajador(TrabajadorModel $trabajador)
@@ -221,6 +228,8 @@ class Trabajador extends Component
             ]);
 
             $id_trabajador = $trabajador->trabajador_id;
+
+            $this->subirHistorial($id_trabajador,'Creacion de trabajador','trabajador');
     
             $this->dispatchBrowserEvent('notificacionTrabajador', ['message' =>'Trabajador agregado satisfactoriamente.']);
         }else{
@@ -258,6 +267,8 @@ class Trabajador extends Component
             $trabajador->save();
 
             $id_trabajador = $this->trabajador_id;
+            
+            $this->subirHistorial($id_trabajador,'Actualizacion de trabajador','trabajador');
 
             $this->dispatchBrowserEvent('notificacionTrabajador', ['message' =>'Trabajador '.$this->nombres.' actualizado satisfactoriamente.']);
         }
@@ -385,6 +396,9 @@ class Trabajador extends Component
                 $facu = Facultad::find($this->facultad);
                 $facu->facultad_estado = 2;
                 $facu->save();
+
+                
+                $this->subirHistorial($this->trabajador_id,'Actualizacion de asignacion de trabajador','trabajador_tipo_trabajador');
             }
     
             if($this->administrativo == true){
@@ -427,6 +441,8 @@ class Trabajador extends Component
                 $facu = Facultad::find($this->facultad);
                 $facu->facultad_estado = 2;
                 $facu->save();
+
+                $this->subirHistorial($this->trabajador_id,'Asignacion de trabajador','trabajador_tipo_trabajador');
             }
     
             if($this->administrativo == true){
@@ -454,6 +470,20 @@ class Trabajador extends Component
         if($this->trabajador_tipo_trabajador){
             $this->user_model = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$this->trabajador_tipo_trabajador->trabajador_tipo_trabajador_id)->get();
         }
+    }
+
+    public function subirHistorial($usuario_id, $descripcion, $tabla)
+    {
+        date_default_timezone_set("America/Lima");
+
+        HistorialAdministrativo::create([
+            "usuario_id" => auth('admin')->user()->usuario_id,
+            "trabajador_id" => auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_id,
+            "historial_descripcion" => $descripcion,
+            "historial_tabla" => $tabla,
+            "historial_usuario_id" => $usuario_id,
+            "historial_fecha" => now()
+        ]);
     }
     
     public function render()

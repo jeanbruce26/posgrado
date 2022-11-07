@@ -83,7 +83,7 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="d-flex align-items-center">
                                     @if (auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_perfil)
-                                    <img class="rounded-circle header-profile-user" src="{{asset('Perfil/'.auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_perfil)}}" alt="Header Avatar">
+                                    <img class="rounded-circle header-profile-user" src="{{asset('Perfil/'.(auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_perfil))}}" alt="Header Avatar">
                                     @else
                                     <img class="rounded-circle header-profile-user" src="{{asset('assets/images/avatar.png')}}" alt="Header Avatar">
                                     @endif
@@ -174,10 +174,6 @@
                                     <li class="nav-item">
                                         <a href="{{ route('admin.trabajador.index') }}" class="nav-link"
                                             data-key="t-analytics"> Trabajador </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.coordinador.index') }}" class="nav-link"
-                                            data-key="t-analytics"> Coordinador de Unidad </a>
                                     </li>
                                 </ul>
                             </div>
@@ -327,6 +323,7 @@
                             </div>
 
                             @endif
+
                             @yield('content')
 
                         </div> <!-- end col -->

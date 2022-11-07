@@ -91,8 +91,11 @@
                             <button type="button" class="btn shadow-none" id="page-header-user-dropdown"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="d-flex align-items-center">
-                                    <img class="rounded-circle header-profile-user"
-                                        src="{{ asset('assets/images/avatar.png') }}" alt="Header Avatar">
+                                    @if (auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_perfil)
+                                    <img class="rounded-circle header-profile-user" src="{{asset('Perfil/'.(auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_perfil))}}" alt="Header Avatar">
+                                    @else
+                                    <img class="rounded-circle header-profile-user" src="{{asset('assets/images/avatar.png')}}" alt="Header Avatar">
+                                    @endif
                                     <span class="text-start ms-xl-2">
                                         <span
                                             class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_nombres }}

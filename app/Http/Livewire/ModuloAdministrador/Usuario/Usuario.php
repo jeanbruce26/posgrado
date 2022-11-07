@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\ModuloAdministrador\Usuario;
 
+use App\Models\HistorialAdministrativo;
 use App\Models\UsuarioTrabajador;
 use Illuminate\Support\Facades\Crypt;
 use Livewire\Component;
@@ -60,6 +61,8 @@ class Usuario extends Component
         }
 
         $usuario->save();
+
+        $this->subirHistorial($usuario->usuario_id,'Actualizacion de estado usuario','usuario');
     }
 
     public function cargarUsuario(UsuarioTrabajador $usuario)
@@ -81,12 +84,14 @@ class Usuario extends Component
                 'password' => 'required'
             ]);
     
-            UsuarioTrabajador::create([
+            $usuario = UsuarioTrabajador::create([
                 "usuario_nombre" => $this->username,
                 "usuario_correo" => $this->correo,
                 "usuario_contraseña" => Crypt::encryptString($this->password),
                 "usuario_estado" => 1,
             ]);
+
+            $this->subirHistorial($usuario->usuario_id,'Creacion de usuario','usuario');
     
             $this->dispatchBrowserEvent('notificacionUsuario', ['message' =>'Usuario agregado satisfactoriamente.', 'color' => '#2eb867']);
         }else{
@@ -103,6 +108,8 @@ class Usuario extends Component
                 $usuario->usuario_contraseña = Crypt::encryptString($this->password);
             }
             $usuario->save();
+            
+            $this->subirHistorial($usuario->usuario_id,'Actualizacion de usuario','usuario');
 
             $this->dispatchBrowserEvent('notificacionUsuario', ['message' =>'Usuario '.$this->username.' actualizado satisfactoriamente.', 'color' => '#2eb867']);
         }
@@ -110,6 +117,20 @@ class Usuario extends Component
         $this->dispatchBrowserEvent('modalUsuario');
 
         $this->limpiar();
+    }
+
+    public function subirHistorial($usuario_id, $descripcion, $tabla)
+    {
+        date_default_timezone_set("America/Lima");
+
+        HistorialAdministrativo::create([
+            "usuario_id" => auth('admin')->user()->usuario_id,
+            "trabajador_id" => auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_id,
+            "historial_descripcion" => $descripcion,
+            "historial_tabla" => $tabla,
+            "historial_usuario_id" => $usuario_id,
+            "historial_fecha" => now()
+        ]);
     }
 
 

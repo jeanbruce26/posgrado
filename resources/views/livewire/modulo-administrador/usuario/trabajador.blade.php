@@ -129,6 +129,11 @@
                                                     wire:click="cargarTrabajadorId({{ $item->trabajador_id }})"
                                                     class="link-info fs-16"data-bs-toggle="modal"
                                                     data-bs-target="#modalAsignar"><i class="ri-user-add-line"></i></a>
+                                                <a href="#modaldDesAsignar"
+                                                    wire:click="cargarTrabajadorId({{ $item->trabajador_id }})"
+                                                    class="link-danger fs-16"data-bs-toggle="modal"
+                                                    data-bs-target="#modalDesAsignar"><i class="ri-user-unfollow-line
+                                                    "></i></a>
                                                 @endif
                                                 <a href="#modalInfo"
                                                     wire:click="cargarInfoTrabajador({{ $item->trabajador_id }})"
@@ -248,7 +253,7 @@
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Foto de perfil</label>
                                 <input type="file" class="form-control @error('perfil') is-invalid  @enderror"
-                                    wire:model="perfil">
+                                    wire:model="perfil" id="upload{{ $iteration }}">
                                 @error('perfil')
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
