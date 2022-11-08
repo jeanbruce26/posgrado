@@ -1,17 +1,6 @@
 <div>
     <div class="p-2 m-auto mt-2 col-10">
         <form wire:submit.prevent='login' novalidate>
-            <div class="mb-3">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="d-flex me-1"><i class="uil uil-book"></i></th>
-                            <th class="text-justify"><label class="form-label"> Bienvenido al Sistema Administrativo de la Escuela de Posgrado (<script>document.write(new Date().getFullYear())</script>).</label></th>
-                        </tr>
-                    </thead>
-                    </tbody>
-                </table>
-            </div>
 
             <div class="mb-3">
                 <label class="form-label">Correo *</label>
@@ -38,7 +27,7 @@
             @endif
 
             <div class="mt-4">
-                <button class="btn btn-primary w-100" type="submit">Ingresar</button>
+                <button class="btn  w-100" style="background: #2a2a50; color: white" type="submit">Ingresar</button>
             </div>
         </form>
     </div>
