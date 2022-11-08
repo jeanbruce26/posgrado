@@ -110,11 +110,11 @@
                                         <td align="center">
                                             @if ($item->trabajador_estado == 1)
                                                 <span style="cursor: pointer;"
-                                                    wire:click="cambiarEstado({{ $item->trabajador_id }})"
+                                                    wire:click="cargarAlerta({{ $item->trabajador_id }})"
                                                     class="badge text-bg-primary">Activo</span>
                                             @else
                                                 <span style="cursor: pointer;"
-                                                    wire:click="cambiarEstado({{ $item->trabajador_id }})"
+                                                    wire:click="cargarAlerta({{ $item->trabajador_id }})"
                                                     class="badge text-bg-danger">Inactivo</span>
                                             @endif
                                         </td>

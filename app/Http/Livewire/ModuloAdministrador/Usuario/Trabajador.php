@@ -79,7 +79,8 @@ class Trabajador extends Component
     public $coordinador_model;
     public $administrativo_model;
     public $user_model;
-
+    
+    protected $listeners = ['render', 'cambiarEstado'];
 
     public function updated($propertyName)
     {
@@ -150,6 +151,11 @@ class Trabajador extends Component
         $this->modo = 1;
         $this->perfil = null;
         $this->iteration++;
+    }
+
+    public function cargarAlerta($id)
+    {
+        $this->dispatchBrowserEvent('alertaConfirmacionTrabajador', ['id' => $id]);
     }
 
     public function cambiarEstado(TrabajadorModel $trabajador)
