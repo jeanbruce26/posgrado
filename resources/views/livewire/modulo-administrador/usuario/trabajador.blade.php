@@ -87,23 +87,39 @@
                                         <td align="center">{{ $item->trabajador_grado }}</td>
                                         <td>{{ $item->trabajador_correo }}</td>
                                         @php
-                                            $tra_tipo_tra = App\Models\TrabajadorTipoTrabajador::where('trabajador_id', $item->trabajador_id)->first();
+                                            $tra_tipo_tra = App\Models\TrabajadorTipoTrabajador::where('trabajador_id', $item->trabajador_id)->where('trabajador_tipo_trabajador_estado',1)->get();
                                         @endphp
-                                        <td align="center">
+                                        <td align="center" class="">
                                             @if ($tra_tipo_tra)
-                                                @if ($tra_tipo_tra->tipo_trabajador_id == 1)
-                                                    Docente
+                                                @if ($tra_tipo_tra->count() == 1)
+                                                    @foreach ($tra_tipo_tra as $item2)
+                                                        @if ($item2->tipo_trabajador_id == 1)
+                                                            Docente
+                                                        @endif
+                                                        @if ($item2->tipo_trabajador_id == 2)
+                                                            Coordinador de Unidad
+                                                        @endif
+                                                        @if ($item2->tipo_trabajador_id == 3)
+                                                            Administrativo
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                                    @foreach ($tra_tipo_tra as $item2)
+                                                        @if ($item2->tipo_trabajador_id == 1)
+                                                            <li>Docente</li> 
+                                                        @endif
+                                                        @if ($item2->tipo_trabajador_id == 2)
+                                                            <li>Coordinador de Unidad</li> 
+                                                        @endif
+                                                        @if ($item2->tipo_trabajador_id == 3)
+                                                            <li>Administrativo</li> 
+                                                        @endif
+                                                    @endforeach
+                                                    </ul>
                                                 @endif
-                                                @if ($tra_tipo_tra->tipo_trabajador_id == 2)
-                                                    Coordinador de Unidad
-                                                @endif
-                                                @if ($tra_tipo_tra->tipo_trabajador_id == 3)
-                                                    Administrativo
-                                                @endif
-                                                @if ($tra_tipo_tra->tipo_trabajador_id == 4)
-                                                    Super Administrador
-                                                @endif
-                                            @else
+                                            @endif
+                                            @if($tra_tipo_tra->count() == 0)
                                                 No asignado
                                             @endif
                                         </td>
@@ -126,14 +142,16 @@
                                                     data-bs-target="#modalTra"><i class="ri-edit-2-line"></i></a>
                                                 @if ($item->trabajador_estado == 1)
                                                 <a href="#modalAsignar"
-                                                    wire:click="cargarTrabajadorId({{ $item->trabajador_id }})"
+                                                    wire:click="cargarTrabajadorId({{ $item->trabajador_id }},1)"
                                                     class="link-info fs-16"data-bs-toggle="modal"
                                                     data-bs-target="#modalAsignar"><i class="ri-user-add-line"></i></a>
-                                                <a href="#modaldDesAsignar"
-                                                    wire:click="cargarTrabajadorId({{ $item->trabajador_id }})"
+                                                    @if ($tra_tipo_tra->count() != 0)
+                                                    <a href="#modaldDesAsignar"
+                                                    wire:click="cargarTrabajadorId({{ $item->trabajador_id }},2)"
                                                     class="link-danger fs-16"data-bs-toggle="modal"
-                                                    data-bs-target="#modalDesAsignar"><i class="ri-user-unfollow-line
+                                                    data-bs-target="#modaldDesAsignar"><i class="ri-user-unfollow-line
                                                     "></i></a>
+                                                    @endif
                                                 @endif
                                                 <a href="#modalInfo"
                                                     wire:click="cargarInfoTrabajador({{ $item->trabajador_id }})"
@@ -307,7 +325,7 @@
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" wire:model="administrativo"
-                                        @if ($coordinador == true) disabled @endif disabled>
+                                        @if ($coordinador == true) disabled @endif>
                                     <label class="form-check-label">
                                         Administrativo
                                     </label>
@@ -438,6 +456,63 @@
         </div>
     </div>
 
+    {{-- Modal DesAsiganar Tipo Trabajador --}}
+    <div wire:ignore.self class="modal fade" id="modaldDesAsignar" tabindex="-1" aria-labelledby="modaldDesAsignar"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-uppercase" id="exampleModalLabel">{{ $titulo_modal }}</h5>
+                    <button type="button" wire:click="limpiarAsignacion()" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form novalidate>
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label class="form-label">Trabajador asignado a:</label>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" wire:model="docente" 
+                                        @if ($docente == false) disabled @endif>
+                                    <label class="form-check-label">
+                                        Docente
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" wire:model="coordinador"
+                                        @if ($coordinador == false) disabled @endif>
+                                    <label class="form-check-label">
+                                        Coordinador de Unidad
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" wire:model="administrativo"
+                                        @if ($administrativo == false) disabled @endif>
+                                    <label class="form-check-label">
+                                        Administrativo
+                                    </label>
+                                </div>
+                                
+                                <div class="border-bottom mt-3"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer col-md-12 d-flex justify-content-between">
+                    <button type="button" wire:click="limpiarAsignacion()"
+                        class="btn btn-secondary btn-label waves-effect waves-light w-md" data-bs-dismiss="modal"><i
+                            class="ri-arrow-left-s-line label-icon align-middle fs-16 me-2"></i> Cancelar</button>
+                    <button type="button" wire:click="desasignarTrabajadorAlerta()"
+                        class="btn btn-primary btn-label waves-effect right waves-light w-md"><i
+                            class="ri-check-double-fill label-icon align-middle fs-16 ms-2"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- Modal Informacion del TrABAJADOR --}}
     <div wire:ignore.self class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="modalInfo"
         aria-hidden="true">
@@ -445,7 +520,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-uppercase" id="exampleModalLabel">{{ $titulo_modal }}</h5>
-                    <button type="button" wire:click="limpiarAsignacion()" class="btn-close" data-bs-dismiss="modal"
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -544,11 +619,13 @@
                                     <div class="col-md-12">
                                         <table style="width: 100%">
                                             <tbody>
+                                                @if ($administrativo_model->AreaAdministrativo->area)
                                                 <tr>
                                                     <td width="180">Area</td>
                                                     <td width="20">:</td>
-                                                    <td>{{ $administrativo_model->AreaAdministrativa->area }}</td>
+                                                    <td>{{ $administrativo_model->AreaAdministrativo->area }}</td>
                                                 </tr>
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>

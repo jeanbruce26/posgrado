@@ -46,6 +46,7 @@ class Trabajador extends Component
     public $trabajador_id;
 
     public $modo = 1;
+    public $disabled = 'enabled';
 
     public $docente;
     public $coordinador;
@@ -80,7 +81,7 @@ class Trabajador extends Component
     public $administrativo_model;
     public $user_model;
     
-    protected $listeners = ['render', 'cambiarEstado'];
+    protected $listeners = ['render', 'cambiarEstado', 'desasignarTrabajador'];
 
     public function updated($propertyName)
     {
@@ -155,12 +156,17 @@ class Trabajador extends Component
 
     public function cargarAlerta($id)
     {
-        $this->dispatchBrowserEvent('alertaConfirmacionTrabajador', ['id' => $id]);
+        $trabajador_tipo_trabajador = TrabajadorTipoTrabajador::where('trabajador_id',$id)->where('trabajador_tipo_trabajador_estado',1)->count();
+        if($trabajador_tipo_trabajador == 0){
+            $this->dispatchBrowserEvent('alertaConfirmacionTrabajador', ['id' => $id]);
+        }else{
+            $this->dispatchBrowserEvent('alertaConfirmacionTrabajadorAsignado');
+        }
     }
 
     public function cambiarEstado(TrabajadorModel $trabajador)
     {
-        $trabajador_tipo_trabajador = TrabajadorTipoTrabajador::where('trabajador_id',$trabajador->trabajador_id)->first();
+        $trabajador_tipo_trabajador = TrabajadorTipoTrabajador::where('trabajador_id',$trabajador->trabajador_id)->where('trabajador_tipo_trabajador_estado',1)->first();
         if($trabajador_tipo_trabajador){
 
         }else{
@@ -296,18 +302,25 @@ class Trabajador extends Component
         $this->limpiar();
     }
 
-    public function cargarTrabajadorId(TrabajadorModel $trabajador)
-    {
-        $this->modo = 3;
-        $this->titulo_modal = 'Asignar Trabajador';
+    public function cargarTrabajadorId(TrabajadorModel $trabajador,$valor)
+    { 
         $this->trabajador_id = $trabajador->trabajador_id;
 
-        $trabajador_tipo_trabajador = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->first();
-        if($trabajador_tipo_trabajador){
-            if($trabajador_tipo_trabajador->tipo_trabajador_id == 1){ //docente
-                dd($trabajador_tipo_trabajador);
+        if($valor == 1){
+            $this->modo = 3;
+            $this->titulo_modal = 'Asignar Trabajador';
+
+            //docentee
+            $trabajador_tipo_trabajador_docente = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',1)->where('trabajador_tipo_trabajador_estado',1)->first();
+            if($trabajador_tipo_trabajador_docente){
+                dd($trabajador_tipo_trabajador_docente);
+
+                $this->disabled = 'disabled'; //desabilitar el check en la vista
             }
-            if($trabajador_tipo_trabajador->tipo_trabajador_id == 2){ //coordinador
+            
+            //coordinador
+            $trabajador_tipo_trabajador_coordinador = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',2)->where('trabajador_tipo_trabajador_estado',1)->first();
+            if($trabajador_tipo_trabajador_coordinador){
                 $this->coordinador = true;
                 $this->tipo_coordinador = 1;
 
@@ -318,12 +331,50 @@ class Trabajador extends Component
                 $this->categoria = $coordinador_model->categoria_docente;
 
                 $this->usuario_model = UsuarioTrabajador::all();
-                $usuario_model = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$trabajador_tipo_trabajador->trabajador_tipo_trabajador_id)->first();
+                $usuario_model = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$trabajador_tipo_trabajador_coordinador->trabajador_tipo_trabajador_id)->first();
                 $this->usuario = $usuario_model->usuario_correo;
                 $this->usuario_antiguo = $usuario_model->usuario_id; //para cambiar el estado cuando se actualiza los datos del trabajador
+
+                $this->disabled = 'disabled'; //desabilitar el check en la vista
+            } 
+
+            //administrativo
+            $trabajador_tipo_trabajador_administrativo = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',3)->where('trabajador_tipo_trabajador_estado',1)->first();
+            if($trabajador_tipo_trabajador_administrativo){
+                $this->administrativo = true;
+                $this->tipo_administrativo = 1;
+
+                $administrativo_model = Administrativo::where('trabajador_id',$this->trabajador_id)->first();
+                $this->area_model = AreaAdministrativo::all();
+                $this->area = $administrativo_model->area_id;
+
+                $this->usuario_model = UsuarioTrabajador::all();
+                $usuario_model = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$trabajador_tipo_trabajador_administrativo->trabajador_tipo_trabajador_id)->first();
+                $this->usuario = $usuario_model->usuario_correo;
+                $this->usuario_antiguo = $usuario_model->usuario_id;
+                
+                $this->disabled = 'disabled'; //desabilitar el check en la vista
             }
-            if($trabajador_tipo_trabajador->tipo_trabajador_id == 3){ //administrativo
-                dd($trabajador_tipo_trabajador);
+        }else if($valor ==  2){
+            $this->modo = 5; 
+            $this->titulo_modal = 'Desasignar Trabajador';
+
+            //docentee
+            $trabajador_tipo_trabajador_docente = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',1)->where('trabajador_tipo_trabajador_estado',1)->first();
+            if($trabajador_tipo_trabajador_docente){
+                $this->docente = true;
+            }
+            
+            //coordinador
+            $trabajador_tipo_trabajador_coordinador = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',2)->where('trabajador_tipo_trabajador_estado',1)->first();
+            if($trabajador_tipo_trabajador_coordinador){
+                $this->coordinador = true;
+            } 
+
+            //administrativo
+            $trabajador_tipo_trabajador_administrativo = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',3)->where('trabajador_tipo_trabajador_estado',1)->first();
+            if($trabajador_tipo_trabajador_administrativo){
+                $this->administrativo = true;
             }
         }
     }
@@ -361,13 +412,22 @@ class Trabajador extends Component
 
     public function asignarTrabajador()
     {
-        $trabajador_tipo_trabajador = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->first();
-        if($trabajador_tipo_trabajador){ //ACTUALIZAR TRABAJADOR ASIGNADO
+        //DOCENTE
+        $trabajador_tipo_trabajador_docente = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',1)->where('trabajador_tipo_trabajador_estado',1)->first();
+        if($trabajador_tipo_trabajador_docente){
             if($this->docente == true){
-                // dd($this->all());
+                $this->dispatchBrowserEvent('notificacionAsignar', ['message' =>'Trabajador asignado actualizado satisfactoriamente.']);
             }
-    
-            if($this->coordinador == true){
+        }else{
+            if($this->docente == true){
+                $this->dispatchBrowserEvent('notificacionAsignar', ['message' =>'Trabajador asignado satisfactoriamente.']);
+            }
+        }
+
+        //COORDINADOR
+        $trabajador_tipo_trabajador_coordinador = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',2)->where('trabajador_tipo_trabajador_estado',1)->first(); 
+        if($trabajador_tipo_trabajador_coordinador){
+            if($this->coordinador == true){ //ACTUALIZAR COORDINADOR
                 $this->validate([
                     'categoria' => 'nullable|string',
                     'facultad' => 'required|numeric',
@@ -389,7 +449,7 @@ class Trabajador extends Component
 
                 //cambiar el estado del nuevo usuario seleccionado
                 $usuario = UsuarioTrabajador::find($usuario_id);
-                $usuario->trabajador_tipo_trabajador_id = $trabajador_tipo_trabajador->trabajador_tipo_trabajador_id;
+                $usuario->trabajador_tipo_trabajador_id = $trabajador_tipo_trabajador_coordinador->trabajador_tipo_trabajador_id;
                 $usuario->usuario_estado = 2;
                 $usuario->save();
 
@@ -402,22 +462,12 @@ class Trabajador extends Component
                 $facu = Facultad::find($this->facultad);
                 $facu->facultad_estado = 2;
                 $facu->save();
-
                 
-                $this->subirHistorial($this->trabajador_id,'Actualizacion de asignacion de trabajador','trabajador_tipo_trabajador');
+                $this->subirHistorial($this->trabajador_id,'Actualizacion de asignacion de trabajador a coordinador','trabajador_tipo_trabajador');
+                $this->dispatchBrowserEvent('notificacionAsignar', ['message' =>'Trabajador asignado actualizado satisfactoriamente.']);
             }
-    
-            if($this->administrativo == true){
-                // dd($this->all());
-            }
-
-            $this->dispatchBrowserEvent('notificacionAsignar', ['message' =>'Trabajador asignado actualizado satisfactoriamente.']);
-        }else{ //CREAR ASIGNACION DEL TRABAJADOR
-            if($this->docente == true){
-                // dd($this->all());
-            }
-    
-            if($this->coordinador == true){
+        }else{
+            if($this->coordinador == true){ //CREAR COORDINADOR
                 $this->validate([
                     'categoria' => 'nullable|string',
                     'facultad' => 'required|numeric',
@@ -448,14 +498,71 @@ class Trabajador extends Component
                 $facu->facultad_estado = 2;
                 $facu->save();
 
-                $this->subirHistorial($this->trabajador_id,'Asignacion de trabajador','trabajador_tipo_trabajador');
+                $this->subirHistorial($this->trabajador_id,'Asignacion de trabajador a coordinador','trabajador_tipo_trabajador');
+                $this->dispatchBrowserEvent('notificacionAsignar', ['message' =>'Trabajador asignado satisfactoriamente.']);
             }
-    
-            if($this->administrativo == true){
-                // dd($this->all());
-            }
+        }
 
-            $this->dispatchBrowserEvent('notificacionAsignar', ['message' =>'Trabajador asignado satisfactoriamente.']);
+        //ADMINISTRATIVO
+        $trabajador_tipo_trabajador_administrativo = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',3)->where('trabajador_tipo_trabajador_estado',1)->first(); 
+        if($trabajador_tipo_trabajador_administrativo){
+            if($this->administrativo == true){  //ACTUALZIAR ADMINISTRATIVO
+                $this->validate([
+                    'area' => 'required|numeric',
+                    'usuario' => 'required|string',
+                ]);
+
+                $administrativo = Administrativo::where('trabajador_id', $this->trabajador_id)->first();
+                $administrativo->area_id = $this->area;
+                $administrativo->save();
+
+                //cambiar el estado del usuario antiguo
+                $usuario = UsuarioTrabajador::find($this->usuario_antiguo);
+                $usuario->trabajador_tipo_trabajador_id = null;
+                $usuario->usuario_estado = 1;
+                $usuario->save();
+
+                $usuario_id = UsuarioTrabajador::where('usuario_correo',$this->usuario)->first()->usuario_id;
+
+                //cambiar el estado del nuevo usuario seleccionado
+                $usuario = UsuarioTrabajador::find($usuario_id);
+                $usuario->trabajador_tipo_trabajador_id = $trabajador_tipo_trabajador_administrativo->trabajador_tipo_trabajador_id;
+                $usuario->usuario_estado = 2;
+                $usuario->save();
+
+                $this->subirHistorial($this->trabajador_id,'Actualizacion de asignacion de trabajador a administrativo','trabajador_tipo_trabajador');
+                $this->dispatchBrowserEvent('notificacionAsignar', ['message' =>'Trabajador asignado actualizado satisfactoriamente.']);
+            }
+        }else{
+            if($this->administrativo == true){ //CREAR ADMINISTRATIVO
+                $this->validate([
+                    'area' => 'required|numeric|integer',
+                    'usuario' => 'required|string',
+                ]);
+
+                Administrativo::create([
+                    "area_id" => $this->area,
+                    "trabajador_id" => $this->trabajador_id,
+                    "administrativo_estado" => 1,
+                ]);
+
+                $trabajador_tipo_trabajador_admin = TrabajadorTipoTrabajador::create([
+                    "trabajador_id" => $this->trabajador_id,
+                    "tipo_trabajador_id" => 3,
+                    "trabajador_tipo_trabajador_estado" => 1,
+                ]);
+
+                $usuario_id = UsuarioTrabajador::where('usuario_correo',$this->usuario)->first()->usuario_id;
+
+                $usuario = UsuarioTrabajador::find($usuario_id);
+                $usuario->trabajador_tipo_trabajador_id = $trabajador_tipo_trabajador_admin->trabajador_tipo_trabajador_id;
+                $usuario->usuario_estado = 2;
+                $usuario->save();
+                
+
+                $this->subirHistorial($this->trabajador_id,'Asignacion de trabajador a administrativo','trabajador_tipo_trabajador');
+                $this->dispatchBrowserEvent('notificacionAsignar', ['message' =>'Trabajador asignado satisfactoriamente.']);
+            }
         }
         
         $this->dispatchBrowserEvent('modalAsignar');
@@ -468,7 +575,7 @@ class Trabajador extends Component
         $this->titulo_modal = 'Informacion del Trabajador';
         $this->trabajador_id = $trabajador->trabajador_id;
 
-        $this->trabajador_tipo_trabajador = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->first();
+        $this->trabajador_tipo_trabajador = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('trabajador_tipo_trabajador_estado',1)->first();
         $this->trabajador_model = $trabajador;
         $this->docente_model = Docente::where('trabajador_id',$this->trabajador_id)->first();
         $this->coordinador_model = Coordinador::where('trabajador_id',$this->trabajador_id)->first();
@@ -476,6 +583,75 @@ class Trabajador extends Component
         if($this->trabajador_tipo_trabajador){
             $this->user_model = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$this->trabajador_tipo_trabajador->trabajador_tipo_trabajador_id)->get();
         }
+    }
+
+    public function desasignarTrabajadorAlerta()
+    {
+        $this->dispatchBrowserEvent('alertaDesasignarTrabajador');
+    }
+
+    public function desasignarTrabajador()
+    {
+        //docentee
+        $trabajador_tipo_trabajador_docente = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',1)->where('trabajador_tipo_trabajador_estado',1)->first();
+        if($trabajador_tipo_trabajador_docente){
+            dd($this->docente);
+        }
+        
+        //coordinador
+        $trabajador_tipo_trabajador_coordinador = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',2)->where('trabajador_tipo_trabajador_estado',1)->first();
+        if($trabajador_tipo_trabajador_coordinador){
+            if($this->coordinador == false){
+                // desasiganr el trabajado asiganado al usuario y cambiar el estado del usuario a activo
+                $usuario = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$trabajador_tipo_trabajador_coordinador->trabajador_tipo_trabajador_id)->first();
+                $usuario->trabajador_tipo_trabajador_id = null;
+                $usuario->usuario_estado = 1;
+                $usuario->save();
+
+                //cambiar el estado del coordinador 
+                $coordinador = Coordinador::where('trabajador_id',$this->trabajador_id)->first();
+                $facultad_id = $coordinador->facultad_id;
+                $coordinador->coordinador_estado = 2;
+                $coordinador->save();
+
+                // cambiar el estado de la facultad asiganada al coordinador
+                $facu = Facultad::find($facultad_id);
+                $facu->facultad_estado = 1;
+                $facu->save();
+    
+                //  desactivar trabajador tipo de trabajador y quitar al trabajador asignado
+                $trabajador_tipo_trabajador_coordinador->trabajador_tipo_trabajador_estado = 2;
+                $trabajador_tipo_trabajador_coordinador->save();
+
+                $this->subirHistorial($this->trabajador_id,'Desasignacion de trabajador coordinador','trabajador_tipo_trabajador');
+            }
+        } 
+
+        //administrativo
+        $trabajador_tipo_trabajador_administrativo = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',3)->where('trabajador_tipo_trabajador_estado',1)->first();
+        if($trabajador_tipo_trabajador_administrativo){
+            if($this->administrativo == false){
+                // desasiganr el trabajado asiganado al usuario y cambiar el estado del usuario a activo
+                $usuario = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$trabajador_tipo_trabajador_administrativo->trabajador_tipo_trabajador_id)->first();
+                $usuario->trabajador_tipo_trabajador_id = null;
+                $usuario->usuario_estado = 1;
+                $usuario->save();
+
+                //cambiar el estado del coordinador 
+                $administrativo = Administrativo::where('trabajador_id',$this->trabajador_id)->first();
+                $administrativo->administrativo_estado = 2;
+                $administrativo->save();
+    
+                //  desactivar trabajador tipo de trabajador y quitar al trabajador asignado
+                $trabajador_tipo_trabajador_administrativo->trabajador_tipo_trabajador_estado = 2;
+                $trabajador_tipo_trabajador_administrativo->save();
+
+                $this->subirHistorial($this->trabajador_id,'Desasignacion de trabajador administrativo','trabajador_tipo_trabajador');
+            }
+        }
+
+        $this->dispatchBrowserEvent('modaldDesAsignar');
+        $this->limpiarAsignacion();
     }
 
     public function subirHistorial($usuario_id, $descripcion, $tabla)

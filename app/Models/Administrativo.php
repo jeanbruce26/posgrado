@@ -9,7 +9,7 @@ class Administrativo extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = "";
+    protected $primaryKey = "administrativo_id";
 
     protected $table = 'administrativo';
     protected $fillable = [

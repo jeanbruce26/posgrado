@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\ModuloAdministrador\Auth;
 
+use App\Models\Administrativo;
 use Livewire\Component;
 use App\Models\UsuarioTrabajador;
 use App\Models\TrabajadorTipoTrabajador;
@@ -45,23 +46,21 @@ class Login extends Component
                     if($usuario->trabajador_tipo_trabajador_id){
                         $tra_tipo_tra = TrabajadorTipoTrabajador::where('trabajador_tipo_trabajador_id', $usuario->trabajador_tipo_trabajador_id)->first();
     
-                        // dd($tra_tipo_tra);
-        
-                        if($tra_tipo_tra->tipo_trabajador_id == 4){
-                            auth('admin')->login($usuario);
-                            return redirect()->route('admin.index');
-                        }
                         if($tra_tipo_tra->tipo_trabajador_id == 3){
-                            // auth('admin')->login($usuario);
-                            // return redirect()->route('coordinador.index');
+                            $administrativo = Administrativo::where('trabajador_id',$tra_tipo_tra->trabajador_id)->first();
+                            if($administrativo->AreaAdministrativo->area_id == 3){
+                                auth('admin')->login($usuario);
+                                return redirect()->route('admin.index');
+                            }else{
+
+                            }
                         }
                         if($tra_tipo_tra->tipo_trabajador_id == 2){
                             auth('admin')->login($usuario);
                             return redirect()->route('coordinador.index');
                         }
                         if($tra_tipo_tra->tipo_trabajador_id == 1){
-                            // auth('admin')->login($usuario);
-                            // return redirect()->route('coordinador.index');
+                            
                         }
                     }else{
                         return redirect()->back()->with(array('mensaje'=>'Usuario inhabilitado'));

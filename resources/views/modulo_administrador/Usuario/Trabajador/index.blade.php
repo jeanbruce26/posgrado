@@ -55,6 +55,7 @@
         }).showToast();
     })
 
+    //alerta cambiar estado trabajador
     window.addEventListener('alertaConfirmacionTrabajador', event => {
         // alert('Name updated to: ' + event.detail.id);
         Swal.fire({
@@ -69,6 +70,39 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 Livewire.emitTo('modulo-administrador.usuario.trabajador', 'cambiarEstado', event.detail.id);
+            }
+        })
+    })
+
+    //alerta cambiar estado trabajador asignado
+    window.addEventListener('alertaConfirmacionTrabajadorAsignado', event => {
+        Swal.fire(
+        'Para desactivar un trabajador primero se tiene que desasignar sus cargos.',
+        '',
+        'warning'
+        )
+    })
+
+    //DESASIGANAR TRABAJADOR
+    window.addEventListener('modaldDesAsignar', event => {
+        $('#modaldDesAsignar').modal('hide');
+    })
+
+    //alerta para desasignar trabajador
+    window.addEventListener('alertaDesasignarTrabajador', event => {
+        // alert('Name updated to: ' + event.detail.id);
+        Swal.fire({
+            title: '¿Estás seguro de desasignar sus cargos al trabajador?',
+            text: "",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Desasignar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-administrador.usuario.trabajador', 'desasignarTrabajador');
             }
         })
     })

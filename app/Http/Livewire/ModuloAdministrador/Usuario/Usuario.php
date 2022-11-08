@@ -143,12 +143,9 @@ class Usuario extends Component
 
     public function render()
     {
-        $usuarios = UsuarioTrabajador::where(function($query) {$query->where('usuario_id','!=',1);})
-                ->where(function($query) {
-                    $query->where('usuario_nombre','LIKE',"%{$this->search}%")
-                    ->orWhere('usuario_correo','LIKE',"%{$this->search}%")
-                    ->orWhere('usuario_id','LIKE',"%{$this->search}%");
-                    })
+        $usuarios = UsuarioTrabajador::where('usuario_nombre','LIKE',"%{$this->search}%")
+                ->orWhere('usuario_correo','LIKE',"%{$this->search}%")
+                ->orWhere('usuario_id','LIKE',"%{$this->search}%")
                 ->orderBy('usuario_id','DESC')
                 ->paginate(50);
 

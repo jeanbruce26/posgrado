@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Administrativo;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -17,18 +18,19 @@ class AuthAdministrador
     public function handle(Request $request, Closure $next)
     {
         if (Auth('admin')->Check()) {
-            if(auth('admin')->user()->TrabajadorTipoTrabajador->tipo_trabajador_id == 4){
-                return $next($request);
+            if(auth('admin')->user()->TrabajadorTipoTrabajador->tipo_trabajador_id == 3){
+                $administrativo = Administrativo::where('trabajador_id',auth('admin')->user()->TrabajadorTipoTrabajador->trabajador_id)->first();
+                if($administrativo->AreaAdministrativo->area_id == 3){
+                    return $next($request);
+                }else{
+                    abort(403, 'No tiene autorización.');
+                }
             }else{
                 if(auth('admin')->user()->TrabajadorTipoTrabajador->tipo_trabajador_id == 2){
                     // return redirect()->route('coordinador.index');
                     abort(403, 'No tiene autorización.');
                 }
                 if(auth('admin')->user()->TrabajadorTipoTrabajador->tipo_trabajador_id == 1){
-                    // return redirect()->route('coordinador.index');
-                    abort(403, 'No tiene autorización.');
-                }
-                if(auth('admin')->user()->TrabajadorTipoTrabajador->tipo_trabajador_id == 3){
                     // return redirect()->route('coordinador.index');
                     abort(403, 'No tiene autorización.');
                 }
