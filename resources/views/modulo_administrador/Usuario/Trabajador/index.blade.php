@@ -55,27 +55,22 @@
         }).showToast();
     })
 
-    // window.addEventListener('delete', event => {
-    //     // alert('Name updated to: ' + event.detail.id);
-    //     Swal.fire({
-    //         title: 'Estas seguro?',
-    //         text: "Una vez eliminado no habrá vuelta atras!",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Si, eliminar!',
-    //         cancelButtonText: 'Cancelar'
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             Livewire.emitTo('modulo-administrador.usuario.coordinador', 'deleteCoordinador', event.detail.id);
-    //             Swal.fire(
-    //                 'Eliminado!',
-    //                 'El coordinador ha sido eliminado.',
-    //                 'success'
-    //             )
-    //         }
-    //     })
-    // })
+    window.addEventListener('alertaConfirmacionTrabajador', event => {
+        // alert('Name updated to: ' + event.detail.id);
+        Swal.fire({
+            title: '¿Estás seguro de modificar el estado del trabajador?',
+            text: "",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Modificar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-administrador.usuario.trabajador', 'cambiarEstado', event.detail.id);
+            }
+        })
+    })
 </script>
 @endsection

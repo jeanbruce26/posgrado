@@ -33,13 +33,13 @@
                                         <td>{{ $item->usuario_correo }}</td>
                                         <td align="center">
                                             @if ($item->usuario_estado == 1)
-                                                <span style="cursor: pointer;" wire:click="cambiarEstado({{ $item->usuario_id }})" class="badge text-bg-primary">Activo</span>
+                                                <span style="cursor: pointer;" wire:click="cargarAlerta({{ $item->usuario_id }})" class="badge text-bg-primary">Activo</span>
                                             @endif
                                             @if ($item->usuario_estado == 2)
-                                                <span style="cursor: pointer;" wire:click="cambiarEstado({{ $item->usuario_id }})" class="badge text-bg-success">Asignado</span>
+                                                <span style="cursor: pointer;" wire:click="cargarAlerta({{ $item->usuario_id }})" class="badge text-bg-success">Asignado</span>
                                             @endif
                                             @if ($item->usuario_estado == 0)
-                                                <span style="cursor: pointer;" wire:click="cambiarEstado({{ $item->usuario_id }})" class="badge text-bg-danger">Inactivo</span>
+                                                <span style="cursor: pointer;" wire:click="cargarAlerta({{ $item->usuario_id }})" class="badge text-bg-danger">Inactivo</span>
                                             @endif
                                         </td>
                                         <td align="center">

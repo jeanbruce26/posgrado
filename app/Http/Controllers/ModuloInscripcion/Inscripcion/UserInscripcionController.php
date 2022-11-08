@@ -75,7 +75,8 @@ class UserInscripcionController extends Controller
         $inscrip = Inscripcion::where('id_inscripcion',$id)->get();
         $tiempo = 6;
         $valor = '+ '.intval($tiempo).' month';
-        $final = date('j-m-Y',strtotime($fecha_actual2.$valor));
+        setlocale( LC_ALL,"es_ES@euro","es_ES","esp" );
+        $final = strftime('%d de %B del %Y', strtotime($fecha_actual2.$valor));
         $per = Persona::where('idpersona', $inscripcion->persona_idpersona)->get();
         $expedienteInscripcion = ExpedienteInscripcion::where('id_inscripcion',$id)->get();
         $expedi = Expediente::all();

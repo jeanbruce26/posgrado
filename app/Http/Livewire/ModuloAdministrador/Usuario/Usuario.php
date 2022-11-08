@@ -27,6 +27,8 @@ class Usuario extends Component
     public $correo;
     public $password;
 
+    protected $listeners = ['render', 'cambiarEstado'];
+
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName, [
@@ -46,6 +48,11 @@ class Usuario extends Component
         $this->resetErrorBag();
         $this->reset('username','correo','password');
         $this->modo = 1;
+    }
+
+    public function cargarAlerta($id)
+    {
+        $this->dispatchBrowserEvent('alertaConfirmacionUsuario', ['id' => $id]);
     }
 
     public function cambiarEstado(UsuarioTrabajador $usuario)
