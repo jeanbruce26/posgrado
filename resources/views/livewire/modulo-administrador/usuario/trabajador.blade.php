@@ -302,14 +302,14 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form novalidate>
+                    <form novalidate autocomplete="off">
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label class="form-label">Tipo de trabajador <span
                                         class="text-danger">*</span></label>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" wire:model="docente" disabled>
+                                    <input class="form-check-input" type="checkbox" wire:model="docente">
                                     <label class="form-check-label">
                                         Docente
                                     </label>
@@ -356,12 +356,33 @@
                                                         class="text-danger">*</span></label>
                                                 <input type="file"
                                                     class="form-control @error('cv') is-invalid  @enderror"
-                                                    wire:model="cv">
+                                                    wire:model="cv" accept=".pdf">
                                                 @error('cv')
                                                     <span class="error text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         @endif
+                                    </div>
+                                    <div class="border-bottom mb-3"></div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="mb-3 col-md-12">
+                                                <label class="dorm label">Usuario <span class="text-danger">*</span></label>
+                                                <div class="col-md-12">
+                                                    <input class="form-control @error('usuario_docente') is-invalid  @enderror" wire:model="usuario_docente" list="datalistOptions" type="text" placeholder="Ingrese el usuario a buscar...">
+                                                    <datalist id="datalistOptions">
+                                                        <select class="form-control @error('usuario_docente') is-invalid  @enderror" wire:model="usuario_docente">
+                                                        @foreach ($usuario_model as $item)
+                                                        <option value="{{ $item->usuario_correo }}" @if($item->usuario_estado == 0 || $item->usuario_estado == 2) disabled @endif>{{ $item->usuario_nombre }}</option>
+                                                        @endforeach
+                                                        </select>
+                                                    </datalist>
+                                                    @error('usuario_docente')
+                                                        <span class="error text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="border-bottom mb-3"></div>
                                 </div>
@@ -569,7 +590,7 @@
                                     </table>
                                 </div>
                             @endif
-                            @if ($trabajador_tipo_trabajador)
+                            @if ($trabajador_docente)
                                 @if ($docente_model)
                                     <div class="row mb-1 mt-4">
                                         <h6 class="fw-bold">Datos de Docente</h6>
@@ -591,6 +612,34 @@
                                         </table>
                                     </div>
                                 @endif
+                                @if ($user_model_docente)
+                                    <div class="row mb-1 mt-4">
+                                        <h6 class="fw-bold">Datos de Usuario Docente</h6>
+                                    </div>
+                                    <div class="col-md-12 mb-2">
+                                        <table style="width: 100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="180">Usuario</td>
+                                                    <td width="20">:</td>
+                                                    <td>{{ $user_model_docente->usuario_nombre }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Correo</td>
+                                                    <td>:</td>
+                                                    <td>{{ $user_model_docente->usuario_correo }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Contraseña</td>
+                                                    <td>:</td>
+                                                    <td>{{ Illuminate\Support\Facades\Crypt::decryptString($user_model_docente->usuario_contraseña) }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
+                            @endif
+                            @if ($trabajador_coordinador)
                                 @if ($coordinador_model)
                                     <div class="row mb-1 mt-4">
                                         <h6 class="fw-bold">Datos de Coordinador</h6>
@@ -612,6 +661,34 @@
                                         </table>
                                     </div>
                                 @endif
+                                @if ($user_model_coordinador)
+                                    <div class="row mb-1 mt-4">
+                                        <h6 class="fw-bold">Datos de Usuario Coordinador</h6>
+                                    </div>
+                                    <div class="col-md-12 mb-2">
+                                        <table style="width: 100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="180">Usuario</td>
+                                                    <td width="20">:</td>
+                                                    <td>{{ $user_model_coordinador->usuario_nombre }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Correo</td>
+                                                    <td>:</td>
+                                                    <td>{{ $user_model_coordinador->usuario_correo }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Contraseña</td>
+                                                    <td>:</td>
+                                                    <td>{{ Illuminate\Support\Facades\Crypt::decryptString($user_model_coordinador->usuario_contraseña) }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
+                            @endif
+                            @if ($trabajador_administrativo)
                                 @if ($administrativo_model)
                                     <div class="row mb-1 mt-4">
                                         <h6 class="fw-bold">Datos de Administrativo</h6>
@@ -630,42 +707,33 @@
                                         </table>
                                     </div>
                                 @endif
-                                @if ($user_model)
+                                @if ($user_model_administrativo)
                                     <div class="row mb-1 mt-4">
-                                        <h6 class="fw-bold">Datos de Usuario</h6>
+                                        <h6 class="fw-bold">Datos de Usuario Administrativo</h6>
                                     </div>
-                                    @php
-                                        $num = 0;
-                                    @endphp
-                                    @foreach ($user_model as $item)
-                                    @php
-                                        $num++;
-                                    @endphp
                                     <div class="col-md-12 mb-2">
                                         <table style="width: 100%">
                                             <tbody>
                                                 <tr>
-                                                    <td width="180">Usuario @if($num<10)0{{ $num }}@else{{ $num }}@endif</td>
+                                                    <td width="180">Usuario</td>
                                                     <td width="20">:</td>
-                                                    <td>{{ $item->usuario_nombre }}</td>
+                                                    <td>{{ $user_model_administrativo->usuario_nombre }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Correo</td>
                                                     <td>:</td>
-                                                    <td>{{ $item->usuario_correo }}</td>
+                                                    <td>{{ $user_model_administrativo->usuario_correo }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Contraseña</td>
                                                     <td>:</td>
-                                                    <td>{{ Illuminate\Support\Facades\Crypt::decryptString($item->usuario_contraseña) }}</td>
+                                                    <td>{{ Illuminate\Support\Facades\Crypt::decryptString($user_model_administrativo->usuario_contraseña) }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    @endforeach
                                 @endif
                             @endif
-                            {{-- <div class="border-bottom mt-3"></div> --}}
                         </div>
                     </div>
                 </div>

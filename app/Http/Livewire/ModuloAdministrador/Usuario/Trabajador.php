@@ -14,6 +14,7 @@ use App\Models\TipoTrabajador;
 use App\Models\Trabajador as TrabajadorModel;
 use App\Models\TrabajadorTipoTrabajador;
 use App\Models\UsuarioTrabajador;
+use Illuminate\Support\Facades\Crypt;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
@@ -59,6 +60,9 @@ class Trabajador extends Component
     //DOCENTE
     public $tipo_docentes;
     public $cv;
+    public $usuario_antiguo_docente;
+    public $usuario_docente;
+    public $nullable = false;
 
     //COORDINADOR
     public $facultad;
@@ -75,11 +79,17 @@ class Trabajador extends Component
 
     //TRABAJADOR TIPO TRABAJADOR
     public $trabajador_tipo_trabajador;
+    public $trabajador_docente;
+    public $trabajador_coordinador;
+    public $trabajador_administrativo;
     public $trabajador_model;
     public $docente_model;
     public $coordinador_model;
     public $administrativo_model;
     public $user_model;
+    public $user_model_docente;
+    public $user_model_coordinador;
+    public $user_model_administrativo;
     
     protected $listeners = ['render', 'cambiarEstado', 'desasignarTrabajador'];
 
@@ -87,7 +97,12 @@ class Trabajador extends Component
     {
         if($this->modo == 3){
             if($this->docente == true){
+                $this->validateOnly($propertyName, [
+                    'tipo_docentes' => 'required|string',
+                    'usuario' => 'required|string',
+                ]);
                 $this->tipo_docente = 1;
+                $this->usuario_model = UsuarioTrabajador::all();
             }else{
                 $this->tipo_docente = 0;
             }
@@ -106,6 +121,10 @@ class Trabajador extends Component
             }
     
             if($this->administrativo == true){
+                $this->validateOnly($propertyName, [
+                    'area' => 'required|numeric',
+                    'usuario' => 'required|string',
+                ]);
                 $this->tipo_administrativo = 1;
                 $this->area_model = AreaAdministrativo::all();
                 $this->usuario_model = UsuarioTrabajador::all();
@@ -166,10 +185,8 @@ class Trabajador extends Component
 
     public function cambiarEstado(TrabajadorModel $trabajador)
     {
-        $trabajador_tipo_trabajador = TrabajadorTipoTrabajador::where('trabajador_id',$trabajador->trabajador_id)->where('trabajador_tipo_trabajador_estado',1)->first();
-        if($trabajador_tipo_trabajador){
-
-        }else{
+        $trabajador_tipo_trabajador = TrabajadorTipoTrabajador::where('trabajador_id',$trabajador->trabajador_id)->where('trabajador_tipo_trabajador_estado',1)->count();
+        if($trabajador_tipo_trabajador == 0){
             if($trabajador->trabajador_estado == 1){
                 $trabajador->trabajador_estado = 2;
             }else{
@@ -313,8 +330,18 @@ class Trabajador extends Component
             //docentee
             $trabajador_tipo_trabajador_docente = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',1)->where('trabajador_tipo_trabajador_estado',1)->first();
             if($trabajador_tipo_trabajador_docente){
-                dd($trabajador_tipo_trabajador_docente);
+                $this->docente = true;
+                $this->tipo_docente = 1;
 
+                $docente_model = Docente::where('trabajador_id',$this->trabajador_id)->where('docente_estado',1)->first();
+                $this->tipo_docentes = $docente_model->docente_tipo_docente;
+                
+                $this->usuario_model = UsuarioTrabajador::all();
+                $usuario_model = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$trabajador_tipo_trabajador_docente->trabajador_tipo_trabajador_id)->first();
+                $this->usuario_docente = $usuario_model->usuario_correo;
+                $this->usuario_antiguo_docente = $usuario_model->usuario_id; //para cambiar el estado cuando se actualiza los datos del trabajador
+
+                $this->nullable = true;
                 $this->disabled = 'disabled'; //desabilitar el check en la vista
             }
             
@@ -382,9 +409,11 @@ class Trabajador extends Component
     public function limpiarDocente()
     {
         $this->resetErrorBag();
-        $this->reset('tipo_docentes','cv');
+        $this->reset('tipo_docentes','cv','usuario_docente','nullable');
         $this->docente = false;
         $this->tipo_docente = 0;
+        $this->cv = null;
+        $this->iteration++;
     }
 
     public function limpiarCoordinador()
@@ -416,10 +445,103 @@ class Trabajador extends Component
         $trabajador_tipo_trabajador_docente = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',1)->where('trabajador_tipo_trabajador_estado',1)->first();
         if($trabajador_tipo_trabajador_docente){
             if($this->docente == true){
+                if($this->tipo_docentes == 'DOCENTE EXTERNO'){
+                    $this->validate([
+                        'tipo_docentes' => 'required|string',
+                        'cv' => 'nullable|file|mimes:pdf|max:10048',
+                        'usuario_docente' => 'required|string',
+                    ]);
+                }else{
+                    $this->cv = null;
+                    $this->iteration++;
+                    $this->validate([
+                        'tipo_docentes' => 'required|string',
+                        'usuario_docente' => 'required|string',
+                    ]);
+                }
+
+                $docente = Docente::where('trabajador_id',$this->trabajador_id)->first();
+                if($this->tipo_docentes == 'DOCENTE EXTERNO'){
+                    $data = $this->cv;
+                    if($data != null){
+                        $path =  'Docente/';
+                        $filename = "cv-".$this->trabajador_id.".".$data->extension();
+                        $data = $this->cv;
+                        $data->storeAs($path, $filename, 'files_publico');
+
+                        $docente->docente_cv = $filename;
+                    }
+                }else{
+                    $docente->docente_cv = null;
+                }
+                $docente->docente_tipo_docente = $this->tipo_docentes;
+                $docente->save();
+
+                //cambiar el estado del usuario antiguo
+                $usuario = UsuarioTrabajador::find($this->usuario_antiguo_docente);
+                $usuario->trabajador_tipo_trabajador_id = null;
+                $usuario->usuario_estado = 1;
+                $usuario->save();
+
+                $usuario_id = UsuarioTrabajador::where('usuario_correo',$this->usuario_docente)->first()->usuario_id;
+
+                //cambiar el estado del nuevo usuario seleccionado
+                $usuario = UsuarioTrabajador::find($usuario_id);
+                $usuario->trabajador_tipo_trabajador_id = $trabajador_tipo_trabajador_docente->trabajador_tipo_trabajador_id;
+                $usuario->usuario_estado = 2;
+                $usuario->save();
+
+                $this->subirHistorial($this->trabajador_id,'Actualizacion de asignacion de trabajador a docente','trabajador_tipo_trabajador');
+
                 $this->dispatchBrowserEvent('notificacionAsignar', ['message' =>'Trabajador asignado actualizado satisfactoriamente.']);
             }
         }else{
             if($this->docente == true){
+                if($this->tipo_docentes == 'DOCENTE EXTERNO'){
+                    $this->validate([
+                        'tipo_docentes' => 'required|string',
+                        'cv' => 'required|file|mimes:pdf|max:10048',
+                        'usuario_docente' => 'required|string',
+                    ]);
+                }else{
+                    $this->validate([
+                        'tipo_docentes' => 'required|string',
+                        'usuario_docente' => 'required|string',
+                    ]);
+                }
+
+                $docente = Docente::create([
+                    "trabajador_id" => $this->trabajador_id,
+                    "docente_tipo_docente" => $this->tipo_docentes,
+                    "docente_estado" => 1,
+                ]);
+
+                $data = $this->cv;
+                if($data != null){
+                    $path =  'Docente/';
+                    $filename = "cv-".$this->trabajador_id.".".$data->extension();
+                    $data = $this->cv;
+                    $data->storeAs($path, $filename, 'files_publico');
+
+                    $docente_nuevo = Docente::find($docente->docente_id);
+                    $docente_nuevo->docente_cv = $filename;
+                    $docente_nuevo->save();
+                }
+                
+                $trabajador_tipo_trabajador_create = TrabajadorTipoTrabajador::create([
+                    "trabajador_id" => $this->trabajador_id,
+                    "tipo_trabajador_id" => 1,
+                    "trabajador_tipo_trabajador_estado" => 1,
+                ]);
+
+                $usuario_id = UsuarioTrabajador::where('usuario_correo',$this->usuario_docente)->first()->usuario_id;
+
+                $usuario = UsuarioTrabajador::find($usuario_id);
+                $usuario->trabajador_tipo_trabajador_id = $trabajador_tipo_trabajador_create->trabajador_tipo_trabajador_id;
+                $usuario->usuario_estado = 2;
+                $usuario->save();
+
+                $this->subirHistorial($this->trabajador_id,'Asignacion de trabajador a docente','trabajador_tipo_trabajador');
                 $this->dispatchBrowserEvent('notificacionAsignar', ['message' =>'Trabajador asignado satisfactoriamente.']);
             }
         }
@@ -574,14 +696,29 @@ class Trabajador extends Component
         $this->modo = 4;
         $this->titulo_modal = 'Informacion del Trabajador';
         $this->trabajador_id = $trabajador->trabajador_id;
-
-        $this->trabajador_tipo_trabajador = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('trabajador_tipo_trabajador_estado',1)->first();
         $this->trabajador_model = $trabajador;
-        $this->docente_model = Docente::where('trabajador_id',$this->trabajador_id)->first();
-        $this->coordinador_model = Coordinador::where('trabajador_id',$this->trabajador_id)->first();
-        $this->administrativo_model = Administrativo::where('trabajador_id',$this->trabajador_id)->first();
-        if($this->trabajador_tipo_trabajador){
-            $this->user_model = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$this->trabajador_tipo_trabajador->trabajador_tipo_trabajador_id)->get();
+
+        $this->user_model_docente = null;
+        $this->user_model_coordinador = null;
+        $this->user_model_administrativo = null;
+
+        //docente
+        $this->trabajador_docente = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',1)->where('trabajador_tipo_trabajador_estado',1)->first();
+        if($this->trabajador_docente){
+            $this->docente_model = Docente::where('trabajador_id',$this->trabajador_id)->first();
+            $this->user_model_docente = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$this->trabajador_docente->trabajador_tipo_trabajador_id)->where('usuario_estado',2)->first();
+        }
+        //coordinador
+        $this->trabajador_coordinador = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',2)->where('trabajador_tipo_trabajador_estado',1)->first();
+        if($this->trabajador_coordinador){
+            $this->coordinador_model = Coordinador::where('trabajador_id',$this->trabajador_id)->first();
+            $this->user_model_coordinador = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$this->trabajador_coordinador->trabajador_tipo_trabajador_id)->where('usuario_estado',2)->first();
+        }
+        //administrativo
+        $this->trabajador_administrativo = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',3)->where('trabajador_tipo_trabajador_estado',1)->first();
+        if($this->trabajador_administrativo){
+            $this->administrativo_model = Administrativo::where('trabajador_id',$this->trabajador_id)->first();
+            $this->user_model_administrativo = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$this->trabajador_administrativo->trabajador_tipo_trabajador_id)->where('usuario_estado',2)->first();
         }
     }
 
@@ -595,7 +732,23 @@ class Trabajador extends Component
         //docentee
         $trabajador_tipo_trabajador_docente = TrabajadorTipoTrabajador::where('trabajador_id',$this->trabajador_id)->where('tipo_trabajador_id',1)->where('trabajador_tipo_trabajador_estado',1)->first();
         if($trabajador_tipo_trabajador_docente){
-            dd($this->docente);
+            if($this->docente == false){
+                $usuario = UsuarioTrabajador::where('trabajador_tipo_trabajador_id',$trabajador_tipo_trabajador_docente->trabajador_tipo_trabajador_id)->first();
+                $usuario->trabajador_tipo_trabajador_id = null;
+                $usuario->usuario_estado = 0;
+                $usuario->save();
+
+                //cambiar el estado del coordinador 
+                $docente = Docente::where('trabajador_id',$this->trabajador_id)->first();
+                $docente->docente_estado = 2;
+                $docente->save();
+    
+                //  desactivar trabajador tipo de trabajador y quitar al trabajador asignado
+                $trabajador_tipo_trabajador_docente->trabajador_tipo_trabajador_estado = 2;
+                $trabajador_tipo_trabajador_docente->save();
+
+                $this->subirHistorial($this->trabajador_id,'Desasignacion de trabajador docente','trabajador_tipo_trabajador');
+            }
         }
         
         //coordinador
