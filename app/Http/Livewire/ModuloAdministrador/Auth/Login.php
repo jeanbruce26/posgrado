@@ -52,7 +52,7 @@ class Login extends Component
                                 auth('admin')->login($usuario);
                                 return redirect()->route('admin.index');
                             }else{
-
+                                return redirect()->back()->with(array('mensaje'=>'Usuario administrativo'));
                             }
                         }
                         if($tra_tipo_tra->tipo_trabajador_id == 2){
@@ -60,7 +60,7 @@ class Login extends Component
                             return redirect()->route('coordinador.index');
                         }
                         if($tra_tipo_tra->tipo_trabajador_id == 1){
-                            
+                            return redirect()->back()->with(array('mensaje'=>'Usuario docente'));
                         }
                     }else{
                         return redirect()->back()->with(array('mensaje'=>'Usuario inhabilitado'));
