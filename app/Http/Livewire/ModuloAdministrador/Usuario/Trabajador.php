@@ -739,7 +739,7 @@ class Trabajador extends Component
                 $usuario->save();
 
                 //cambiar el estado del coordinador 
-                $docente = Docente::where('trabajador_id',$this->trabajador_id)->first();
+                $docente = Docente::where('trabajador_id',$this->trabajador_id)->where('docente_estado',1)->first();
                 $docente->docente_estado = 2;
                 $docente->save();
     
@@ -762,7 +762,7 @@ class Trabajador extends Component
                 $usuario->save();
 
                 //cambiar el estado del coordinador 
-                $coordinador = Coordinador::where('trabajador_id',$this->trabajador_id)->first();
+                $coordinador = Coordinador::where('trabajador_id',$this->trabajador_id)->where('coordinador_estado',1)->first();
                 $facultad_id = $coordinador->facultad_id;
                 $coordinador->coordinador_estado = 2;
                 $coordinador->save();
@@ -791,7 +791,7 @@ class Trabajador extends Component
                 $usuario->save();
 
                 //cambiar el estado del coordinador 
-                $administrativo = Administrativo::where('trabajador_id',$this->trabajador_id)->first();
+                $administrativo = Administrativo::where('trabajador_id',$this->trabajador_id)->where('administrativo_estado',1)->first();
                 $administrativo->administrativo_estado = 2;
                 $administrativo->save();
     
