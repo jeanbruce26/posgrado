@@ -14,7 +14,7 @@ class UsuarioLogin extends Component
     {
         $this->validateOnly($propertyName, [
             'usuario' => 'required|numeric',
-            'codigo' => 'required|numeric',
+            'codigo' => 'required|string',
         ]);
     }
 
@@ -22,10 +22,10 @@ class UsuarioLogin extends Component
     {
         $data = $this->validate([
             'usuario' => 'required|numeric',
-            'codigo' => 'required|numeric',
+            'codigo' => 'required|string',
         ]);
 
-        $inscripcion = Inscripcion::join('persona','persona.idpersona','=','inscripcion.persona_idpersona')->where('persona.num_doc',$this->usuario)->where('inscripcion.id_inscripcion',$this->codigo)->first();
+        $inscripcion = Inscripcion::join('persona','persona.idpersona','=','inscripcion.persona_idpersona')->where('persona.num_doc',$this->usuario)->where('inscripcion.inscripcion_codigo',$this->codigo)->first();
 
         if(!$inscripcion){
             return redirect()->back()->with(array('mensaje'=>'Credenciales incorrectas'));

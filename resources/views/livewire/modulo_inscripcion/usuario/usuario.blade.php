@@ -15,8 +15,7 @@
             <h4 class="card-header d-flex fw-bold justify-content-star align-items-center">Bienvenido {{$nombre}}.</h4>
             
             <div class="card-text px-5 my-2 d-flex justify-content-around row g-3">
-                <div class="col-1"></div>
-                <div class="col-4">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div class="card card-body text-center" style="background-color: #ebf7ff">
                         <div class="avatar-sm mx-auto mb-3">
                             <div class="avatar-title bg-soft-primary text-primary fs-17 rounded">
@@ -27,7 +26,7 @@
                         <a target="_blank" href="{{asset('Admision 2022 - I/'.auth('usuarios')->user()->id_inscripcion.'/'.auth('usuarios')->user()->inscripcion)}}" class="btn btn-success">Descargar</a>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div class="card card-body" style="background-color: #ebf7ff">
                         <div class="avatar-sm mx-auto mb-3">
                             <div class="avatar-title bg-soft-primary text-primary fs-17 rounded">
@@ -38,7 +37,6 @@
                         <a href="{{route('usuarios.edit')}}" type="button" class="btn btn-success">Ver detalle</a>
                     </div>
                 </div>
-                <div class="col-1"></div>
             </div>
         </div>
         <!-- end tab pane -->

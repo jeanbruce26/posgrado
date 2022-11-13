@@ -182,7 +182,7 @@
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="sidebarApps">
-                                <i class="mdi mdi-view-grid-plus-outline"></i> <span
+                                <i class="mdi mdi-file-account-outline"></i> <span
                                     data-key="t-apps">Inscripción</span>
                             </a>
                             <div class="collapse menu-dropdown" id="sidebarApps">
@@ -195,16 +195,19 @@
                                         <a href="{{ route('admin.inscripcion-pago.index') }}" class="nav-link"
                                             data-key="t-analytics"> Inscripción de Pago </a>
                                     </li>
-                                    {{-- <li class="nav-item">
-                                        <a href="{{ route('HistorialInscripcion.index') }}" class="nav-link"
-                                            data-key="t-analytics"> Historial de Inscripción </a>
-                                    </li> --}}
                                     <li class="nav-item">
                                         <a href="{{ route('admin.pago.index') }}" class="nav-link" data-key="t-analytics">
                                             Pago </a>
                                     </li>
                                 </ul>
                             </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('admin.admitidos.index') }}" role="button" aria-expanded="false"
+                                aria-controls="sidebarDashboard">
+                                <i class="mdi mdi-account-multiple-check-outline"></i> <span data-key="t-apps">Admitidos</span>
+                            </a>
                         </li>
 
                         <li class="nav-item">

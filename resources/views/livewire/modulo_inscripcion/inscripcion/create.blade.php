@@ -9,29 +9,29 @@
         <div>
             <h4 class="text-center text-white p-2 rounded-pill" style="background: #142e52;">Paso 1 / 2</h4>
             <h5 class="card-header fw-bold mt-3">Información personal</h5>
-            <div class="card-body w-100">
+            <div class="card-body">
                 <div class="row g-3 col-12 m-auto">
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Primer Apellido <span class="text-danger">*</span></label>
                         <input type="text" wire:model="apellido_paterno" onkeyup="mayus(this);" class="form-control @error('apellido_paterno') is-invalid  @enderror" placeholder="Ingrese su apellido paterno">
                     </div>
                     
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Segundo Apellido <span class="text-danger">*</span></label>
                         <input type="text" wire:model="apellido_materno" onkeyup="mayus(this);" class="form-control @error('apellido_materno') is-invalid  @enderror" placeholder="Ingrese su apellido materno">
                     </div>
                     
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Nombres <span class="text-danger">*</span></label>
                         <input type="text" wire:model="nombres" onkeyup="mayus(this);" class="form-control @error('nombres') is-invalid  @enderror" placeholder="Ingrese sus nombres">
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Fecha de nacimiento <span class="text-danger">*</span></label>
                         <input type="date" wire:model="fecha_nacimiento" class="form-control @error('fecha_nacimiento') is-invalid  @enderror">
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Genero <span class="text-danger">*</span></label>
                         <select class="form-select @error('genero') is-invalid  @enderror" aria-label="Default select example" wire:model="genero">
                             <option value="" selected>Seleccione</option>
@@ -40,7 +40,7 @@
                         </select>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Estado Civil <span class="text-danger">*</span></label>
                         <select class="form-select @error('estado_civil') is-invalid  @enderror" aria-label="Default select example" wire:model="estado_civil">
                             <option value="" selected>Seleccione</option>
@@ -50,7 +50,7 @@
                         </select>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Grado Academico <span class="text-danger">*</span></label>
                         <select class="form-select @error('grado_academico') is-invalid  @enderror" aria-label="Default select example" wire:model="grado_academico">
                             <option value="" selected>Seleccione</option>
@@ -60,12 +60,12 @@
                         </select>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Especialidad</label>
                         <input type="text" wire:model="especialidad" onkeyup="mayus(this);" class="form-control @error('especialidad') is-invalid  @enderror" placeholder="Ingrese su especialidad">
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Discapacidad</label>
                         <select class="form-select @error('discapacidad') is-invalid  @enderror" aria-label="Default select example" wire:model="discapacidad">
                             <option value="" selected>Seleccione</option>
@@ -75,34 +75,34 @@
                         </select>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Celular <span class="text-danger">*</span></label>
                         <input type="text" wire:model="celular" onkeyup="mayus(this);" class="form-control @error('celular') is-invalid  @enderror" placeholder="Ingrese su número de celular">
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Celular 2 opcional</label>
                         <input type="text" wire:model="celular_opcional" onkeyup="mayus(this);" class="form-control @error('celular_opcional') is-invalid  @enderror" placeholder="Ingrese su número de celular opcional">
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Año de Egreso <span class="text-danger">*</span></label>
                         <input type="text" wire:model="año_egreso" onkeyup="mayus(this);" class="form-control @error('año_egreso') is-invalid  @enderror" placeholder="Ingrese su año egreso">
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Correo Electronico <span class="text-danger">*</span></label>
                         <input type="text" wire:model="correo" class="form-control @error('correo') is-invalid  @enderror" placeholder="Ingrese su correo electronico">
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Correo Electronico 2 opcional</label>
                         <input type="text" wire:model="correo_opcional" class="form-control @error('correo_opcional') is-invalid  @enderror" placeholder="Ingrese su correo electronico opcional">
                     </div>
 
                     <h5 class="mt-4 fw-bold">Datos de dirección.</h5>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Departamento <span class="text-danger">*</span></label>
                         <select class="form-select @error('departamento_direccion') is-invalid  @enderror" aria-label="Default select example" wire:model="departamento_direccion">
                             <option value="" selected>Seleccione</option>
@@ -112,7 +112,7 @@
                         </select>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Provincia <span class="text-danger">*</span></label>
                         <select class="form-select @error('provincia_direccion') is-invalid  @enderror" aria-label="Default select example" wire:model="provincia_direccion">
                             <option value="" selected>Seleccione</option>
@@ -124,7 +124,7 @@
                         </select>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Distrito <span class="text-danger">*</span></label>
                         <select class="form-select @error('distrito_direccion') is-invalid  @enderror" aria-label="Default select example" wire:model="distrito_direccion">
                             <option value="" selected>Seleccione</option>
@@ -136,14 +136,14 @@
                         </select>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
                         <label class="form-label">Direccion <span class="text-danger">*</span></label>
                         <input type="text" wire:model="direccion" onkeyup="mayus(this);" class="form-control @error('direccion') is-invalid  @enderror" placeholder="Ingrese su direccion">
                     </div>
 
                     <h5 class="mt-4 fw-bold">Lugar de nacimiento.</h5>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Departamento <span class="text-danger">*</span></label>
                         <select class="form-select @error('departamento_nacimiento') is-invalid  @enderror" aria-label="Default select example" wire:model="departamento_nacimiento">
                             <option value="" selected>Seleccione</option>
@@ -153,7 +153,7 @@
                         </select>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Provincia <span class="text-danger">*</span></label>
                         <select class="form-select @error('provincia_nacimiento') is-invalid  @enderror" aria-label="Default select example" wire:model="provincia_nacimiento">
                             <option value="" selected>Seleccione</option>
@@ -165,7 +165,7 @@
                         </select>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Distrito <span class="text-danger">*</span></label>
                         <select class="form-select @error('distrito_nacimiento') is-invalid  @enderror" aria-label="Default select example" wire:model="distrito_nacimiento">
                             <option value="" selected>Seleccione</option>
@@ -177,17 +177,19 @@
                         </select>
                     </div>
 
-                    <div class="col-8">
-                        <label class="form-label">Universidad <span class="text-danger">*</span></label>
-                        <select class="form-select @error('universidad') is-invalid  @enderror" aria-label="Default select example" wire:model="universidad">
-                            <option value="" selected>Seleccione</option>
-                            @foreach ($uni as $item)
-                            <option value="{{$item->cod_uni}}" {{ $item->cod_uni == old('universidad') ? 'selected' : '' }}>{{$item->universidad}}</option>
-                            @endforeach
-                        </select>
+                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12">
+                        <div wire:ignore>
+                            <label class="form-label">Universidad <span class="text-danger">*</span></label>
+                            <select class="form-select select2-universidad @error('universidad') is-invalid  @enderror" aria-label="Default select example" wire:model="universidad">
+                                <option value="" selected>Seleccione</option>
+                                @foreach ($uni as $item)
+                                <option value="{{$item->cod_uni}}" {{ $item->cod_uni == old('universidad') ? 'selected' : '' }}>{{$item->universidad}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Centro de trabajo <span class="text-danger">*</span></label>
                         <input type="text" wire:model="trabajo" onkeyup="mayus(this);" class="form-control @error('trabajo') is-invalid  @enderror" placeholder="Ingrese su centro de trabajo">
                     </div>
@@ -209,7 +211,7 @@
             <h5 class="card-header fw-bold mt-3">Seleccione su Programa</h5>
             <div class="card-body w-100">
                 <div class="row g-3 col-12 m-auto">
-                    <div class="col-12">
+                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
                         <label class="form-label">Sede <span class="text-danger">*</span></label>
                         <select class="form-select @error('sede_combo') is-invalid  @enderror" aria-label="Default select example" wire:model="sede_combo">
                             <option value="" selected>Seleccione</option>
@@ -219,7 +221,7 @@
                         </select>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Programa <span class="text-danger">*</span></label>
                         <select class="form-select @error('programa_combo') is-invalid  @enderror" aria-label="Default select example" wire:model="programa_combo">
                             <option value="" selected>Seleccione</option>
@@ -231,7 +233,7 @@
                         </select>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         @if ($programa_combo)
                         <label class="form-label">{{ucfirst(strtolower($programa_nombre->descripcion_programa))}} <span class="text-danger">*</span></label>
                         @else
@@ -256,7 +258,7 @@
                     @endphp
 
                     @if ($valor)    
-                    <div class="col-4">
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         <label class="form-label">Mención <span class="text-danger">(*)</span></label>
                         <select class="form-select @error('mencion_combo') is-invalid  @enderror" aria-label="Default select example" wire:model="mencion_combo">
                             <option value="" selected>Seleccione</option>
@@ -273,44 +275,45 @@
                         
                     @endif
 
-                    <h5 class="mt-5 fw-bold">Documentos requeridos.</h5>
-
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>DOCUMENTOS</th>
-                                <th>SELECCIONAR</th>
-                                <th></th>
-                                <th class="col-1">FORMATO</th>
-                            </tr>
-                        </thead>
-                            
-                        <tbody>
-                            @foreach ($expe as $item)
-                            <tr>
-                                <td>
-                                    <label class="form-label mt-2 mb-2">{{ $item->tipo_doc }} @if ($item->requerido == 1) <span class="text-danger">(*)</span> @endif</label>
-                                </td>
-                                <td class="col-md-4">
-                                    {{-- <input class="mt-2 mb-2 form-control form-control-sm btn btn-outline-secondary text-dark btn-sm colorsito nomExp{{ $item->cod_exp }}" type="file" wire:model="expediente" @if($item->requerido == 1)required pattern="[a-z]{1,15}" title="El expediente es requerido"@endif> --}}
-                                    <input class="mt-2 mb-2 form-control form-control-sm btn btn-primary" type="file" style="color:azure" wire:model="expediente{{$item->cod_exp}}" accept=".pdf">
-                                </td>
-                                <td class="col-md-1">
-                                </td> 
-                                <td align="center">
-                                    <label class="form-label mt-3">PDF</label>
-                                </td> 
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <h5 class="mt-5 fw-bold">Documentos requeridos</h5>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle table-nowrap mb-0">
+                            <thead>
+                                <tr align="center" style="background-color: rgb(231, 237, 255)">
+                                    <th class="col-md-6">DOCUMENTOS</th>
+                                    <th class="col-md-4">SELECCIONAR</th>
+                                    <th class="col-md-1"></th>
+                                    <th class="col-md-1">FORMATO</th>
+                                </tr>
+                            </thead>
+                                
+                            <tbody>
+                                @foreach ($expe as $item)
+                                <tr>
+                                    <td>
+                                        <label class="form-label mt-2 mb-2">{{ $item->tipo_doc }} @if ($item->requerido == 1) <span class="text-danger">(*)</span> @endif</label>
+                                    </td>
+                                    <td class="col-md-4">
+                                        <input class="mt-2 mb-2 form-control form-control-sm btn btn-primary" type="file" style="color:azure" wire:model="expediente{{$item->cod_exp}}" accept=".pdf">
+                                    </td>
+                                    <td class="col-md-1">
+                                    </td> 
+                                    <td align="center">
+                                        <label class="form-label mt-3">PDF</label>
+                                    </td> 
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
                     @if ($errors->any())
                     <div class="alert alert-danger mt-2 mb-2 text-center">Falta completar los campos requeridos.</div>
                     @endif
                 </div>
             </div>
-            <p class="card-text d-flex justify-content-star align-items-center mb-3"><input type="checkbox" wire:model="check" class="me-2"><span>DECLARO BAJO JURAMENTO QUE LOS DOCUMENTOS PRESENTADOS Y LOS DATOS CONSIGNADOS EN EL PRESENTE PROCESO DE ADMISIÓN SON FIDEDIGNOS</span></p> 
+            <p class="card-text d-flex justify-content-star align-items-center mt-2 mb-3"><input type="checkbox" wire:model="check" class="me-2"><span>DECLARO BAJO JURAMENTO QUE LOS DOCUMENTOS PRESENTADOS Y LOS DATOS CONSIGNADOS EN EL PRESENTE PROCESO DE ADMISIÓN SON FIDEDIGNOS</span></p> 
             @error('check')
                     <div class="alert alert-danger m2-1 mb-2">{{ $message }}</div>
             @enderror
@@ -358,10 +361,43 @@
         }
     </script>
 
-    {{-- <script>
-        $('#universidad').select2();
-        $('#universidad').on('change', function(){
-            @this.set('universidad', this.value)
-        })
-    </script> --}}
+    <script>
+        $(document).ready(function () {
+            $('.select2-universidad').select2({
+                placeholder: 'Seleccione',
+                allowClear: true,
+                width: '100%',
+                language: {
+                    noResults: function () {
+                        return "No se encontraron resultados";
+                    },
+                    searching: function () {
+                        return "Buscando..";
+                    }
+                }
+            });
+            $('.select2-universidad').on('change', function(){
+                @this.set('universidad', this.value);
+            });
+            Livewire.hook('message.processed', (message, component) => {
+                $('.select2-universidad').select2({
+                    placeholder: 'Seleccione',
+                    allowClear: true,
+                    width: '100%',
+                    language: {
+                        noResults: function () {
+                            return "No se encontraron resultados";
+                        },
+                        searching: function () {
+                            return "Buscando..";
+                        }
+                    }
+                });
+                $('.select2-universidad').on('change', function(){
+                    @this.set('universidad', this.value);
+                });
+            });
+        });
+        
+    </script>
 @endpush

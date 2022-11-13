@@ -95,10 +95,17 @@ class Pagos extends Component
             return back()->with(array('mensaje-seleccionar'=>'El monto ingresado no cumple con el monto minimo del concepto de pago'));
         }
 
-        $admi = Admision::where('estado',1)->first();
-        $admision = $admi->cod_admi;
+        $admision = Admision::where('estado',1)->first()->cod_admi;
+
+        //OBTENER EL ULTIMO CODIGO DE INSCRIPCION y autoincrementar
+        $ultimo_codifo_inscripcion = Inscripcion::orderBy('inscripcion_codigo','DESC')->first()->inscripcion_codigo;
+        $ultimo_codifo_inscripcion = substr($ultimo_codifo_inscripcion, 2, 6);
+        $ultimo_codifo_inscripcion = intval($ultimo_codifo_inscripcion) + 1;
+        $ultimo_codifo_inscripcion = str_pad($ultimo_codifo_inscripcion, 4, "0", STR_PAD_LEFT);
+        $ultimo_codifo_inscripcion = 'IN'.$ultimo_codifo_inscripcion;
         
         $inscripcion = Inscripcion::create([
+            "inscripcion_codigo" => $ultimo_codifo_inscripcion,
             "estado" => 'Activo',
             "admision_cod_admi" => $admision,
         ]);

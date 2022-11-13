@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-lg-10 col-md-12 col-xl-8 m-auto">
+    <div class="col-xxl-10 col-xl-10 col-lg-12 col-md-12 m-auto">
         
         <livewire:modulo_inscripcion.usuario.usuario-update/>
     
