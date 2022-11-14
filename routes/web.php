@@ -46,6 +46,7 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
     Route::get('/usuario', [App\Http\Controllers\UsuarioTrabajadorController::class, 'index'])->name('admin.user.index');
 
     Route::get('/admitidos', [App\Http\Controllers\EvaluacionController::class, 'admitidos'])->name('admin.admitidos.index');
+    Route::get('/constancia/{admitido}', [App\Http\Controllers\EvaluacionController::class, 'constancia'])->name('admin.admitidos.constancia');
 });
 
 //CONTROLADOR DEL MODULO DE COORDINADORES

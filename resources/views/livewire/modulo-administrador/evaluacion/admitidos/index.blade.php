@@ -27,9 +27,11 @@
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
                                     <th scope="col" class="col-md-1">ID</th>
                                     <th scope="col" class="col-md-2">Codigo</th>
-                                    <th scope="col" class="col-md-5">Apellidos y Nombres</th>
+                                    <th scope="col" class="col-md-3">Apellidos y Nombres</th>
                                     <th scope="col" class="col-md-2">Documento</th>
-                                    <th scope="col" class="col-md-2">Estado</th>
+                                    <th scope="col" class="col-md-1">Estado</th>
+                                    <th scope="col" class="col-md-2">Codigo Constancia</th>
+                                    <th scope="col" class="col-md-1">Constancia</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,6 +47,17 @@
                                         <td align="">{{ $item->apell_pater }} {{ $item->apell_mater }}, {{ $item->nombres }}</td>
                                         <td align="center">{{ $item->num_doc }}</td>
                                         <td align="center"><span class="badge text-bg-primary">Admitido</span></td>
+                                        <td align="center">{{ $item->constancia_codigo }}</td>
+                                        @php
+                                            $datos = App\Models\Evaluacion::join('inscripcion', 'inscripcion.id_inscripcion', '=', 'evaluacion.inscripcion_id')
+                                                ->join('admision','admision.cod_admi','=','inscripcion.admision_cod_admi')
+                                                ->where('evaluacion.evaluacion_id',$item->evaluacion_id)
+                                                ->first();
+                                            $ruta = $datos->admision.'/' . $datos->id_inscripcion . '/'.$item->constancia;
+                                        @endphp
+                                        <td align="center">
+                                            <a href="{{ asset($ruta) }}" class="link-success fs-16"><i class="ri-file-text-line"></i></a>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 @endif
