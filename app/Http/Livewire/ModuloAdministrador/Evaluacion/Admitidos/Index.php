@@ -190,17 +190,12 @@ class Index extends Component
                     ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
                     ->where('admitidos.admitidos_id','like','%'.$this->search.'%')
                     ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                    ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
                     ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
                     ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
                     ->orWhere('persona.nombres','like','%'.$this->search.'%')
                     ->orWhere('persona.num_doc','like','%'.$this->search.'%')
                     ->orderBy('admitidos.admitidos_codigo')
-                    ->get();
-
-        $admitidos = Admitidos::select('admitidos.admitidos_id','admitidos.admitidos_codigo',Admitidos::raw('CONCAT(CONCAT(CONCAT(CONCAT(persona.apell_pater," "), persona.apell_mater),", "), persona.nombres) as nombre_completo'),'persona.num_doc')
-                    ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
-                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
-                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
                     ->get();
 
         return view('livewire.modulo-administrador.evaluacion.admitidos.index',[
