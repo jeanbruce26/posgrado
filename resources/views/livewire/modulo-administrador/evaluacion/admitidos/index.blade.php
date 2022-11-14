@@ -6,9 +6,18 @@
                     <i class="ri-alert-line label-icon"></i><strong>Hay personas admitidas por generar su codigo</strong>
                 </div>
             @endif
-            <div class="d-flex justify-content-end align-items-center mb-3">
-                <button type="button" wire:click="export()" class="btn btn-success btn-label waves-effect right waves-light w-md me-3"><i class="ri-file-excel-2-line label-icon align-middle fs-16 ms-2"></i> Excel</button>
-                <button type="button" wire:click="cargarAlertaCodigo()" class="btn btn-primary btn-label waves-effect right waves-light w-md" @if ($mostrar_alerta == 0) disabled @endif><i class="ri-add-line label-icon align-middle fs-16 ms-2"></i> Generar codigo de admitidos</button>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <div wire:loading>
+                        <div class="spinner-border text-success" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div> 
+                    </div>
+                </div>
+                <div>
+                    <button type="button" wire:click="export()" class="btn btn-success btn-label waves-effect right waves-light w-md me-3"><i class="ri-file-excel-2-line label-icon align-middle fs-16 ms-2"></i> Excel</button>
+                    <button type="button" wire:click="cargarAlertaCodigo()" class="btn btn-primary btn-label waves-effect right waves-light w-md" @if ($mostrar_alerta == 0) disabled @endif><i class="ri-add-line label-icon align-middle fs-16 ms-2"></i> Generar codigo de admitidos</button>
+                </div>
             </div>
             <div class="card">
                 <div class="card-body">
@@ -56,7 +65,7 @@
                                             $ruta = $datos->admision.'/' . $datos->id_inscripcion . '/'.$item->constancia;
                                         @endphp
                                         <td align="center">
-                                            <a href="{{ asset($ruta) }}" class="link-success fs-16"><i class="ri-file-text-line"></i></a>
+                                            <a href="{{ asset($ruta) }}" target="_blank" class="link-success fs-16"><i class="ri-file-text-line"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
