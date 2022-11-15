@@ -10,14 +10,9 @@
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    
 
     <!-- Sweet Alert css-->
     <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
-
-
-    <!-- plugin css -->
-    <link href="{{ asset('assets/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Layout config Js -->
     <script src="{{ asset('assets/js/layout.js') }}"></script>
@@ -129,36 +124,15 @@
     <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
-
-    <!-- apexcharts -->
-    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-
-    <!-- Vector map-->
-    <script src="{{ asset('assets/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/jsvectormap/maps/world-merc.js') }}"></script>
-
-    <!-- Dashboard init -->
-    <script src="{{ asset('assets/js/pages/dashboard-analytics.init.js') }}"></script>
-
-    <!-- form wizard init -->
-    <script src="{{ asset('assets/js/pages/form-wizard.init.js') }}"></script>
-
-    <!-- prismjs plugin -->
-    <script src="{{ asset('assets/libs/prismjs/prism.js') }}"></script>
     
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
 
     <!--jquery cdn-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!--select2 cdn-->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="{{ asset('assets/js/pages/select2.init.js') }}"></script>
-
-
-    <!-- Sweet Alerts js -->
-    <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <!-- Sweet alert init js-->
     <script src="{{ asset('assets/js/pages/sweetalerts.init.js') }}"></script>
@@ -166,18 +140,11 @@
     {{-- SweetAlert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.all.min.js"></script>
 
-    @livewireScripts
     @stack('js')
 
-    <script>
-        window.addEventListener('confirmacion-pago', event =>{
-            Swal.fire(
-                'Pago guardado!',
-                'Su pago fue guardado satisfactoriamente.',
-                'success'
-            )
-        });
-    </script>
+    @yield('javascript')
+
+    @livewireScripts
 </body>
 
 </html>

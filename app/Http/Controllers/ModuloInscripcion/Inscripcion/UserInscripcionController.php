@@ -73,6 +73,7 @@ class UserInscripcionController extends Controller
         $mencion = Mencion::where('id_mencion',$inscripcion->id_mencion)->get();
         $admisionn = Admision::where('estado',1)->get();
         $inscrip = Inscripcion::where('id_inscripcion',$id)->get();
+        $inscripcion_codigo = Inscripcion::where('id_inscripcion',$id)->first()->inscripcion_codigo;
         $tiempo = 6;
         $valor = '+ '.intval($tiempo).' month';
         setlocale( LC_ALL,"es_ES@euro","es_ES","esp" );
@@ -88,6 +89,7 @@ class UserInscripcionController extends Controller
             'admisionn' => $admisionn,
             'inscripcion_pago' => $inscripcion_pago,
             'inscrip' => $inscrip,
+            'inscripcion_codigo' => $inscripcion_codigo,
             'montoTotal' => $montoTotal,
             'final' => $final,
             'expedienteInscripcion' => $expedienteInscripcion,

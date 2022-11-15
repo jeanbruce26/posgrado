@@ -23,3 +23,15 @@
     <!-- end col -->
 </div>
 @endsection
+
+@section('javascript')
+<script>
+    window.addEventListener('confirmacion-pago', event =>{
+        Swal.fire(
+            'Pago guardado!',
+            'Su pago fue guardado satisfactoriamente.',
+            'success'
+        )
+    });
+</script>
+@endsection

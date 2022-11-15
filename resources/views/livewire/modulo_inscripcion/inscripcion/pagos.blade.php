@@ -40,9 +40,9 @@
         <div class="card-body w-100">
             <div class="">
                 <!-- Striped Rows -->
-                <table class="table table-striped">
+                <table class="table table-hover align-middle table-nowrap mb-0">
                     <thead>
-                        <tr>
+                        <tr align="center" style="background-color: rgb(232, 238, 255)">
                             <th scope="col" class="col-1">Nro</th>
                             <th scope="col" class="col-3">Fecha</th>
                             <th scope="col" class="col-4">Número Operación</th>
@@ -52,15 +52,15 @@
                     </thead>
                     <tbody>
                         @php
-                            $num = 0;
+                            $num = 1;
                         @endphp
                         @if (isset($pago))
                         @foreach ($pago as $item)
                         <tr>
-                            <th scope="row">{{$num = $num + 1}}</th>
-                            <td>{{date('d-m-Y', strtotime($item->fecha_pago))}}</td>
-                            <td>{{$item->nro_operacion}}</td>
-                            <td>{{$item->monto}}</td>
+                            <td align="center" class="fw-bold">{{$num++}}</td>
+                            <td align="center">{{date('d/m/Y', strtotime($item->fecha_pago))}}</td>
+                            <td align="center">{{$item->nro_operacion}}</td>
+                            <td align="center">S/. {{number_format($item->monto,2)}}</td>
                             <td align="center">
                                 <input type="checkbox" wire:model="seleccionar" value="{{$item->pago_id}}" wire:click="contarMonto({{$item->pago_id}})">
                             </td>
@@ -68,15 +68,12 @@
                         @endforeach
                         @else
                         <tr>
-                            <th scope="row" colspan="5"></th>
+                            <td colspan="5" align="center" class="text-muted">No hay datos</td>
                         </tr>
                         @endif
-                        @php
-                            $num = 0;
-                        @endphp
                     </tbody>
                 </table>
-                <div class="d-flex justify-content-end me-4">
+                <div class="d-flex justify-content-end me-4 mt-3">
                     <strong>Total: S/. {{number_format($total,2)}}</strong>
                     <input type="hidden" wire:model="total" value="{{$total}}">
                 </div>

@@ -17,6 +17,7 @@ class Inscripcion extends Authenticatable
     protected $table = 'inscripcion';
     protected $fillable = [
         'id_inscripcion',
+        'inscripcion_codigo',
         'persona_idpersona',
         'estado',
         'admision_cod_admi',

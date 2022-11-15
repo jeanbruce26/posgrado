@@ -909,7 +909,10 @@ class Trabajador extends Component
                     ->paginate($this->mostrar);
         }else{
             $trabajadores = TrabajadorTipoTrabajador::join('trabajador','trabajador_tipo_trabajador.trabajador_id','=','trabajador.trabajador_id')
-                ->where(function($query) use ($tip){$query->where('trabajador_tipo_trabajador.tipo_trabajador_id',$tip);})
+                ->where(function($query) use ($tip){
+                    $query->where('trabajador_tipo_trabajador.tipo_trabajador_id',$tip)
+                        ->where('trabajador_tipo_trabajador.trabajador_tipo_trabajador_estado',1);
+                })
                 ->where(function($query) use ($buscar){
                     $query->where('trabajador.trabajador_nombres','LIKE',"%{$buscar}%")
                         ->orWhere('trabajador.trabajador_apellidos','LIKE',"%{$buscar}%")

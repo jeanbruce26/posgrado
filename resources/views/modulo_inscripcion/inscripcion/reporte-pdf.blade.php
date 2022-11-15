@@ -590,7 +590,7 @@
                     <th align="right" style="text-align: right">
                         @foreach ($inscrip as $item)
                         <div class="titulo6">
-                            Nro Ficha: {{$item->id_inscripcion}}
+                            Nro Ficha: {{$inscripcion_codigo}}
                         </div>
                         @endforeach
                     </th>
@@ -856,9 +856,7 @@
                 </tr>
                 <tr>
                     <th class="tabla4" style="background-color: rgb(200, 229, 255)"><div class="titulo3" style="font-size: small;">Contraseña</div></th>
-                    @foreach ($inscrip as $item)
-                    <th class="tabla4" style="text-align: initial; font-size: small;">{{$item->id_inscripcion}}</th>
-                    @endforeach
+                    <th class="tabla4" style="text-align: initial; font-size: small;">{{$inscripcion_codigo}}</th>
                 </tr>
                 <tr>
                     <th class="tabla4" style="background-color: rgb(200, 229, 255)"><div class="titulo3" style="font-size: small;">Link</div></th>

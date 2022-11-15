@@ -15,6 +15,8 @@ class Admision extends Model
     protected $fillable = [
         'cod_admi',
         'admision',
+        'admision_year',
+        'admision_convocatoria',
         'estado',
         'fecha_fin',
     ];

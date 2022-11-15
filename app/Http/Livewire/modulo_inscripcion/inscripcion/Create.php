@@ -77,6 +77,7 @@ class Create extends Component
     public $pasoactual = 0;
     public $check = false;
     public $opcion = 0;
+    public $iteration;
 
     // protected $listeners = ['inscripcion'];
     
@@ -115,6 +116,7 @@ class Create extends Component
             $this->año_egreso = $persona_buscar_datos->año_egreso;
             $this->correo = $persona_buscar_datos->email;
             $this->correo_opcional = $persona_buscar_datos->email2;
+            $this->reset('universidad');
             $this->universidad = $persona_buscar_datos->univer_cod_uni;
             $this->trabajo = $persona_buscar_datos->centro_trab;
             $ubi_dire = UbigeoPersona::where('persona_idpersona',$persona_buscar_datos->idpersona)->where('tipo_ubigeo_cod_tipo',1)->first();
@@ -202,6 +204,7 @@ class Create extends Component
                 'universidad' => 'required|numeric',
                 'trabajo' => 'required|string',
             ]);
+            // dd($this->all());
         }else if($this->pasoactual == 2){
             $this->validate([
                 'sede_combo' => 'required|numeric',
@@ -224,11 +227,6 @@ class Create extends Component
                 }
             }
         }
-    }
-
-    public function updated()
-    {
-
     }
     
     public function updatedDepartamentoDireccion($departamento_direccion){

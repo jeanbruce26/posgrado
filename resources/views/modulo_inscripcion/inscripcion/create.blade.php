@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-     <div class="col-10 m-auto">
+     <div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12 col-sm-12 m-auto">
           <div class="card">
                <div class="card-body form-steps">
                     <div class="tab-content">
@@ -12,15 +12,14 @@
                               @livewire('modulo_inscripcion.inscripcion.create', ['id' => $id])
                               
                          </div>
-                         <!-- end tab pane -->
                     </div>
-                    <!-- end tab content -->
                </div>
-               <!-- end card body -->
           </div>
-          <!-- end card -->
      </div>
-     <!-- end col -->
 </div>
+     
+@endsection
+
+@section('javascript')
      
 @endsection
