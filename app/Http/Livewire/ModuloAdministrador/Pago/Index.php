@@ -42,6 +42,7 @@ class Index extends Component
 
     public function modo()
     {
+        $this->limpiar();
         $this->modo = 1;
     }
 
@@ -50,10 +51,12 @@ class Index extends Component
         $this->resetErrorBag();
         $this->reset('documento','numero_operacion','monto','fecha_pago','canal_pago');
         $this->modo = 1;
+        $this->titulo = "CREAR PAGO";
     }
 
     public function cargarIdPago(Pago $pago)
     {
+        $this->limpiar();
         $this->modo = 2;
         $this->titulo = 'ACTUALIZAR PAGO - NRO OPERACION: '  . $pago->nro_operacion;
         $this->pago_id = $pago->pago_id;
