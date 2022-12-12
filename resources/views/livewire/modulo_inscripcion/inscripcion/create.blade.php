@@ -177,6 +177,16 @@
                         </select>
                     </div>
 
+                    @if ($distrito_nacimiento)
+                        @if ($distrito_nacimiento == 1893)
+                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
+                            <label class="form-label">Pais</label>
+                            <input type="text" wire:model="pais" class="form-control @error('pais') is-invalid  @enderror" placeholder="Ingrese su pais">
+                        </div>
+                        @endif
+                    @endif
+                    
+
                     <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12">
                         <div wire:ignore>
                             <label class="form-label">Universidad <span class="text-danger">*</span></label>

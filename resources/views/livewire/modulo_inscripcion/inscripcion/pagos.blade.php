@@ -35,8 +35,7 @@
         @endif
     </div>
 
-    <form class="row" method="POST" wire:submit.prevent='guardarPago' novalidate>
-        @csrf
+    <form novalidate>
         <div class="card-body w-100">
             <div class="">
                 <!-- Striped Rows -->
@@ -78,20 +77,13 @@
                     <input type="hidden" wire:model="total" value="{{$total}}">
                 </div>
                 @if (session('mensaje-seleccionar'))
-                    <div class="alert alert-danger my-2">{{ session('mensaje-seleccionar') }}</div>
+                    <div class="alert alert-danger my-3 fw-bold">{{ session('mensaje-seleccionar') }}</div>
                 @endif
             </div>
         </div>
         
         <div class="d-flex align-items-start gap-3">
-            {{-- <a href="{{route('usuario-terminos-condiciones')}}" class="btn btn-link text-decoration-none btn-label"><i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>Anterior</a> --}}
-            <button type="submit" class="btn btn-primary btn-label right ms-auto"><i class="ri-arrow-up-line label-icon align-middle fs-16 ms-2"></i>Guardar</button>
+            <button type="button"  wire:click="guardarPagoAlerta()" class="btn btn-primary btn-label right ms-auto"><i class="ri-arrow-up-line label-icon align-middle fs-16 ms-2"></i>Guardar</button>
         </div>
     </form>
 </div>
-
-@push('js')
-    <script>
-        
-    </script>
-@endpush

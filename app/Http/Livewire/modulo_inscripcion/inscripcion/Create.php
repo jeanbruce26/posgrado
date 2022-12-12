@@ -65,6 +65,7 @@ class Create extends Component
     public $correo_opcional;
     public $universidad;
     public $trabajo;
+    public $pais;
     // public $expediente = [];
     public $expediente1;
     public $expediente2;
@@ -119,6 +120,7 @@ class Create extends Component
             $this->reset('universidad');
             $this->universidad = $persona_buscar_datos->univer_cod_uni;
             $this->trabajo = $persona_buscar_datos->centro_trab;
+            $this->pais = $persona_buscar_datos->pais_extra;
             $ubi_dire = UbigeoPersona::where('persona_idpersona',$persona_buscar_datos->idpersona)->where('tipo_ubigeo_cod_tipo',1)->first();
             $id_distrito_dire = $ubi_dire->id_distrito;
             $pro = Distrito::where('id',$id_distrito_dire)->first();
@@ -203,6 +205,7 @@ class Create extends Component
                 'distrito_nacimiento' => 'required|numeric',
                 'universidad' => 'required|numeric',
                 'trabajo' => 'required|string',
+                'pais' => 'nullable|string',
             ]);
             // dd($this->all());
         }else if($this->pasoactual == 2){
@@ -232,6 +235,7 @@ class Create extends Component
     public function updatedDepartamentoDireccion($departamento_direccion){
         $this->provincia_direccion_array = Provincia::where('id_departamento',$departamento_direccion)->get();
         $this->distrito_direccion = null;
+        $this->distrito_direccion_array = collect();
     }
     
     public function updatedProvinciaDireccion($provincia_direccion){
@@ -241,6 +245,7 @@ class Create extends Component
     public function updatedDepartamentoNacimiento($departamento_nacimiento){
         $this->provincia_nacimiento_array = Provincia::where('id_departamento',$departamento_nacimiento)->get();
         $this->distrito_nacimiento = null;
+        $this->distrito_nacimiento_array = collect();
     }
     
     public function updatedProvinciaNacimiento($provincia_nacimiento){
@@ -273,10 +278,6 @@ class Create extends Component
 
     public function inscripcion()
     {
-        date_default_timezone_set("America/Lima");
-        
-        // dd($this->all());
-
         $this->resetErrorBag();
 
         //FORMULARIO 1
@@ -284,7 +285,15 @@ class Create extends Component
         $dni = auth('pagos')->user()->dni;
         $persona_buscar = Persona::where('num_doc',$dni)->count();
         $idpersona = null;
-        // dd($persona_buscar);
+        if ($this->distrito_nacimiento){
+            if ($this->distrito_nacimiento != 1893){
+                $pais = 'Perú';
+            }else
+            {
+                $pais = $this->pais;
+            }
+        }
+
         if($persona_buscar==0){
             $persona = Persona::create([
                 "num_doc" => auth('pagos')->user()->dni,
@@ -304,14 +313,13 @@ class Create extends Component
                 "est_civil_cod_est" => $this->estado_civil,
                 "univer_cod_uni" => $this->universidad,
                 "id_grado_academico" => $this->grado_academico,
-                "especialidad" => $this->especialidad
+                "especialidad" => $this->especialidad,
+                "pais_extra" => $pais,
             ]);
     
             $idpersona = $persona->idpersona;
     
             $input = $this->all();
-    
-            // dd($input);
             
             $ubigeo_distrito = Distrito::select('ubigeo')->where('id',$this->distrito_direccion)->first();
             UbigeoPersona::create([
@@ -350,6 +358,7 @@ class Create extends Component
                 'univer_cod_uni' => $this->universidad,
                 'id_grado_academico' => $this->grado_academico,
                 'especialidad' => $this->especialidad,
+                'pais_extra' => $pais,
             ]);
 
             $ubigeo_distrito = Distrito::select('ubigeo')->where('id',$this->distrito_direccion)->first();

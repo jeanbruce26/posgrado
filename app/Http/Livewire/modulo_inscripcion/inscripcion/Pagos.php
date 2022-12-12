@@ -19,6 +19,8 @@ class Pagos extends Component
     public $seleccionar=[];
     public $total;
     public $monto = 0;
+    
+    protected $listeners = ['render', 'guardarPago'];
 
     public function updated($propertyName)
     {
@@ -83,10 +85,25 @@ class Pagos extends Component
         }
     }
 
+    public function guardarPagoAlerta()
+    {
+        if(!$this->seleccionar){
+            return back()->with(array('mensaje-seleccionar'=>'Debe seleccionar su pago para continuar con su inscripcion.'));
+        }
+
+        $concepto = ConceptoPago::find($this->concepto_pago2);
+
+        if(floatval($concepto->monto) > $this->total){
+            return back()->with(array('mensaje-seleccionar'=>'El monto ingresado no cumple con el monto minimo del concepto de pago'));
+        }
+
+        $this->dispatchBrowserEvent('confirmacion-pago');
+    }
+
     public function guardarPago()
     {
         if(!$this->seleccionar){
-            return back()->with(array('mensaje-seleccionar'=>'Debe seleccionar su pago, para continuar con su inscripcion.'));
+            return back()->with(array('mensaje-seleccionar'=>'Debe seleccionar su pago para continuar con su inscripcion.'));
         }
 
         $concepto = ConceptoPago::find($this->concepto_pago2);
@@ -122,8 +139,6 @@ class Pagos extends Component
             $pago->estado = 2;
             $pago->save();
         }
-        
-        $this->dispatchBrowserEvent('confirmacion-pago');
 
         return redirect()->route('inscripcion.inscripcion', $inscripcion->id_inscripcion);
     }

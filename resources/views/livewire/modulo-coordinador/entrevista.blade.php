@@ -47,7 +47,9 @@
                             </td>
                         </tr>
                         @php
+                            $suma_nota = 0;
                             $evaluacion_entrevista_items = App\Models\EvaluacionEntrevistaItem::where('evaluacion_entrevista_titulo_id',$item->evaluacion_entrevista_titulo_id)->get();
+                            $evaluacion_entrevista_items_count = App\Models\EvaluacionEntrevistaItem::where('evaluacion_entrevista_titulo_id',$item->evaluacion_entrevista_titulo_id)->count();
                         @endphp
                             @foreach ($evaluacion_entrevista_items as $item2)
                             <tr>
@@ -67,6 +69,9 @@
                                 </td>
                                 @php
                                     $evaluacion_entrevista_notas = App\Models\EvaluacionEntrevista::where('evaluacion_entrevista_item_id', $item2->evaluacion_entrevista_item_id)->where('evaluacion_id',$evaluacion_id)->first();
+                                    if($evaluacion_entrevista_notas){
+                                        $suma_nota += $evaluacion_entrevista_notas->evaluacion_entrevista_nota;
+                                    }
                                 @endphp
                                 <td align="center">
                                     @if ($evaluacion_entrevista_notas)
@@ -77,12 +82,21 @@
                                 </td>
                             </tr>
                             @endforeach
+                            @php
+                                $promedio = $suma_nota / $evaluacion_entrevista_items_count;
+                                $total += $promedio;
+                            @endphp
+                            <tr style="background-color: rgb(255, 255, 255)">
+                                <td class="fw-bold text-center"></td>
+                                <td class="fw-bold text-center">PROMEDIO</td>
+                                <td align="center" class="fw-bold">{{ number_format($promedio,2) }}</td>
+                            </tr>
                         @endforeach
                     </tbody>
                     <tfoot style="background: rgb(199, 208, 219)">
                         <tr>
                             <td colspan="2" class="fw-bold text-center">TOTAL</td>
-                            <td align="center" class="fw-bold">{{$total}}</td>
+                            <td align="center" class="fw-bold">{{ number_format($total,2) }}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -91,7 +105,7 @@
         </div>
         <div class="card-footer">
             <div class="text-end">
-                <button type="button" wire:click="evaluar()" class="btn btn-primary btn-label waves-effect waves-light w-lg" @if ($boton != null) disabled @endif><i class="ri-save-line label-icon align-middle fs-16 me-2"></i> Evaluar</button>
+                <button type="button" wire:click="evaluar({{ $total }})" class="btn btn-primary btn-label waves-effect waves-light w-lg" @if ($boton != null) disabled @endif><i class="ri-save-line label-icon align-middle fs-16 me-2"></i> Evaluar</button>
             </div>
         </div>
     </div>

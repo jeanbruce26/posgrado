@@ -86,8 +86,8 @@
                                 <td align="center">{{ $num++ }}</td>
                                 <td>{{ $item->apell_pater }} {{ $item->apell_mater }},{{ $item->nombres }}</td>
                                 <td align="center">{{ $item->num_doc }}</td>
-                                <td align="center">{{ number_format($item->nota_expediente,0) }}</td>
                                 <td align="center">{{ number_format($item->nota_entrevista,0) }}</td>
+                                <td align="center">{{ number_format($item->nota_expediente,0) }}</td>
                                 <td align="center">{{ number_format($item->nota_final,0) }}</td>
                                 @if ($item->evaluacion_estado == 3)
                                 <td align="center">ADMITIDO</td>

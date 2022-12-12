@@ -16,7 +16,8 @@ class Entrevista extends Component
     public $evaluacion_entrevista_item_id;
     public $evaluacion_entrevista_item = null;
     public $nota;
-    public $total;
+    public $nota_total;
+    public $total = 0;
     
     protected $listeners = ['render', 'evaluarEntrevista'];
 
@@ -25,23 +26,12 @@ class Entrevista extends Component
         $this->validateOnly($propertyName, [
             'nota' => 'required'
         ]);
-        
-        // $this->contarTotal();
     }
 
     public function limpiar()
     {
         $this->resetErrorBag();
         $this->reset('nota');
-    }
-
-    public function contarTotal()
-    {
-        $eva = EvaluacionEntrevista::where('evaluacion_id',$this->evaluacion_id)->get();
-        $this->total = 0;
-        foreach($eva as $item){
-            $this->total = $this->total + $item->evaluacion_entrevista_nota;
-        }
     }
 
     public function cargarId($id)
@@ -82,15 +72,14 @@ class Entrevista extends Component
         
         $this->limpiar();
 
-        $this->contarTotal();
-
         $this->dispatchBrowserEvent('cerrar-modal');
     }
 
-    public function evaluar()
+    public function evaluar($total)
     {
         $eva = EvaluacionEntrevista::where('evaluacion_id',$this->evaluacion_id)->count();
         $eva_item = EvaluacionEntrevistaItem::count();
+        $this->nota_total = $total;
         
         if($eva == $eva_item){
             $this->dispatchBrowserEvent('alertaConfirmacionEntrevista');
@@ -101,11 +90,10 @@ class Entrevista extends Component
 
     public function evaluarEntrevista()
     {
-        date_default_timezone_set("America/Lima");
         $evaluacion = Evaluacion::find($this->evaluacion_id);
         $inscripcion = Inscripcion::find($evaluacion->inscripcion_id);
-        $evaluacion->nota_entrevista = $this->total;
-        if($this->total <= $evaluacion->Puntaje->puntaje_minimo_entrevista){
+        $evaluacion->nota_entrevista = $this->nota_total;
+        if($this->nota_total < $evaluacion->Puntaje->puntaje_minimo_entrevista){
             $evaluacion->evaluacion_observacion = 'Puntaje minimo no alcanzado en la Evaluacion de Expedientes.';
             $evaluacion->evaluacion_estado = 2;
         }else{
@@ -114,18 +102,16 @@ class Entrevista extends Component
         }
         $evaluacion->fecha_entrevista = today();
 
-        $nota_entre = $this->total;
+        $nota_entre = $this->nota_total;
         $nota_expe = $evaluacion->nota_expediente;
-        $evaluacion->nota_final = $nota_entre + $nota_expe;
+        $evaluacion->nota_final = ($nota_entre + $nota_expe) / 2;
         $evaluacion->save();
         return redirect()->route('coordinador.inscripciones',$inscripcion->id_mencion);
     }
 
     public function render()
     {
-        date_default_timezone_set("America/Lima");
         $evaluacion_data = Evaluacion::find($this->evaluacion_id);
-        $this->contarTotal();
         $boton = $evaluacion_data->nota_entrevista;
         $inscripcion = Inscripcion::find($evaluacion_data->inscripcion_id);
         $fecha = today();
