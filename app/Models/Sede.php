@@ -15,13 +15,7 @@ class Sede extends Model
     protected $fillable = [
         'cod_sede',
         'sede',
-        'id_plan',
     ];
     
     public $timestamps = false;
-
-    public function Plan(){
-        return $this->belongsTo(Plan::class,
-        'id_plan','id_plan');
-    }
 }

@@ -18,6 +18,7 @@ class SubPrograma extends Model
         'subprograma',
         'id_programa',
         'facultad_id',
+        'estado'
     ];
 
     public $timestamps = false;
