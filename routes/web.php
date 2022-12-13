@@ -28,7 +28,7 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
     
     Route::resource ('Sede','SedeController');
     Route::resource ('Programa','ProgramaController');
-    Route::resource ('Plan','PlanController');
+    Route::get('/plan', [App\Http\Controllers\PlanController::class, 'index'])->name('admin.plan.index');
     Route::resource ('Mencion', 'MencionController');
     Route::resource ('SubPrograma', 'SubProgramaController');
     

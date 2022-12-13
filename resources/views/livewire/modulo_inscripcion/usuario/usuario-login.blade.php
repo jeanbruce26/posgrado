@@ -1,6 +1,6 @@
 <div>
     <div class="p-2 m-auto mt-2 col-10">
-        <form method="POST" wire:submit.prevent='login' novalidate>
+        <form method="POST" wire:submit.prevent='login' novalidate autocomplete="off">
             @csrf
 
             <div class="mb-3">

@@ -180,6 +180,25 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarGC" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="sidebarApps">
+                                <i class="mdi mdi-account-group-outline"></i> <span data-key="t-apps">Gestion Curricular</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarGC">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.plan.index') }}" class="nav-link"
+                                            data-key="t-analytics"> Plan </a>
+                                    </li>
+                                    {{-- <li class="nav-item">
+                                        <a href="{{ route('admin.trabajador.index') }}" class="nav-link"
+                                            data-key="t-analytics"> Trabajador </a>
+                                    </li> --}}
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="sidebarApps">
                                 <i class="mdi mdi-file-account-outline"></i> <span
@@ -232,10 +251,6 @@
                                     <li class="nav-item">
                                         <a href="{{ route('Admision.index') }}" class="nav-link" data-key="t-analytics">
                                             Admisión </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('Plan.index') }}" class="nav-link" data-key="t-analytics">
-                                            Plan </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('Expediente.index') }}" class="nav-link"
