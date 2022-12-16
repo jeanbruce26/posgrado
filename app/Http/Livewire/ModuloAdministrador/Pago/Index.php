@@ -19,7 +19,7 @@ class Index extends Component
     public $search = '';
     public $modo = 1;
     public $pago_id;
-    public $titulo = 'CREAR PAGO';
+    public $titulo = 'Crear Pago';
 
     public $documento;
     public $numero_operacion;
@@ -40,7 +40,7 @@ class Index extends Component
         ]);
     }
 
-    public function modo()
+    public function modo()  
     {
         $this->limpiar();
         $this->modo = 1;
@@ -51,14 +51,14 @@ class Index extends Component
         $this->resetErrorBag();
         $this->reset('documento','numero_operacion','monto','fecha_pago','canal_pago');
         $this->modo = 1;
-        $this->titulo = "CREAR PAGO";
+        $this->titulo = "Crear Pago";
     }
 
     public function cargarIdPago(Pago $pago)
     {
         $this->limpiar();
         $this->modo = 2;
-        $this->titulo = 'ACTUALIZAR PAGO - NRO OPERACION: '  . $pago->nro_operacion;
+        $this->titulo = 'Actualizar Pago - Nro Operación: '  . $pago->nro_operacion;
         $this->pago_id = $pago->pago_id;
         
         $this->documento = $pago->dni;

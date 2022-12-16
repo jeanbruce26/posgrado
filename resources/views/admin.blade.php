@@ -211,18 +211,18 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarCruds" data-bs-toggle="collapse" role="button"
+                            {{-- <a class="nav-link menu-link" href="#sidebarCruds" data-bs-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="sidebarCruds">
                                 <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">CRUDS</span>
-                            </a>
+                            </a> --}}
                             <div class="collapse menu-dropdown" id="sidebarCruds">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="{{ route('Persona.index') }}" class="nav-link" data-key="t-analytics">
+                                        <a href="{{ route('admin.persona.index') }}" class="nav-link" data-key="t-analytics">
                                             Estudiantes </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('CanalPago.index') }}" class="nav-link"
+                                        <a href="{{ route('admin.canal-pago.index') }}" class="nav-link"
                                             data-key="t-analytics"> Canal de Pago </a>
                                     </li>
                                     <li class="nav-item">
