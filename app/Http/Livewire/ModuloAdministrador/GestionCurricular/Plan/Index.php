@@ -80,6 +80,7 @@ class Index extends Component
             ]);
     
             $plan = new Plan();
+            $plan->codigo = 'P'.$this->plan;
             $plan->plan = $this->plan;
             $plan->estado = 1;
             $plan->save();
@@ -93,6 +94,7 @@ class Index extends Component
             ]);
 
             $plan = Plan::find($this->id_plan);
+            $plan->codigo = 'P'.$this->plan;
             $plan->plan = $this->plan;
             $plan->save();
             
