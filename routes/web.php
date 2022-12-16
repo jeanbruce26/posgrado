@@ -16,23 +16,14 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
 
     Route::get('', [App\Http\Controllers\AdminLoginController::class, 'administrador'])->name('admin.index');
     
-    Route::resource ('TipoUbigeo','TipoUbigeoController');
-    
-    Route::resource ('TipoDocumento','TipoDocumentoController');
-    Route::resource ('GradoAcademico','GradoAcademicoController');
-    Route::resource ('Universidad','UniversidadController');
-    Route::resource ('EstadoCivil','EstadoCivilController');
-    Route::resource ('Discapacidad','DiscapacidadController');
     Route::resource ('Persona','PersonaController');
     Route::resource ('UbigeoPersona','UbigeoPersonaController');
     
     Route::resource ('Sede','SedeController');
-    Route::resource ('Programa','ProgramaController');
+    Route::get('/programa', [App\Http\Controllers\ProgramaController::class, 'index'])->name('admin.programa.index');
     Route::get('/plan', [App\Http\Controllers\PlanController::class, 'index'])->name('admin.plan.index');
-    Route::resource ('Mencion', 'MencionController');
-    Route::resource ('SubPrograma', 'SubProgramaController');
-    
-    Route::resource('Admision', 'AdmisionController');
+    Route::get('/admision', [App\Http\Controllers\AdmisionController::class, 'index'])->name('admin.admision.index');
+
     Route::get('/inscripcion', [App\Http\Controllers\InscripcionController::class, 'index'])->name('admin.inscripcion.index');
     Route::get('/pago', [App\Http\Controllers\PagoController::class, 'index'])->name('admin.pago.index');
     Route::resource('CanalPago', 'CanalPagoController');

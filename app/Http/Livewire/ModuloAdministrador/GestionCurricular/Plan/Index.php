@@ -98,7 +98,7 @@ class Index extends Component
             
             $this->subirHistorial($plan->id_plan,'Actualizacion de plan','Plan');
 
-            $this->dispatchBrowserEvent('notificacionUsuario', ['message' =>'Plan actualizado satisfactoriamente.', 'color' => '#2eb867']);
+            $this->dispatchBrowserEvent('notificacionPlan', ['message' =>'Plan actualizado satisfactoriamente.', 'color' => '#2eb867']);
         }
 
         $this->dispatchBrowserEvent('modalPlan');
