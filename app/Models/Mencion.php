@@ -14,6 +14,7 @@ class Mencion extends Model
     protected $table = 'mencion';
     protected $fillable = [
         'id_mencion',
+        'iniciales',
         'cod_mencion',
         'mencion',
         'id_subprograma',

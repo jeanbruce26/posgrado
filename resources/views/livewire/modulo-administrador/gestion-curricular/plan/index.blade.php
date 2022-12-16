@@ -19,6 +19,7 @@
                             <thead>
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
                                     <th scope="col" class="col-md-1">ID</th>
+                                    <th scope="col" class="col-md-2">Codigo</th>
                                     <th scope="col" class="col-md-3">Plan</th>
                                     <th scope="col" class="col-md-2">Estado</th>
                                     <th scope="col" class="col-md-1">Acciones</th>
@@ -28,7 +29,8 @@
                                 @foreach ($plan_model as $item)
                                     <tr>
                                         <td align="center"><strong>{{ $item->id_plan }}</strong></td>
-                                        <td>{{ $item->plan }}</td>
+                                        <td align="center">{{ $item->codigo }}</td>
+                                        <td align="center">{{ $item->plan }}</td>
                                         <td align="center">
                                             @if ($item->estado == 1)
                                                 <span style="cursor: pointer;" wire:click="cargarAlerta({{ $item->id_plan }})" class="badge text-bg-primary">Activo</span>
