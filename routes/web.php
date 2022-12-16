@@ -28,12 +28,10 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
     Route::resource ('UbigeoPersona','UbigeoPersonaController');
     
     Route::resource ('Sede','SedeController');
-    Route::resource ('Programa','ProgramaController');
-    Route::resource ('Plan','PlanController');
-    Route::resource ('Mencion', 'MencionController');
-    Route::resource ('SubPrograma', 'SubProgramaController');
-    
-    Route::resource('Admision', 'AdmisionController');
+    Route::get('/programa', [App\Http\Controllers\ProgramaController::class, 'index'])->name('admin.programa.index');
+    Route::get('/plan', [App\Http\Controllers\PlanController::class, 'index'])->name('admin.plan.index');
+    Route::get('/admision', [App\Http\Controllers\AdmisionController::class, 'index'])->name('admin.admision.index');
+
     Route::get('/inscripcion', [App\Http\Controllers\InscripcionController::class, 'index'])->name('admin.inscripcion.index');
     Route::get('/pago', [App\Http\Controllers\PagoController::class, 'index'])->name('admin.pago.index');
     Route::get('/canal-pago', [App\Http\Controllers\CanalPagoController::class, 'index'])->name('admin.canal-pago.index');

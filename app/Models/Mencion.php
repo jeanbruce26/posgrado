@@ -17,6 +17,8 @@ class Mencion extends Model
         'cod_mencion',
         'mencion',
         'id_subprograma',
+        'id_plan',
+        'estado'
     ];
 
     public $timestamps = false;
@@ -24,5 +26,10 @@ class Mencion extends Model
     public function SubPrograma(){
         return $this->belongsTo(SubPrograma::class,
         'id_subprograma','id_subprograma');
+    }
+
+    public function Plan(){
+        return $this->belongsTo(Plan::class,
+        'id_plan','id_plan');
     }
 }

@@ -1,33 +1,48 @@
 @extends('admin')
 
 @section('css')
-    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"> --}}
+
 @endsection
 
 @section('content')
-<h1>Dashboard</h1>
+<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+    <h4 class="mb-sm-0">Dashboard</h4>
+    <div class="page-title-right">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="card card-body">
+            <h4 class="fw-bold mt-2 mb-4 text-center">Gestion Curricular</h4>
+            <a href="{{ route('admin.plan.index') }}" class="btn btn-warning text-dark fw-bold">Ingresar</a>
+        </div>
+    </div>
+    <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="card card-body">
+            <h4 class="fw-bold mt-2 mb-4 text-center">Modulo de Inscripcion</h4>
+            <a href="{{ route('admin.inscripcion.index') }}" class="btn btn-warning text-dark fw-bold">Ingresar</a>
+        </div>
+    </div>
+    <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="card card-body">
+            <h4 class="fw-bold mt-2 mb-4 text-center">Modulo de Pagos</h4>
+            <a href="{{ route('admin.pago.index') }}" class="btn btn-warning text-dark fw-bold">Ingresar</a>
+        </div>
+    </div>
+    <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="card card-body">
+            <h4 class="fw-bold mt-2 mb-4 text-center">Modulo de Admitidos</h4>
+            <a href="{{ route('admin.admitidos.index') }}" class="btn btn-warning text-dark fw-bold">Ingresar</a>
+        </div>
+    </div>
+
+</div>
 @endsection
 
 @section('javascript')
-{{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-<script>
-    $('#tablaCanalPago').DataTable({
-        autoWidth: true,
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ registros por páginas",
-            "zeroRecords": "Nada encontrado - disculpa",
-            "info": "Mostrando la página _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros",
-            "infoFiltered": "(filtrado de _MAX_ registros totales)",
-            "search": "Buscar:",
-            "order": "desc",
-            "paginate": {
-                "next": "Siguiente",
-                "previous": "Anterior",
-            }
-        }
-    });
-</script> --}}
+
 @endsection

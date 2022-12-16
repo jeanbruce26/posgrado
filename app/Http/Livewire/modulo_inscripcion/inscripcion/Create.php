@@ -259,13 +259,13 @@ class Create extends Component
     }
 
     public function updatedProgramaCombo($programa_combo){
-        $this->subprograma_combo_array = SubPrograma::where('id_programa',$programa_combo)->get();
+        $this->subprograma_combo_array = SubPrograma::where('id_programa',$programa_combo)->where('estado',1)->get();
         $this->programa_nombre = Programa::where('id_programa',$programa_combo)->first();
         $this->mencion_combo_array = collect();
     }
 
     public function updatedSubProgramaCombo($subprograma_combo){
-        $this->mencion_combo_array = Mencion::where('id_subprograma',$subprograma_combo)->get();
+        $this->mencion_combo_array = Mencion::where('id_subprograma',$subprograma_combo)->where('estado',1)->get();
         $valor = null;
         foreach($this->mencion_combo_array as $item){
             $valor = $item->mencion;

@@ -15,6 +15,7 @@ class Plan extends Model
     protected $fillable = [
         'id_plan',
         'plan',
+        'estado'
     ];
 
     public $timestamps = false;
