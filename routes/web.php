@@ -19,7 +19,7 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
     Route::resource ('Persona','PersonaController');
     Route::resource ('UbigeoPersona','UbigeoPersonaController');
     
-    Route::resource ('Sede','SedeController');
+    Route::get('/sede', [App\Http\Controllers\SedeController::class, 'index'])->name('admin.sede.index');
     Route::get('/programa', [App\Http\Controllers\ProgramaController::class, 'index'])->name('admin.programa.index');
     Route::get('/plan', [App\Http\Controllers\PlanController::class, 'index'])->name('admin.plan.index');
     Route::get('/admision', [App\Http\Controllers\AdmisionController::class, 'index'])->name('admin.admision.index');

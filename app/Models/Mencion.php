@@ -19,7 +19,7 @@ class Mencion extends Model
         'mencion',
         'id_subprograma',
         'id_plan',
-        'estado'
+        'mencion_estado'
     ];
 
     public $timestamps = false;

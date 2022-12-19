@@ -187,6 +187,10 @@
                             <div class="collapse menu-dropdown" id="sidebarGC">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
+                                        <a href="{{ route('admin.sede.index') }}" class="nav-link"
+                                            data-key="t-analytics"> Sede </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="{{ route('admin.plan.index') }}" class="nav-link"
                                             data-key="t-analytics"> Plan </a>
                                     </li>

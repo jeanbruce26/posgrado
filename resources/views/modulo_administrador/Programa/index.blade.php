@@ -21,11 +21,11 @@
 @section('javascript')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.38/dist/sweetalert2.all.min.js"></script>
 <script>
-    window.addEventListener('modalPlan', event => {
-        $('#modalPlan').modal('hide');
+    window.addEventListener('modalPrograma', event => {
+        $('#modalPrograma').modal('hide');
     })
 
-    window.addEventListener('notificacionPlan', event => {
+    window.addEventListener('notificacionPrograma', event => {
         Toastify({
             text: event.detail.message,
             close: true,
@@ -38,10 +38,10 @@
         }).showToast();
     })
 
-    window.addEventListener('alertaConfirmacionPlan', event => {
+    window.addEventListener('alertaConfirmacionPrograma', event => {
         // alert('Name updated to: ' + event.detail.id);
         Swal.fire({
-            title: '¿Estás seguro de modificar el estado del plan de estudios?',
+            title: '¿Estás seguro de modificar el estado del programa de estudios?',
             text: "",
             icon: 'question',
             showCancelButton: true,

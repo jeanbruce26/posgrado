@@ -265,7 +265,7 @@ class Create extends Component
     }
 
     public function updatedSubProgramaCombo($subprograma_combo){
-        $this->mencion_combo_array = Mencion::where('id_subprograma',$subprograma_combo)->where('estado',1)->get();
+        $this->mencion_combo_array = Mencion::where('id_subprograma',$subprograma_combo)->where('mencion_estado',1)->get();
         $valor = null;
         foreach($this->mencion_combo_array as $item){
             $valor = $item->mencion;

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="d-flex justify-content-end align-items-center mb-3">
-                <a href="#modalPrograma" type="button" wire:click="modo()" class="btn btn-primary btn-label waves-effect right waves-light w-md" data-bs-toggle="modal" data-bs-target="#modalPlan"><i class="ri-user-add-line label-icon align-middle fs-16 ms-2"></i> Nuevo</a>
+                <a href="#modalPrograma" type="button" wire:click="modo()" class="btn btn-primary btn-label waves-effect right waves-light w-md" data-bs-toggle="modal" data-bs-target="#modalPrograma"><i class="ri-user-add-line label-icon align-middle fs-16 ms-2"></i> Nuevo</a>
             </div>
             <div class="card">
                 <div class="card-body">
@@ -60,16 +60,17 @@
                                         <td align="center">{{ $item->plan }}</td>
                                         <td align="center">{{ $item->sede }}</td>
                                         <td align="center">
-                                            @if ($item->estado == 1)
-                                                <span style="cursor: pointer;" wire:click="cargarAlerta({{ $item->id_plan }})" class="badge text-bg-primary">Activo</span>
+                                            @if ($item->mencion_estado == 1)
+                                                <span style="cursor: pointer;" wire:click="cargarAlerta({{ $item->id_mencion }})" class="badge text-bg-primary">Activo</span>
                                             @endif
-                                            @if ($item->estado == 0)
-                                                <span style="cursor: pointer;" wire:click="cargarAlerta({{ $item->id_plan }})" class="badge text-bg-danger">Inactivo</span>
+                                            @if ($item->mencion_estado == 0)
+                                                <span style="cursor: pointer;" wire:click="cargarAlerta({{ $item->id_mencion }})" class="badge text-bg-danger">Inactivo</span>
                                             @endif
                                         </td>
                                         <td align="center">
                                             <div class="hstack gap-3 flex-wrap justify-content-center">
-                                                <a href="#modalPrograma" wire:click="cargarPrograma({{ $item->id_plan }})" class="link-success fs-16" data-bs-toggle="modal" data-bs-target="#modalPlan"><i class="ri-edit-2-line"></i></a>
+                                                <a href="#modalPrograma" wire:click="cargarPrograma({{ $item->id_mencion }}, 1)" class="link-success fs-16" data-bs-toggle="modal" data-bs-target="#modalPrograma"><i class="ri-edit-2-line"></i></a>
+                                                <a href="#modalPrograma" wire:click="cargarPrograma({{ $item->id_mencion }}, 2)" class="link-danger fs-16" data-bs-toggle="modal" data-bs-target="#modalPrograma"><i class="ri-file-copy-2-line"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -90,10 +91,10 @@
             </div>
         </div>
     </div>
-    {{-- Modal Usuario --}}
-    <div wire:ignore.self class="modal fade" id="modalPlan" tabindex="-1" aria-labelledby="modalPrograma"
+    {{-- Modales --}}
+    <div wire:ignore.self class="modal fade" id="modalPrograma" tabindex="-1" aria-labelledby="modalPrograma"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{ $titulo }}</h5>
@@ -101,9 +102,16 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    @if (session('mensaje'))
+                        <!-- Danger Alert -->
+                        <div class="alert alert-danger alert-border-left alert-dismissible fade shadow show" role="alert">
+                            <i class="ri-error-warning-line me-3 align-middle"></i> <strong>{{ session('mensaje') }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
                     <form novalidate>
                         <div class="row">
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6 col-sm-12">
                                 <label class="form-label">Plan <span
                                         class="text-danger">*</span></label>
                                 <select wire:model="plan" class="form-select @error('plan') is-invalid  @enderror">
@@ -114,7 +122,7 @@
                                 </select>
                                 @error('plan') <span class="error text-danger" >{{ $message }}</span> @enderror
                             </div>
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6 col-sm-12">
                                 <label class="form-label">Sede <span
                                         class="text-danger">*</span></label>
                                 <select wire:model="sede" class="form-select @error('sede') is-invalid  @enderror">
@@ -125,11 +133,11 @@
                                 </select>
                                 @error('sede') <span class="error text-danger" >{{ $message }}</span> @enderror
                             </div>
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6 col-sm-12">
                                 <label class="form-label">Programa <span
                                         class="text-danger">*</span></label>
                                 <select wire:model="programa" class="form-select @error('programa') is-invalid  @enderror">
-                                    <option value="">Seleccione la sede</option>
+                                    <option value="">Seleccione el programa</option>
                                     @if ($programa_model_form)
                                         @foreach ($programa_model_form as $item)
                                             <option value="{{ $item->id_programa }}">{{ $item->descripcion_programa }}</option>
@@ -137,6 +145,45 @@
                                     @endif
                                 </select>
                                 @error('programa') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-6 col-sm-12">
+                                <label class="form-label">Facultad <span
+                                        class="text-danger">*</span></label>
+                                <select wire:model="facultad" class="form-select @error('facultad') is-invalid  @enderror">
+                                    <option value="">Seleccione la facultad</option>
+                                    @foreach ($facultad_model as $item)
+                                        <option value="{{ $item->facultad_id }}">{{ $item->facultad }}</option>
+                                    @endforeach
+                                </select>
+                                @error('sede') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-6 col-sm-12">
+                                <label class="form-label">Codigo @if($programa_nombre) {{ strtolower($this->programa_nombre) }} @endif <span
+                                        class="text-danger">*</span></label>
+                                <input wire:model="codigo_subprograma" type="text" class="form-control @error('codigo_subprograma') is-invalid  @enderror" placeholder="Ingrese el codigo @if($programa_nombre) de la  {{ strtolower($this->programa_nombre) }} @endif">
+                                @error('codigo_subprograma') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-6 col-sm-12">
+                                <label class="form-label">Iniciales @if($programa_nombre) {{ strtolower($this->programa_nombre) }} @endif <span
+                                        class="text-danger">*</span></label>
+                                <input wire:model="inicial_subprograma" type="text" class="form-control @error('inicial_subprograma') is-invalid  @enderror" placeholder="Ingrese las iniciales @if($programa_nombre) de la  {{ strtolower($this->programa_nombre) }} @endif maximo 3 letras*">
+                                @error('inicial_subprograma') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-12 col-sm-12">
+                                <label class="form-label">@if($programa_nombre) {{ ucfirst(strtolower($this->programa_nombre)) }} @else *** @endif <span
+                                        class="text-danger">*</span></label>
+                                <input wire:model="subprograma" type="text" class="form-control @error('subprograma') is-invalid  @enderror" placeholder="Ingrese la @if($programa_nombre) de la  {{ strtolower($this->programa_nombre) }} @endif">
+                                @error('subprograma') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-6 col-sm-12">
+                                <label class="form-label">Codigo de la mencion</label>
+                                <input wire:model="codigo_mencion" type="text" class="form-control @error('codigo_mencion') is-invalid  @enderror" placeholder="Ingrese el codigo de la mencion">
+                                @error('codigo_mencion') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-6 col-sm-12">
+                                <label class="form-label">Mencion</label>
+                                <input wire:model="mencion" type="text" class="form-control @error('mencion') is-invalid  @enderror" placeholder="Ingrese la mencion">
+                                @error('mencion') <span class="error text-danger" >{{ $message }}</span> @enderror
                             </div>
                         </div>
                     </form>
