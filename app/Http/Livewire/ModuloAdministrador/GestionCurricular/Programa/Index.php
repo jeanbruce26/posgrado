@@ -49,7 +49,6 @@ class Index extends Component
 
     public $mencion_antiguo;
 
-    
     protected $listeners = ['render', 'cambiarEstado'];
 
     public function updated($propertyName)
@@ -82,6 +81,25 @@ class Index extends Component
     public function updatedSede($id_sede)
     {
         $this->programa_model_form = Programa::where('id_sede', $id_sede)->get();
+    }
+
+    public function cargarAlerta($id)
+    {
+        $this->dispatchBrowserEvent('alertaConfirmacionPrograma', ['id' => $id]);
+    }
+
+    public function cambiarEstado(Mencion $mencion)
+    {
+        if ($mencion->mencion_estado == 1) {
+            $mencion->mencion_estado = 0;
+        } else {
+            $mencion->mencion_estado = 1;
+        }
+
+        $mencion->save();
+
+        $this->subirHistorial($mencion->mencion_estado,'Actualizacion de estado de programa','mencion');
+        $this->dispatchBrowserEvent('notificacionPrograma', ['message' =>'Estado del programa actualizado satisfactoriamente.', 'color' => '#2eb867']);
     }
 
     public function cargarPrograma(Mencion $mencion, $modo)

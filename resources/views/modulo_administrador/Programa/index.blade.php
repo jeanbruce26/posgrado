@@ -51,7 +51,7 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                Livewire.emitTo('modulo-administrador.gestion-curricular.plan.index', 'cambiarEstado', event.detail.id);
+                Livewire.emitTo('modulo-administrador.gestion-curricular.programa.index', 'cambiarEstado', event.detail.id);
             }
         })
     })
