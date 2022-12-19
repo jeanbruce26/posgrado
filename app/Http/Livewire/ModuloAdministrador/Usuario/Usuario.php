@@ -128,8 +128,6 @@ class Usuario extends Component
 
     public function subirHistorial($usuario_id, $descripcion, $tabla)
     {
-        date_default_timezone_set("America/Lima");
-
         HistorialAdministrativo::create([
             "usuario_id" => auth('admin')->user()->usuario_id,
             "trabajador_id" => auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_id,

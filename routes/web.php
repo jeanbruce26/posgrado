@@ -23,21 +23,27 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
     Route::resource ('Universidad','UniversidadController');
     Route::resource ('EstadoCivil','EstadoCivilController');
     Route::resource ('Discapacidad','DiscapacidadController');
-    Route::get('/estudiante', [App\Http\Controllers\PersonaController::class, 'index'])->name('admin.persona.index');
     //Route::resource ('Persona','PersonaController');
+    Route::get('/estudiante', [App\Http\Controllers\PersonaController::class, 'index'])->name('admin.persona.index');
     Route::resource ('UbigeoPersona','UbigeoPersonaController');
     
+
+    
+    // Route::resource ('Sede','SedeController');
     Route::get('/sede', [App\Http\Controllers\SedeController::class, 'index'])->name('admin.sede.index');
     Route::get('/programa', [App\Http\Controllers\ProgramaController::class, 'index'])->name('admin.programa.index');
     Route::get('/plan', [App\Http\Controllers\PlanController::class, 'index'])->name('admin.plan.index');
     Route::get('/admision', [App\Http\Controllers\AdmisionController::class, 'index'])->name('admin.admision.index');
+    
 
     Route::get('/inscripcion', [App\Http\Controllers\InscripcionController::class, 'index'])->name('admin.inscripcion.index');
     Route::get('/pago', [App\Http\Controllers\PagoController::class, 'index'])->name('admin.pago.index');
-    Route::get('/canal-pago', [App\Http\Controllers\CanalPagoController::class, 'index'])->name('admin.canal-pago.index');
     //Route::resource('CanalPago', 'CanalPagoController');
+    Route::get('/canal-pago', [App\Http\Controllers\CanalPagoController::class, 'index'])->name('admin.canal-pago.index');
     Route::get('/inscripcion-pago', [App\Http\Controllers\InscripcionPagoController::class, 'index'])->name('admin.inscripcion-pago.index');
-    Route::resource('ConceptoPago', 'ConceptoPagoController');
+    // Route::resource('ConceptoPago', 'ConceptoPagoController');
+    Route::get('/concepto-pago', [App\Http\Controllers\ConceptoPagoController::class, 'index'])->name('admin.concepto-pago.index');
+
     Route::resource('HistorialInscripcion', 'HistorialInscripcionController');
     Route::resource('ExpedienteInscripcion', 'ExpedienteInscripcionController');
     Route::resource('Expediente', 'ExpedienteController');

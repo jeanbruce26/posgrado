@@ -1,31 +1,58 @@
 @extends('admin')
 
-
 @section('content')
 
-    
+    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+        <h4 class="mb-sm-0">Concepto de Pago</h4>
+        <div class="page-title-right">
+            <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">CRUD</a></li>
+                <li class="breadcrumb-item active">Concepto de Pago</li>
+            </ol>
+        </div>
+    </div>
+
+    @livewire('modulo-administrador.concepto-pago.index')
+
 @endsection
 
 @section('javascript')
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-<script>
-    $('#tablaConceptoPago').DataTable({
-        autoWidth: true,
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ registros por páginas",
-            "zeroRecords": "Nada encontrado - disculpa",
-            "info": "Mostrando la página _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros",
-            "infoFiltered": "(filtrado de _MAX_ registros totales)",
-            "search": "Buscar:",
-            "order": "desc",
-            "paginate": {
-                "next": "Siguiente",
-                "previous": "Anterior",
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.38/dist/sweetalert2.all.min.js"></script>
+    <script>
+
+    window.addEventListener('modalConceptoPago', event => {
+        $('#modalConceptoPago').modal('hide');
+    })
+
+    window.addEventListener('notificacionConceptoPago', event => {
+        Toastify({
+            text: event.detail.message,
+            close: true,
+            duration: 5000,
+            stopOnFocus: true,
+            newWindow: true,
+            style: {
+                background: event.detail.color,
             }
-        }
-    });
-</script>
+        }).showToast();
+    })
+
+    window.addEventListener('alertaConfirmacionConceptoPago', event => {
+        // alert('Name updated to: ' + event.detail.id);
+        Swal.fire({
+            title: '¿Estás seguro de modificar el estado del Concepto de Pago?',
+            text: "",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Modificar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-administrador.concepto-pago.index', 'cambiarEstado', event.detail.id);
+            }
+        })
+    })
+    </script>
 @endsection
