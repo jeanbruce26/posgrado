@@ -16,7 +16,15 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
 
     Route::get('', [App\Http\Controllers\AdminLoginController::class, 'administrador'])->name('admin.index');
     
-    Route::resource ('Persona','PersonaController');
+    Route::resource ('TipoUbigeo','TipoUbigeoController');
+    
+    Route::resource ('TipoDocumento','TipoDocumentoController');
+    Route::resource ('GradoAcademico','GradoAcademicoController');
+    Route::resource ('Universidad','UniversidadController');
+    Route::resource ('EstadoCivil','EstadoCivilController');
+    Route::resource ('Discapacidad','DiscapacidadController');
+    Route::get('/estudiante', [App\Http\Controllers\PersonaController::class, 'index'])->name('admin.persona.index');
+    //Route::resource ('Persona','PersonaController');
     Route::resource ('UbigeoPersona','UbigeoPersonaController');
     
     Route::get('/sede', [App\Http\Controllers\SedeController::class, 'index'])->name('admin.sede.index');
@@ -26,7 +34,8 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
 
     Route::get('/inscripcion', [App\Http\Controllers\InscripcionController::class, 'index'])->name('admin.inscripcion.index');
     Route::get('/pago', [App\Http\Controllers\PagoController::class, 'index'])->name('admin.pago.index');
-    Route::resource('CanalPago', 'CanalPagoController');
+    Route::get('/canal-pago', [App\Http\Controllers\CanalPagoController::class, 'index'])->name('admin.canal-pago.index');
+    //Route::resource('CanalPago', 'CanalPagoController');
     Route::get('/inscripcion-pago', [App\Http\Controllers\InscripcionPagoController::class, 'index'])->name('admin.inscripcion-pago.index');
     Route::resource('ConceptoPago', 'ConceptoPagoController');
     Route::resource('HistorialInscripcion', 'HistorialInscripcionController');

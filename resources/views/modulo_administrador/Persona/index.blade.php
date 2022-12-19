@@ -20,8 +20,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.38/dist/sweetalert2.all.min.js"></script>
     <script>
 
-    window.addEventListener('modalEstudiante', event => {
-        $('#modalEstudiante').modal('hide');
+    window.addEventListener('modalPersona', event => {
+        $('#modalPersona').modal('hide');
     })
 
     window.addEventListener('notificacionEstudiante', event => {
