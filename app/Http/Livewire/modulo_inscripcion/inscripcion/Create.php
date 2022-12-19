@@ -10,6 +10,7 @@ use App\Models\EstadoCivil;
 use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
 use App\Models\GradoAcademico;
+use App\Models\HistorialInscripcion;
 use App\Models\Inscripcion;
 use App\Models\Mencion;
 use App\Models\Persona;
@@ -414,6 +415,14 @@ class Create extends Component
                 ]);
             }
         }
+
+        $historial_inscripcion = new HistorialInscripcion();
+        $historial_inscripcion->persona_documento = auth('pagos')->user()->dni;
+        $historial_inscripcion->id_inscripcion = $this->id_inscripcion;
+        $historial_inscripcion->admision = $admision3->admision;
+        $historial_inscripcion->programa = $this->mencion_combo;
+        $historial_inscripcion->admitido = 0;
+        $historial_inscripcion->save();
         
         return redirect()->route('usuario-pdf', $this->id_inscripcion);
     }

@@ -6,6 +6,8 @@ use App\Exports\UsersExport;
 use App\Models\Admision;
 use App\Models\Admitidos;
 use App\Models\Evaluacion;
+use App\Models\HistorialInscripcion;
+use App\Models\Inscripcion;
 use App\Models\Persona;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
@@ -107,14 +109,22 @@ class Index extends Component
                 "evaluacion_id" => $admitido->evaluacion_id,
             ]);
 
+            $this->actualizarEstadoAdmitidoHistorialInscripcion($admitido);
+
             $this->crearConstancia($admitido_create);
         }
     }
 
+    public function actualizarEstadoAdmitidoHistorialInscripcion($admitido)
+    {
+        $inscripcion_id = Evaluacion::find($admitido->evaluacion_id)->inscripcion_id;
+        $historial_inscripcion = HistorialInscripcion::where('id_inscripcion', $inscripcion_id)->first();
+        $historial_inscripcion->admitido = 1;
+        $historial_inscripcion->save();
+    }
+
     public function crearConstancia($admitido)
     {
-        date_default_timezone_set("America/Lima");
-        
         $datos = Evaluacion::join('inscripcion', 'inscripcion.id_inscripcion', '=', 'evaluacion.inscripcion_id')
                 ->join('persona', 'persona.idpersona', '=', 'inscripcion.persona_idpersona')
                 ->join('mencion','mencion.id_mencion','=','inscripcion.id_mencion')
@@ -166,7 +176,6 @@ class Index extends Component
 
     public function export() 
     {
-        date_default_timezone_set("America/Lima");
         $fecha_actual = date("Ymd", strtotime(today()));
         $hora_actual = date("His", strtotime(now()));
 
