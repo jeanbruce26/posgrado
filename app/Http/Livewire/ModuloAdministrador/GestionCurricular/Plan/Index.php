@@ -35,7 +35,9 @@ class Index extends Component
 
     public function modo()
     {
+        $this->limpiar();
         $this->modo = 1;
+        $this->titulo = 'Crear Plan de Estudios';
     }
 
     public function limpiar()
@@ -66,6 +68,7 @@ class Index extends Component
 
     public function cargarPlan(Plan $plan)
     {
+        $this->limpiar();
         $this->modo = 2;
         $this->titulo = 'Editar Plan de Estudios';
         $this->id_plan = $plan->id_plan;
@@ -110,7 +113,7 @@ class Index extends Component
 
     public function subirHistorial($usuario_id, $descripcion, $tabla)
     {
-        HistorialAdministrativo ::create([
+        HistorialAdministrativo::create([
             "usuario_id" => auth('admin')->user()->usuario_id,
             "trabajador_id" => auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_id,
             "historial_descripcion" => $descripcion,

@@ -39,7 +39,9 @@ class Index extends Component
 
     public function modo()
     {
+        $this->limpiar();
         $this->modo = 1;
+        $this->titulo = 'Crear Plan de Estudios';
     }
 
     public function limpiar()
@@ -69,6 +71,7 @@ class Index extends Component
 
     public function cargarAdmision(Admision $admision)
     {
+        $this->limpiar();
         $this->modo = 2;
         $this->titulo = 'Editar Proceso de Admision';
         $this->id_admision = $admision->cod_admi;
