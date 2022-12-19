@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="d-flex justify-content-end align-items-center mb-3">
-                <a href="#modalPago" type="button" wire:click="modo()" class="btn btn-primary btn-label waves-effect right waves-light w-md" data-bs-toggle="modal" data-bs-target="#modalPago"><i class="ri-add-line label-icon align-middle fs-16 ms-2"></i> Nuevo</a>
+                <a href="#modalConceptoPago" type="button" wire:click="modo()" class="btn btn-primary btn-label waves-effect right waves-light w-md" data-bs-toggle="modal" data-bs-target="#modalConceptoPago"><i class="ri-add-line label-icon align-middle fs-16 ms-2"></i> Nuevo</a>
             </div>
             <div class="card">
                 <div class="card-body">
@@ -28,31 +28,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($conceptoPago as $item)
+                                @foreach ($conceptoPagoModel as $item)
                                     <tr>
-                                        <td>{{$item->concepto_id}}</td>
+                                        <td align="center"><strong>{{$item->concepto_id}}</strong></td>
                                         <td>{{$item->concepto}}</td>
-                                        <td>{{$item->monto}}</td>
-                                        <td>
+                                        <td align="center">{{$item->monto}}</td>
+                                        <td align="center">
                                             @if ( $item->estado == 1)
-                                                <span class="badge bg-success">Activo</span>
+                                                <span style="cursor: pointer;" wire:click="cargarAlerta({{ $item->concepto_id }})" class="badge text-bg-primary">Activo</span>
                                             @else
-                                                <span class="badge bg-danger">Inactivo</span>
+                                                <span style="cursor: pointer;" wire:click="cargarAlerta({{ $item->concepto_id }})" class="badge text-bg-danger">Inactivo</span>
                                             @endif
                                         </td>
-                                        <td class="d-flex justify-content-star">
-                                            <a href="#editModal" type="button" class="link-success fs-15" data-bs-toggle="modal" data-bs-target="#editModal{{$item->concepto_id}}"><i class="bx bx-edit bx-sm bx-burst-hover"></i></a>
-
+                                        <td align="center" class="d-flex justify-content-center">
+                                                <a href="#modalConceptoPago" wire:click="cargarConceptoPago({{ $item->concepto_id }})" class="link-success fs-16" data-bs-toggle="modal" data-bs-target="#modalConceptoPago"><i class="ri-edit-2-line"></i></a>
+                                            </div>
                                             
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-
-                    <div class="d-none code-view">
-                        <pre class="language-markup" style="height: 275px;"><code>&lt;table class=&quot;table table-nowrap&quot;&gt;
                     </div>
                 </div><!-- end card-body -->
             </div><!-- end card -->
@@ -62,88 +58,48 @@
 
 
     {{-- Modal Nuevo --}}
-    <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="newModal" aria-hidden="true">
-        <div class="modal-dialog modal-x1 modal-dialog-scrollable">
+    <div wire:ignore.self class="modal fade" id="modalConceptoPago" tabindex="-1" aria-labelledby="modalConceptoPago" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Crear Concepto de Pago</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ $titulo }}</h5>
+                    <button type="button" class="btn-close" wire:click="limpiar()" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('ConceptoPago.store') }}" method="POST">
-                        @csrf
+                    <form novalidate>
                         <div class="col-sm-12 row g-3">
                             <div class="mb-3 col-md-12">
-                                <label for="inputConcepto" class="form-label">Concepto <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
+                                <label class="form-label">Concepto <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('concepto') is-invalid @enderror" wire:model="concepto">
+                                @error('concepto')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                     
                             <div class="mb-3 col-md-12">
-                                <label for="inputMonto" class="form-label">Monto <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" onkeypress="return soloNumeros(event)" pattern="[0-9]{1-13}" required>
-                            </div>
-                    
-                            <div class="mb-3 col-md-12">
-                                <label for="inputEstado" class="form-label">Estado <span class="text-danger">*</span></label>
-                                <select id="inputEstado" class="form-select" name="estado" required>
-                                    <option value="" selected>Seleccione</option>
-                                    <option value="1"> Activo</option>
-                                    <option value="2"> Inactivo</option>
-                                </select>
+                                <label class="form-label">Monto <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control @error('monto') is-invalid @enderror" wire:model="monto">
+                                @error('monto')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer col-12 d-flex justify-content-between">
-                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="ri-add-circle-fill ms-1"></i></button>
+                        <button type="button" wire:click="limpiar()" class="btn btn-secondary btn-label waves-effect waves-light w-md" data-bs-dismiss="modal"><i class="ri-arrow-left-s-line label-icon align-middle fs-16 me-2"></i> Cancelar</button>
+                        <button type="button" wire:click="guardarConceptoPago()" class="btn btn-primary btn-label waves-effect right waves-light w-md"><i class="ri-check-double-fill label-icon align-middle fs-16 ms-2"></i>
+                            @if($modo = 1)
+                                Guardar
+                            @else
+                                Actualizar
+                            @endif 
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     {{-- Modal Nuevo --}}
-
-    {{-- Modal Editar --}}
-    <div class="modal fade" id="editModal{{$item->concepto_id}}" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
-        <div class="modal-dialog modal-x1 modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Conbcepto de Pago</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('ConceptoPago.update',$item->concepto_id) }}" method="POST">
-                        @csrf @method('PUT')
-                        <div class="col-sm-12 row g-3">
-                            <div class="mb-3 col-md-12">
-                                <label for="inputConcepto" class="form-label">Concepto <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="inputConcepto" name="concepto" maxlength="45" value="{{ $item->concepto }}" onkeypress="return soloLetras(event)" pattern="[a-zA-ZÀ-ÿ ]{2,254}" required>
-                            </div>
-                
-                            <div class="mb-3 col-md-12">
-                                <label for="inputMonto" class="form-label">Monto <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="inputMonto" name="monto" maxlength="13" value="{{ $item->monto }}" onkeypress="return soloNumeros(event)" pattern="[0-9]{1-13}" required>
-                            </div>
-                
-                            <div class="mb-3 col-md-12">
-                                <label for="inputEstado" class="form-label">Estado <span class="text-danger">*</span></label>
-                                <select id="inputEstado" class="form-select" name="estado" required>
-                                    <option value="" selected>Seleccione</option>
-                                    <option value="1" {{ $item->estado == 1 ? 'selected' : '' }}> Activo</option>
-                                    <option value="2" {{ $item->estado == 2 ? 'selected' : '' }}> Inactivo</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer col-12 d-flex justify-content-between">
-                        <a type="button" class="btn btn-secondary d-flex justify-content-center align-items-center btn-x1" data-bs-dismiss="modal"><i class="bx bx-chevron-left me-1 bx-1x"></i>Cancelar</a>
-                        <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center btn-x1">Guardar <i class="bx bx-edit ms-1 ri-1x"></i></button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- Modal Editar --}}
 
 </div>
 

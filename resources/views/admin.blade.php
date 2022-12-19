@@ -234,10 +234,10 @@
                         </li>
 
                         <li class="nav-item">
-                            {{-- <a class="nav-link menu-link" href="#sidebarCruds" data-bs-toggle="collapse" role="button"
+                            <a class="nav-link menu-link" href="#sidebarCruds" data-bs-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="sidebarCruds">
                                 <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">CRUDS</span>
-                            </a> --}}
+                            </a>
                             <div class="collapse menu-dropdown" id="sidebarCruds">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
@@ -249,7 +249,7 @@
                                             data-key="t-analytics"> Canal de Pago </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('ConceptoPago.index') }}" class="nav-link"
+                                        <a href="{{ route('admin.concepto-pago.index') }}" class="nav-link"
                                             data-key="t-analytics"> Concepto de Pago </a>
                                     </li>
                                     <li class="nav-item">
