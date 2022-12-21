@@ -9,20 +9,18 @@ class HistorialInscripcion extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = "cod_histo";
+    protected $primaryKey = 'historial_inscripcion_id';
 
-    protected $table = 'histo_inscr';
+    protected $table = 'historial_inscripcion';
     protected $fillable = [
-        'cod_histo',
+        'historial_inscripcion_id',
+        'persona_documento',
         'id_inscripcion',
         'admision',
+        'programa',
+        'historial_inscripcion_fecha',
+        'admitido',
     ];
 
     public $timestamps = false;
-
-    public function Inscripcion(){
-        return $this->belongsTo(Inscripcion::class,
-        'id_inscripcion','id_inscripcion');
-    }
-    
 }
