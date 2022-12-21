@@ -421,6 +421,7 @@ class Create extends Component
         $historial_inscripcion->id_inscripcion = $this->id_inscripcion;
         $historial_inscripcion->admision = $admision3->admision;
         $historial_inscripcion->programa = $this->mencion_combo;
+        $historial_inscripcion->historial_inscripcion_fecha = now();
         $historial_inscripcion->admitido = 0;
         $historial_inscripcion->save();
         

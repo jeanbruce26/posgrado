@@ -18,6 +18,7 @@ class HistorialInscripcion extends Model
         'id_inscripcion',
         'admision',
         'programa',
+        'historial_inscripcion_fecha',
         'admitido',
     ];
 
