@@ -42,8 +42,6 @@
                                         </td>
                                         <td align="center" class="d-flex justify-content-center">
                                                 <a href="#modalConceptoPago" wire:click="cargarConceptoPago({{ $item->concepto_id }})" class="link-success fs-16" data-bs-toggle="modal" data-bs-target="#modalConceptoPago"><i class="ri-edit-2-line"></i></a>
-                                            </div>
-                                            
                                         </td>
                                     </tr>
                                 @endforeach
