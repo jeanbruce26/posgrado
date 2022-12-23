@@ -17,7 +17,7 @@ class Index extends Component
     ];
 
     public $search = '';
-    public $titulo = 'Crear Plan de Estudios';
+    public $titulo = 'Crear Proceso de Admision';
     public $id_admision;
 
     public $modo = 1;
@@ -41,7 +41,7 @@ class Index extends Component
     {
         $this->limpiar();
         $this->modo = 1;
-        $this->titulo = 'Crear Plan de Estudios';
+        $this->titulo = 'Crear Proceso de Admision';
     }
 
     public function limpiar()

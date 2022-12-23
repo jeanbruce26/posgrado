@@ -18,7 +18,7 @@
                             <thead>
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
                                     <th scope="col" class="col-md-1">ID</th>
-                                    <th scope="col" class="col-md-9">Programa</th>
+                                    <th scope="col" class="col-md-9">Sede</th>
                                     <th scope="col" class="col-md-2">Acciones</th>
                                 </tr>
                             </thead>
