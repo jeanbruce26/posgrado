@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\ModuloAdministrador\CanalPago;
 
 use App\Models\CanalPago;
+use App\Models\HistorialAdministrativo;
 use Livewire\Component;
 
 class Index extends Component
@@ -53,11 +54,12 @@ class Index extends Component
                 'canalPago' => 'required|string'
             ]);
 
-            CanalPago::create([
+            $canalPago = CanalPago::create([
                 "descripcion" => $this->canalPago
             ]);
 
-            $this->dispatchBrowserEvent('notificacionCanalPago', ['message' =>'Canal de Pago agregado satisfactoriamente.', 'color' => '#2eb867']);
+            $this->subirHistorial($canalPago->canal_pago_id, 'Creación de Canal de Pago', 'canal_pago');
+            $this->dispatchBrowserEvent('notificacionCanalPago', ['message' =>'Canal de Pago creado satisfactoriamente.', 'color' => '#2eb867']);
         }else{
             $this->validate([
                 'canalPago' => 'required|string'
@@ -67,6 +69,7 @@ class Index extends Component
             $canalPago->descripcion = $this->canalPago;
             $canalPago->save();
 
+            $this->subirHistorial($canalPago->canal_pago_id, 'Actualización de Canal de Pago', 'canal_pago');
             $this->dispatchBrowserEvent('notificacionCanalPago', ['message' =>'Canal de Pago actualizado satisfactoriamente.', 'color' => '#2eb867']);
         }
 
@@ -74,6 +77,19 @@ class Index extends Component
 
         $this->limpiar();
     }
+    
+    public function subirHistorial($usuario_id, $descripcion, $tabla)
+    {
+        HistorialAdministrativo::create([
+            "usuario_id" => auth('admin')->user()->usuario_id,
+            "trabajador_id" => auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_id,
+            "historial_descripcion" => $descripcion,
+            "historial_tabla" => $tabla,
+            "historial_usuario_id" => $usuario_id,
+            "historial_fecha" => now()
+        ]);
+    }
+
 
     public function render()
     {

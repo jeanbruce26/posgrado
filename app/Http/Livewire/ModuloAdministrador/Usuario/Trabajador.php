@@ -195,6 +195,7 @@ class Trabajador extends Component
         }
         $trabajador->save();
 
+        $this->dispatchBrowserEvent('notificacionTrabajador', ['message' =>'Estado de Trabajador actualizado satisfactoriamente.']);
         $this->subirHistorial($trabajador->trabajador_id,'Actualizacion de trabajador','trabajador');
     }
 
@@ -823,6 +824,8 @@ class Trabajador extends Component
                 $trabajador_tipo_trabajador_docente->save();
 
                 $this->subirHistorial($this->trabajador_id,'Desasignacion de trabajador docente','trabajador_tipo_trabajador');
+                $this->dispatchBrowserEvent('notificacionTrabajador', ['message' =>'Trabajador designado satisfactoriamente.']);
+
             }
         }
         
@@ -851,6 +854,7 @@ class Trabajador extends Component
                 $trabajador_tipo_trabajador_coordinador->trabajador_tipo_trabajador_estado = 2;
                 $trabajador_tipo_trabajador_coordinador->save();
 
+                $this->dispatchBrowserEvent('notificacionTrabajador', ['message' =>'Trabajador designado satisfactoriamente.']);
                 $this->subirHistorial($this->trabajador_id,'Desasignacion de trabajador coordinador','trabajador_tipo_trabajador');
             }
         } 
@@ -874,6 +878,7 @@ class Trabajador extends Component
                 $trabajador_tipo_trabajador_administrativo->trabajador_tipo_trabajador_estado = 2;
                 $trabajador_tipo_trabajador_administrativo->save();
 
+                $this->dispatchBrowserEvent('notificacionTrabajador', ['message' =>'Trabajador designado satisfactoriamente.']);
                 $this->subirHistorial($this->trabajador_id,'Desasignacion de trabajador administrativo','trabajador_tipo_trabajador');
             }
         }

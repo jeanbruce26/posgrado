@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\ModuloAdministrador\Pago;
 
 use App\Models\CanalPago;
+use App\Models\HistorialAdministrativo;
 use App\Models\Pago;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -79,7 +80,7 @@ class Index extends Component
                 'canal_pago' => 'required|numeric'
             ]);
     
-            Pago::create([
+            $pago = Pago::create([
                 "dni" => $this->documento,
                 "nro_operacion" => $this->numero_operacion,
                 "monto" => $this->monto,
@@ -88,7 +89,8 @@ class Index extends Component
                 "canal_pago_id" => $this->canal_pago,
             ]);
     
-            $this->dispatchBrowserEvent('notificacionPago', ['message' =>'Pago agregado satisfactoriamente.', 'color' => '#2eb867']);
+            $this->subirHistorial($pago->pago_id, 'Creación de Pago', 'pago');
+            $this->dispatchBrowserEvent('notificacionPago', ['message' =>'Pago creado satisfactoriamente.', 'color' => '#2eb867']);
         }else{
             $this->validate([
                 'numero_operacion' => 'required|numeric',
@@ -106,6 +108,7 @@ class Index extends Component
             $pago->canal_pago_id = $this->canal_pago;
             $pago->save();
 
+            $this->subirHistorial($pago->pago_id, 'Actualización de Pago', 'pago');
             $this->dispatchBrowserEvent('notificacionPago', ['message' =>'Pago '.$this->numero_operacion.' actualizado satisfactoriamente.', 'color' => '#2eb867']);
         }
 
@@ -123,8 +126,23 @@ class Index extends Component
     {
         $pago->delete();
 
+        $this->subirHistorial($pago->pago_id, 'Eliminación de Pago', 'pago');
         $this->dispatchBrowserEvent('notificacionPago', ['message' =>'Pago eliminado satisfactoriamente.', 'color' => '#ea4b43']);
     }
+
+    
+    public function subirHistorial($usuario_id, $descripcion, $tabla)
+    {
+        HistorialAdministrativo::create([
+            "usuario_id" => auth('admin')->user()->usuario_id,
+            "trabajador_id" => auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_id,
+            "historial_descripcion" => $descripcion,
+            "historial_tabla" => $tabla,
+            "historial_usuario_id" => $usuario_id,
+            "historial_fecha" => now()
+        ]);
+    }
+
 
 
     public function render()

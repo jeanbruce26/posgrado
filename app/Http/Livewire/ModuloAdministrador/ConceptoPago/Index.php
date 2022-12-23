@@ -54,7 +54,9 @@ class Index extends Component
         }
 
         $conceptoPago->save();
-        $this->subirHistorial($conceptoPago->concepto_id, 'Actualizacion de estado Concepto de Pago', 'concepto_pago');
+
+        $this->dispatchBrowserEvent('notificacionConceptoPago', ['message' =>'Estado de concepto de pago actualizado satisfactoriamente.', 'color' => '#2eb867']);
+        $this->subirHistorial($conceptoPago->concepto_id, 'Actualizacion de estado concepto de pago', 'concepto_pago');
     }
 
     public function cargarConceptoPago(ConceptoPago $conceptoPago){
@@ -77,11 +79,15 @@ class Index extends Component
                 'monto' => 'required|numeric'
             ]);
 
-            ConceptoPago::create([
+            $conceptoPago = ConceptoPago::create([
                 "concepto" => $this->concepto,
                 "monto" => $this->monto,
                 "estado" => 1
             ]);
+
+            $this->subirHistorial($conceptoPago->concepto_id, 'Creación de Concepto de Pago', 'concepto_pago');
+            $this->dispatchBrowserEvent('notificacionConceptoPago', ['message' =>'Concepto de Pago creado satisfactoriamente.', 'color' => '#2eb867']);
+
         } else {
             $this->validate([
                 'concepto' => 'required|string',
@@ -92,9 +98,11 @@ class Index extends Component
             $conceptoPago->concepto = $this->concepto;
             $conceptoPago->monto = $this->monto;
             $conceptoPago->save();
+            $this->subirHistorial($conceptoPago->concepto_id, 'Actualización de concepto de pago', 'concepto_pago');
+            $this->dispatchBrowserEvent('notificacionConceptoPago', ['message' =>'Concepto de pago actualizado satisfactoriamente.', 'color' => '#2eb867']);
+
         }
 
-        $this->dispatchBrowserEvent('notificacionConceptoPago', ['message' =>'Concepto de Pago actualizado satisfactoriamente.', 'color' => '#2eb867']);
 
         $this->dispatchBrowserEvent('modalConceptoPago');
 

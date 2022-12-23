@@ -69,6 +69,7 @@ class Usuario extends Component
 
         $usuario->save();
 
+        $this->dispatchBrowserEvent('notificacionUsuario', ['message' =>'Estado de Usuario actualizado satisfactoriamente.', 'color' => '#2eb867']);
         $this->subirHistorial($usuario->usuario_id,'Actualizacion de estado usuario','usuario');
     }
 

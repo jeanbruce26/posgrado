@@ -7,6 +7,7 @@ use App\Models\Discapacidad;
 use App\Models\EstadoCivil;
 use App\Models\Universidad;
 use App\Models\GradoAcademico;
+use App\Models\HistorialAdministrativo;
 use Livewire\Component;
 
 class Index extends Component
@@ -188,12 +189,26 @@ class Index extends Component
         }
         // dd($persona);
         $persona->save();
-        $this->dispatchBrowserEvent('notificacionEstudiante', ['message' =>'Persona actualizada satisfactoriamente.', 'color' => '#2eb867']);
+
+        $this->dispatchBrowserEvent('notificacionEstudiante', ['message' =>'Estudiante actualizado satisfactoriamente.', 'color' => '#2eb867']);
+        $this->subirHistorial($persona->idpersona, 'Actualización de Estudiante', 'persona');
 
         $this->dispatchBrowserEvent('modalPersona');
         $this->limpiar();
     }
     
+    
+    public function subirHistorial($usuario_id, $descripcion, $tabla)
+    {
+        HistorialAdministrativo::create([
+            "usuario_id" => auth('admin')->user()->usuario_id,
+            "trabajador_id" => auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_id,
+            "historial_descripcion" => $descripcion,
+            "historial_tabla" => $tabla,
+            "historial_usuario_id" => $usuario_id,
+            "historial_fecha" => now()
+        ]);
+    }
 
     public function render()
     {
