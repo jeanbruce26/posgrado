@@ -115,14 +115,19 @@ class Pagos extends Component
         $admision = Admision::where('estado',1)->first()->cod_admi;
 
         //OBTENER EL ULTIMO CODIGO DE INSCRIPCION y autoincrementar
-        $ultimo_codifo_inscripcion = Inscripcion::orderBy('inscripcion_codigo','DESC')->first()->inscripcion_codigo;
-        $ultimo_codifo_inscripcion = substr($ultimo_codifo_inscripcion, 2, 6);
-        $ultimo_codifo_inscripcion = intval($ultimo_codifo_inscripcion) + 1;
-        $ultimo_codifo_inscripcion = str_pad($ultimo_codifo_inscripcion, 4, "0", STR_PAD_LEFT);
-        $ultimo_codifo_inscripcion = 'IN'.$ultimo_codifo_inscripcion;
+        $ultimo_codifo_inscripcion = Inscripcion::orderBy('inscripcion_codigo','DESC')->first();
+        if($ultimo_codifo_inscripcion == null){
+            $codigo_inscripcion = 'IN0001';
+        }else{
+            $codigo_inscripcion = $ultimo_codifo_inscripcion->inscripcion_codigo;
+            $codigo_inscripcion = substr($codigo_inscripcion, 2, 6);
+            $codigo_inscripcion = intval($codigo_inscripcion) + 1;
+            $codigo_inscripcion = str_pad($codigo_inscripcion, 4, "0", STR_PAD_LEFT);
+            $codigo_inscripcion = 'IN'.$codigo_inscripcion;
+        }
         
         $inscripcion = Inscripcion::create([
-            "inscripcion_codigo" => $ultimo_codifo_inscripcion,
+            "inscripcion_codigo" => $codigo_inscripcion,
             "estado" => 'Activo',
             "admision_cod_admi" => $admision,
         ]);

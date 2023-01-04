@@ -34,19 +34,20 @@
                         <table class="table table-hover table-nowrap mb-0">
                             <thead>
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
-                                    <th scope="col" class="col-md-1">ID</th>
+                                    <th scope="col" class="">ID</th>
                                     <th scope="col" class="col-md-2">Codigo</th>
                                     <th scope="col" class="col-md-3">Apellidos y Nombres</th>
                                     <th scope="col" class="col-md-2">Documento</th>
                                     <th scope="col" class="col-md-1">Estado</th>
                                     <th scope="col" class="col-md-2">Codigo Constancia</th>
                                     <th scope="col" class="col-md-1">Constancia</th>
+                                    <th scope="col" class="col-md-1">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if ($admitidos_model->count() == 0)
                                     <tr>
-                                        <td colspan="5" align="center" class="text-muted">No hay registros, por favor genere los codigos de admitidos.</td>
+                                        <td colspan="8" align="center" class="text-muted">No hay registros, por favor genere los codigos de admitidos.</td>
                                     </tr>
                                 @else
                                     @foreach ($admitidos_model as $item)
@@ -56,7 +57,13 @@
                                         <td align="">{{ $item->apell_pater }} {{ $item->apell_mater }}, {{ $item->nombres }}</td>
                                         <td align="center">{{ $item->num_doc }}</td>
                                         <td align="center"><span class="badge text-bg-primary">Admitido</span></td>
-                                        <td align="center">{{ $item->constancia_codigo }}</td>
+                                        <td align="center">
+                                            @if ($item->constancia_codigo == null)
+                                                -                                                
+                                            @else
+                                                {{ $item->constancia_codigo }}
+                                            @endif
+                                        </td>
                                         @php
                                             $datos = App\Models\Evaluacion::join('inscripcion', 'inscripcion.id_inscripcion', '=', 'evaluacion.inscripcion_id')
                                                 ->join('admision','admision.cod_admi','=','inscripcion.admision_cod_admi')
@@ -65,7 +72,18 @@
                                             $ruta = $datos->admision.'/' . $datos->id_inscripcion . '/'.$item->constancia;
                                         @endphp
                                         <td align="center">
-                                            <a href="{{ asset($ruta) }}" target="_blank" class="link-success fs-16"><i class="ri-file-text-line"></i></a>
+                                            @if ($item->constancia == null)
+                                                -
+                                            @else
+                                                <a href="{{ asset($ruta) }}" target="_blank" class="link-success fs-16"><i class="ri-file-text-line"></i></a>
+                                            @endif
+                                        </td>
+                                        <td align="center">
+                                            @if ($item->constancia)
+                                                -
+                                            @else
+                                                <a wire:click="cargarAlertaCrearConstancia({{ $item->admitidos_id }})"  class="link-secondary fs-16" style="cursor: pointer" ><i class="ri-file-add-line"></i></a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach

@@ -32,6 +32,29 @@
         }).showToast();
     })
 
+    window.addEventListener('alertaCrearConstancia', event => {
+        // alert('Name updated to: ' + event.detail.id);
+        Swal.fire({
+            title: '¿Estás seguro de generar la constancia?',
+            text: "",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Generar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-administrador.evaluacion.admitidos.index', 'crearConstancia', event.detail.id);
+                Swal.fire(
+                    'Constancia guardado!',
+                    'La constancia de ingreso se generó satisfactoriamente.',
+                    'success'
+                )
+            }
+        })
+    })
+
     window.addEventListener('cargarAlertaCodigo', event => {
         // alert('Name updated to: ' + event.detail.id);
         Swal.fire({

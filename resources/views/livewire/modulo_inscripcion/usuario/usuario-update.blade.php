@@ -27,6 +27,7 @@
                                 @php
                                     $expediente_inscripcion = App\Models\ExpedienteInscripcion::where('id_inscripcion', auth('usuarios')->user()->id_inscripcion)->get();
                                     $value = 0;
+                                    $admision = App\Models\Admision::where('estado', 1)->first()->admision;
                                 @endphp
                                 @foreach ($expediente_model as $item)
                                     @foreach ($expediente_inscripcion as $item2)
@@ -36,7 +37,7 @@
                                                 <td align="center">{{date('d/m/Y', strtotime($item2->fecha_entre))}}</td>
                                                 <td align="center" class="text-success"><i class="ri-checkbox-circle-line fs-17 align-middle"></i> {{$item2->estado}}</td>
                                                 <td align="center">
-                                                    <a target="_blank" href="{{asset('Admision 2022 - I/'.$item2->id_inscripcion.'/'.$item2->nom_exped)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="bx bxs-file-pdf bx-sm bx-burst-hover"></i></a>
+                                                    <a target="_blank" href="{{asset($admision.'/'.$item2->id_inscripcion.'/'.$item2->nom_exped)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="bx bxs-file-pdf bx-sm bx-burst-hover"></i></a>
                                                 </td>
                                                 <td align="center">
                                                     @if ($final >= $fecha)

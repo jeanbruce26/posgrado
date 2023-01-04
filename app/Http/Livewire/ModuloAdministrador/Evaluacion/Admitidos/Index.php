@@ -7,8 +7,6 @@ use App\Models\Admision;
 use App\Models\Admitidos;
 use App\Models\Evaluacion;
 use App\Models\HistorialInscripcion;
-use App\Models\Inscripcion;
-use App\Models\Persona;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -24,7 +22,7 @@ class Index extends Component
     public $search = '';
     public $mostrar_alerta = 0;
 
-    protected $listeners = ['render', 'generar_codigo'];
+    protected $listeners = ['render', 'generar_codigo', 'crearConstancia'];
 
     public function updating()
     {
@@ -110,20 +108,20 @@ class Index extends Component
             ]);
 
             $this->actualizarEstadoAdmitidoHistorialInscripcion($admitido);
-
-            $this->crearConstancia($admitido_create);
         }
     }
 
-    public function actualizarEstadoAdmitidoHistorialInscripcion($admitido)
+    public function cargarAlertaCrearConstancia($id)
     {
-        $inscripcion_id = Evaluacion::find($admitido->evaluacion_id)->inscripcion_id;
-        $historial_inscripcion = HistorialInscripcion::where('id_inscripcion', $inscripcion_id)->first();
-        $historial_inscripcion->admitido = 1;
-        $historial_inscripcion->save();
+        $this->dispatchBrowserEvent('alertaCrearConstancia', ['id' => $id]);
     }
 
-    public function crearConstancia($admitido)
+    public function crearConstancia(Admitidos $admitido)
+    {
+        $this->crearConstanciaPdf($admitido);
+    }
+
+    public function crearConstanciaPdf($admitido)
     {
         $datos = Evaluacion::join('inscripcion', 'inscripcion.id_inscripcion', '=', 'evaluacion.inscripcion_id')
                 ->join('persona', 'persona.idpersona', '=', 'inscripcion.persona_idpersona')
@@ -172,6 +170,14 @@ class Index extends Component
         $admitido_update->constancia_codigo = $codigo_constancia;
         $admitido_update->constancia = $nombre_pdf;
         $admitido_update->save();
+    }
+
+    public function actualizarEstadoAdmitidoHistorialInscripcion($admitido)
+    {
+        $inscripcion_id = Evaluacion::find($admitido->evaluacion_id)->inscripcion_id;
+        $historial_inscripcion = HistorialInscripcion::where('id_inscripcion', $inscripcion_id)->first();
+        $historial_inscripcion->admitido = 1;
+        $historial_inscripcion->save();
     }
 
     public function export() 
