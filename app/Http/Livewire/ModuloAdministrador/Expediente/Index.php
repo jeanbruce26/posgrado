@@ -33,25 +33,15 @@ class Index extends Component
     }
 
     public function modo(){
-        if($this->modo == 2){
-            $this->limpiar();
-            $this->modo = 1;
-        }else{
-            $this->modo = 1;
-        }
+        $this->limpiar();
+        $this->modo = 1;
     }
 
     public function limpiar(){
-        if ($this->modo == 1) {
-            $this->resetErrorBag();
-            $this->modo = 1;
-            $this->titulo = 'Crear Expediente';
-        }else{
-            $this->resetErrorBag();
-            $this->reset('tipoDocumento', 'complemento', 'requerido');
-            $this->modo = 1;
-            $this->titulo = 'Crear Expediente';
-        }
+        $this->resetErrorBag();
+        $this->reset('tipoDocumento', 'complemento', 'requerido');
+        $this->modo = 1;
+        $this->titulo = 'Crear Expediente';
     }
 
     public function cargarAlerta($id){
