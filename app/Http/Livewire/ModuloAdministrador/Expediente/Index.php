@@ -21,18 +21,14 @@ class Index extends Component
     public $requerido;
     public $estado;
 
-    public $nota;
-
     protected $listeners = ['render', 'cambiarEstado'];
 
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName, [
             'tipoDocumento' => 'required|string',
-            'complemento' => 'required|string',
-            'requerido' => 'required|numeric',
-            'estado' => 'required|numeric',
-
+            'complemento' => 'nullable|string',
+            'requerido' => 'required|numeric'
         ]);
     }
 
@@ -43,7 +39,7 @@ class Index extends Component
 
     public function limpiar(){
         $this->resetErrorBag();
-        $this->reset('tipoDocumento', 'complemento', 'requerido', 'estado');
+        $this->reset('tipoDocumento', 'complemento', 'requerido');
         $this->modo = 1;
         $this->titulo = 'Crear Expediente';
     }
@@ -60,12 +56,65 @@ class Index extends Component
         }
 
         $expediente->save();
-        $this->subirHistorial($expediente->cod_exp, 'Actualizacion de estado Expediente', 'expediente');
+
+        $this->dispatchBrowserEvent('notificacionExpediente', ['message' =>'Estado de expediente actualizado satisfactoriamente.', 'color' => '#2eb867']);
+        $this->subirHistorial($expediente->cod_exp, 'Actualizacion de estado expediente', 'expediente');
     }
 
+    public function cargarExpediente(Expediente $expediente){
+        $this->modo = 2;
+        $this->limpiar();
 
+        $this->modo = 2;
+        $this->titulo = 'Actualizar Expediente';
+        $this->expediente_id = $expediente->cod_exp;
 
+        $this->tipoDocumento = $expediente->tipo_doc;
+        $this->complemento = $expediente->complemento;
+        $this->requerido = $expediente->requerido;
+    }
 
+    public function guardarExpediente(){
+        //dd($this->all());
+
+        if($this->modo == 1){
+            $this->validate([
+                'tipoDocumento' => 'required|string',
+                'complemento' => 'nullable|string',
+                'requerido' => 'required|numeric'
+            ]);
+
+            $expediente = Expediente::create([
+                "tipo_doc" => $this->tipoDocumento,
+                "complemento" => $this->complemento,
+                "requerido" => $this->requerido,
+                "estado" => 1
+            ]);
+
+            $this->dispatchBrowserEvent('notificacionExpediente', ['message' =>'Expediente creado satisfactoriamente.', 'color' => '#2eb867']);
+            $this->subirHistorial($expediente->cod_exp, 'Creación de Expediente', 'expediente');
+
+        }else{
+            $this->validate([
+                'tipoDocumento' => 'required|string',
+                'complemento' => 'nullable|string',
+                'requerido' => 'required|numeric'
+            ]);
+
+            $expediente = Expediente::find($this->expediente_id);
+            $expediente->tipo_doc = $this->tipoDocumento;
+            $expediente->complemento = $this->complemento;
+            $expediente->requerido = $this->requerido;
+            $expediente->save();
+
+            $this->dispatchBrowserEvent('notificacionExpediente', ['message' =>'Expediente actualizado satisfactoriamente.', 'color' => '#2eb867']);
+            $this->subirHistorial($expediente->cod_exp, 'Actualizacion de Expediente', 'expediente');
+        }
+
+        $this->dispatchBrowserEvent('modalExpediente');
+
+        $this->limpiar();
+    }
 
     public function subirHistorial($usuario_id, $descripcion, $tabla)
     {
