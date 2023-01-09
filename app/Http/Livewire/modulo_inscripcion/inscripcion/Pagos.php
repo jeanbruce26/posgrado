@@ -56,9 +56,15 @@ class Pagos extends Component
         }
 
         if($this->documento != auth('pagos')->user()->dni){
-            return redirect()->back()->with(array('mensaje-dni'=>'El dni ingresado no puede ser buscado o no lo pertenece.'));
+            return redirect()->back()->with(array('mensaje-dni'=>'El documento de identidad ingresado no puede ser buscado o no lo pertenece.'));
+        }else{
+            if(strlen($this->documento) == 8 && $this->tipo_documento2 == 2){
+                return redirect()->back()->with(array('mensaje-dni'=>'El documento de identidad ingresado no pertenece al tipo de documento.'));
+            }else if(strlen($this->documento) == 9 && $this->tipo_documento2 == 1){
+                return redirect()->back()->with(array('mensaje-dni'=>'El documento de identidad ingresado no pertenece al tipo de documento.'));
+            }
         }
-        
+
         $this->pago = Pago::where('dni',$this->documento)->where('estado',1)->get();
 
         return $this->pago;

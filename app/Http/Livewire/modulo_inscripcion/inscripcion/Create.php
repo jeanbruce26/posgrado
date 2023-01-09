@@ -97,7 +97,7 @@ class Create extends Component
             $this->departamento_nacimiento_array = Departamento::all();
             $this->provincia_nacimiento_array = collect();
             $this->distrito_nacimiento_array = collect();
-            $this->sede_combo_array = Sede::all();
+            $this->sede_combo_array = Sede::where('sede_estado',1)->get();
             $this->programa_combo_array = collect();
             $this->subprograma_combo_array = collect();
             $this->mencion_combo_array = collect();
@@ -150,7 +150,7 @@ class Create extends Component
             $this->provincia_nacimiento_array = Provincia::where('id_departamento', $id_departamento_naci)->get();
             $this->distrito_nacimiento = $id_distrito_naci;
             $this->distrito_nacimiento_array = Distrito::where('id_provincia', $id_provincia_naci)->get();
-            $this->sede_combo_array = Sede::all();
+            $this->sede_combo_array = Sede::where('sede_estado',1)->get();
             $this->programa_combo_array = collect();
             $this->subprograma_combo_array = collect();
             $this->mencion_combo_array = collect();

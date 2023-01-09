@@ -12,27 +12,27 @@
             <div class="card-body">
                 <div class="row g-3 col-12 m-auto">
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Primer Apellido <span class="text-danger">*</span></label>
+                        <label class="form-label">Primer Apellido <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <input type="text" wire:model="apellido_paterno" onkeyup="mayus(this);" class="form-control @error('apellido_paterno') is-invalid  @enderror" placeholder="Ingrese su apellido paterno">
                     </div>
                     
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Segundo Apellido <span class="text-danger">*</span></label>
+                        <label class="form-label">Segundo Apellido <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <input type="text" wire:model="apellido_materno" onkeyup="mayus(this);" class="form-control @error('apellido_materno') is-invalid  @enderror" placeholder="Ingrese su apellido materno">
                     </div>
                     
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Nombres <span class="text-danger">*</span></label>
+                        <label class="form-label">Nombres <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <input type="text" wire:model="nombres" onkeyup="mayus(this);" class="form-control @error('nombres') is-invalid  @enderror" placeholder="Ingrese sus nombres">
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Fecha de nacimiento <span class="text-danger">*</span></label>
+                        <label class="form-label">Fecha de nacimiento <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <input type="date" wire:model="fecha_nacimiento" class="form-control @error('fecha_nacimiento') is-invalid  @enderror">
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Genero <span class="text-danger">*</span></label>
+                        <label class="form-label">Genero <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('genero') is-invalid  @enderror" aria-label="Default select example" wire:model="genero">
                             <option value="" selected>Seleccione</option>
                             <option value="MASCULINO">MASCULINO</option>
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Estado Civil <span class="text-danger">*</span></label>
+                        <label class="form-label">Estado Civil <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('estado_civil') is-invalid  @enderror" aria-label="Default select example" wire:model="estado_civil">
                             <option value="" selected>Seleccione</option>
                             @foreach ($est as $item)
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Grado Academico <span class="text-danger">*</span></label>
+                        <label class="form-label">Grado Academico o Título <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('grado_academico') is-invalid  @enderror" aria-label="Default select example" wire:model="grado_academico">
                             <option value="" selected>Seleccione</option>
                             @foreach ($grad as $item)
@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Celular <span class="text-danger">*</span></label>
+                        <label class="form-label">Celular <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <input type="text" wire:model="celular" onkeyup="mayus(this);" class="form-control @error('celular') is-invalid  @enderror" placeholder="Ingrese su número de celular">
                     </div>
 
@@ -86,12 +86,12 @@
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Año de Egreso <span class="text-danger">*</span></label>
+                        <label class="form-label">Año de Egreso de Universidad o Maestria <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <input type="text" wire:model="año_egreso" onkeyup="mayus(this);" class="form-control @error('año_egreso') is-invalid  @enderror" placeholder="Ingrese su año egreso">
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Correo Electronico <span class="text-danger">*</span></label>
+                        <label class="form-label">Correo Electronico <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <input type="text" wire:model="correo" class="form-control @error('correo') is-invalid  @enderror" placeholder="Ingrese su correo electronico">
                     </div>
 
@@ -103,7 +103,7 @@
                     <h5 class="mt-4 fw-bold">Datos de dirección.</h5>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Departamento <span class="text-danger">*</span></label>
+                        <label class="form-label">Departamento <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('departamento_direccion') is-invalid  @enderror" aria-label="Default select example" wire:model="departamento_direccion">
                             <option value="" selected>Seleccione</option>
                             @foreach ($departamento_direccion_array as $item)
@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Provincia <span class="text-danger">*</span></label>
+                        <label class="form-label">Provincia <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('provincia_direccion') is-invalid  @enderror" aria-label="Default select example" wire:model="provincia_direccion">
                             <option value="" selected>Seleccione</option>
                             @if ($departamento_direccion)
@@ -125,7 +125,7 @@
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Distrito <span class="text-danger">*</span></label>
+                        <label class="form-label">Distrito <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('distrito_direccion') is-invalid  @enderror" aria-label="Default select example" wire:model="distrito_direccion">
                             <option value="" selected>Seleccione</option>
                             @if ($provincia_direccion)
@@ -137,14 +137,14 @@
                     </div>
 
                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
-                        <label class="form-label">Direccion <span class="text-danger">*</span></label>
+                        <label class="form-label">Direccion <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <input type="text" wire:model="direccion" onkeyup="mayus(this);" class="form-control @error('direccion') is-invalid  @enderror" placeholder="Ingrese su direccion">
                     </div>
 
                     <h5 class="mt-4 fw-bold">Lugar de nacimiento.</h5>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Departamento <span class="text-danger">*</span></label>
+                        <label class="form-label">Departamento <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('departamento_nacimiento') is-invalid  @enderror" aria-label="Default select example" wire:model="departamento_nacimiento">
                             <option value="" selected>Seleccione</option>
                             @foreach ($departamento_nacimiento_array as $item)
@@ -154,7 +154,7 @@
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Provincia <span class="text-danger">*</span></label>
+                        <label class="form-label">Provincia <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('provincia_nacimiento') is-invalid  @enderror" aria-label="Default select example" wire:model="provincia_nacimiento">
                             <option value="" selected>Seleccione</option>
                             @if ($departamento_nacimiento)
@@ -166,7 +166,7 @@
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Distrito <span class="text-danger">*</span></label>
+                        <label class="form-label">Distrito <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('distrito_nacimiento') is-invalid  @enderror" aria-label="Default select example" wire:model="distrito_nacimiento">
                             <option value="" selected>Seleccione</option>
                             @if ($provincia_nacimiento)
@@ -189,7 +189,7 @@
 
                     <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12">
                         <div wire:ignore>
-                            <label class="form-label">Universidad <span class="text-danger">*</span></label>
+                            <label class="form-label">Universidad <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                             <select class="form-select select2-universidad @error('universidad') is-invalid  @enderror" aria-label="Default select example" wire:model="universidad">
                                 <option value="" selected>Seleccione</option>
                                 @foreach ($uni as $item)
@@ -200,7 +200,7 @@
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Centro de trabajo <span class="text-danger">*</span></label>
+                        <label class="form-label">Centro de trabajo <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <input type="text" wire:model="trabajo" onkeyup="mayus(this);" class="form-control @error('trabajo') is-invalid  @enderror" placeholder="Ingrese su centro de trabajo">
                     </div>
                 </div>
@@ -222,7 +222,7 @@
             <div class="card-body w-100">
                 <div class="row g-3 col-12 m-auto">
                     <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
-                        <label class="form-label">Sede <span class="text-danger">*</span></label>
+                        <label class="form-label">Sede <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('sede_combo') is-invalid  @enderror" aria-label="Default select example" wire:model="sede_combo">
                             <option value="" selected>Seleccione</option>
                             @foreach ($sede_combo_array as $item)
@@ -232,7 +232,7 @@
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Programa <span class="text-danger">*</span></label>
+                        <label class="form-label">Programa <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('programa_combo') is-invalid  @enderror" aria-label="Default select example" wire:model="programa_combo">
                             <option value="" selected>Seleccione</option>
                             @if ($sede_combo)
@@ -245,9 +245,9 @@
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
                         @if ($programa_combo)
-                        <label class="form-label">{{ucfirst(strtolower($programa_nombre->descripcion_programa))}} <span class="text-danger">*</span></label>
+                        <label class="form-label">{{ucfirst(strtolower($programa_nombre->descripcion_programa))}} <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         @else
-                        <label class="form-label">- <span class="text-danger">*</span></label>
+                        <label class="form-label">- <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         @endif
                         <select class="form-select @error('subprograma_combo') is-invalid  @enderror" aria-label="Default select example" wire:model="subprograma_combo">
                             <option value="" selected>Seleccione</option>
@@ -269,7 +269,7 @@
 
                     @if ($valor)    
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Mención <span class="text-danger">(*)</span></label>
+                        <label class="form-label">Mención <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                         <select class="form-select @error('mencion_combo') is-invalid  @enderror" aria-label="Default select example" wire:model="mencion_combo">
                             <option value="" selected>Seleccione</option>
                             @foreach ($mencion_combo_array as $item)
@@ -302,7 +302,7 @@
                                 @foreach ($expe as $item)
                                 <tr>
                                     <td>
-                                        <label class="form-label mt-2 mb-2">{{ $item->tipo_doc }} @if ($item->requerido == 1) <span class="text-danger">(*)</span> @endif</label>
+                                        <label class="form-label mt-2 mb-2">{{ $item->tipo_doc }} @if ($item->requerido == 1) <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span> @endif</label>
                                     </td>
                                     <td class="col-md-4">
                                         <input class="mt-2 mb-2 form-control form-control-sm btn btn-primary" type="file" style="color:azure" wire:model="expediente{{$item->cod_exp}}" accept=".pdf">
@@ -319,7 +319,7 @@
                     </div>
 
                     @if ($errors->any())
-                    <div class="alert alert-danger mt-2 mb-2 text-center">Falta completar los campos requeridos.</div>
+                    <div class="alert alert-danger mt-2 mb-2 text-center fw-bold">Falta completar los campos requeridos.</div>
                     @endif
                 </div>
             </div>

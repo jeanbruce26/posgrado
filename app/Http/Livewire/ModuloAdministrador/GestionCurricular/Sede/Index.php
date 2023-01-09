@@ -21,6 +21,8 @@ class Index extends Component
 
     public $sede;
 
+    protected $listeners = ['render', 'cambiarEstado'];
+
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName, [
@@ -40,6 +42,30 @@ class Index extends Component
         $this->resetErrorBag();
         $this->reset('sede');
         $this->modo = 1;
+    }
+
+    public function cargarAlertaEstado(Sede $sede)
+    {
+        if ($sede->sede_estado == 1) {
+            $this->dispatchBrowserEvent('alertaEstadoSede', ['message' => '¿Está seguro de desactivar la sede ' . strtolower($sede->sede) . '?', 'color' => '#f8bb86', 'sede_id' => $sede->cod_sede]);
+        } else {
+            $this->dispatchBrowserEvent('alertaEstadoSede', ['message' => '¿Está seguro de activar la sede ' . strtolower($sede->sede) . '?', 'color' => '#2eb867', 'sede_id' => $sede->cod_sede]);
+        }
+    }
+
+    public function cambiarEstado(Sede $sede)
+    {
+        if ($sede->sede_estado == 1) {
+            $sede->sede_estado = 0;
+            $sede->save();
+            $this->subirHistorial($sede->cod_sede,'Desactivacion de sede','sede');
+            $this->dispatchBrowserEvent('notificacionSede', ['message' =>'Sede desactivado satisfactoriamente.', 'color' => '#2eb867']);
+        } else {
+            $sede->sede_estado = 1;
+            $sede->save();
+            $this->subirHistorial($sede->cod_sede,'Activacion de sede','sede');
+            $this->dispatchBrowserEvent('notificacionSede', ['message' =>'Sede activado satisfactoriamente.', 'color' => '#2eb867']);
+        }
     }
 
     public function cargarSede(Sede $sede)

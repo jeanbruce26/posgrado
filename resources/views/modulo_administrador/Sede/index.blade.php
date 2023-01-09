@@ -25,6 +25,23 @@
         $('#modalSede').modal('hide');
     })
 
+    window.addEventListener('alertaEstadoSede', event => {
+        Swal.fire({
+            title: event.detail.message,
+            text: "",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Modificar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-administrador.gestion-curricular.sede.index', 'cambiarEstado', event.detail.sede_id);
+            }
+        })
+    })
+
     window.addEventListener('notificacionSede', event => {
         Toastify({
             text: event.detail.message,

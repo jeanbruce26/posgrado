@@ -15,6 +15,7 @@ class Sede extends Model
     protected $fillable = [
         'cod_sede',
         'sede',
+        'sede_estado'
     ];
     
     public $timestamps = false;

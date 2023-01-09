@@ -18,7 +18,8 @@
                             <thead>
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
                                     <th scope="col" class="col-md-1">ID</th>
-                                    <th scope="col" class="col-md-9">Sede</th>
+                                    <th scope="col" class="col-md-7">Sede</th>
+                                    <th scope="col" class="col-md-1">Estado</th>
                                     <th scope="col" class="col-md-2">Acciones</th>
                                 </tr>
                             </thead>
@@ -27,6 +28,13 @@
                                 <tr>
                                     <td align="center"><strong>{{ $item->cod_sede }}</strong></td>
                                     <td>{{ $item->sede }}</td>
+                                    <td align="center">
+                                        @if ($item->sede_estado == 1)
+                                            <span class="badge bg-success" wire:click="cargarAlertaEstado({{ $item->cod_sede }})" style="cursor: pointer">Activo</span>
+                                        @else
+                                            <span class="badge bg-danger" wire:click="cargarAlertaEstado({{ $item->cod_sede }})" style="cursor: pointer">Inactivo</span>
+                                        @endif
+                                    </td>
                                     <td align="center">
                                         <div class="hstack gap-3 flex-wrap justify-content-center">
                                             <a href="#modalSede" wire:click="cargarSede({{ $item->cod_sede }}, 1)" class="link-success fs-16" data-bs-toggle="modal" data-bs-target="#modalSede"><i class="ri-edit-2-line"></i></a>
