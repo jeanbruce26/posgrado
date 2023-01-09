@@ -74,7 +74,10 @@
                                                                                             <td align="center">{{date('d/m/Y', strtotime($expInscripcion->fecha_entre))}}</td>
                                                                                             <td align="center" class="text-success"><i class="ri-checkbox-circle-line fs-17 align-middle"></i> {{$expInscripcion->estado}}</td>
                                                                                             <td align="center">
-                                                                                                <a target="_blank" href="{{asset('Admision 2022 - I/'.$expInscripcion->id_inscripcion.'/'.$expInscripcion->nom_exped)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="ri-file-download-line bx-sm bx-burst-hover"></i></a>
+                                                                                                @php
+                                                                                                    $admision = App\Models\Admision::where('estado',1)->first()->admision;
+                                                                                                @endphp
+                                                                                                <a target="_blank" href="{{asset($admision.'/'.$expInscripcion->id_inscripcion.'/'.$expInscripcion->nom_exped)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="ri-file-download-line bx-sm bx-burst-hover"></i></a>
                                                                                             </td>
                                                                                         </tr>
                                                                                         @php
