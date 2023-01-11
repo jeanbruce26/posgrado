@@ -57,11 +57,12 @@ class Usuario extends Component
         ];
 
         $nombre_pdf = $nombre . ' - ' . $codigo_constancia . '.pdf';
+        $path_pdf = $datos->admision.'/'.$datos->id_inscripcion.'/'.$nombre_pdf;
         $pdf = Pdf::loadView('modulo_administrador.Evaluacion.Admitidos.constancia', $data)->save(public_path($datos->admision.'/'.$datos->id_inscripcion.'/'). $nombre_pdf);
         
         $admitido_update = Admitidos::find($admitido->admitidos_id);
         $admitido_update->constancia_codigo = $codigo_constancia;
-        $admitido_update->constancia = $nombre_pdf;
+        $admitido_update->constancia = $path_pdf;
         $admitido_update->save();
     }
 

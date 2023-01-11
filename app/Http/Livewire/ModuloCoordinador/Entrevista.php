@@ -94,7 +94,7 @@ class Entrevista extends Component
         $inscripcion = Inscripcion::find($evaluacion->inscripcion_id);
         $evaluacion->nota_entrevista = $this->nota_total;
         if($this->nota_total < $evaluacion->Puntaje->puntaje_minimo_entrevista){
-            $evaluacion->evaluacion_observacion = 'Puntaje minimo no alcanzado en la Evaluacion de Expedientes.';
+            $evaluacion->evaluacion_observacion = 'Evaluación de entrevista jalada.';
             $evaluacion->evaluacion_estado = 2;
         }else{
             $evaluacion->evaluacion_observacion = 'Evaluado.';

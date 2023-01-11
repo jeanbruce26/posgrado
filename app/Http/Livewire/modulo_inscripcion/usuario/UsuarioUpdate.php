@@ -79,11 +79,12 @@ class UsuarioUpdate extends Component
             if($data != null){
                 $path = $admision. '/' .auth('usuarios')->user()->id_inscripcion. '/';
                 $filename = $this->expediente_nombre.".".$data->extension();
+                $nombreDB = $path.$filename;
                 $data = $this->expediente;
                 $data->storeAs($path, $filename, 'files_publico');
 
                 ExpedienteInscripcion::create([
-                    "nom_exped" => $filename,
+                    "nom_exped" => $nombreDB,
                     "estado" => $estado_expediente,
                     "expediente_cod_exp" => $this->cod_exp,
                     "id_inscripcion" => auth('usuarios')->user()->id_inscripcion,
@@ -136,8 +137,6 @@ class UsuarioUpdate extends Component
 
     public function pdfUser($id)
     {
-        date_default_timezone_set("America/Lima");
-        
         $inscripcion = Inscripcion::where('id_inscripcion',$id)->first();
 
         $montoTotal=0;
@@ -179,10 +178,11 @@ class UsuarioUpdate extends Component
         ];
 
         $nombre_pdf = 'FICHA_INSCRIPCION.pdf';
+        $path_pdf = $admi.'/'.$id.'/'.$nombre_pdf;
         $pdf = Pdf::loadView('modulo_inscripcion.inscripcion.reporte-pdf', $data)->save(public_path($admi.'/'.$id.'/'). $nombre_pdf);
 
         $ins = Inscripcion::find($id);
-        $ins->inscripcion = $nombre_pdf;
+        $ins->inscripcion = $path_pdf;
         $ins->save();
     }
 

@@ -22,6 +22,10 @@
             @endif
         </div>
     </div>
+    <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show mb-4" role="alert">
+        <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - Una vez realizado la evaluación, no podrá realizar modificación de las notas ingresadas.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -47,7 +51,9 @@
                             <th scope="col" class="col-md-1">DOCUMENTO</th>
                             <th scope="col" class="col-md-1">CELULAR</th>
                             <th scope="col" class="col-md-2">EVA. EXPEDIENTE</th>
+                            <th scope="col" class="col-md-1">EVA. EXP. NOTA</th>
                             <th scope="col" class="col-md-2">EVA. ENTREVISTA</th>
+                            <th scope="col" class="col-md-1">EVA. ENT. NOTA</th>
                             <th scope="col" class="col-md-1">ESTADO</th>
                         </tr>
                     </thead>
@@ -70,6 +76,17 @@
                                     @endif
                                 @endif
                             </td>
+                            <td align="center" class="fs-6">
+                                @if ($evalu)
+                                    @if ($evalu->nota_expediente != null)
+                                    {{$evalu->nota_expediente}}
+                                    @else
+                                    -
+                                    @endif
+                                @else
+                                -
+                                @endif
+                            </td>
                             <td align="center">
                                 <button wire:click="evaEntre({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-success btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                 @if ($evalu)
@@ -78,13 +95,24 @@
                                     @endif
                                 @endif
                             </td>
+                            <td align="center" class="fs-6">
+                                @if ($evalu)
+                                    @if ($evalu->nota_entrevista != null)
+                                    {{$evalu->nota_entrevista}}
+                                    @else
+                                    -
+                                    @endif
+                                @else
+                                -
+                                @endif
+                            </td>
                             <td align="center">
                                 @if ($evalu)
                                     @if ($evalu->evaluacion_estado == 1)
                                     <span class="badge text-bg-warning"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Por Evaluar</span>
                                     @endif
                                     @if ($evalu->evaluacion_estado == 2)
-                                    <span class="badge text-bg-danger"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Evaluacion Observada</span>
+                                    <span class="badge text-bg-danger"><i class="ri-error-warning-line label-icon align-middle fs-12 me-1"></i>Evaluacion Jalada</span>
                                     @endif
                                     @if ($evalu->evaluacion_estado == 3)
                                     <span class="badge text-bg-success"><i class="ri-check-double-line label-icon align-middle fs-12 me-1"></i>Evaluado</span>

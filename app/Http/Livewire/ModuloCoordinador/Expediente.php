@@ -162,12 +162,11 @@ class Expediente extends Component
 
     public function evaluarExpediente()
     {
-        date_default_timezone_set("America/Lima");
         $evaluacion = Evaluacion::find($this->evaluacion_id);
         $inscripcion = Inscripcion::find($evaluacion->inscripcion_id);
         $evaluacion->nota_expediente = $this->total;
         if($this->total <= $evaluacion->Puntaje->puntaje_minimo_expediente){
-            $evaluacion->evaluacion_observacion = 'Puntaje minimo no alcanzado en la Evaluacion de Expedientes.';
+            $evaluacion->evaluacion_observacion = 'Evaluación de expediente jalada.';
             $evaluacion->evaluacion_estado = 2;
 
             $evaluacion->nota_entrevista = 0;
@@ -180,7 +179,6 @@ class Expediente extends Component
 
     public function render()
     {
-        date_default_timezone_set("America/Lima");
         $this->contarTotal();
         $evaluacion_data = Evaluacion::find($this->evaluacion_id);
         $boton = $evaluacion_data->nota_expediente;

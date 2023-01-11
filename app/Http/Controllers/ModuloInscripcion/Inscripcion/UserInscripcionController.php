@@ -50,8 +50,6 @@ class UserInscripcionController extends Controller
 
     public function pdf($id)
     {
-        date_default_timezone_set("America/Lima");
-        
         $inscripcion = Inscripcion::where('id_inscripcion',$id)->first();
 
         $montoTotal=0;
@@ -97,11 +95,12 @@ class UserInscripcionController extends Controller
         ];
 
         $nombre_pdf = 'FICHA_INSCRIPCION.pdf';
+        $path = $admi.'/'.$id.'/'.$nombre_pdf;
         $pdf = PDF::loadView('modulo_inscripcion.inscripcion.reporte-pdf', $data)->save(public_path($admi.'/'.$id.'/'). $nombre_pdf);
         $pdf2 = PDF::loadView('modulo_inscripcion.inscripcion.reporte-pdf', $data);
 
         $ins = Inscripcion::find($id);
-        $ins->inscripcion = $nombre_pdf;
+        $ins->inscripcion = $path;
         $ins->save();
 
         auth('pagos')->logout();

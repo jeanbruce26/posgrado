@@ -404,11 +404,12 @@ class Create extends Component
             if($data != null){
                 $path = $admi. '/' .$this->id_inscripcion. '/';
                 $filename = $nombreExpediente.".".$data->extension();
+                $nombreDB = $path.$filename;
                 $data = $this->$name;
                 $data->storeAs($path, $filename, 'files_publico');
 
                 ExpedienteInscripcion::create([
-                    "nom_exped" => $filename,
+                    "nom_exped" => $nombreDB,
                     "estado" => $estadoExpediente,
                     "expediente_cod_exp" => $i,
                     "id_inscripcion" => $this->id_inscripcion,

@@ -77,7 +77,7 @@
                                                                                                 @php
                                                                                                     $admision = App\Models\Admision::where('estado',1)->first()->admision;
                                                                                                 @endphp
-                                                                                                <a target="_blank" href="{{asset($admision.'/'.$expInscripcion->id_inscripcion.'/'.$expInscripcion->nom_exped)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="ri-file-download-line bx-sm bx-burst-hover"></i></a>
+                                                                                                <a target="_blank" href="{{asset($expInscripcion->nom_exped)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="ri-file-download-line bx-sm bx-burst-hover"></i></a>
                                                                                             </td>
                                                                                         </tr>
                                                                                         @php

@@ -23,6 +23,10 @@
             </span>
         </div>
     </div>
+    <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show mb-4" role="alert">
+        <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - Una vez realizado la evaluación, no podrá realizar modificación de las notas ingresadas.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="card">
         <div class="card-body">
             <div class="table-responsive table-card">

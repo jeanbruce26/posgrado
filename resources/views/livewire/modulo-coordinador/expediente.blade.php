@@ -23,6 +23,10 @@
             </span>
         </div>
     </div>
+    <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show mb-4" role="alert">
+        <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - Una vez realizado la evaluación, no podrá realizar modificación de las notas ingresadas.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     @php
         $expedientes = App\Models\ExpedienteInscripcion::where('id_inscripcion', $inscripcion->id_inscripcion)->get();
     @endphp
@@ -30,7 +34,7 @@
         @foreach ($expedientes as $item)       
             <div class="col-md-4">
                 <div class="card card-primary">
-                    <div class="card-body">
+                    <div class="p-3">
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0">
                                 <i class="ri-book-3-line label-icon align-middle fs-3"></i>
@@ -40,9 +44,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="pb-3 mx-3">
                         <div class="text-center">
-                            <a target="_blank" href="{{asset('Admision 2022 - I/'.$item->id_inscripcion.'/'.$item->nom_exped)}}" class="link-light fw-bold">Abrir <i class="ri-arrow-right-s-line align-middle lh-1"></i></a>
+                            <a target="_blank" href="{{asset($item->nom_exped)}}" class="link-light fw-bold">Abrir <i class="ri-arrow-right-s-line align-middle lh-1"></i></a>
                         </div>
                     </div>
                 </div>

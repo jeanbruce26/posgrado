@@ -64,18 +64,11 @@
                                                 {{ $item->constancia_codigo }}
                                             @endif
                                         </td>
-                                        @php
-                                            $datos = App\Models\Evaluacion::join('inscripcion', 'inscripcion.id_inscripcion', '=', 'evaluacion.inscripcion_id')
-                                                ->join('admision','admision.cod_admi','=','inscripcion.admision_cod_admi')
-                                                ->where('evaluacion.evaluacion_id',$item->evaluacion_id)
-                                                ->first();
-                                            $ruta = $datos->admision.'/' . $datos->id_inscripcion . '/'.$item->constancia;
-                                        @endphp
                                         <td align="center">
                                             @if ($item->constancia == null)
                                                 -
                                             @else
-                                                <a href="{{ asset($ruta) }}" target="_blank" class="link-success fs-16"><i class="ri-file-text-line"></i></a>
+                                                <a href="{{ asset($item->constancia) }}" target="_blank" class="link-success fs-16"><i class="ri-file-text-line"></i></a>
                                             @endif
                                         </td>
                                         <td align="center">
