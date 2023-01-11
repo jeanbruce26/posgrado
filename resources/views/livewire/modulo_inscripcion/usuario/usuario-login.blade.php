@@ -7,8 +7,8 @@
                 <table>
                     <thead>
                         <tr>
-                            <th class="d-flex me-1"><i class="uil uil-book"></i></th>
-                            <th class="text-justify"><label class="form-label"> Recuerda que, solo podras subir sus expedientes pendientes de su ficha de inscripcion.</label></th>
+                            <th class="d-flex me-1"><i class="uil uil-info-circle"></i></th>
+                            <th class="text-justify"><label class="form-label"> Los datos de su usuario y contraseña se encuentran en su ficha de matrícula.</label></th>
                         </tr>
                     </thead>
                     </tbody>
@@ -26,7 +26,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Codigo *</label>
+                <label class="form-label">Contraseña *</label>
                 <input type="password" wire:model="codigo" class="form-control @error('codigo') is-invalid @enderror" placeholder="Ingrese su codigo de su ficha de inscripcion">
                 @error('codigo')
                     <span class="invalid-feedback" role="alert">
@@ -36,8 +36,16 @@
             </div>
 
             @if (session('mensaje'))
-                <div class="alert alert-danger mt-1 mb-1">{{ session('mensaje') }}</div>
+                <div class="alert alert-danger mt-1 mb-1 fw-bold">{{ session('mensaje') }}</div>
             @endif
+
+            <div class="mt-4">
+                - <a class="guia text-dark cursor-pointer " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Guia para encontrar su usuario y contraseña
+                </a>
+            </div>
+
+            
 
             <div class="mt-4">
                 <button class="btn btn-primary w-100" type="submit">Ingresar</button>
