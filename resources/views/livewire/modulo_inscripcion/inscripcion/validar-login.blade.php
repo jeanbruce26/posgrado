@@ -51,12 +51,8 @@
             </div>
 
             @if (session('mensaje'))
-                <div class="alert alert-danger mt-1 mb-1">{{ session('mensaje') }}</div>
+                <div class="alert alert-danger mt-1 mb-1 fw-bold">{{ session('mensaje') }}</div>
             @endif
-
-            <div class="mt-4">
-                <button class="btn btn-primary w-100" type="submit">Ingresar</button>
-            </div>
 
             <div class="mt-4">
                 <table>
@@ -75,6 +71,14 @@
                     Guia de Inscripción
                 </a>
             </div>
+
+            <div class="mt-4">
+                <button class="btn btn-primary w-100" type="submit">Ingresar</button>
+            </div>
+
+            
+
+            
         </form>
     </div>
 
