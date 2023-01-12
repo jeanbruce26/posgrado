@@ -80,14 +80,6 @@
                     </div>
 
                     <div class="d-flex align-items-center">
-                        <div class="dropdown">
-                            <h5 class="dropdown-toggle dropdown-header" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="fs-6">¡Bienvenido!</span> 
-                            </h5>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#modalUsuarioData" data-bs-toggle="modal" data-bs-target="#modalUsuarioData">Perfil</a></li>
-                            </ul>
-                        </div>
                         <div class="dropdown ms-sm-3 header-item">
                             <div class="d-flex align-items-center px-4">
                                 <form action="{{ route('usuario.usuario.logout') }}" method="post">
@@ -135,27 +127,6 @@
 
     </div>
     <!-- END layout-wrapper -->
-    </div>
-
-    <div class="modal fade" id="modalUsuarioData" tabindex="-1" aria-labelledby="modalUsuarioData"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Datos del Usuario</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @php
-                        $nombre = auth('usuarios')->user()->persona->apell_pater . " " .auth('usuarios')->user()->persona->apell_mater . ", " . auth('usuarios')->user()->persona->nombres;
-                    @endphp
-                    <strong>Nombre:</strong> {{ ucwords($nombre) }} <br>
-                    <strong>Usuario:</strong> {{ auth('usuarios')->user()->persona->num_doc }} <br>
-                    <strong>Contraseña:</strong> {{ auth('usuarios')->user()->inscripcion_codigo }}
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- JAVASCRIPT -->

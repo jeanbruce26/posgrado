@@ -5,7 +5,9 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <div class="d-flex justify-content-between align-items-center gap-4">
-                            
+                            <a class="btn btn-primary" href="{{ route('admin.inscripcion.lista') }}">
+                                Lista de usuarios
+                            </a>
                         </div>
                         <div class="w-25">
                             <input class="form-control form-control-sm text-muted" type="search" wire:model="search"

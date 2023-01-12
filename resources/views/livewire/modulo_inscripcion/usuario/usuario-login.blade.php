@@ -45,8 +45,6 @@
                 </a>
             </div>
 
-            
-
             <div class="mt-4">
                 <button class="btn w-100" style="background-color: #006b52; color: white" type="submit">Ingresar</button>
             </div>

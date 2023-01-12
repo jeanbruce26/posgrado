@@ -37,6 +37,7 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
     
 
     Route::get('/inscripcion', [App\Http\Controllers\InscripcionController::class, 'index'])->name('admin.inscripcion.index');
+    Route::get('/inscripcion/lista-usuarios', [App\Http\Controllers\InscripcionController::class, 'lista'])->name('admin.inscripcion.lista');
     Route::get('/pago', [App\Http\Controllers\PagoController::class, 'index'])->name('admin.pago.index');
     //Route::resource('CanalPago', 'CanalPagoController');
     Route::get('/canal-pago', [App\Http\Controllers\CanalPagoController::class, 'index'])->name('admin.canal-pago.index');

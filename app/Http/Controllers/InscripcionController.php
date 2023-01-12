@@ -13,4 +13,9 @@ class InscripcionController extends Controller
     {
         return view('modulo_administrador.Inscripcion.index');
     }
+
+    public function lista()
+    {
+        return view('modulo_administrador.Inscripcion.usuarios_lista');
+    }
 }
