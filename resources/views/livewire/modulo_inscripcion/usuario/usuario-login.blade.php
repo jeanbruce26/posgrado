@@ -48,7 +48,7 @@
             
 
             <div class="mt-4">
-                <button class="btn btn-primary w-100" type="submit">Ingresar</button>
+                <button class="btn w-100" style="background-color: #006b52; color: white" type="submit">Ingresar</button>
             </div>
         </form>
     </div>
