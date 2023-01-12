@@ -137,18 +137,12 @@
     <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
 
-    <!-- apexcharts -->
-    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-
     <!-- Vector map-->
     <script src="{{ asset('assets/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
     <script src="{{ asset('assets/libs/jsvectormap/maps/world-merc.js') }}"></script>
 
     <!-- Dashboard init -->
     <script src="{{ asset('assets/js/pages/dashboard-analytics.init.js') }}"></script>
-
-    <!-- form wizard init -->
-    <script src="{{ asset('assets/js/pages/form-wizard.init.js') }}"></script>
 
     <!-- prismjs plugin -->
     <script src="{{ asset('assets/libs/prismjs/prism.js') }}"></script>

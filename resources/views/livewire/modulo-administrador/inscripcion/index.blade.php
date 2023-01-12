@@ -47,6 +47,7 @@
                                                         <div class="modal-content">
                                                             @php
                                                                 $expInsc = App\Models\ExpedienteInscripcion::where('id_inscripcion', $item->id_inscripcion)->get();
+                                                                $inscrip = App\Models\Inscripcion::where('id_inscripcion', $item->id_inscripcion)->first();
                                                                 $value = 0;
                                                             @endphp
                                                             <div class="modal-header">
@@ -97,6 +98,14 @@
                                                                                     $value=0;
                                                                                 @endphp
                                                                             @endforeach
+                                                                            <tr>
+                                                                                <td>Ficha de inscripción</td>
+                                                                                <td align="center">{{date('d/m/Y', strtotime($inscrip->fecha_inscripcion))}}</td>
+                                                                                <td align="center" class="text-success"><i class="ri-checkbox-circle-line fs-17 align-middle"></i> Generado</td>
+                                                                                <td align="center">
+                                                                                    <a target="_blank" href="{{asset($inscrip->inscripcion)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="ri-file-download-line bx-sm bx-burst-hover"></i></a>
+                                                                                </td>
+                                                                            </tr>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>

@@ -374,9 +374,10 @@
     <script>
         $(document).ready(function () {
             $('.select2-universidad').select2({
-                placeholder: 'Seleccione',
+                placeholder: 'Seleccione universidad',
                 allowClear: true,
                 width: '100%',
+                selectOnClose: true,
                 language: {
                     noResults: function () {
                         return "No se encontraron resultados";
@@ -391,9 +392,10 @@
             });
             Livewire.hook('message.processed', (message, component) => {
                 $('.select2-universidad').select2({
-                    placeholder: 'Seleccione',
+                    placeholder: 'Seleccione universidad',
                     allowClear: true,
                     width: '100%',
+                    selectOnClose: true,
                     language: {
                         noResults: function () {
                             return "No se encontraron resultados";

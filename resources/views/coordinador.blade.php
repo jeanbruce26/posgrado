@@ -306,7 +306,6 @@
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
 
     <!-- apexcharts -->
-    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
     <!-- Vector map-->
     <script src="{{ asset('assets/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
@@ -322,13 +321,10 @@
     <script src="{{ asset('assets/js/app.js') }}"></script>
 
     <!-- prismjs plugin -->
-    <script src="{{ asset('assets/libs/prismjs/prism.js') }}"></script>
 
     <!-- gridjs js -->
-    <script src="{{ asset('assets/libs/gridjs/gridjs.umd.js') }}"></script>
 
-    <!-- gridjs init -->
-    <script src="{{ asset('assets/js/pages/gridjs.init.js') }}"></script>
+    <!-- gridjs init -->    
 
 
     <script src="{{ asset('assets/libs/list.js/list.min.js') }}"></script>
