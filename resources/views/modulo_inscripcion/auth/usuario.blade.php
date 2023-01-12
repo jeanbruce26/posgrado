@@ -27,7 +27,7 @@
     @livewireStyles
 </head>
 
-<body class="auth-bg-login">
+<body class="auth-bg-login2">
 
     <div class="auth-page-wrapper auth-bg-cover">
     
