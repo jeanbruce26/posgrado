@@ -90,19 +90,31 @@
                                             $tra_tipo_tra = App\Models\TrabajadorTipoTrabajador::where('trabajador_id', $item->trabajador_id)->where('trabajador_tipo_trabajador_estado',1)->get();
                                         @endphp
                                         <td align="center" class="">
+                                            @php
+                                                $coordinador_unidad = App\Models\Coordinador::where('trabajador_id', $item->trabajador_id)->first();
+                                                $administrativo = App\Models\Administrativo::where('trabajador_id', $item->trabajador_id)->first();
+                                            @endphp
                                             @if ($tra_tipo_tra)
                                                 @if ($tra_tipo_tra->count() == 1)
+                                                    <ul style="list-style: none; padding: 0; margin: 0;">
                                                     @foreach ($tra_tipo_tra as $item2)
                                                         @if ($item2->tipo_trabajador_id == 1)
                                                             Docente
                                                         @endif
                                                         @if ($item2->tipo_trabajador_id == 2)
                                                             Coordinador de Unidad
+                                                            @if ($coordinador_unidad)
+                                                                <li style="font-size: 12px; color: #414141a6;">({{ $coordinador_unidad->facultad->facultad }})</li>
+                                                            @endif
                                                         @endif
                                                         @if ($item2->tipo_trabajador_id == 3)
                                                             Administrativo
+                                                            @if ($administrativo)
+                                                                <li style="font-size: 12px; color: #000000a6;">({{ $administrativo->AreaAdministrativo->area }})</li>
+                                                            @endif
                                                         @endif
                                                     @endforeach
+                                                    </ul>
                                                 @else
                                                     <ul style="list-style: none; padding: 0; margin: 0;">
                                                     @foreach ($tra_tipo_tra as $item2)
@@ -111,9 +123,15 @@
                                                         @endif
                                                         @if ($item2->tipo_trabajador_id == 2)
                                                             <li>Coordinador de Unidad</li> 
+                                                            @if ($coordinador_unidad)
+                                                                <li style="font-size: 12px; color: #000000a6;">({{ $coordinador_unidad->facultad->facultad }})</li>
+                                                            @endif
                                                         @endif
                                                         @if ($item2->tipo_trabajador_id == 3)
                                                             <li>Administrativo</li> 
+                                                            @if ($administrativo)
+                                                                <li style="font-size: 12px; color: #000000a6;">({{ $administrativo->AreaAdministrativo->area }})</li>
+                                                            @endif
                                                         @endif
                                                     @endforeach
                                                     </ul>
