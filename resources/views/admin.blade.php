@@ -430,7 +430,7 @@
     <!--jquery cdn-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <scriptsrc="https://cdn.jsdelivr.net/npm/toastify-js"></scriptsrc=>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     @yield('javascript')
 

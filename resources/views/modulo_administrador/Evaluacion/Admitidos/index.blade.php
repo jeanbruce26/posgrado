@@ -72,5 +72,13 @@
             }
         })
     })
+
+    window.addEventListener('errorFechaAdmitidos', event => {
+        Swal.fire(
+        event.detail.mensaje,
+        '',
+        'error'
+        )
+    });
 </script>
 @endsection

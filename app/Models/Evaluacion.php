@@ -19,6 +19,7 @@ class Evaluacion extends Model
         'nota_final',
         'evaluacion_observacion',
         'evaluacion_estado',
+        'evaluacion_estado_admitido',
         'puntaje_id',
         'inscripcion_id',
         'fecha_expediente',

@@ -72,7 +72,7 @@
                             <div class="d-flex align-items-center px-4">
                                 <form action="{{ route('usuario.logout') }}" method="post">
                                     @csrf
-                                    <button type="submit" class="btn btn-danger">
+                                    <button type="submit" class="btn btn-danger bg-gradient waves-effect waves-light">
                                         Cerrar Sesión
                                     </button>
                                 </form>

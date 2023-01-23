@@ -1,20 +1,28 @@
 <?php
 
-namespace App\Http\Livewire\modulo_inscripcion\usuario;
+namespace App\Http\Livewire\ModuloInscripcion\Usuario;
 
+use Livewire\Component;
 use App\Models\Admision;
 use App\Models\Admitidos;
+use App\Models\ConstanciaIngresoPago;
 use App\Models\Evaluacion;
 use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
-use Livewire\Component;
 use App\Models\Inscripcion;
 use App\Models\Persona;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class Usuario extends Component
 {
-    public function crearConstancia($admitido)
+    protected $listeners = ['render', 'crearConstancia'];
+
+    public function generarConstancia($admitido_id)
+    {
+        $this->dispatchBrowserEvent('alertaConstancia', ['mensaje' => 'Constancia generada correctamente', 'id' => $admitido_id]);
+    }
+
+    public function crearConstancia(Admitidos $admitido)
     {
         $datos = Evaluacion::join('inscripcion', 'inscripcion.id_inscripcion', '=', 'evaluacion.inscripcion_id')
                 ->join('persona', 'persona.idpersona', '=', 'inscripcion.persona_idpersona')
@@ -76,18 +84,25 @@ class Usuario extends Component
 
         $evaluacion = Evaluacion::where('inscripcion_id',auth('usuarios')->user()->id_inscripcion)->first();
         $admitido = null;
+        $pago = null;
         if($evaluacion){
             $admitido = Admitidos::where('evaluacion_id',$evaluacion->inscripcion_id)->first();
             if($admitido){
-                if($admitido->constancia == null){
-                    $this->crearConstancia($admitido);
+                $constanca_ingreso_pago = ConstanciaIngresoPago::where('admitidos_id',$admitido->admitidos_id)->first(); //verificar si ya pago
+                
+                if($constanca_ingreso_pago){
+                    if($constanca_ingreso_pago->concepto_id == 2 || $constanca_ingreso_pago->concepto_id == 4){
+                        $pago = 1;
+                    }
                 }
             }
         }
 
+        $admision_fecha_admitidos =strftime('%d de %B del %Y', strtotime(Admision::where('estado',1)->first()->fecha_admitidos)); //fecha de admision de admitidos
+
         $lista_admitidos = Admitidos::count();
-        
-        return view('livewire.modulo_inscripcion.usuario.usuario', [
+
+        return view('livewire.modulo-inscripcion.usuario.usuario', [
             'nombre' => $nombre,
             'expediente' => Expediente::all(),
             'contador' => $contador,
@@ -95,6 +110,8 @@ class Usuario extends Component
             'fecha_admision_normal' => $fecha_admision_normal,
             'lista_admitidos' => $lista_admitidos,
             'admitido' => $admitido,
+            'admision_fecha_admitidos' => $admision_fecha_admitidos,
+            'pago' => $pago
         ]);
     }
 }

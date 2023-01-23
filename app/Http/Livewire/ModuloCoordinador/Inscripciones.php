@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\ModuloCoordinador;
 
+use App\Models\Admision;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Inscripcion;
@@ -26,41 +27,64 @@ class Inscripciones extends Component
 
     public function evaExpe($id)
     {
-        date_default_timezone_set("America/Lima");
+        $admision = Admision::where('estado',1)->first(); // 1 = activo 0 = inactivo
+
         $fecha = today();
 
         $evaluacion = Evaluacion::where('inscripcion_id',$id)->first();
         $puntaje = Puntaje::where('puntaje_estado',1)->first();
 
-        if($evaluacion){
-            return redirect()->route('coordinador.expediente',$evaluacion->evaluacion_id);
+        if($admision->fecha_evaluacion_expediente_inicio > $fecha || $admision->fecha_evaluacion_expediente_fin < $fecha){
+            if($admision->fecha_evaluacion_expediente_inicio > $fecha){
+                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'La fecha de inicio de la evaluacion de expedientes es el: '. date('d/m/Y',strtotime($admision->fecha_evaluacion_expediente_inicio))]);
+            }
+            if($admision->fecha_evaluacion_expediente_fin < $fecha){
+                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Evaluaciones de expedientes finalizadas']);
+            }
         }else{
-            $eva = Evaluacion::create([
-                "evaluacion_estado" => 1,
-                "puntaje_id" => $puntaje->puntaje_id,
-                "inscripcion_id" => $id,
-                "fecha_expediente" => $fecha,
-            ]);
-            
-            return redirect()->route('coordinador.expediente',$eva->evaluacion_id);
+            if($evaluacion){
+                return redirect()->route('coordinador.expediente',$evaluacion->evaluacion_id);
+            }else{
+                $eva = Evaluacion::create([
+                    "evaluacion_estado" => 1,
+                    "puntaje_id" => $puntaje->puntaje_id,
+                    "inscripcion_id" => $id,
+                    "fecha_expediente" => $fecha,
+                ]);
+                
+                return redirect()->route('coordinador.expediente',$eva->evaluacion_id);
+            }
         }
     }
 
 
     public function evaEntre($id)
     {
+        $admision = Admision::where('estado',1)->first(); // 1 = activo 0 = inactivo
+
+        $fecha = today();
+
         $evaluacion = Evaluacion::where('inscripcion_id',$id)->first();
         
-        if($evaluacion){
-            if($evaluacion->nota_expediente){
-                return redirect()->route('coordinador.entrevista',$evaluacion->evaluacion_id);
+        if($admision->fecha_evaluacion_entrevista_inicio > $fecha || $admision->fecha_evaluacion_entrevista_fin < $fecha){
+            if($admision->fecha_evaluacion_entrevista_inicio > $fecha){
+                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'La fecha de inicio de la evaluacion de entrevista es el: '. date('d/m/Y',strtotime($admision->fecha_evaluacion_entrevista_inicio))]);
+            }
+            if($admision->fecha_evaluacion_entrevista_fin < $fecha){
+                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Evaluaciones de entrevistas finalizadas']);
+            }
+        }else{
+            if($evaluacion){
+                if($evaluacion->nota_expediente){
+                    return redirect()->route('coordinador.entrevista',$evaluacion->evaluacion_id);
+                }else{
+                    // session()->flash('message', 'Falta completar la Evaluacion de Expedientes.');
+                    $this->dispatchBrowserEvent('errorEntrevista');
+                }
             }else{
                 // session()->flash('message', 'Falta completar la Evaluacion de Expedientes.');
                 $this->dispatchBrowserEvent('errorEntrevista');
             }
-        }else{
-            // session()->flash('message', 'Falta completar la Evaluacion de Expedientes.');
-            $this->dispatchBrowserEvent('errorEntrevista');
         }
     }
 
@@ -97,11 +121,14 @@ class Inscripciones extends Component
             ->where('evaluacion.evaluacion_estado','!=',1)
             ->count();
 
+        $admision = Admision::where('estado',1)->first();
+
         return view('livewire.modulo-coordinador.inscripciones', [
             'inscripciones' => $inscripciones,
             'mencion' => $mencion,
             'evaluaciones_count' => $evaluaciones_count,
             'inscripciones_count' => $inscripciones_count,
+            'admision' => $admision,
         ]);
     }
 }

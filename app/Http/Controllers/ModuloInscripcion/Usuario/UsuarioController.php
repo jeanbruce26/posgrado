@@ -30,4 +30,16 @@ class UsuarioController extends Controller
     {
         return view('modulo_inscripcion.usuario.update');
     }
+
+    public function pagos()
+    {
+        return view('modulo_inscripcion.usuario.pagos');
+    }
+
+    public function pdf()
+    {
+        $pdf = Pdf::loadView('modulo_inscripcion.usuario.matricula');
+
+        return $pdf->stream('archivo.pdf');
+    }
 }

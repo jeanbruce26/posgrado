@@ -87,10 +87,49 @@
                                 @error('convocatoria') <span class="error text-danger" >{{ $message }}</span> @enderror
                             </div>
                             <div class="mb-3 col-md-12">
-                                <label class="form-label">Fecha de termino <span
+                                <label class="form-label">Fecha fin de admisión <span
                                         class="text-danger">*</span></label>
                                 <input type="date" class="form-control @error('fecha_final') is-invalid  @enderror" wire:model="fecha_final">
                                 @error('fecha_final') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Fecha de expediente inicio <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control @error('fecha_expediente_inicio') is-invalid  @enderror" wire:model="fecha_expediente_inicio">
+                                @error('fecha_expediente_inicio') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Fecha de expediente fin <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control @error('fecha_expediente_fin') is-invalid  @enderror" wire:model="fecha_expediente_fin">
+                                @error('fecha_expediente_fin') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Fecha de entrevista inicio <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control @error('fecha_entrevista_inicio') is-invalid  @enderror" wire:model="fecha_entrevista_inicio">
+                                @error('fecha_entrevista_inicio') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Fecha de entrevista inicio <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control @error('fecha_entrevista_fin') is-invalid  @enderror" wire:model="fecha_entrevista_fin">
+                                @error('fecha_fifecha_entrevista_finnal') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-12">
+                                <label class="form-label">Fecha de admitidos <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control @error('fecha_admitidos') is-invalid  @enderror" wire:model="fecha_admitidos">
+                                @error('fecha_admitidos') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-12">
+                                <!-- Base Switchs -->
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input @error('estado_matricula') is-invalid @enderror" type="checkbox" role="switch" wire:model="estado_matricula">
+                                    <label class="form-check-label">Boton matricula</label>
+                                    @error('estado_matricula') <span class="error text-danger" >{{ $message }}</span> @enderror
+                                </div>
                             </div>
                         </div>
                     </form>

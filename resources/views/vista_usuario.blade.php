@@ -57,7 +57,7 @@
                     <div class="d-flex">
                         <!-- LOGO -->
                         <div class="navbar-brand-box horizontal-logo">
-                            <a href="index.html" class="logo logo-dark">
+                            <a href="{{ route('usuarios.index') }}" class="logo logo-dark">
                                 <span class="logo-sm">
                                     <img src="{{ asset('assets/images/unu.png') }}" alt="" height="35">
                                 </span>
@@ -79,12 +79,24 @@
                         </button>
                     </div>
 
+                    
+
                     <div class="d-flex align-items-center">
                         <div class="dropdown ms-sm-3 header-item">
                             <div class="d-flex align-items-center px-4">
+                                @php
+                                    $admision = App\Models\Admision::where('estado',1)->first();
+                                    $admitidos = App\Models\Admitidos::count();
+                                @endphp
+                                @if ($admision->fecha_admitidos <= today())
+                                    @if ($admitidos > 0)
+                                    <a  href="{{ route('usuarios.pagos') }}" type="button" class="btn btn-info bg-gradient waves-effect waves-light me-4">Validar Pagos</a>
+                                    @endif
+                                @endif
+
                                 <form action="{{ route('usuario.usuario.logout') }}" method="post">
                                     @csrf
-                                    <button type="submit" class="btn btn-danger">
+                                    <button type="submit" class="btn btn-danger bg-gradient waves-effect waves-light">
                                         Cerrar Sesión
                                     </button>
                                 </form>
@@ -172,6 +184,7 @@
     @yield('javascript')
 
     @livewireScripts
+
     @stack('js')
 
     <script>

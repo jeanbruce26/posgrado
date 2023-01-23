@@ -26,6 +26,16 @@ class Index extends Component
     public $fecha_final;
     public $convocatoria;
 
+    public $fecha_expediente_inicio;
+    public $fecha_expediente_fin;
+
+    public $fecha_entrevista_inicio;
+    public $fecha_entrevista_fin;
+
+    public $fecha_admitidos;
+
+    public $estado_matricula;
+
     protected $listeners = ['render', 'cambiarEstado'];
 
     public function updated($propertyName)
@@ -34,6 +44,12 @@ class Index extends Component
             'año' => 'required|numeric',
             'convocatoria' => 'nullable|string',
             'fecha_final' => 'required|date',
+            'fecha_expediente_inicio' => 'required|date',
+            'fecha_expediente_fin' => 'required|date',
+            'fecha_entrevista_inicio' => 'required|date',
+            'fecha_entrevista_fin' => 'required|date',
+            'fecha_admitidos' => 'required|date',
+            'estado_matricula' => 'nullable',
         ]);
     }
 
@@ -47,7 +63,7 @@ class Index extends Component
     public function limpiar()
     {
         $this->resetErrorBag();
-        $this->reset('año','convocatoria','fecha_final');
+        $this->reset('año','convocatoria','fecha_final', 'fecha_expediente_inicio', 'fecha_expediente_fin', 'fecha_entrevista_inicio', 'fecha_entrevista_fin', 'fecha_admitidos');
         $this->modo = 1;
     }
 
@@ -78,6 +94,16 @@ class Index extends Component
         $this->año = $admision->admision_year;
         $this->convocatoria = $admision->admision_convocatoria;
         $this->fecha_final = $admision->fecha_fin;
+        $this->fecha_expediente_inicio = $admision->fecha_evaluacion_expediente_inicio;
+        $this->fecha_expediente_fin = $admision->fecha_evaluacion_expediente_fin;
+        $this->fecha_entrevista_inicio = $admision->fecha_evaluacion_entrevista_inicio;
+        $this->fecha_entrevista_fin = $admision->fecha_evaluacion_entrevista_fin;
+        $this->fecha_admitidos = $admision->fecha_admitidos;
+        if($admision->estado_matricula == 1){
+            $this->estado_matricula = true;
+        }else{
+            $this->estado_matricula = false;
+        }
     }
 
     public function guardarAdmision()
@@ -87,6 +113,12 @@ class Index extends Component
                 'año' => 'required|numeric',
                 'convocatoria' => 'nullable|string',
                 'fecha_final' => 'required|date',
+                'fecha_expediente_inicio' => 'required|date',
+                'fecha_expediente_fin' => 'required|date',
+                'fecha_entrevista_inicio' => 'required|date',
+                'fecha_entrevista_fin' => 'required|date',
+                'fecha_admitidos' => 'required|date',
+                'estado_matricula' => 'nullable',
             ]);
     
             $admision = new Admision();
@@ -99,6 +131,16 @@ class Index extends Component
             $admision->admision_convocatoria = $this->convocatoria;
             $admision->estado = 1;
             $admision->fecha_fin = $this->fecha_final;
+            $admision->fecha_evaluacion_expediente_inicio = $this->fecha_expediente_inicio;
+            $admision->fecha_evaluacion_expediente_fin = $this->fecha_expediente_fin;
+            $admision->fecha_evaluacion_entrevista_inicio = $this->fecha_entrevista_inicio;
+            $admision->fecha_evaluacion_entrevista_fin = $this->fecha_entrevista_fin;
+            $admision->fecha_admitidos = $this->fecha_admitidos;
+            if($this->estado_matricula == null){
+                $admision->estado_matricula = 0;
+            }else{
+                $admision->estado_matricula = 1;
+            }
             $admision->save();
 
             $this->subirHistorial($admision->cod_admi,'Creacion de Admision','admision');
@@ -109,6 +151,12 @@ class Index extends Component
                 'año' => 'required|numeric',
                 'convocatoria' => 'nullable|string',
                 'fecha_final' => 'required|date',
+                'fecha_expediente_inicio' => 'required|date',
+                'fecha_expediente_fin' => 'required|date',
+                'fecha_entrevista_inicio' => 'required|date',
+                'fecha_entrevista_fin' => 'required|date',
+                'fecha_admitidos' => 'required|date',
+                'estado_matricula' => 'nullable',
             ]);
 
             $admision = Admision::find($this->id_admision);
@@ -120,6 +168,16 @@ class Index extends Component
             $admision->admision_year = $this->año;
             $admision->admision_convocatoria = $this->convocatoria;
             $admision->fecha_fin = $this->fecha_final;
+            $admision->fecha_evaluacion_expediente_inicio = $this->fecha_expediente_inicio;
+            $admision->fecha_evaluacion_expediente_fin = $this->fecha_expediente_fin;
+            $admision->fecha_evaluacion_entrevista_inicio = $this->fecha_entrevista_inicio;
+            $admision->fecha_evaluacion_entrevista_fin = $this->fecha_entrevista_fin;
+            $admision->fecha_admitidos = $this->fecha_admitidos;
+            if($this->estado_matricula == null){
+                $admision->estado_matricula = 0;
+            }else{
+                $admision->estado_matricula = 1;
+            }
             $admision->save();
             
             $this->subirHistorial($admision->cod_admi,'Actualizacion de Admision','admision');

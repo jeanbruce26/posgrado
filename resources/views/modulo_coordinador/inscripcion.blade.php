@@ -15,5 +15,13 @@
         'error'
         )
     });
+
+    window.addEventListener('errorEvaluacion', event => {
+        Swal.fire(
+        event.detail.mensaje,
+        '',
+        'error'
+        )
+    });
 </script>
 @endsection
