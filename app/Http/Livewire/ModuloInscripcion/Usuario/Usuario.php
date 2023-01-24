@@ -78,6 +78,7 @@ class Usuario extends Component
     {
         $nombre = ucfirst(strtolower(auth('usuarios')->user()->persona->apell_pater)) . ' ' . ucfirst(strtolower(auth('usuarios')->user()->persona->apell_mater)) . ', ' . ucwords(strtolower(auth('usuarios')->user()->persona->nombres));
         $contador = ExpedienteInscripcion::where('id_inscripcion',auth('usuarios')->user()->id_inscripcion)->count();
+        $expediente_count = Expediente::count();
         setlocale( LC_ALL,"es_ES@euro","es_ES","esp" );
         $fecha_admision = strftime('%d de %B del %Y', strtotime(Admision::where('estado',1)->first()->fecha_fin));
         $fecha_admision_normal = Admision::where('estado',1)->first()->fecha_fin;
@@ -106,6 +107,7 @@ class Usuario extends Component
             'nombre' => $nombre,
             'expediente' => Expediente::all(),
             'contador' => $contador,
+            'expediente_count' => $expediente_count,
             'fecha_admision' => $fecha_admision,
             'fecha_admision_normal' => $fecha_admision_normal,
             'lista_admitidos' => $lista_admitidos,

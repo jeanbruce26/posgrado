@@ -15,7 +15,7 @@
         @endif
     @endif
     @if (date('Y/m/d', strtotime($fecha_admision_normal)) >= date('Y/m/d', strtotime(today())))
-        @if ($contador != 6)
+        @if ($contador != $expediente_count)
         <div class="alert alert-warning alert-dismissible alert-label-icon rounded-label shadow fade show" role="alert">
             <i class="ri-alert-line label-icon"></i><strong>Usted tiene expedientes pendientes por subir a la plataforma, por favor complete el formulario debido.</strong>
         </div>
