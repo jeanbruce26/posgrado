@@ -385,14 +385,13 @@ class Create extends Component
 
         $estadoExpediente = "Enviado";
 
-        $count = Expediente::count();
+        $expediente_model = Expediente::where('estado',1)->get();
 
-        for($i = 1; $i <= $count; $i++){
-            $expe = Expediente::where('cod_exp',$i)->get();
-            foreach($expe as $item){
-                $nombreExpediente = $item->tipo_doc;
-                $cod = $item->cod_exp;
-            }
+        foreach($expediente_model as $item){
+            $expe = Expediente::where('cod_exp',$item->cod_exp)->first();
+
+            $nombreExpediente = $expe->tipo_doc;
+            $cod = $expe->cod_exp;
 
             $admision3 = Admision::where('estado',1)->first();
             $admi = $admision3->admision;
@@ -411,7 +410,7 @@ class Create extends Component
                 ExpedienteInscripcion::create([
                     "nom_exped" => $nombreDB,
                     "estado" => $estadoExpediente,
-                    "expediente_cod_exp" => $i,
+                    "expediente_cod_exp" => $cod,
                     "id_inscripcion" => $this->id_inscripcion,
                 ]);
             }

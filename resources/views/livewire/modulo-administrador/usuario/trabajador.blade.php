@@ -334,16 +334,14 @@
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" wire:model="coordinador"
-                                        @if ($administrativo == true) disabled @endif>
+                                    <input class="form-check-input" type="checkbox" wire:model="coordinador" @if ($administrativo_check == true) disabled @endif>
                                     <label class="form-check-label">
                                         Coordinador de Unidad
                                     </label>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" wire:model="administrativo"
-                                        @if ($coordinador == true) disabled @endif>
+                                    <input class="form-check-input" type="checkbox" wire:model="administrativo_check" @if ($coordinador == true) disabled @endif>
                                     <label class="form-check-label">
                                         Administrativo
                                     </label>
@@ -526,10 +524,9 @@
                                         Coordinador de Unidad
                                     </label>
                                 </div>
-
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" wire:model="administrativo"
-                                        @if ($administrativo == false) disabled @endif>
+                                    <input class="form-check-input" type="checkbox" wire:model="administrativo_check"
+                                        @if ($administrativo_check == false) disabled @endif>
                                     <label class="form-check-label">
                                         Administrativo
                                     </label>

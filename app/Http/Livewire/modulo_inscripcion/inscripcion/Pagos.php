@@ -156,7 +156,7 @@ class Pagos extends Component
 
     public function render()
     {
-        $concepto_pago = ConceptoPago::all();
+        $concepto_pago = ConceptoPago::where('estado',1)->get();
         $tipo_documento = TipoDocumento::all();
         
         return view('livewire.modulo_inscripcion.inscripcion.pagos', [
