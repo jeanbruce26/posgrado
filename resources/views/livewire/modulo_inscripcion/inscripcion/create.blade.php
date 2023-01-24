@@ -262,6 +262,7 @@
                     @if ($subprograma_combo)
 
                     @php
+                        $valor = null;
                         foreach ($mencion_combo_array as $item){
                             $valor = $item->mencion;
                         }

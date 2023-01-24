@@ -257,12 +257,17 @@ class Create extends Component
         $this->programa_combo_array = Programa::where('id_sede',$sede_combo)->get();
         $this->subprograma_combo_array = collect();
         $this->mencion_combo_array = collect();
+        $this->programa_combo = null;
+        $this->subprograma_combo = null;
+        $this->mencion_combo = null;
     }
 
     public function updatedProgramaCombo($programa_combo){
         $this->subprograma_combo_array = SubPrograma::where('id_programa',$programa_combo)->where('estado',1)->get();
         $this->programa_nombre = Programa::where('id_programa',$programa_combo)->first();
         $this->mencion_combo_array = collect();
+        $this->subprograma_combo = null;
+        $this->mencion_combo = null;
     }
 
     public function updatedSubProgramaCombo($subprograma_combo){
