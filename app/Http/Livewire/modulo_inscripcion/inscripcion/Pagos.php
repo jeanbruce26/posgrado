@@ -99,6 +99,11 @@ class Pagos extends Component
 
         $concepto = ConceptoPago::find($this->concepto_pago2);
 
+        if($concepto->concepto_1 != 1){
+            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El concepto de pago ingresado no es el correcto.']);
+            return back();
+        }
+
         if(floatval($concepto->monto) > $this->total){
             return back()->with(array('mensaje-seleccionar'=>'El monto ingresado no cumple con el monto minimo del concepto de pago'));
         }
@@ -113,7 +118,7 @@ class Pagos extends Component
         }
 
         $concepto = ConceptoPago::find($this->concepto_pago2);
-
+        
         if(floatval($concepto->monto) > $this->total){
             return back()->with(array('mensaje-seleccionar'=>'El monto ingresado no cumple con el monto minimo del concepto de pago'));
         }
@@ -156,7 +161,7 @@ class Pagos extends Component
 
     public function render()
     {
-        $concepto_pago = ConceptoPago::all();
+        $concepto_pago = ConceptoPago::where('estado',1)->get();
         $tipo_documento = TipoDocumento::all();
         
         return view('livewire.modulo_inscripcion.inscripcion.pagos', [

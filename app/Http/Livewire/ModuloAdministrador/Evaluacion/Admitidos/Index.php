@@ -37,27 +37,34 @@ class Index extends Component
 
     public function cargarAlertaCodigo()
     {
-        $this->dispatchBrowserEvent('cargarAlertaCodigo');
+        $admision = Admision::where('estado', 1)->first(); // 1 = activo 0 = inactivo
+
+        $fecha_hoy = today();
+
+        if($admision->fecha_admitidos > $fecha_hoy){
+            $this->dispatchBrowserEvent('errorFechaAdmitidos', ['mensaje' => 'La fecha para generar los admitidos es el: '.  date('d/m/Y', strtotime($admision->fecha_admitidos))]);
+        }else{
+            $this->dispatchBrowserEvent('cargarAlertaCodigo');
+        }
     }
 
     public function generar_codigo()
     {
-        DB::table('admitidos')->truncate();
-
         $evaluacion_admitidos = Evaluacion::join('inscripcion', 'evaluacion.inscripcion_id', '=', 'inscripcion.id_inscripcion')
                 ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
                 ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
                 ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
                 ->where('evaluacion.evaluacion_estado', 3)
+                ->where('evaluacion.evaluacion_estado_admitido', 1)
                 ->orderBy('mencion.id_mencion')
                 ->get();
 
-        $admision_year = Admision::where('estado', 1)->first()->admision_year;
-        $codigo_doctorado = '0D0'.$admision_year;
-        $codigo_maestria = '0M0'.$admision_year;
+        $admision_year = Admision::where('estado', 1)->first()->admision_year; // año de la admision activa
+        $codigo_doctorado = '0D0'.$admision_year; // inicio del codigo de doctorado
+        $codigo_maestria = '0M0'.$admision_year; // inicio del codigo de maestria
 
-        foreach($evaluacion_admitidos as $admitido){    
-            $maximo_codigo_admitidos = Admitidos::orderBy('admitidos_codigo', 'desc')->first();
+        foreach($evaluacion_admitidos as $admitido){ // recorremos los admitidos
+            $maximo_codigo_admitidos = Admitidos::orderBy('admitidos_codigo', 'desc')->first(); // codigo maximo de admitidos
             if($admitido->descripcion_programa == 'DOCTORADO'){
                 if($maximo_codigo_admitidos){
                     $codigo_doctorado_inicio = substr($maximo_codigo_admitidos->admitidos_codigo, 0, 7);
@@ -66,9 +73,9 @@ class Index extends Component
                         $codigo = intval($codigo) + 1;
                         if($codigo < 10){
                             $codigo = '00'.$codigo;
-                        }else if($codigo < 100){
+                        }else if($codigo < 100 && $codigo > 9){
                             $codigo = '0'.$codigo;
-                        }else if($codigo < 1000){
+                        }else if($codigo < 1000 && $codigo > 99){
                             $codigo = $codigo;
                         }
                         $codigo = $codigo_doctorado.$codigo;
@@ -88,9 +95,9 @@ class Index extends Component
                         $codigo = intval($codigo) + 1;
                         if($codigo < 10){
                             $codigo = '00'.$codigo;
-                        }else if($codigo < 100){
+                        }else if($codigo < 100 && $codigo > 9){
                             $codigo = '0'.$codigo;
-                        }else if($codigo < 1000){
+                        }else if($codigo < 1000 && $codigo > 99){
                             $codigo = $codigo;
                         }
                         $codigo = $codigo_maestria.$codigo;
@@ -106,6 +113,10 @@ class Index extends Component
                 "admitidos_codigo" => $codigo,
                 "evaluacion_id" => $admitido->evaluacion_id,
             ]);
+
+            $evaluacion = Evaluacion::find($admitido->evaluacion_id);
+            $evaluacion->evaluacion_estado_admitido = 0;
+            $evaluacion->save();
 
             $this->actualizarEstadoAdmitidoHistorialInscripcion($admitido);
         }

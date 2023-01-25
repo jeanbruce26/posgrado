@@ -138,7 +138,7 @@ class Index extends Component
                 $this->programa_nombre = Programa::where('id_programa', $this->programa)->first()->descripcion_programa;
             }
             $this->facultad = $mencion->subprograma->facultad->facultad_id;
-            $this->subprograma_model_form = SubPrograma::where('id_programa', $this->programa)->get();
+            // $this->subprograma_model_form = SubPrograma::where('id_programa', $this->programa)->get();
             $this->codigo_subprograma = $mencion->subprograma->cod_subprograma;
             $this->id_subprograma = $mencion->subprograma->id_subprograma;
             $this->inicial_subprograma = $mencion->iniciales;
@@ -241,6 +241,12 @@ class Index extends Component
         $this->dispatchBrowserEvent('modalPrograma');
 
         $this->limpiar();
+    }
+
+    public function cargarVistaCurso($mencion_id){
+        // dd('mencion_id = ' . $mencion_id);
+
+        return redirect()->route('admin.programa.curso', $mencion_id);
     }
 
     public function subirHistorial($usuario_id, $descripcion, $tabla)

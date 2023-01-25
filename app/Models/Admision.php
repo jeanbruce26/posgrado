@@ -19,6 +19,13 @@ class Admision extends Model
         'admision_convocatoria',
         'estado',
         'fecha_fin',
+        'fecha_evaluacion_expediente_inicio',
+        'fecha_evaluacion_expediente_fin',
+        'fecha_evaluacion_entrevista_inicio',
+        'fecha_evaluacion_entrevista_fin',
+        'fecha_admitidos',
+        'estado_matricula',
+
     ];
 
     public $timestamps = false;

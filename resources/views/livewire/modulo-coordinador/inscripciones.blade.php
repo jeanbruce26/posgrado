@@ -22,11 +22,56 @@
             @endif
         </div>
     </div>
-    <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show mb-4" role="alert">
+
+    {{-- Alerta para mostrar la fecha de evaluación de expediente --}}
+    @if ($admision->fecha_evaluacion_expediente_inicio > today() || $admision->fecha_evaluacion_expediente_fin < today())
+        @if ($admision->fecha_evaluacion_expediente_inicio > today())
+        <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
+            <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - La fecha para realizar la evaluación de expediente comienza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_expediente_inicio)) }} y finaliza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_expediente_fin)) }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        @if ($admision->fecha_evaluacion_expediente_fin < today())
+        <div class="alert alert-warning alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
+            <i class="ri-alarm-warning-line label-icon"></i><strong>Evaluaciones de expedientes finalizada.</strong>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+    @else
+    <div class="alert alert-success alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
+        <i class="ri-contacts-book-2-line label-icon"></i><strong>Evaluaciones de expediente habilitada.</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    {{-- Alerta para mostrar la fecha de evaluación de entrevista --}}
+    @if ($admision->fecha_evaluacion_entrevista_inicio > today() || $admision->fecha_evaluacion_entrevista_fin < today())
+        @if ($admision->fecha_evaluacion_entrevista_inicio > today())
+        <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
+            <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - La fecha para realizar la evaluación de entrevista comienza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_inicio)) }} y finaliza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_fin)) }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        @if ($admision->fecha_evaluacion_entrevista_fin < today())
+        <div class="alert alert-warning alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
+            <i class="ri-alarm-warning-line label-icon"></i><strong>Evaluaciones de entrevista finalizada.</strong>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+    @else
+    <div class="alert alert-success alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
+        <i class="ri-contacts-book-2-line label-icon"></i><strong>Evaluaciones de entrevista habilitada.</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    {{-- Alerta --}}
+    <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
         <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - Una vez realizado la evaluación, no podrá realizar modificación de las notas ingresadas.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <div class="card">
+
+    <div class="card mt-4">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="text-muted d-flex align-items-center mb-1">
@@ -51,9 +96,7 @@
                             <th scope="col" class="col-md-1">DOCUMENTO</th>
                             <th scope="col" class="col-md-1">CELULAR</th>
                             <th scope="col" class="col-md-2">EVA. EXPEDIENTE</th>
-                            <th scope="col" class="col-md-1">EVA. EXP. NOTA</th>
                             <th scope="col" class="col-md-2">EVA. ENTREVISTA</th>
-                            <th scope="col" class="col-md-1">EVA. ENT. NOTA</th>
                             <th scope="col" class="col-md-1">ESTADO</th>
                         </tr>
                     </thead>
@@ -65,45 +108,28 @@
                         <tr>
                             <td scope="row" class="fw-bold" align="center">{{$item->id_inscripcion}}</td>
                             <td>{{$item->apell_pater}} {{$item->apell_mater}}, {{$item->nombres}}</td>
-                            {{-- <td class="text-success"><i class="ri-checkbox-circle-line fs-17 align-middle"></i> Paid</td> --}}
                             <td>{{$item->num_doc}}</td>
                             <td>+51 {{$item->celular1}}</td>
-                            <td align="center">
+                            <td align="center" class="fs-6">
+                                @if ($evalu)
+                                    @if ($evalu->nota_expediente != null)
+                                    <strong>{{ number_format($evalu->nota_expediente, 0) }}</strong> 
+                                    @else
+                                    <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-info btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                    @endif
+                                @else
                                 <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-info btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
-                                @if ($evalu)
-                                    @if ($evalu->nota_expediente != null)
-                                    <span class="badge text-bg-info ms-2"><i class="ri-check-double-line label-icon align-middle fs-12"></i></span>
-                                    @endif
                                 @endif
                             </td>
                             <td align="center" class="fs-6">
                                 @if ($evalu)
-                                    @if ($evalu->nota_expediente != null)
-                                    {{$evalu->nota_expediente}}
+                                    @if ($evalu->nota_entrevista != null)
+                                    <strong>{{ number_format($evalu->nota_entrevista, 0) }}</strong> 
                                     @else
-                                    -
+                                    <button wire:click="evaEntre({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-success btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                     @endif
                                 @else
-                                -
-                                @endif
-                            </td>
-                            <td align="center">
                                 <button wire:click="evaEntre({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-success btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
-                                @if ($evalu)
-                                    @if ($evalu->nota_entrevista != null)
-                                    <span class="badge text-bg-success ms-2"><i class="ri-check-double-line label-icon align-middle fs-12"></i></span>
-                                    @endif
-                                @endif
-                            </td>
-                            <td align="center" class="fs-6">
-                                @if ($evalu)
-                                    @if ($evalu->nota_entrevista != null)
-                                    {{$evalu->nota_entrevista}}
-                                    @else
-                                    -
-                                    @endif
-                                @else
-                                -
                                 @endif
                             </td>
                             <td align="center">
