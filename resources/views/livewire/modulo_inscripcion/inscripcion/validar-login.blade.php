@@ -9,7 +9,7 @@
                     <thead>
                         <tr>
                             <th class="d-flex me-1"><i class="uil uil-usd-circle"></i></th>
-                            <th class="text-justify"><label class="form-label"> Recuerda que, puedes realizar tu inscripción al día siguiente de haber hecho tu pago.</label></th>
+                            <th class="text-justify"><label class="form-label"> Recuerde que puedes realizar su inscripción al día siguiente de haber hecho su pago.</label></th>
                         </tr>
                     </thead>
                     </tbody>
@@ -59,7 +59,7 @@
                     <thead>
                         <tr>
                             <th class="d-flex me-1"><i class="uil uil-info-circle"></i></th>
-                            <th class="text-justify"><label class="form-label text-justify"> Por favor, revisa bien las guias antes de realizar tu matricula.</label></th>
+                            <th class="text-justify"><label class="form-label text-justify"> Por favor, revisa bien las guías antes de realizar tu inscripción.</label></th>
                         </tr>
                     </thead>
                     </tbody>
