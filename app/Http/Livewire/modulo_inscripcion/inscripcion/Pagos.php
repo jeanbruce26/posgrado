@@ -99,10 +99,10 @@ class Pagos extends Component
 
         $concepto = ConceptoPago::find($this->concepto_pago2);
 
-        if($concepto->concepto_1 != 1){
-            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El concepto de pago ingresado no es el correcto.']);
-            return back();
-        }
+        // if($concepto->concepto_1 != 1){
+        //     $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El concepto de pago ingresado no es el correcto.']);
+        //     return back();
+        // }
 
         if(floatval($concepto->monto) > $this->total){
             return back()->with(array('mensaje-seleccionar'=>'El monto ingresado no cumple con el monto minimo del concepto de pago'));
