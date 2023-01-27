@@ -100,6 +100,11 @@
                                                     </td>
                                                 </tr>
                                                 @endforeach
+                                                @if ($pago_model->count() == 0)
+                                                <tr>
+                                                    <td colspan="5" align="center" class="text-muted">No hay datos</td>
+                                                </tr>
+                                                @endif
                                                 @else
                                                 <tr>
                                                     <td colspan="5" align="center" class="text-muted">No hay datos</td>

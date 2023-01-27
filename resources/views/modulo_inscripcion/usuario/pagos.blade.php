@@ -42,7 +42,7 @@
             Swal.fire(
             event.detail.mensaje,
             '',
-            'error'
+            event.detail.tipo
             )
         });
     </script>

@@ -7,6 +7,7 @@ use App\Models\Inscripcion;
 use App\Models\Evaluacion;
 use App\Models\EvaluacionExpediente;
 use App\Models\EvaluacionExpedienteTitulo;
+use App\Models\Puntaje;
 
 class Expediente extends Component
 {
@@ -19,7 +20,7 @@ class Expediente extends Component
     // estado 2 => evaluacion observada
     // estado 3 => evaluado
     
-    protected $listeners = ['render', 'evaluarExpediente'];
+    protected $listeners = ['render', 'evaluarPaso2', 'evaluarExpediente'];
 
     public function updated($propertyName)
     {
@@ -143,21 +144,23 @@ class Expediente extends Component
     public function evaluar()
     {
         $eva = EvaluacionExpediente::where('evaluacion_id',$this->evaluacion_id)->count();
+        $evaluacion = Evaluacion::find($this->evaluacion_id);
 
         if($eva == 7){
-            // $evaluacion = Evaluacion::find($this->evaluacion_id);
-            // $inscripcion = Inscripcion::find($evaluacion->inscripcion_id);
-            // $evaluacion->nota_expediente = $this->total;
-            // if($this->total <= $evaluacion->Puntaje->puntaje_minimo_expediente){
-            //     $evaluacion->evaluacion_observacion = 'Puntaje minimo no alcanzado en la Evaluacion de Expedientes.';
-            //     $evaluacion->evaluacion_estado = 2;
-            // }
-            // $evaluacion->save();
-            // return redirect()->route('coordinador.inscripciones',$inscripcion->id_mencion);
-            $this->dispatchBrowserEvent('alertaConfirmacionExpediente');
+            if($this->total < $evaluacion->Puntaje->puntaje_minimo_expediente){
+                $this->dispatchBrowserEvent('alertaConfirmacionExpedientePuntaje', ['puntaje' => number_format($evaluacion->Puntaje->puntaje_minimo_expediente) ]);
+            }else{
+                $this->evaluarPaso2();
+            }
         }else{
-            session()->flash('danger', 'Faltan notas por ingresar.');
+            $this->dispatchBrowserEvent('alertaExpediente', ['mensaje' =>'Faltan notas por ingresar', 'tipo' => 'error']);
+            return back();
         }
+    }
+
+    public function evaluarPaso2()
+    {
+        $this->dispatchBrowserEvent('alertaConfirmacionExpediente');
     }
 
     public function evaluarExpediente()
@@ -187,12 +190,15 @@ class Expediente extends Component
 
         $evaluacion_expediente = EvaluacionExpedienteTitulo::all();
 
+        $puntaje = Puntaje::where('puntaje_estado', 1)->first();
+
         return view('livewire.modulo-coordinador.expediente', [
             'inscripcion' => $inscripcion,
             'evaluacion_data' => $evaluacion_data,
             'fecha' => $fecha,
             'boton' => $boton,
             'evaluacion_expediente' => $evaluacion_expediente,
+            'puntaje' => $puntaje,
         ]);
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Evaluacion;
 use App\Models\EvaluacionEntrevistaTitulo;
 use App\Models\EvaluacionEntrevista;
 use App\Models\EvaluacionEntrevistaItem;
+use App\Models\Puntaje;
 
 class Entrevista extends Component
 {
@@ -19,7 +20,11 @@ class Entrevista extends Component
     public $nota_total;
     public $total = 0;
     
-    protected $listeners = ['render', 'evaluarEntrevista'];
+    protected $listeners = [
+        'render', 
+        'evaluarEntrevista',
+        'evaluarPaso2',
+    ];
 
     public function updated($propertyName)
     {
@@ -79,13 +84,42 @@ class Entrevista extends Component
     {
         $eva = EvaluacionEntrevista::where('evaluacion_id',$this->evaluacion_id)->count();
         $eva_item = EvaluacionEntrevistaItem::count();
+        $evaluacion = Evaluacion::find($this->evaluacion_id);
         $this->nota_total = $total;
         
         if($eva == $eva_item){
-            $this->dispatchBrowserEvent('alertaConfirmacionEntrevista');
+            if($this->nota_total < $evaluacion->Puntaje->puntaje_minimo_entrevista){
+                $this->dispatchBrowserEvent('alertaConfirmacionEntrevista', [
+                    'mensaje' =>'El puntaje minimo para aprobar la evaluacion de expediente es de ' . number_format($evaluacion->Puntaje->puntaje_minimo_entrevista) . ' puntos.', 
+                    'icon' => 'question', 
+                    'titulo' => '¿Está seguro de evaluar la entrevista?', 
+                    'button' => 'Si, continuar',
+                    'metodo' => 'evaluarPaso2'
+                ]);
+            }else{
+                $this->dispatchBrowserEvent('alertaConfirmacionEntrevista', [
+                    'mensaje' =>'Una vez evaluado no se podrá modificar las notas.', 
+                    'icon' => 'question', 
+                    'titulo' => '¿Está seguro de evaluar la entrevista?', 
+                    'button' => 'Si, evaluar',
+                    'metodo' => 'evaluarEntrevista'
+                ]);
+            }
         }else{
-            session()->flash('danger', 'Faltan notas por ingresar.');
+            $this->dispatchBrowserEvent('alertaEntrevista', ['mensaje' =>'Faltan notas por ingresar', 'tipo' => 'error']);
+            return back();
         }
+    }
+
+    public function evaluarPaso2()
+    {
+        $this->dispatchBrowserEvent('alertaConfirmacionEntrevista', [
+            'mensaje' =>'Una vez evaluado no se podrá modificar las notas.', 
+            'icon' => 'question', 
+            'titulo' => '¿Está seguro de evaluar la entrevista?', 
+            'button' => 'Si, evaluar',
+            'metodo' => 'evaluarEntrevista'
+        ]);
     }
 
     public function evaluarEntrevista()
@@ -117,6 +151,8 @@ class Entrevista extends Component
         $fecha = today();
 
         $evaluacion_entrevista_titulo = EvaluacionEntrevistaTitulo::all();
+        
+        $puntaje = Puntaje::where('puntaje_estado', 1)->first();
 
         return view('livewire.modulo-coordinador.entrevista', [
             'inscripcion' => $inscripcion,
@@ -124,6 +160,7 @@ class Entrevista extends Component
             'fecha' => $fecha,
             'boton' => $boton,
             'evaluacion_entrevista_titulo' => $evaluacion_entrevista_titulo,
+            'puntaje' => $puntaje,
         ]);
     }
 }

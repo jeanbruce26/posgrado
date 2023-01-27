@@ -37,6 +37,14 @@ class Pagos extends Component
                 'concepto_pago2' => 'required|numeric',
             ]);
         }
+
+        if($this->concepto_pago2){
+            $concepto = ConceptoPago::find($this->concepto_pago2);
+            if($concepto->concepto_id != 1){
+                $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El concepto de pago ingresado no es el correcto.', 'tipo' => 'warning']);
+                return back();
+            }
+        }
     }
 
     public function buscarPago()
@@ -81,6 +89,11 @@ class Pagos extends Component
         if($this->seleccionar && $v == $id_pago){
             $this->monto += $pago->monto;
             $this->total = $this->monto;
+            $concepto = ConceptoPago::find($this->concepto_pago2);
+            if($this->total > floatval($concepto->monto)){
+                $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'Monto total excedido', 'tipo' => 'warning', 'extra' => 'Una vez realizado el pago, ya no podrá utilizarlo ni solicitar reembolso.']);
+                return back();
+            }
         }else{
             $this->monto -= $pago->monto;
             $this->total = $this->monto;
@@ -94,18 +107,22 @@ class Pagos extends Component
     public function guardarPagoAlerta()
     {
         if(!$this->seleccionar){
-            return back()->with(array('mensaje-seleccionar'=>'Debe seleccionar su pago para continuar con su inscripcion.'));
+            // return back()->with(array('mensaje-seleccionar'=>'Debe seleccionar su pago para continuar con su inscripcion.'));
+            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'Debe seleccionar su pago para continuar con su inscripción.', 'tipo' => 'error']);
+            return back();
         }
 
         $concepto = ConceptoPago::find($this->concepto_pago2);
 
-        // if($concepto->concepto_1 != 1){
-        //     $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El concepto de pago ingresado no es el correcto.']);
-        //     return back();
-        // }
+        if($concepto->concepto_id != 1){
+            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El concepto de pago ingresado no es el correcto.', 'tipo' => 'warning']);
+            return back();
+        }
 
         if(floatval($concepto->monto) > $this->total){
-            return back()->with(array('mensaje-seleccionar'=>'El monto ingresado no cumple con el monto minimo del concepto de pago'));
+            // return back()->with(array('mensaje-seleccionar'=>'El monto ingresado no cumple con el monto minimo del concepto de pago'));
+            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El monto ingresado no cumple con el monto minimo del concepto de pago.', 'tipo' => 'error']);
+            return back();
         }
 
         $this->dispatchBrowserEvent('confirmacion-pago');
@@ -114,13 +131,13 @@ class Pagos extends Component
     public function guardarPago()
     {
         if(!$this->seleccionar){
-            return back()->with(array('mensaje-seleccionar'=>'Debe seleccionar su pago para continuar con su inscripcion.'));
+            return back()->with(array('mensaje-seleccionar'=>'Debe seleccionar su pago para continuar con su inscripción.', 'tipo' => 'error'));
         }
 
         $concepto = ConceptoPago::find($this->concepto_pago2);
         
         if(floatval($concepto->monto) > $this->total){
-            return back()->with(array('mensaje-seleccionar'=>'El monto ingresado no cumple con el monto minimo del concepto de pago'));
+            return back()->with(array('mensaje-seleccionar'=>'El monto ingresado no cumple con el monto minimo del concepto de pago', 'tipo' => 'error'));
         }
 
         $admision = Admision::where('estado',1)->first()->cod_admi;

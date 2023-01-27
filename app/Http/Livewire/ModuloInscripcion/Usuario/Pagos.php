@@ -84,10 +84,15 @@ class Pagos extends Component
     public function contarMonto($id_pago)
     {
         $pago= Pago::select('monto')->where('pago_id',$id_pago)->first();
+        $concepto = ConceptoPago::find($this->concepto_pago);
         $check = $this->seleccionar;
         
         if(in_array($id_pago, $check)){
             $this->total = $this->total + $pago->monto;
+            if($this->total > floatval($concepto->monto)){
+                $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'Monto total excedido', 'tipo' => 'warning']);
+                return back();
+            }
         }else{
             $this->total = $this->total - $pago->monto;
         }
@@ -96,14 +101,19 @@ class Pagos extends Component
     public function guardarPagoAlerta()
     {
         if(!$this->seleccionar){
-            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'Debe seleccionar su pago para continuar.']);
+            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'Debe seleccionar su pago para continuar.', 'tipo' => 'error']);
             return back();
         }
 
         $concepto = ConceptoPago::find($this->concepto_pago);
 
+        if($this->concepto_pago == 1){
+            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El concepto de pago ingresado no es el correcto.', 'tipo' => 'warning']);
+            return back();
+        }
+
         if(floatval($concepto->monto) > $this->total){
-            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El monto ingresado no cumple con el monto del concepto de pagor.']);
+            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El monto ingresado no cumple con el monto del concepto de pago.', 'tipo' => 'error']);
             return back();
         }
 
@@ -113,7 +123,7 @@ class Pagos extends Component
     public function guardarPago()
     {
         if($this->concepto_pago == 1){
-            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El concepto de pago ingresado no es el correcto.']);
+            $this->dispatchBrowserEvent('alerta-error-pago', ['mensaje' => 'El concepto de pago ingresado no es el correcto.', 'tipo' => 'warning']);
             return back();
         }
 
