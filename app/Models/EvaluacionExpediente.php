@@ -14,7 +14,7 @@ class EvaluacionExpediente extends Model
     protected $table = 'evaluacion_expediente';
     protected $fillable = [
         'evaluacion_expediente_id',
-        'evaluacion_expediente_nota',
+        'evaluacion_expediente_puntaje',
         'evaluacion_expediente_titulo_id',
         'evaluacion_id',
     ];

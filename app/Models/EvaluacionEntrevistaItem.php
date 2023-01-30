@@ -16,6 +16,7 @@ class EvaluacionEntrevistaItem extends Model
         'evaluacion_entrevista_item_id',
         'evaluacion_entrevista_item',
         'evaluacion_entrevista_titulo_id',
+        'tipo_evaluacion_id'
     ];
 
     public $timestamps = false;
@@ -24,5 +25,11 @@ class EvaluacionEntrevistaItem extends Model
     public function EvaluacionEntrevistaTitulo(){
         return $this->belongsTo(EvaluacionEntrevistaTitulo::class,
         'evaluacion_entrevista_titulo_id','evaluacion_entrevista_titulo_id');
+    }
+
+    // Tipo Evaluacion
+    public function TipoEvaluacion(){
+        return $this->belongsTo(TipoEvaluacion::class,
+        'tipo_evaluacion_id','tipo_evaluacion_id');
     }
 }

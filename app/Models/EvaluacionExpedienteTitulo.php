@@ -16,8 +16,14 @@ class EvaluacionExpedienteTitulo extends Model
         'evaluacion_expediente_titulo_id',
         'evaluacion_expediente_titulo',
         'evaluacion_expediente_titulo_puntaje_maximo',
+        'tipo_evaluacion_id'
     ];
 
     public $timestamps = false;
 
+    // Tipo Evaluacion
+    public function TipoEvaluacion(){
+        return $this->belongsTo(TipoEvaluacion::class,
+        'tipo_evaluacion_id','tipo_evaluacion_id');
+    }
 }

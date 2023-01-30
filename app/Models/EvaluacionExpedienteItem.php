@@ -9,7 +9,7 @@ class EvaluacionExpedienteItem extends Model
 {
     use HasFactory;
     
-    protected $primaryKey = "";
+    protected $primaryKey = "evaluacion_expediente_item_id";
 
     protected $table = 'evaluacion_expediente_item';
     protected $fillable = [

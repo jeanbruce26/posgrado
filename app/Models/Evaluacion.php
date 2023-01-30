@@ -14,9 +14,10 @@ class Evaluacion extends Model
     protected $table = 'evaluacion';
     protected $fillable = [
         'evaluacion_id',
-        'nota_expediente',
-        'nota_entrevista',
-        'nota_final',
+        'p_expediente',
+        'p_entrevista',
+        'p_investigacion',
+        'p_final',
         'evaluacion_observacion',
         'evaluacion_estado',
         'evaluacion_estado_admitido',
@@ -24,6 +25,8 @@ class Evaluacion extends Model
         'inscripcion_id',
         'fecha_expediente',
         'fecha_entrevista',
+        'fecha_investigacion',
+        'tipo_evaluacion_id'
     ];
 
     public $timestamps = false;
@@ -38,5 +41,11 @@ class Evaluacion extends Model
     public function Inscripcion(){
         return $this->belongsTo(Inscripcion::class,
         'puntaje_id','puntaje_id');
+    }
+
+    // Tipo Evaluacion
+    public function TipoEvaluacion(){
+        return $this->belongsTo(TipoEvaluacion::class,
+        'tipo_evaluacion_id','tipo_evaluacion_id');
     }
 }
