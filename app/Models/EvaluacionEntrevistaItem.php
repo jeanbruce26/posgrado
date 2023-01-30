@@ -15,7 +15,6 @@ class EvaluacionEntrevistaItem extends Model
     protected $fillable = [
         'evaluacion_entrevista_item_id',
         'evaluacion_entrevista_item',
-        'evaluacion_entrevista_titulo_id',
         'tipo_evaluacion_id'
     ];
 
