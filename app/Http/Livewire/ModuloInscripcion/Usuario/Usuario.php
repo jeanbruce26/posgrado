@@ -84,18 +84,19 @@ class Usuario extends Component
         $fecha_admision_normal = Admision::where('estado',1)->first()->fecha_fin;
 
         $evaluacion = Evaluacion::where('inscripcion_id',auth('usuarios')->user()->id_inscripcion)->first();
+        // dd($evaluacion);
         $admitido = null;
         $pago = null;
         if($evaluacion){
-            $admitido = Admitidos::where('evaluacion_id',$evaluacion->inscripcion_id)->first();
+            $admitido = Admitidos::where('evaluacion_id',$evaluacion->evaluacion_id)->first();
+            // dd($admitido);
             if($admitido){
                 $constanca_ingreso_pago = ConstanciaIngresoPago::where('admitidos_id',$admitido->admitidos_id)->first(); //verificar si ya pago
-                
                 if($constanca_ingreso_pago){
                     if($constanca_ingreso_pago->concepto_id == 2 || $constanca_ingreso_pago->concepto_id == 4){
                         $pago = 1;
                     }
-                }
+                }   
             }
         }
 

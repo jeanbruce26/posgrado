@@ -23,9 +23,26 @@
             </span>
         </div>
     </div>
-    <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show mb-4" role="alert">
+    {{-- <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show mb-4" role="alert">
         <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - Una vez realizado la evaluación, no podrá realizar modificación de las notas ingresadas.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div> --}}
+    <div class="alert alert-info alert-dismissible alert-additional shadow fade show" role="alert">
+        <div class="alert-body">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="d-flex">
+                <div class="flex-shrink-0 me-3">
+                    <i class="ri-information-line fs-16 align-middle"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="alert-heading">Recuerda</h5>
+                    <p class="mb-0">Una vez realizado la evaluación, no podrá realizar modificación de las notas ingresadas. </p>
+                </div>
+            </div>
+        </div>
+        <div class="alert-content">
+            <p class="mb-0">- El puntaje minimo para aprobar la evaluación de entrevista es de {{ number_format($puntaje->puntaje_minimo_entrevista) }} puntos.</p>
+        </div>
     </div>
     <div class="card">
         <div class="card-body">

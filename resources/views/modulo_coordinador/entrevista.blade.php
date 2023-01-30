@@ -16,20 +16,29 @@
     window.addEventListener('alertaConfirmacionEntrevista', event => {
         // alert('Name updated to: ' + event.detail.id);
         Swal.fire({
-            title: '¿Estás seguro?',
-            text: "Una vez evaluado no se podrá modificar las notas.",
-            icon: 'question',
+            title: event.detail.titulo,
+            // text: "Una vez evaluado no se podrá modificar las notas.",
+            text: event.detail.mensaje,
+            icon: event.detail.icon,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Evaluar',
+            confirmButtonText: event.detail.button,
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                Livewire.emitTo('modulo-coordinador.entrevista', 'evaluarEntrevista');
+                Livewire.emitTo('modulo-coordinador.entrevista', event.detail.metodo);
             }
         })
     })
+
+    window.addEventListener('alertaEntrevista', event => {
+        Swal.fire(
+        event.detail.mensaje,
+        event.detail.extra,
+        event.detail.tipo
+        )
+    });
     
     window.addEventListener('notificacionNota', event => {
         // alert('Name updated to: ' + event.detail.message);

@@ -31,6 +31,31 @@
         })
     })
 
+    window.addEventListener('alertaConfirmacionExpedientePuntaje', event => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'El puntaje minimo para aprobar la evaluacion de expediente es de ' + event.detail.puntaje + ' puntos.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Continuar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-coordinador.expediente', 'evaluarPaso2');
+            }
+        })
+    })
+
+    window.addEventListener('alertaExpediente', event => {
+        Swal.fire(
+        event.detail.mensaje,
+        event.detail.extra,
+        event.detail.tipo
+        )
+    });
+
     window.addEventListener('notificacionNota', event => {
         // alert('Name updated to: ' + event.detail.message);
         Toastify({

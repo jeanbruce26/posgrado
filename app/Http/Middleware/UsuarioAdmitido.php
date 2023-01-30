@@ -20,7 +20,7 @@ class UsuarioAdmitido
     {
         $evaluacion = Evaluacion::where('inscripcion_id', auth('usuarios')->user()->id_inscripcion)->first();
         if ($evaluacion) {
-            $admitido = Admitidos::where('evaluacion_id', $evaluacion->inscripcion_id)->first();
+            $admitido = Admitidos::where('evaluacion_id', $evaluacion->evaluacion_id)->first();
             if ($admitido) {
                 return $next($request);
             } else {

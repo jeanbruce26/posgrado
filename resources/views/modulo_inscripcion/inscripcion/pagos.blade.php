@@ -34,8 +34,8 @@
     window.addEventListener('alerta-error-pago', event => {
         Swal.fire(
         event.detail.mensaje,
-        '',
-        'error'
+        event.detail.extra,
+        event.detail.tipo
         )
     });
 </script>
