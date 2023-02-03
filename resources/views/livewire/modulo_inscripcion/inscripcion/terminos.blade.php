@@ -62,7 +62,7 @@
                 </div>
                 <div class="card-text mt-4 ms-2">
                     <input type="checkbox" wire:model="check" class="me-2  @error('check') is-invalid  @enderror">
-                    <span class="fw-bold text-dark fs-5">Acepto Terminos y condiciones.</span>
+                    <span class="fw-bold text-dark fs-5" style="cursor: pointer;" wire:click="aceptarTerminos()">Acepto Terminos y condiciones.</span>
                 
                     @error('check')
                         <span class="invalid-feedback ms-4" role="alert">

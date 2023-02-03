@@ -156,12 +156,12 @@ class Index extends Component
         ]);
 
         $persona = Persona::find($this->persona_id);
-        // dd($persona);
         
         $persona->num_doc = $this->documento;
         $persona->nombres = $this->nombres;
         $persona->apell_pater = $this->apellidoPate;
         $persona->apell_mater = $this->apellidoMate;
+        $persona->nombre_completo = $this->apellidoPate.' '.$this->apellidoMate.' '.$this->nombres;
         $persona->fecha_naci = $this->fechaNacimineto;
         $persona->sexo = $this->sexo;
         $persona->est_civil_cod_est  = $this->estadoCivil;

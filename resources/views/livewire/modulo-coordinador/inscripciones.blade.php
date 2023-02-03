@@ -18,7 +18,11 @@
             @if($inscripciones_count != $evaluaciones_count)
             <button type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Ver acta de evaluación" disabled><span>Ver acta de evaluación</span></button>
             @else
-            <a target="_blank" href="{{route('coordinador.reportes',$id_mencion)}}" type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Ver acta de evaluación"><span>Ver acta de evaluación</span></a>
+                @if ($mencion->descripcion_programa == 'DOCTORADO')
+                <a target="_blank" href="{{route('coordinador.reportes.doctorado',$id_mencion)}}" type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Ver acta de evaluación"><span>Ver acta de evaluación</span></a>
+                @else
+                <a target="_blank" href="{{route('coordinador.reportes.maestria',$id_mencion)}}" type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Ver acta de evaluación"><span>Ver acta de evaluación</span></a>
+                @endif
             @endif
         </div>
     </div>
@@ -48,19 +52,19 @@
     @if ($admision->fecha_evaluacion_entrevista_inicio > today() || $admision->fecha_evaluacion_entrevista_fin < today())
         @if ($admision->fecha_evaluacion_entrevista_inicio > today())
         <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-            <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - La fecha para realizar la evaluación de entrevista comienza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_inicio)) }} y finaliza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_fin)) }}.
+            <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - La fecha para realizar la evaluación de entrevista y perfil de proyecto de investigación comienza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_inicio)) }} y finaliza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_fin)) }}.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
         @if ($admision->fecha_evaluacion_entrevista_fin < today())
         <div class="alert alert-warning alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-            <i class="ri-alarm-warning-line label-icon"></i><strong>Evaluaciones de entrevista finalizada.</strong>.
+            <i class="ri-alarm-warning-line label-icon"></i><strong>Evaluaciones de entrevista  y perfil de proyecto de investigación finalizada.</strong>.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
     @else
-    <div class="alert alert-success alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-        <i class="ri-contacts-book-2-line label-icon"></i><strong>Evaluaciones de entrevista habilitada.</strong>
+    <div class="alert alert-success alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert"> 
+        <i class="ri-contacts-book-2-line label-icon"></i><strong>Evaluaciones de entrevista y perfil de proyecto de investigación habilitada.</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
@@ -94,8 +98,10 @@
                             <th scope="col" class="col-md-1">ID</th>
                             <th scope="col">INSCRITO</th>
                             <th scope="col" class="col-md-1">DOCUMENTO</th>
-                            <th scope="col" class="col-md-1">CELULAR</th>
                             <th scope="col" class="col-md-2">EVA. EXPEDIENTE</th>
+                            @if ($mencion->descripcion_programa == 'DOCTORADO')
+                            <th scope="col" class="col-md-2">PERFIL PROYECTO</th>
+                            @endif
                             <th scope="col" class="col-md-2">EVA. ENTREVISTA</th>
                             <th scope="col" class="col-md-1">ESTADO</th>
                         </tr>
@@ -108,28 +114,44 @@
                         <tr>
                             <td scope="row" class="fw-bold" align="center">{{$item->id_inscripcion}}</td>
                             <td>{{$item->apell_pater}} {{$item->apell_mater}}, {{$item->nombres}}</td>
-                            <td>{{$item->num_doc}}</td>
-                            <td>+51 {{$item->celular1}}</td>
+                            <td align="center">{{$item->num_doc}}</td>
                             <td align="center" class="fs-6">
                                 @if ($evalu)
-                                    @if ($evalu->nota_expediente != null)
-                                    <strong>{{ number_format($evalu->nota_expediente, 0) }}</strong> 
+                                    @if ($evalu->p_expediente != null)
+                                    <strong>{{ number_format($evalu->p_expediente, 0) }}</strong> 
                                     @else
-                                    <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-info btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                    <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                     @endif
                                 @else
-                                <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-info btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                 @endif
                             </td>
+                            @php $tipo = 1; @endphp
+                            @if ($mencion->descripcion_programa == 'DOCTORADO')
+                            @php $tipo = 2; @endphp
                             <td align="center" class="fs-6">
                                 @if ($evalu)
-                                    @if ($evalu->nota_entrevista != null)
-                                    <strong>{{ number_format($evalu->nota_entrevista, 0) }}</strong> 
+                                    @if ($evalu->p_investigacion != null)
+                                    <strong>{{ number_format($evalu->p_investigacion, 0) }}</strong> 
                                     @else
-                                    <button wire:click="evaEntre({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-success btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                    <button wire:click="evaInvestigacion({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                     @endif
                                 @else
-                                <button wire:click="evaEntre({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-success btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                <button wire:click="evaInvestigacion({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                @endif
+                            </td>
+                            @else
+                            @php $tipo = 1; @endphp
+                            @endif
+                            <td align="center" class="fs-6">
+                                @if ($evalu)
+                                    @if ($evalu->p_entrevista != null)
+                                    <strong>{{ number_format($evalu->p_entrevista, 0) }}</strong> 
+                                    @else
+                                    <button wire:click="evaEntre({{$item->id_inscripcion}},{{ $tipo }})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                    @endif
+                                @else
+                                <button wire:click="evaEntre({{$item->id_inscripcion}},{{ $tipo }})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                 @endif
                             </td>
                             <td align="center">

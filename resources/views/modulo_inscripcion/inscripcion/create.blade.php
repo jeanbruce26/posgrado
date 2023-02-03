@@ -17,9 +17,21 @@
           </div>
      </div>
 </div>
-     
 @endsection
 
 @section('javascript')
-     
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.38/dist/sweetalert2.all.min.js"></script>
+<script>   
+     window.addEventListener('alertaInscripcion', event => {
+          Swal.fire(
+          event.detail.titulo,
+          event.detail.subtitulo,
+          event.detail.icon
+          )
+     });
+
+     window.addEventListener('modalExpediente', event => {
+          $('#modalExpediente').modal('hide');
+     });
+</script>
 @endsection

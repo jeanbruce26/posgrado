@@ -62,6 +62,10 @@ class UsuarioUpdate extends Component
 
     public function guardarExpediente()
     {
+        $admision = Admision::where('estado',1)->first()->admision;
+        $data = $this->expediente;
+        $estado_expediente = "Enviado";
+
         if($this->modo == 1){
             $this->resetErrorBag();
             $this->resetValidation();
@@ -69,12 +73,6 @@ class UsuarioUpdate extends Component
             $this->validate([
                 'expediente' => 'nullable|mimes:pdf|max:10024',
             ]);
-
-            $estado_expediente = "Enviado";
-
-            $admision = Admision::where('estado',1)->first()->admision;
-
-            $data = $this->expediente;
         
             if($data != null){
                 $path = $admision. '/' .auth('usuarios')->user()->id_inscripcion. '/';
@@ -90,17 +88,11 @@ class UsuarioUpdate extends Component
                     "id_inscripcion" => auth('usuarios')->user()->id_inscripcion,
                 ]);
 
-                $this->limpiar();
-
-                $this->pdfUser(auth('usuarios')->user()->id_inscripcion);
-
                 $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Documento ingresado satisfactoriamente.', 'color' => '#44bb76']);
             }else{
                 $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Error al momento de subir su documento (documento vacio).', 'color' => '#ea4b43']);
             }
         }else{
-            date_default_timezone_set("America/Lima");
-
             $this->resetErrorBag();
             $this->resetValidation();
 
@@ -108,10 +100,6 @@ class UsuarioUpdate extends Component
                 'expediente' => 'nullable|mimes:pdf|max:10024',
             ]);
 
-            $admision = Admision::where('estado',1)->first()->admision;
-
-            $data = $this->expediente;
-        
             if($data != null){
                 $path = $admision. '/' .auth('usuarios')->user()->id_inscripcion. '/';
                 $filename = $this->expediente_nombre.".".$data->extension();
@@ -122,17 +110,15 @@ class UsuarioUpdate extends Component
                 $expe_inscripcion->fecha_entre = now();
                 $expe_inscripcion->save();
 
-                $this->limpiar();
-                
-                $this->pdfUser(auth('usuarios')->user()->id_inscripcion);
-
                 $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Documento actualizado satisfactoriamente.', 'color' => '#44bb76']);
             }else{
                 $this->dispatchBrowserEvent('notificacionExpe', ['message' =>'Error al momento de subir su documento (documento vacio).', 'color' => '#ea4b43']);
             }
         }
 
+        $this->limpiar();
         $this->dispatchBrowserEvent('modalExpediente');
+        $this->pdfUser(auth('usuarios')->user()->id_inscripcion);
     }
 
     public function pdfUser($id)
@@ -161,7 +147,12 @@ class UsuarioUpdate extends Component
         $final = strftime('%d de %B del %Y', strtotime($fecha_actual2.$valor));
         $per = Persona::where('idpersona', $inscripcion->persona_idpersona)->get();
         $expedienteInscripcion = ExpedienteInscripcion::where('id_inscripcion',$id)->get();
-        $expedi = Expediente::all();
+        $expedi = $expedi = Expediente::where('estado', 1)
+                    ->where(function($query) use ($inscripcion){
+                        $query->where('expediente_tipo', 0)
+                            ->orWhere('expediente_tipo', $inscripcion->tipo_programa);
+                    })
+                    ->get();
 
         $data = [ 
             'persona' => $per,
@@ -194,10 +185,16 @@ class UsuarioUpdate extends Component
         $valor = '+ 2 day';
         $final = date('Y/m/d',strtotime($admision->fecha_fin.$valor));
         $fecha = date('Y/m/d', strtotime(today()));
+        $expediente_model = Expediente::where('estado', 1)
+                                ->where(function($query) {
+                                    $query->where('expediente_tipo', 0)
+                                        ->orWhere('expediente_tipo', auth('usuarios')->user()->tipo_programa);
+                                })
+                                ->get();
 
         return view('livewire.modulo_inscripcion.usuario.usuario-update', [
             'nombre' => $nombre,
-            'expediente_model' => Expediente::all(),
+            'expediente_model' => $expediente_model,
             'final' => $final,
             'fecha' => $fecha
         ]);

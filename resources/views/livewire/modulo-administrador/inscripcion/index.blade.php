@@ -42,12 +42,17 @@
                                             </td>
                                             <td align="center">
                                                 <a href="#showModal" class="link-info fs-16" data-bs-toggle="modal" data-bs-target="#showModal{{$item->id_inscripcion}}"><i class="ri-file-text-line"></i></a>
-
                                                 {{-- Modal Show --}}
                                                 <div wire:ignore.self class="modal fade" id="showModal{{$item->id_inscripcion}}" tabindex="-1" aria-labelledby="showModal" aria-hidden="true">
                                                     <div class="modal-dialog  modal-lg modal-dialog-scrollable">
                                                         <div class="modal-content">
                                                             @php
+                                                                $expediente = App\Models\Expediente::where('estado', 1)
+                                                                                ->where(function($query) use ($item) {
+                                                                                    $query->where('expediente_tipo', 0)
+                                                                                        ->orWhere('expediente_tipo', $item->tipo_programa);
+                                                                                })
+                                                                                ->get();
                                                                 $expInsc = App\Models\ExpedienteInscripcion::where('id_inscripcion', $item->id_inscripcion)->get();
                                                                 $inscrip = App\Models\Inscripcion::where('id_inscripcion', $item->id_inscripcion)->first();
                                                                 $value = 0;
@@ -73,7 +78,7 @@
                                                                                 @foreach ($expInsc as $expInscripcion)
                                                                                     @if($exp->cod_exp == $expInscripcion->expediente_cod_exp)
                                                                                         <tr>
-                                                                                            <td>{{$exp->tipo_doc}}</td>
+                                                                                            <td style="white-space: initial">{{$exp->tipo_doc}}</td>
                                                                                             <td align="center">{{date('d/m/Y', strtotime($expInscripcion->fecha_entre))}}</td>
                                                                                             <td align="center" class="text-success"><i class="ri-checkbox-circle-line fs-17 align-middle"></i> {{$expInscripcion->estado}}</td>
                                                                                             <td align="center">
@@ -115,6 +120,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <a href="#modalCambiarPrograma" class="link-primary fs-16" data-bs-toggle="modal" data-bs-target="#modalCambiarPrograma"><i class="ri-pencil-line"></i></a>
                                             </td>
                                         </tr>
                                     @endif

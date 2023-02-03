@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EvaluacionInvetigacionItem extends Model
+class EvaluacionInvestigacionItem extends Model
 {
     use HasFactory;
 
@@ -15,6 +15,7 @@ class EvaluacionInvetigacionItem extends Model
     protected $fillable = [
         'evaluacion_investigacion_item_id',
         'evaluacion_investigacion_item',
+        'evaluacion_investigacion_item_puntaje',
         'evaluacion_investigacion_item_estado',
     ];
 

@@ -26,11 +26,6 @@ use App\Http\Controllers\Controller;
 
 class UserInscripcionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('modulo_inscripcion.inscripcion.terminos-condiciones');
@@ -78,7 +73,12 @@ class UserInscripcionController extends Controller
         $final = strftime('%d de %B del %Y', strtotime($fecha_actual2.$valor));
         $per = Persona::where('idpersona', $inscripcion->persona_idpersona)->get();
         $expedienteInscripcion = ExpedienteInscripcion::where('id_inscripcion',$id)->get();
-        $expedi = Expediente::all();
+        $expedi = Expediente::where('estado', 1)
+                    ->where(function($query) use ($inscripcion){
+                        $query->where('expediente_tipo', 0)
+                            ->orWhere('expediente_tipo', $inscripcion->tipo_programa);
+                    })
+                    ->get();
 
         $data = [ 
             'persona' => $per,

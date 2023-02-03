@@ -23,7 +23,8 @@ class Inscripcion extends Authenticatable
         'admision_cod_admi',
         'id_mencion',
         'inscripcion',
-        'fecha_inscripcion'
+        'fecha_inscripcion',
+        'tipo_programa'
     ];
 
     public $timestamps = false;

@@ -767,7 +767,7 @@
                         @foreach ($expedienteInscripcion as $item)
                             @if($item2->cod_exp == $item->expediente_cod_exp)
                             <tr>
-                                <th><div class="titulo3">{{ $item2->tipo_doc }}</div></th>
+                                <th style="white-space: initial;"><div class="titulo3">{{ $item2->tipo_doc }}</div></th>
                                 <th><div class="mx-2">:</div></th>
                                 <th style="text-align: initial;">Entregado ({{date('d/m/Y', strtotime($item->fecha_entre))}})</th>
                             </tr>
@@ -778,7 +778,7 @@
                         @endforeach
                         @if($value != 1)
                             <tr>
-                                <th><div class="titulo3">{{ $item2->tipo_doc }}</div></th>
+                                <th style="white-space: initial;"><div class="titulo3">{{ $item2->tipo_doc }}</div></th>
                                 <th><div class="mx-2">:</div></th>
                                 <th style="text-align: initial; color: red;">No Entregado</th>
                             </tr>
@@ -831,13 +831,6 @@
             </table>
         </div>
         <div style="margin-top: 0.6rem;"></div>
-        <div class="mt-2">
-            @foreach ($admisionn as $item)
-            <div class="" style="text-align: justify; font-size: small;">
-                Declaro bajo juramento, que en caso de ingresar me comprometo a regualizar los documentos que me faltan hasta la fecha {{$final}}; caso contrario perderé mi ingreso y, el monto abonado por derecho de inscripcion, de acuerdo a los articulos 29 e), 81 y la tercera disposicion complementaria del Reglamento General de Admisión.
-            </div>
-            @endforeach
-        </div>
         <table class="table"  style="width:100%; margin-top: 1rem;">
             <thead>
                 <tr>

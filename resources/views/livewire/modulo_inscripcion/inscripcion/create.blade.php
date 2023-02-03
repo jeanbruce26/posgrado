@@ -189,7 +189,7 @@
 
                     <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12">
                         <div wire:ignore>
-                            <label class="form-label">Universidad <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
+                            <label class="form-label">Universidad de egreso <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span></label>
                             <select class="form-select select2-universidad @error('universidad') is-invalid  @enderror" aria-label="Default select example" wire:model="universidad">
                                 <option value="" selected>Seleccione</option>
                                 @foreach ($uni as $item)
@@ -286,45 +286,57 @@
                         
                     @endif
 
-                    <h5 class="mt-5 fw-bold">Documentos requeridos</h5>
+                    <h5 class="mt-5 fw-bold">Expedientes requeridos</h5>
                     
                     <div class="table-responsive">
                         <table class="table table-hover align-middle table-nowrap mb-0">
                             <thead>
                                 <tr align="center" style="background-color: rgb(231, 237, 255)">
-                                    <th class="col-md-6">DOCUMENTOS</th>
-                                    <th class="col-md-4">SELECCIONAR</th>
-                                    <th class="col-md-1"></th>
+                                    <th class="col-md-7">DOCUMENTOS</th>
+                                    <th class="col-md-2"></th>
+                                    <th class="col-md-2"></th>
                                     <th class="col-md-1">FORMATO</th>
                                 </tr>
                             </thead>
                                 
                             <tbody>
-                                @foreach ($expe as $item)
+                                @if ($expe)
+                                    @foreach ($expe as $item)
+                                    @php
+                                        $exped_inscripcion = App\Models\ExpedienteInscripcion::where('expediente_cod_exp', $item->cod_exp)->where('id_inscripcion', $id_inscripcion)->first();
+                                    @endphp
+                                    <tr>
+                                        <td style="white-space: initial;">
+                                            {{ $item->tipo_doc }} @if ($item->requerido == 1) <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span> @endif
+                                        </td>
+                                        <td align="center">
+                                            @if ($exped_inscripcion)
+                                            <span class="badge bg-info">Enviado</span>
+                                            @else
+                                            <span class="badge bg-danger">No enviado</span>
+                                            @endif
+                                        </td>
+                                        <td align="center">
+                                            <a href="#modalExpediente" class="btn btn-info btn-sm w-sm" data-bs-toggle="modal" data-bs-target="#modalExpediente" wire:click="cargarExpediente({{ $item->cod_exp }})">Subir</a>
+                                        </td> 
+                                        <td align="center">
+                                            <label class="form-label mt-3">(.pdf)</label>
+                                        </td> 
+                                    </tr>
+                                    @endforeach
+                                @else
                                 <tr>
-                                    <td>
-                                        <label class="form-label mt-2 mb-2">{{ $item->tipo_doc }} @if ($item->requerido == 1) <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span> @endif</label>
+                                    <td colspan="4">
+                                        <div class="alert alert-info mt-2 mb-2 text-center fw-bold">Seleccione su programa para ver sus expedientes requeridos.</div>
                                     </td>
-                                    <td class="col-md-4">
-                                        <input class="mt-2 mb-2 form-control form-control-sm btn btn-primary" type="file" style="color:azure" wire:model="expediente{{$item->cod_exp}}" accept=".pdf">
-                                    </td>
-                                    <td class="col-md-1">
-                                    </td> 
-                                    <td align="center">
-                                        <label class="form-label mt-3">PDF</label>
-                                    </td> 
                                 </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
-
-                    @if ($errors->any())
-                    <div class="alert alert-danger mt-2 mb-2 text-center fw-bold">Falta completar los campos requeridos.</div>
-                    @endif
                 </div>
             </div>
-            <p class="card-text d-flex justify-content-star align-items-center mt-2 mb-3"><input type="checkbox" wire:model="check" class="me-2"><span>DECLARO BAJO JURAMENTO QUE LOS DOCUMENTOS PRESENTADOS Y LOS DATOS CONSIGNADOS EN EL PRESENTE PROCESO DE ADMISIÓN SON FIDEDIGNOS</span></p> 
+            <p class="card-text d-flex justify-content-star align-items-center mt-2 mb-3"><input type="checkbox" wire:model="check" class="me-2"><span style="cursor: pointer;" wire:click="aceptarTerminos()">DECLARO BAJO JURAMENTO QUE LOS DOCUMENTOS PRESENTADOS Y LOS DATOS CONSIGNADOS EN EL PRESENTE PROCESO DE ADMISIÓN SON FIDEDIGNOS</span></p> 
             @error('check')
                     <div class="alert alert-danger m2-1 mb-2">{{ $message }}</div>
             @enderror
@@ -363,6 +375,41 @@
         </div>
         @endif
     </form>
+    {{-- Modal --}}
+    <div wire:ignore.self class="modal fade" id="modalExpediente" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalExpediente" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="showModalLabel">Subir Expediente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <form novalidate>
+                    <div class="modal-body">
+                        <div>
+                            <div class="d-flex justify-content-between align-item-center">
+                                <label class="form-label">{{ $expediente_nombre }}@if ($expediente_requerido == 1) <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span> @endif</label>
+                                <span class="text-danger">(pdf)</span>
+                            </div>
+                            <input type="file" class="form-control @error('expediente') is-invalid  @enderror" wire:model="expediente" accept=".pdf" id="upload{{ $iteration }}">
+                            @error('expediente')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer text-end">
+                    <button type="button" wire:click="limpiar()"
+                        class="btn btn-outline-danger btn-label waves-effect waves-light w-md" data-bs-dismiss="modal"><i
+                            class="ri-arrow-left-s-line label-icon align-middle fs-16 me-2"></i> Cancelar</button>
+                    <button type="button" wire:click="guardarExpediente()"
+                        class="btn btn-primary btn-label waves-effect right waves-light w-md ms-2"><i
+                            class="ri-check-double-fill label-icon align-middle fs-16 ms-2"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Modal --}}
 </div>
 
 @push('js')

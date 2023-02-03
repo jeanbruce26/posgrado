@@ -31,11 +31,8 @@ class Index extends Component
                 ->orWhere('persona.num_doc','LIKE',"%{$this->search}%")
                 ->orderBy('inscripcion.id_inscripcion','DESC')->paginate(100);
 
-        $expediente = Expediente::all();
-
         return view('livewire.modulo-administrador.inscripcion.index', [
-            'inscripcion' => $inscripcion,
-            'expediente' => $expediente
+            'inscripcion' => $inscripcion
         ]);
     }
 }

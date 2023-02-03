@@ -60,9 +60,11 @@ Route::prefix('coordinador')->middleware(['auth:admin','auth.coordinador'])->gro
 
     Route::get('/index', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'index'])->name('coordinador.index');
     Route::get('/{id}/inscripciones', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'inscripciones'])->name('coordinador.inscripciones');
-    Route::get('/evaluacion/{id}/expediente', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'expediente'])->name('coordinador.expediente');
-    Route::get('/evaluacion/{id}/entrevista', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'entrevista'])->name('coordinador.entrevista');
-    Route::get('/reportes/{id}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'reportes'])->name('coordinador.reportes');
+    Route::get('/evaluacion/{id}/expediente/{tipo}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'expediente'])->name('coordinador.expediente');
+    Route::get('/evaluacion/{id}/entrevista/{tipo}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'entrevista'])->name('coordinador.entrevista');
+    Route::get('/evaluacion/{id}/investigacion/{tipo}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'investigacion'])->name('coordinador.investigacion');
+    Route::get('/reportes/{id}/maestria', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'reportes_maestria'])->name('coordinador.reportes.maestria');
+    Route::get('/reportes/{id}/doctorado', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'reportes_doctorado'])->name('coordinador.reportes.doctorado');
     
 });
 

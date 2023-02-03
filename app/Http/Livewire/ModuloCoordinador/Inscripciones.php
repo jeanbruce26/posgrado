@@ -28,11 +28,13 @@ class Inscripciones extends Component
     public function evaExpe($id)
     {
         $admision = Admision::where('estado',1)->first(); // 1 = activo 0 = inactivo
-
-        $fecha = today();
-
-        $evaluacion = Evaluacion::where('inscripcion_id',$id)->first();
-        $puntaje = Puntaje::where('puntaje_estado',1)->first();
+        $fecha = today(); // fecha actual
+        $evaluacion = Evaluacion::where('inscripcion_id',$id)->first(); // buscar si ya existe una evaluacion para esa inscripcion
+        $puntaje = Puntaje::where('puntaje_estado',1)->first(); // buscar el puntaje activo
+        $mencion = Mencion::join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
+            ->join('programa','subprograma.id_programa','=','programa.id_programa')
+            ->where('mencion.id_mencion',$this->id_mencion)
+            ->first();
 
         if($admision->fecha_evaluacion_expediente_inicio > $fecha || $admision->fecha_evaluacion_expediente_fin < $fecha){
             if($admision->fecha_evaluacion_expediente_inicio > $fecha){
@@ -42,29 +44,68 @@ class Inscripciones extends Component
                 $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Evaluaciones de expedientes finalizadas']);
             }
         }else{
-            if($evaluacion){
-                return redirect()->route('coordinador.expediente',$evaluacion->evaluacion_id);
-            }else{
-                $eva = Evaluacion::create([
-                    "evaluacion_estado" => 1,
-                    "puntaje_id" => $puntaje->puntaje_id,
-                    "inscripcion_id" => $id,
-                    "fecha_expediente" => $fecha,
+            if($evaluacion){ // si ya existe una evaluacion
+                $tipo_evaluacion = $evaluacion->tipo_evaluacion_id;
+                return redirect()->route('coordinador.expediente', [
+                    'id' => $evaluacion->evaluacion_id,
+                    'tipo' => $tipo_evaluacion
                 ]);
+            }else{ // si no existe una evaluacion
+                $eva = new Evaluacion();
+                $eva->evaluacion_estado = 1;
+                $eva->evaluacion_estado_admitido = 0;
+                $eva->puntaje_id = $puntaje->puntaje_id;
+                $eva->inscripcion_id = $id;
+                $eva->fecha_expediente = $fecha;
+                if($mencion->descripcion_programa == 'DOCTORADO'){
+                    $eva->tipo_evaluacion_id = 2;
+                }else if($mencion->descripcion_programa == 'MAESTRIA'){
+                    $eva->tipo_evaluacion_id = 1;
+                }
+                $eva->save();
                 
-                return redirect()->route('coordinador.expediente',$eva->evaluacion_id);
+                return redirect()->route('coordinador.expediente', [
+                    'id' => $eva->evaluacion_id,
+                    'tipo' => $eva->tipo_evaluacion_id
+                ]);
             }
         }
     }
 
-
-    public function evaEntre($id)
+    public function evaInvestigacion($id)
     {
         $admision = Admision::where('estado',1)->first(); // 1 = activo 0 = inactivo
+        $fecha = today(); // fecha actual
+        $evaluacion = Evaluacion::where('inscripcion_id',$id)->first(); // buscar si ya existe una evaluacion para esa inscripcion
+        
+        if($admision->fecha_evaluacion_entrevista_inicio > $fecha || $admision->fecha_evaluacion_entrevista_fin < $fecha){
+            if($admision->fecha_evaluacion_entrevista_inicio > $fecha){
+                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'La fecha de inicio de la evaluacion de perfil de proyecto de investigacion es el: '. date('d/m/Y',strtotime($admision->fecha_evaluacion_entrevista_inicio))]);
+            }
+            if($admision->fecha_evaluacion_entrevista_fin < $fecha){
+                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Evaluaciones de perfil de proyecto de investigacion finalizadas']);
+            }
+        }else{
+            if($evaluacion){
+                if($evaluacion->p_expediente){
+                    return redirect()->route('coordinador.investigacion', [
+                        'id' => $evaluacion->evaluacion_id,
+                        'tipo' => $evaluacion->tipo_evaluacion_id
+                    ]);
+                }else{
+                    $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Le falta completar la Evaluacion de Expediente']);
+                }
+            }else{
+                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Le falta completar la Evaluacion de Expediente']);
+            }
+        }
+    }
 
-        $fecha = today();
-
-        $evaluacion = Evaluacion::where('inscripcion_id',$id)->first();
+    public function evaEntre($id, $tipo)
+    {
+        $admision = Admision::where('estado',1)->first(); // 1 = activo 0 = inactivo
+        $fecha = today(); // fecha actual
+        $evaluacion = Evaluacion::where('inscripcion_id',$id)->first(); // buscar si ya existe una evaluacion para esa inscripcion
         
         if($admision->fecha_evaluacion_entrevista_inicio > $fecha || $admision->fecha_evaluacion_entrevista_fin < $fecha){
             if($admision->fecha_evaluacion_entrevista_inicio > $fecha){
@@ -75,15 +116,35 @@ class Inscripciones extends Component
             }
         }else{
             if($evaluacion){
-                if($evaluacion->nota_expediente){
-                    return redirect()->route('coordinador.entrevista',$evaluacion->evaluacion_id);
-                }else{
-                    // session()->flash('message', 'Falta completar la Evaluacion de Expedientes.');
-                    $this->dispatchBrowserEvent('errorEntrevista');
+                if($evaluacion->p_expediente){
+                    if($tipo == 1){
+                        return redirect()->route('coordinador.entrevista', [
+                            'id' => $evaluacion->evaluacion_id,
+                            'tipo' => $evaluacion->tipo_evaluacion_id
+                        ]);
+                    }else{
+                        if($evaluacion->p_investigacion == null){
+                            $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de perfil de proyecto de investigacion']);
+                        }else{
+                            return redirect()->route('coordinador.entrevista', [
+                                'id' => $evaluacion->evaluacion_id,
+                                'tipo' => $evaluacion->tipo_evaluacion_id
+                            ]);
+                        }
+                    }
+                }else{ 
+                    if($tipo == 1){
+                        $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de expediente']);
+                    }else{
+                        $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de expediente y la evaluacion de perfil de proyecto de investigacion']);
+                    }
                 }
             }else{
-                // session()->flash('message', 'Falta completar la Evaluacion de Expedientes.');
-                $this->dispatchBrowserEvent('errorEntrevista');
+                if($tipo == 1){
+                    $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de expediente']);
+                }else{
+                    $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de expediente y la evaluacion de perfil de proyecto de investigacion']);
+                }                
             }
         }
     }

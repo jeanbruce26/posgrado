@@ -13,12 +13,11 @@ use App\Models\Puntaje;
 class Entrevista extends Component
 {
     public $inscripcion_id;
+    public $tipo_evaluacion_id;
     public $evaluacion_id;
-    public $evaluacion_entrevista_item_id;
-    public $evaluacion_entrevista_item = null;
-    public $nota;
-    public $nota_total;
+    public $puntaje;
     public $total = 0;
+    public $evaluacion_entrevista_item_id;
     
     protected $listeners = [
         'render', 
@@ -28,82 +27,100 @@ class Entrevista extends Component
 
     public function updated($propertyName)
     {
-        $this->validateOnly($propertyName, [
-            'nota' => 'required'
-        ]);
+        $eva_ent_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id',$this->tipo_evaluacion_id)->get();
+        foreach($eva_ent_item as $item){
+            if($item->evaluacion_expediente_item_id == $this->evaluacion_entrevista_item_id){
+                $this->validateOnly($propertyName, [
+                    'puntaje'=> 'required|numeric|min:0|max:'.$item->evaluacion_entrevista_item_puntaje,
+                ]);
+            }
+        }
+        $this->contarTotal();
     }
 
     public function limpiar()
     {
         $this->resetErrorBag();
-        $this->reset('nota');
+        $this->reset('puntaje');
+        $this->resetValidation();
     }
 
-    public function cargarId($id)
+    public function cargarId(EvaluacionEntrevistaItem $id)
     {
-        $this->evaluacion_entrevista_item_id = $id;
-
-        $this->evaluacion_entrevista_item = EvaluacionEntrevistaItem::find($id);
-
-        $eva = EvaluacionEntrevista::where('evaluacion_entrevista_item_id',$this->evaluacion_entrevista_item_id)->where('evaluacion_id',$this->evaluacion_id)->first();
-        
+        $this->evaluacion_entrevista_item_id = $id->evaluacion_entrevista_item_id;
+        $eval_entre_item = EvaluacionEntrevistaItem::find($this->evaluacion_entrevista_item_id);
+        $eva = EvaluacionEntrevista::where('evaluacion_entrevista_item_id',$eval_entre_item->evaluacion_entrevista_item_id)->where('evaluacion_id',$this->evaluacion_id)->first();
         if($eva){
-            $this->nota = number_format($eva->evaluacion_entrevista_nota, 0);
+            $this->puntaje = number_format($eva->evaluacion_entrevista_puntaje, 0);
+        }
+    }
+
+    public function contarTotal()
+    {
+        $eva_ent_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id',$this->tipo_evaluacion_id)->get();
+        $this->total = 0;
+        foreach($eva_ent_item as $item){
+            $eva = EvaluacionEntrevista::where('evaluacion_entrevista_item_id',$item->evaluacion_entrevista_item_id)->where('evaluacion_id',$this->evaluacion_id)->first();
+            if($eva){
+                $this->total = $this->total + $eva->evaluacion_entrevista_puntaje;
+            }
         }
     }
 
     public function agregarNota()
     {
-        $this->validate([
-            'nota' => 'required'
-        ]);
-
-        // dd($this->all());
+        $eva_ent_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id',$this->tipo_evaluacion_id)->get();
+        foreach($eva_ent_item as $item){
+            if($item->evaluacion_expediente_item_id == $this->evaluacion_entrevista_item_id){
+                $this->validate([
+                    'puntaje'=> 'required|numeric|min:0|max:'.$item->evaluacion_entrevista_item_puntaje,
+                ]);
+            }
+        }
 
         $eva = EvaluacionEntrevista::where('evaluacion_entrevista_item_id',$this->evaluacion_entrevista_item_id)->where('evaluacion_id',$this->evaluacion_id)->first();
         
         if($eva){
-            $eva->evaluacion_entrevista_nota = $this->nota;
+            $eva->evaluacion_entrevista_puntaje = $this->puntaje;
             $eva->save();
-            $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Nota actualizada satisfactoriamente.']);
+            $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Puntaje actualizada satisfactoriamente.']);
         }else{
             $eva_expe = EvaluacionEntrevista::create([
-                "evaluacion_entrevista_nota" => $this->nota,
+                "evaluacion_entrevista_puntaje" => $this->puntaje,
                 "evaluacion_entrevista_item_id" => $this->evaluacion_entrevista_item_id,
                 "evaluacion_id" => $this->evaluacion_id,
             ]);
-            $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Nota agregada satisfactoriamente.']);
+            $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Puntaje agregada satisfactoriamente.']);
         }
         
         $this->limpiar();
-
+        $this->contarTotal();
         $this->dispatchBrowserEvent('cerrar-modal');
     }
 
-    public function evaluar($total)
+    public function evaluar()
     {
         $eva = EvaluacionEntrevista::where('evaluacion_id',$this->evaluacion_id)->count();
-        $eva_item = EvaluacionEntrevistaItem::count();
+        $eva_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id',$this->tipo_evaluacion_id)->count();
         $evaluacion = Evaluacion::find($this->evaluacion_id);
-        $this->nota_total = $total;
         
         if($eva == $eva_item){
-            if($this->nota_total < $evaluacion->Puntaje->puntaje_minimo_entrevista){
+            if($this->tipo_evaluacion_id == 1){
                 $this->dispatchBrowserEvent('alertaConfirmacionEntrevista', [
-                    'mensaje' =>'El puntaje minimo para aprobar la evaluacion de expediente es de ' . number_format($evaluacion->Puntaje->puntaje_minimo_entrevista) . ' puntos.', 
-                    'icon' => 'question', 
-                    'titulo' => '¿Está seguro de evaluar la entrevista?', 
-                    'button' => 'Si, continuar',
-                    'metodo' => 'evaluarPaso2'
-                ]);
+                        'mensaje' =>'El puntaje minimo para aprobar las evaluaciones de maestria es tener una sumatoria de ' . number_format($evaluacion->Puntaje->puntaje_minimo_final_maestria) . ' puntos.', 
+                        'icon' => 'question', 
+                        'titulo' => '¿Está seguro de evaluar la entrevista?', 
+                        'button' => 'Si, continuar',
+                        'metodo' => 'evaluarPaso2'
+                    ]);
             }else{
                 $this->dispatchBrowserEvent('alertaConfirmacionEntrevista', [
-                    'mensaje' =>'Una vez evaluado no se podrá modificar las notas.', 
-                    'icon' => 'question', 
-                    'titulo' => '¿Está seguro de evaluar la entrevista?', 
-                    'button' => 'Si, evaluar',
-                    'metodo' => 'evaluarEntrevista'
-                ]);
+                        'mensaje' =>'El puntaje minimo para aprobar las evaluaciones de doctorado es tener una sumatoria de' . number_format($evaluacion->Puntaje->puntaje_minimo_final_doctorado) . ' puntos.', 
+                        'icon' => 'question', 
+                        'titulo' => '¿Está seguro de evaluar la entrevista?', 
+                        'button' => 'Si, continuar',
+                        'metodo' => 'evaluarPaso2'
+                    ]);
             }
         }else{
             $this->dispatchBrowserEvent('alertaEntrevista', ['mensaje' =>'Faltan notas por ingresar', 'tipo' => 'error']);
@@ -126,41 +143,50 @@ class Entrevista extends Component
     {
         $evaluacion = Evaluacion::find($this->evaluacion_id);
         $inscripcion = Inscripcion::find($evaluacion->inscripcion_id);
-        $evaluacion->nota_entrevista = $this->nota_total;
-        if($this->nota_total < $evaluacion->Puntaje->puntaje_minimo_entrevista){
-            $evaluacion->evaluacion_observacion = 'Evaluación de entrevista jalada.';
-            $evaluacion->evaluacion_estado = 2;
+        $evaluacion->p_entrevista = $this->total;
+        if($this->tipo_evaluacion_id == 1){
+            $nota_final = $evaluacion->p_expediente + $this->total;
+            if($nota_final < $evaluacion->Puntaje->puntaje_minimo_final_maestria){
+                $evaluacion->evaluacion_observacion = 'Evaluación de entrevista jalada.';
+                $evaluacion->evaluacion_estado = 2;
+            }else{
+                $evaluacion->evaluacion_observacion = 'Evaluado.';
+                $evaluacion->evaluacion_estado = 3;
+            }
         }else{
-            $evaluacion->evaluacion_observacion = 'Evaluado.';
-            $evaluacion->evaluacion_estado = 3;
+            $nota_final = $evaluacion->p_expediente + $evaluacion->p_investigacion + $this->total;
+            if($nota_final < $evaluacion->Puntaje->puntaje_minimo_final_doctorado){
+                $evaluacion->evaluacion_observacion = 'Evaluación de entrevista jalada.';
+                $evaluacion->evaluacion_estado = 2;
+            }else{
+                $evaluacion->evaluacion_observacion = 'Evaluado.';
+                $evaluacion->evaluacion_estado = 3;
+            }
         }
         $evaluacion->fecha_entrevista = today();
-
-        $nota_entre = $this->nota_total;
-        $nota_expe = $evaluacion->nota_expediente;
-        $evaluacion->nota_final = ($nota_entre + $nota_expe) / 2;
+        $evaluacion->p_final = $nota_final;
         $evaluacion->save();
+
         return redirect()->route('coordinador.inscripciones',$inscripcion->id_mencion);
     }
 
     public function render()
     {
         $evaluacion_data = Evaluacion::find($this->evaluacion_id);
-        $boton = $evaluacion_data->nota_entrevista;
+        $boton = $evaluacion_data->p_entrevista;
         $inscripcion = Inscripcion::find($evaluacion_data->inscripcion_id);
         $fecha = today();
-
-        $evaluacion_entrevista_titulo = EvaluacionEntrevistaTitulo::all();
-        
-        $puntaje = Puntaje::where('puntaje_estado', 1)->first();
+        $evaluacion_entrevista_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id', $this->tipo_evaluacion_id)->get();
+        $puntaje_model = Puntaje::where('puntaje_estado', 1)->first();
+        $this->contarTotal();
 
         return view('livewire.modulo-coordinador.entrevista', [
             'inscripcion' => $inscripcion,
             'evaluacion_data' => $evaluacion_data,
             'fecha' => $fecha,
             'boton' => $boton,
-            'evaluacion_entrevista_titulo' => $evaluacion_entrevista_titulo,
-            'puntaje' => $puntaje,
+            'evaluacion_entrevista_item' => $evaluacion_entrevista_item,
+            'puntaje_model' => $puntaje_model,
         ]);
     }
 }

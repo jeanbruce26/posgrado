@@ -67,19 +67,19 @@ class Create extends Component
     public $universidad;
     public $trabajo;
     public $pais;
-    // public $expediente = [];
-    public $expediente1;
-    public $expediente2;
-    public $expediente3;
-    public $expediente4;
-    public $expediente5;
-    public $expediente6;
-    public $expediente_id = [];
+    public $expediente;
     public $totalpasos = 2;
     public $pasoactual = 0;
     public $check = false;
     public $opcion = 0;
     public $iteration;
+
+    public $expe;
+    public $mostrar_tipo_expediente; // sirve para mostrar los expedientes segun el programa que elija el usuario
+    public $modo = 1; // 1 = crear, 2 = editar
+    public $expediente_nombre = '';
+    public $expediente_cod_exp;
+    public $expediente_requerido;
 
     // protected $listeners = ['inscripcion'];
     
@@ -177,7 +177,6 @@ class Create extends Component
     public function validarUltimoPaso(){  
         $this->resetErrorBag();
         $this->validacion();
-        $this->dispatchBrowserEvent('abrir-modal');
     }
 
     public function validacion(){
@@ -217,18 +216,26 @@ class Create extends Component
                 'mencion_combo' => 'required|numeric',
                 'check' => 'accepted',
             ]);
-            $expe = Expediente::where('estado',1)->get();
-            foreach($expe as $item){
-                $nombre = 'expediente'.$item->cod_exp;
-                if($item->requerido == 1){
-                    $this->validate([
-                        $nombre => 'required|mimes:pdf|max:10024',
-                    ]);
-                }else{
-                    $this->validate([
-                        $nombre => 'nullable|mimes:pdf|max:10024',
-                    ]);
-                }
+
+            $expe_model = Expediente::where('estado', 1)
+                            ->where(function($query){
+                                $query->where('expediente_tipo', 0)
+                                    ->orWhere('expediente_tipo', $this->mostrar_tipo_expediente);
+                            })
+                            ->count();
+
+            $ins_expe_model = ExpedienteInscripcion::where('id_inscripcion', $this->id_inscripcion)
+                            ->count();
+            
+            if($expe_model != $ins_expe_model){
+                $this->dispatchBrowserEvent('alertaInscripcion', [
+                    'titulo' => 'Expedientes incompletos',
+                    'subtitulo' => 'No se puede continuar con la inscripción, ya que no se han subido todos los documentos requeridos.',
+                    'icon' => 'warning'
+                ]);
+                return redirect()->back();
+            }else{
+                $this->dispatchBrowserEvent('abrir-modal');
             }
         }
     }
@@ -260,6 +267,7 @@ class Create extends Component
         $this->programa_combo = null;
         $this->subprograma_combo = null;
         $this->mencion_combo = null;
+        $this->expe = null;
     }
 
     public function updatedProgramaCombo($programa_combo){
@@ -268,6 +276,23 @@ class Create extends Component
         $this->mencion_combo_array = collect();
         $this->subprograma_combo = null;
         $this->mencion_combo = null;
+        $programa = Programa::where('id_programa',$programa_combo)->first();
+        if($programa){
+            $programa = $programa->descripcion_programa;
+            if($programa == 'MAESTRIA'){
+                $this->mostrar_tipo_expediente = 1;
+            }else if($programa == 'DOCTORADO'){
+                $this->mostrar_tipo_expediente = 2;
+            }
+            $this->expe = Expediente::where('estado', 1)
+                            ->where(function($query){
+                                $query->where('expediente_tipo', 0)
+                                    ->orWhere('expediente_tipo', $this->mostrar_tipo_expediente);
+                            })
+                            ->get();
+        }else{
+            $this->expe = null;
+        }
     }
 
     public function updatedSubProgramaCombo($subprograma_combo){
@@ -280,6 +305,91 @@ class Create extends Component
             $mencion = Mencion::where('id_subprograma',$subprograma_combo)->first();
             $this->mencion_combo = $mencion->id_mencion;
         }
+    }
+
+    public function limpiar()
+    {
+        $this->reset(['expediente', 'expediente_nombre']);
+        $this->iteration++;
+        $this->resetErrorBag();
+    }
+
+    public function aceptarTerminos()
+    {
+        if($this->check == false){
+            $this->check = true;
+        }else{
+            $this->check = false;
+        }
+    }
+
+    public function cargarExpediente(Expediente $expediente)
+    {
+        $this->expediente_nombre = $expediente->tipo_doc;
+        $this->expediente_cod_exp = $expediente->cod_exp;
+        $this->expediente_requerido = $expediente->requerido;
+        $expediente_inscripcion = ExpedienteInscripcion::where('id_inscripcion', $this->id_inscripcion)->where('expediente_cod_exp', $expediente->cod_exp)->first();
+        if($expediente_inscripcion){
+            $this->modo = 2;
+        }else{
+            $this->modo = 1;
+        }
+    }
+
+    public function guardarExpediente()
+    {
+        $exped = Expediente::where('estado', 1)
+                    ->where('cod_exp', $this->expediente_cod_exp)->first();
+        
+        if($exped->requerido == 1 && $this->modo == 1){
+            $this->validate([
+                'expediente' => 'required|file|max:10024|mimes:pdf',
+            ]);
+        }else if($exped->requerido == 1 && $this->modo == 2){
+            $this->validate([
+                'expediente' => 'nullable|file|max:10024|mimes:pdf',
+            ]);
+        }else if($exped->requerido != 1 && $this->modo == 2){
+            $this->validate([
+                'expediente' => 'nullable|file|max:10024|mimes:pdf',
+            ]);
+        }
+
+        $estadoExpediente = "Enviado";
+        $nombreExpediente = $exped->tipo_doc;
+        $admision = Admision::where('estado',1)->first()->admision;
+
+        $data = $this->expediente;
+        
+        if($data != null){
+            $path = $admision. '/' .$this->id_inscripcion. '/';
+            $filename = $nombreExpediente.".".$data->extension();
+            $nombreDB = $path.$filename;
+            $data->storeAs($path, $filename, 'files_publico');
+
+            if($this->modo == 1){
+                ExpedienteInscripcion::create([
+                    "nom_exped" => $nombreDB,
+                    "estado" => $estadoExpediente,
+                    "expediente_cod_exp" => $this->expediente_cod_exp,
+                    "id_inscripcion" => $this->id_inscripcion,
+                ]);
+            }else{
+                $expediente_inscripcion = ExpedienteInscripcion::where('id_inscripcion', $this->id_inscripcion)->where('expediente_cod_exp', $this->expediente_cod_exp)->first();
+                $expediente_inscripcion->nom_exped = $nombreDB;
+                $expediente_inscripcion->estado = $estadoExpediente;
+                $expediente_inscripcion->save();
+            }
+            
+            $this->dispatchBrowserEvent('alertaInscripcion', [
+                'titulo' => 'Expediente',
+                'subtitulo' => 'Expediente guardado correctamente',
+                'icon' => 'success'
+            ]);
+        }
+        
+        $this->dispatchBrowserEvent('modalExpediente');
+        $this->limpiar();
     }
 
     public function inscripcion()
@@ -386,40 +496,10 @@ class Create extends Component
         $inscripcion->persona_idpersona = $idpersona;
         $inscripcion->id_mencion = $this->mencion_combo;
         $inscripcion->fecha_inscripcion = now();
+        $inscripcion->tipo_programa = $this->mostrar_tipo_expediente;
         $inscripcion->save();
 
-        $estadoExpediente = "Enviado";
-
-        $expediente_model = Expediente::where('estado',1)->get();
-
-        foreach($expediente_model as $item){
-            $expe = Expediente::where('cod_exp',$item->cod_exp)->first();
-
-            $nombreExpediente = $expe->tipo_doc;
-            $cod = $expe->cod_exp;
-
-            $admision3 = Admision::where('estado',1)->first();
-            $admi = $admision3->admision;
-
-            $name = 'expediente'.$cod;
-
-            $data = $this->$name;
-            
-            if($data != null){
-                $path = $admi. '/' .$this->id_inscripcion. '/';
-                $filename = $nombreExpediente.".".$data->extension();
-                $nombreDB = $path.$filename;
-                $data = $this->$name;
-                $data->storeAs($path, $filename, 'files_publico');
-
-                ExpedienteInscripcion::create([
-                    "nom_exped" => $nombreDB,
-                    "estado" => $estadoExpediente,
-                    "expediente_cod_exp" => $cod,
-                    "id_inscripcion" => $this->id_inscripcion,
-                ]);
-            }
-        }
+        $admision3 = Admision::where('estado',1)->first();
 
         $historial_inscripcion = new HistorialInscripcion();
         $historial_inscripcion->persona_documento = auth('pagos')->user()->dni;
@@ -439,14 +519,12 @@ class Create extends Component
         $tipo_dis = Discapacidad::all();
         $uni = Universidad::all();
         $grad = GradoAcademico::all();
-        $expe = Expediente::where('estado',1)->get();
 
         return view('livewire.modulo_inscripcion.inscripcion.create',[
             'est' => $est_civil,
             'tipo_dis' => $tipo_dis,
             'uni' => $uni,
             'grad' => $grad,
-            'expe' => $expe
         ]);
     }
 }

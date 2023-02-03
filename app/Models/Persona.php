@@ -16,6 +16,7 @@ class Persona extends Model
         'apell_pater',
         'apell_mater',
         'nombres',
+        'nombre_completo',
         'direccion',
         'celular1',
         'celular2',

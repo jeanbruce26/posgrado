@@ -24,6 +24,7 @@
                                     <th scope="col">Tipo de documento</th>
                                     <th scope="col">Texto complementario</th>
                                     <th scope="col" class="col-md-1">Requerido</th>
+                                    <th scope="col" class="col-md-1">Tipo</th>
                                     <th scope="col" class="col-md-1">Estado</th>
                                     <th scope="col" class="col-md-1">Acciones</th>
                                 </tr>
@@ -32,8 +33,8 @@
                                 @forelse ($expedienteModel as $item)
                                     <tr>
                                         <td align="center"><strong>{{$item->cod_exp}}</strong></td>
-                                        <td>{{$item->tipo_doc}}</td>
-                                        <td>
+                                        <td style="white-space: initial;">{{$item->tipo_doc}}</td>
+                                        <td style="white-space: initial;">
                                             @if($item->complemento != null)
                                                 {{$item->complemento}}
                                             @else
@@ -45,6 +46,17 @@
                                                 <i class="ri-checkbox-circle-line align-middle text-success ri-lg me-1"></i> Si
                                             @else
                                                 <i class="ri-close-circle-line align-middle text-danger ri-lg me-1"></i> No
+                                            @endif
+                                        </td>
+                                        <td align="center">
+                                            @if ($item->expediente_tipo == 0)
+                                                <span class="badge badge-soft-primary">Maestria y Doctorado</span>
+                                            @endif
+                                            @if ($item->expediente_tipo == 1)
+                                                <span class="badge badge-soft-primary">Maestria</span>
+                                            @endif
+                                            @if ($item->expediente_tipo == 2)
+                                                <span class="badge badge-soft-primary">Doctorado</span>
                                             @endif
                                         </td>
                                         <td align="center">
@@ -113,6 +125,19 @@
                                         <label for="requerido">No</label>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="mb-3 col-md-12">
+                                <label class="form-label">Tipo de Expediente <span class="text-danger">*</span></label>
+                                <select type="text" class="form-select @error('tipo') is-invalid @enderror" wire:model="tipo">
+                                    <option value="">Seleccione</option>
+                                    <option value="0">Maestria y Doctorado</option>
+                                    <option value="1">Maestria</option>
+                                    <option value="2">Doctorado</option>
+                                </select>
+                                @error('tipo')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>

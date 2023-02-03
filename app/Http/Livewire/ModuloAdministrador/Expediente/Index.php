@@ -19,6 +19,7 @@ class Index extends Component
     public $tipoDocumento;
     public $complemento;
     public $requerido;
+    public $tipo; // 0 = maestria y doctorado, 1 = maestria, 2 = doctorado
     public $estado;
 
     protected $listeners = ['render', 'cambiarEstado'];
@@ -28,27 +29,32 @@ class Index extends Component
         $this->validateOnly($propertyName, [
             'tipoDocumento' => 'required|string',
             'complemento' => 'nullable|string',
-            'requerido' => 'required|numeric'
+            'requerido' => 'required|numeric',
+            'tipo' => 'required|numeric',
         ]);
     }
 
-    public function modo(){
+    public function modo()
+    {
         $this->limpiar();
         $this->modo = 1;
     }
 
-    public function limpiar(){
+    public function limpiar()
+    {
         $this->resetErrorBag();
-        $this->reset('tipoDocumento', 'complemento', 'requerido');
+        $this->reset('tipoDocumento', 'complemento', 'requerido', 'tipo');
         $this->modo = 1;
         $this->titulo = 'Crear Expediente';
     }
 
-    public function cargarAlerta($id){
+    public function cargarAlerta($id)
+    {
         $this->dispatchBrowserEvent('alertaConfirmacionExpediente', ['id' => $id]);
     }
 
-    public function cambiarEstado(Expediente $expediente){
+    public function cambiarEstado(Expediente $expediente)
+    {
         if ($expediente->estado == 1) {
             $expediente->estado = 2;
         } else {
@@ -61,7 +67,8 @@ class Index extends Component
         $this->subirHistorial($expediente->cod_exp, 'Actualizacion de estado expediente', 'expediente');
     }
 
-    public function cargarExpediente(Expediente $expediente){
+    public function cargarExpediente(Expediente $expediente)
+    {
         $this->modo = 2;
         $this->limpiar();
 
@@ -72,22 +79,24 @@ class Index extends Component
         $this->tipoDocumento = $expediente->tipo_doc;
         $this->complemento = $expediente->complemento;
         $this->requerido = $expediente->requerido;
+        $this->tipo = $expediente->expediente_tipo;
     }
 
-    public function guardarExpediente(){
-        //dd($this->all());
-
+    public function guardarExpediente()
+    {
         if($this->modo == 1){
             $this->validate([
                 'tipoDocumento' => 'required|string',
                 'complemento' => 'nullable|string',
-                'requerido' => 'required|numeric'
+                'requerido' => 'required|numeric',
+                'tipo' => 'required|numeric',
             ]);
 
             $expediente = Expediente::create([
                 "tipo_doc" => $this->tipoDocumento,
                 "complemento" => $this->complemento,
                 "requerido" => $this->requerido,
+                "expediente_tipo" => $this->tipo,
                 "estado" => 1
             ]);
 
@@ -98,13 +107,15 @@ class Index extends Component
             $this->validate([
                 'tipoDocumento' => 'required|string',
                 'complemento' => 'nullable|string',
-                'requerido' => 'required|numeric'
+                'requerido' => 'required|numeric',
+                'tipo' => 'required|numeric',
             ]);
 
             $expediente = Expediente::find($this->expediente_id);
             $expediente->tipo_doc = $this->tipoDocumento;
             $expediente->complemento = $this->complemento;
             $expediente->requerido = $this->requerido;
+            $expediente->expediente_tipo = $this->tipo;
             $expediente->save();
 
             $this->dispatchBrowserEvent('notificacionExpediente', ['message' =>'Expediente actualizado satisfactoriamente.', 'color' => '#2eb867']);
@@ -112,7 +123,6 @@ class Index extends Component
         }
 
         $this->dispatchBrowserEvent('modalExpediente');
-
         $this->limpiar();
     }
 

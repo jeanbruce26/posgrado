@@ -2,7 +2,7 @@
 
 @section('content')
 
-@livewire('modulo-coordinador.expediente', ['evaluacion_id' => $id])
+@livewire('modulo-coordinador.expediente', ['evaluacion_id' => $id, 'tipo_evaluacion_id' => $tipo])
 
 @endsection
 
@@ -17,7 +17,7 @@
         // alert('Name updated to: ' + event.detail.id);
         Swal.fire({
             title: '¿Estás seguro?',
-            text: "Una vez evaluado no se podrá modificar las notas.",
+            text: "Una vez evaluado no se podrá modificar los puntajes.",
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -34,7 +34,7 @@
     window.addEventListener('alertaConfirmacionExpedientePuntaje', event => {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: 'El puntaje minimo para aprobar la evaluacion de expediente es de ' + event.detail.puntaje + ' puntos.',
+            text: 'El puntaje minimo para aprobar las evaluaciones es tener una sumatoria de ' + event.detail.puntaje + ' puntos.',
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

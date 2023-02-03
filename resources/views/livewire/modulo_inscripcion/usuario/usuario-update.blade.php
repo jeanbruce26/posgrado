@@ -32,7 +32,7 @@
                                     @foreach ($expediente_inscripcion as $item2)
                                         @if($item->cod_exp == $item2->expediente_cod_exp)
                                             <tr>
-                                                <td>{{$item->tipo_doc}}</td>
+                                                <td style="white-space: initial;">{{$item->tipo_doc}}</td>
                                                 <td align="center">{{date('d/m/Y', strtotime($item2->fecha_entre))}}</td>
                                                 <td align="center" class="text-success"><i class="ri-checkbox-circle-line fs-17 align-middle"></i> {{$item2->estado}}</td>
                                                 <td align="center">

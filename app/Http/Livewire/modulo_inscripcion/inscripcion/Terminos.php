@@ -18,6 +18,15 @@ class Terminos extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function aceptarTerminos()
+    {
+        if($this->check == false){
+            $this->check = true;
+        }else{
+            $this->check = false;
+        }
+    }
+
     public function terminos()
     {
         $data = $this->validate();

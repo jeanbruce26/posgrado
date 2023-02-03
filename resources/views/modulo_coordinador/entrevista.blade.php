@@ -2,7 +2,7 @@
 
 @section('content')
 
-@livewire('modulo-coordinador.entrevista', ['evaluacion_id' => $id])
+@livewire('modulo-coordinador.entrevista', ['evaluacion_id' => $id, 'tipo_evaluacion_id' => $tipo])
 
 @endsection
 

@@ -17,9 +17,9 @@ class Expediente extends Model
         'tipo_doc',
         'complemento',
         'requerido',
+        'expediente_tipo',
         'estado',
     ];
 
     public $timestamps = false;
-
 }
