@@ -135,7 +135,7 @@
                 @foreach ($evaluaciones as $item)
                     <tr style="font-size: 0.55rem">
                         <td align="center">{{ $num++ }}</td>
-                        <td>{{ $item->apell_pater }} {{ $item->apell_mater }},{{ $item->nombres }}</td>
+                        <td>{{ $item->apell_pater }} {{ $item->apell_mater }}, {{ $item->nombres }}</td>
                         <td align="center">{{ number_format($item->p_expediente,0) }}</td>
                         <td align="center">{{ number_format($item->p_entrevista,0) }}</td>
                         <td align="center">{{ number_format($item->p_final,0) }}</td>
