@@ -120,7 +120,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="#modalCambiarPrograma" class="link-primary fs-16" data-bs-toggle="modal" data-bs-target="#modalCambiarPrograma"><i class="ri-pencil-line"></i></a>
+                                                @php
+                                                    $evaluacion = App\Models\Evaluacion::where('inscripcion_id', $item->id_inscripcion)->first();
+                                                @endphp
+                                                @if ($evaluacion == null)
+                                                <a href="#modalCambiarPrograma" wire:click="cargarInscripcion({{ $item->id_inscripcion }})" class="link-primary fs-16" data-bs-toggle="modal" data-bs-target="#modalCambiarPrograma"><i class="ri-pencil-line"></i></a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endif
@@ -137,6 +142,83 @@
                             </div>
                         @endif
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- modal cambiar programa --}}
+    <div wire:ignore.self class="modal fade" id="modalCambiarPrograma" tabindex="-1" aria-labelledby="modalCambiarPrograma" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="showModalLabel">Cambiar Programa</h5>
+                    <button type="button" wire:click="limpiar()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form novalidate>
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label class="form-label">Programa <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('programa') is-invalid  @enderror"
+                                    wire:model="programa" readonly>
+                            </div>
+
+                            <div class="mb-3 col-md-12">
+                                <label class="form-label">@if($programa) {{ $programa }} @endif <span class="text-danger">*</span></label>
+                                <select class="form-select @error('subprograma') is-invalid  @enderror"
+                                    wire:model="subprograma">
+                                    <option value="" selected>Seleccione</option>
+                                    @if ($subprograma_model)
+                                    @foreach ($subprograma_model as $item)
+                                        <option value="{{ $item->id_subprograma }}">{{ $item->subprograma }}
+                                        </option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                                @error('subprograma')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            @if ($subprograma_model)
+
+                            @php
+                                $valor = null;
+                                if ($mencion_model) {
+                                    foreach ($mencion_model as $item){
+                                        $valor = $item->mencion;
+                                    } 
+                                }
+                                @endphp
+
+                            @if ($valor)  
+                            <div class="mb-3 col-md-12">
+                                <label class="form-label">Mención <span class="text-danger">*</span></label>
+                                <select class="form-select @error('mencion') is-invalid  @enderror"
+                                    wire:model="mencion">
+                                    <option value="" selected>Seleccione</option>
+                                    @foreach ($mencion_model as $item)
+                                        <option value="{{ $item->id_mencion }}">{{ $item->mencion }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('mencion')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>  
+                            @endif
+                                
+                            @endif
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer col-12 d-flex justify-content-between">
+                    <button type="button" wire:click="limpiar()"
+                        class="btn btn-secondary btn-label waves-effect waves-light w-md" data-bs-dismiss="modal"><i
+                            class="ri-arrow-left-s-line label-icon align-middle fs-16 me-2"></i> Cancelar</button>
+                    <button type="button" wire:click="guardarCambioPrograma()"
+                        class="btn btn-primary btn-label waves-effect right waves-light w-md"><i
+                            class="ri-check-double-fill label-icon align-middle fs-16 ms-2"></i> Guardar</button>
                 </div>
             </div>
         </div>

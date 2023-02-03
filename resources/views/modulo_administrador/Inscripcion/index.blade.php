@@ -21,5 +21,9 @@
 @endsection
 
 @section('javascript')
-
+<script>
+    window.addEventListener('modalCambiarPrograma', event => {
+        $('#modalCambiarPrograma').modal('hide');
+    })
+</script>
 @endsection
