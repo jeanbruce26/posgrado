@@ -32,6 +32,10 @@ class Index extends Component
     public $subprograma_model = null;
     public $mencion;
     public $mencion_model = null;
+
+    protected $listeners = [
+        'render', 'cambiarPrograma',
+    ];
     
     public function updated($propertyName)
     {
@@ -83,12 +87,21 @@ class Index extends Component
             'mencion' => 'required|numeric',
         ]);
 
+        $this->dispatchBrowserEvent('alertaCambioPrograma');
+    }
+
+    public function cambiarPrograma()
+    {
         $inscripcion = Inscripcion::find($this->inscripcion_id);
         $inscripcion->id_mencion = $this->mencion;
         $inscripcion->save();
         
         $this->limpiar();
         $this->dispatchBrowserEvent('modalCambiarPrograma');
+        $this->dispatchBrowserEvent('alertaSuccess', [
+            'titulo' => '¡Éxito!',
+            'mensaje' => 'El programa se ha cambiado correctamente.'
+        ]);
         $this->generarPdf($this->inscripcion_id);
     }
 
