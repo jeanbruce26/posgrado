@@ -86,12 +86,9 @@
                             <div class="d-flex align-items-center px-4">
                                 @php
                                     $admision = App\Models\Admision::where('estado',1)->first();
-                                    $admitidos = App\Models\Admitidos::count();
                                 @endphp
-                                @if ($admision->fecha_admitidos <= today())
-                                    @if ($admitidos > 0)
+                                @if ($admision->fecha_constancia <= today())
                                     <a  href="{{ route('usuarios.pagos') }}" type="button" class="btn btn-info bg-gradient waves-effect waves-light me-4">Validar Pagos</a>
-                                    @endif
                                 @endif
 
                                 <form action="{{ route('usuario.usuario.logout') }}" method="post">

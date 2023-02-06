@@ -34,7 +34,7 @@ class Index extends Component
 
     public $fecha_admitidos;
 
-    public $estado_matricula;
+    public $fecha_constancia;
 
     protected $listeners = ['render', 'cambiarEstado'];
 
@@ -49,7 +49,7 @@ class Index extends Component
             'fecha_entrevista_inicio' => 'required|date',
             'fecha_entrevista_fin' => 'required|date',
             'fecha_admitidos' => 'required|date',
-            'estado_matricula' => 'nullable',
+            'fecha_constancia' => 'required|date',
         ]);
     }
 
@@ -63,7 +63,17 @@ class Index extends Component
     public function limpiar()
     {
         $this->resetErrorBag();
-        $this->reset('año','convocatoria','fecha_final', 'fecha_expediente_inicio', 'fecha_expediente_fin', 'fecha_entrevista_inicio', 'fecha_entrevista_fin', 'fecha_admitidos');
+        $this->reset([
+            'año',
+            'convocatoria',
+            'fecha_final',
+            'fecha_expediente_inicio',
+            'fecha_expediente_fin',
+            'fecha_entrevista_inicio',
+            'fecha_entrevista_fin',
+            'fecha_admitidos',
+            'fecha_constancia',
+        ]);
         $this->modo = 1;
     }
 
@@ -99,11 +109,7 @@ class Index extends Component
         $this->fecha_entrevista_inicio = $admision->fecha_evaluacion_entrevista_inicio;
         $this->fecha_entrevista_fin = $admision->fecha_evaluacion_entrevista_fin;
         $this->fecha_admitidos = $admision->fecha_admitidos;
-        if($admision->estado_matricula == 1){
-            $this->estado_matricula = true;
-        }else{
-            $this->estado_matricula = false;
-        }
+        $this->fecha_constancia = $admision->fecha_constancia;
     }
 
     public function guardarAdmision()
@@ -118,7 +124,7 @@ class Index extends Component
                 'fecha_entrevista_inicio' => 'required|date',
                 'fecha_entrevista_fin' => 'required|date',
                 'fecha_admitidos' => 'required|date',
-                'estado_matricula' => 'nullable',
+                'fecha_constancia' => 'required|date',
             ]);
     
             $admision = new Admision();
@@ -136,15 +142,10 @@ class Index extends Component
             $admision->fecha_evaluacion_entrevista_inicio = $this->fecha_entrevista_inicio;
             $admision->fecha_evaluacion_entrevista_fin = $this->fecha_entrevista_fin;
             $admision->fecha_admitidos = $this->fecha_admitidos;
-            if($this->estado_matricula == null){
-                $admision->estado_matricula = 0;
-            }else{
-                $admision->estado_matricula = 1;
-            }
+            $admision->fecha_constancia = $this->fecha_constancia;
             $admision->save();
 
             $this->subirHistorial($admision->cod_admi,'Creacion de Admision','admision');
-    
             $this->dispatchBrowserEvent('notificacionAdmision', ['message' =>'Proceso de admision agregado satisfactoriamente.', 'color' => '#2eb867']);
         }else{
             $this->validate([
@@ -156,7 +157,7 @@ class Index extends Component
                 'fecha_entrevista_inicio' => 'required|date',
                 'fecha_entrevista_fin' => 'required|date',
                 'fecha_admitidos' => 'required|date',
-                'estado_matricula' => 'nullable',
+                'fecha_constancia' => 'required|date',
             ]);
 
             $admision = Admision::find($this->id_admision);
@@ -173,20 +174,14 @@ class Index extends Component
             $admision->fecha_evaluacion_entrevista_inicio = $this->fecha_entrevista_inicio;
             $admision->fecha_evaluacion_entrevista_fin = $this->fecha_entrevista_fin;
             $admision->fecha_admitidos = $this->fecha_admitidos;
-            if($this->estado_matricula == null){
-                $admision->estado_matricula = 0;
-            }else{
-                $admision->estado_matricula = 1;
-            }
+            $admision->fecha_constancia = $this->fecha_constancia;
             $admision->save();
             
             $this->subirHistorial($admision->cod_admi,'Actualizacion de Admision','admision');
-
             $this->dispatchBrowserEvent('notificacionAdmision', ['message' =>'Proceso de admision actualizado satisfactoriamente.', 'color' => '#2eb867']);
         }
 
         $this->dispatchBrowserEvent('modalAdmision');
-
         $this->limpiar();
     }
 

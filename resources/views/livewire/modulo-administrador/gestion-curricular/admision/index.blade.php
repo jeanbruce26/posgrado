@@ -124,12 +124,10 @@
                                 @error('fecha_admitidos') <span class="error text-danger" >{{ $message }}</span> @enderror
                             </div>
                             <div class="mb-3 col-md-12">
-                                <!-- Base Switchs -->
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input @error('estado_matricula') is-invalid @enderror" type="checkbox" role="switch" wire:model="estado_matricula">
-                                    <label class="form-check-label">Boton matricula</label>
-                                    @error('estado_matricula') <span class="error text-danger" >{{ $message }}</span> @enderror
-                                </div>
+                                <label class="form-label">Fecha de constancia de ingreso <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control @error('fecha_constancia') is-invalid  @enderror" wire:model="fecha_constancia">
+                                @error('fecha_constancia') <span class="error text-danger" >{{ $message }}</span> @enderror
                             </div>
                         </div>
                     </form>
