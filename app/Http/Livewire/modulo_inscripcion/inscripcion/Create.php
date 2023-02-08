@@ -227,7 +227,7 @@ class Create extends Component
             $ins_expe_model = ExpedienteInscripcion::where('id_inscripcion', $this->id_inscripcion)
                             ->count();
             
-            if($expe_model != $ins_expe_model){
+            if($expe_model <= $ins_expe_model){
                 $this->dispatchBrowserEvent('alertaInscripcion', [
                     'titulo' => 'Expedientes incompletos',
                     'subtitulo' => 'No se puede continuar con la inscripción, ya que no se han subido todos los documentos requeridos.',

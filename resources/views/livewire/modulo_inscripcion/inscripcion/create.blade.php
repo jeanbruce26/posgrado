@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
-                        <label class="form-label">Especialidad</label>
+                        <label class="form-label">Especialidad de Carrera</label>
                         <input type="text" wire:model="especialidad" onkeyup="mayus(this);" class="form-control @error('especialidad') is-invalid  @enderror" placeholder="Ingrese su especialidad">
                     </div>
 
