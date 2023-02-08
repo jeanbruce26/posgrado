@@ -4,7 +4,7 @@ namespace App\Http\Livewire\ModuloAdministrador\Usuario;
 
 use App\Models\HistorialAdministrativo;
 use App\Models\UsuarioTrabajador;
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -95,7 +95,7 @@ class Usuario extends Component
             $usuario = UsuarioTrabajador::create([
                 "usuario_nombre" => $this->username,
                 "usuario_correo" => $this->correo,
-                "usuario_contraseña" => Crypt::encryptString($this->password),
+                "usuario_contraseña" => Hash::make($this->password),
                 "usuario_estado" => 1,
             ]);
 
@@ -113,7 +113,7 @@ class Usuario extends Component
             $usuario->usuario_nombre = $this->username;
             $usuario->usuario_correo = $this->correo;
             if($this->password){
-                $usuario->usuario_contraseña = Crypt::encryptString($this->password);
+                $usuario->usuario_contraseña = Hash::make($this->password);
             }
             $usuario->save();
             

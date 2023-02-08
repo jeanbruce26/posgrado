@@ -6,8 +6,7 @@ use App\Models\Administrativo;
 use Livewire\Component;
 use App\Models\UsuarioTrabajador;
 use App\Models\TrabajadorTipoTrabajador;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 class Login extends Component
 {
@@ -31,7 +30,6 @@ class Login extends Component
             'password' => 'required',
         ]);
 
-        // $usuario = UsuarioTrabajador::where('usuario_correo',$this->correo)->where('usuario_estado','!=',0)->first();
         $usuario = UsuarioTrabajador::where('usuario_correo',$this->correo)->first();
 
         if(!$usuario){
@@ -40,9 +38,8 @@ class Login extends Component
             if($usuario->usuario_estado == 0){
                 return redirect()->back()->with(array('mensaje'=>'Usuario inactivo'));
             }else{
-                $usu_pass = Crypt::decryptString($usuario->usuario_contraseña);
-    
-                if($usu_pass == $this->password){
+                $validar_usuario = Hash::check($this->password, $usuario->usuario_contraseña);
+                if($validar_usuario){
                     if($usuario->trabajador_tipo_trabajador_id){
                         $tra_tipo_tra = TrabajadorTipoTrabajador::where('trabajador_tipo_trabajador_id', $usuario->trabajador_tipo_trabajador_id)->first();
     
