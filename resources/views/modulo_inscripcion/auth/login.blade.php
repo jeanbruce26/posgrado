@@ -114,11 +114,10 @@
                 <img src="{{ asset('Manual/Diapositiva2.PNG') }}" class="w-100" alt="">
                 <img src="{{ asset('Manual/Diapositiva3.PNG') }}" class="w-100" alt="">
                 <img src="{{ asset('Manual/Diapositiva4.PNG') }}" class="w-100" alt="">
-                <img src="{{ asset('Manual/Diapositiva5.PNG') }}" class="w-100" alt="">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <a target="_blank" href="{{ asset('Manual/manual_inscripcion.pdf') }}" class="btn btn-success">Descargar</a>
+                    <a target="_blank" href="{{ asset('Manual/manual-tipo-voucher.pdf') }}" class="btn btn-success">Descargar</a>
                 </div>
             </div>
         </div>

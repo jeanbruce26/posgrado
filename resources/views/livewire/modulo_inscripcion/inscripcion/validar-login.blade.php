@@ -68,7 +68,13 @@
 
             <div class="mt-2">
                 - <a class="guia text-dark cursor-pointer " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Guia de Inscripción
+                    ¿Dónde encontrar el número de operación?
+                </a>
+            </div>
+
+            <div class="mt-2">
+                - <a class="guia text-dark cursor-pointer " href="{{ asset('Manual/manual-de-usuario.pdf') }}" target="_blank">
+                    Manual de usuario - Inscripción 2023
                 </a>
             </div>
 
