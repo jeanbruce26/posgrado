@@ -24,6 +24,16 @@
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
+    <style>
+        .link-guia{
+            color: rgb(54, 54, 195);
+            cursor: pointer;
+        }
+        .link-guia:hover{
+            color: rgb(21, 21, 90);
+            text-decoration: underline !important;
+        }
+    </style>
     @livewireStyles
 </head>
 

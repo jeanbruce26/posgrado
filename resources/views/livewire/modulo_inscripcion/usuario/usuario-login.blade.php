@@ -40,7 +40,7 @@
             @endif
 
             <div class="mt-4">
-                - <a class="guia text-dark cursor-pointer " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                - <a class="link-guia" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     Guia para encontrar su usuario y contraseña
                 </a>
             </div>
