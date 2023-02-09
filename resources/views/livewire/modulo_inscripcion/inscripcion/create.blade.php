@@ -392,7 +392,7 @@
                                 <span class="text-danger">(pdf)</span>
                             </div>
                             <input type="file" class="form-control @error('expediente') is-invalid  @enderror" wire:model="expediente" accept=".pdf" id="upload{{ $iteration }}">
-                            @error('expediente')
+                            @error('expediente')                        
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror
                         </div>

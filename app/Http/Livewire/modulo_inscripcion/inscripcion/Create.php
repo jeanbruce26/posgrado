@@ -228,14 +228,14 @@ class Create extends Component
                             ->count();
             
             if($expe_model <= $ins_expe_model){
+                $this->dispatchBrowserEvent('abrir-modal');
+            }else{
                 $this->dispatchBrowserEvent('alertaInscripcion', [
                     'titulo' => 'Expedientes incompletos',
                     'subtitulo' => 'No se puede continuar con la inscripción, ya que no se han subido todos los documentos requeridos.',
                     'icon' => 'warning'
                 ]);
                 return redirect()->back();
-            }else{
-                $this->dispatchBrowserEvent('abrir-modal');
             }
         }
     }
@@ -312,6 +312,7 @@ class Create extends Component
         $this->reset(['expediente', 'expediente_nombre']);
         $this->iteration++;
         $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function aceptarTerminos()
@@ -343,15 +344,15 @@ class Create extends Component
         
         if($exped->requerido == 1 && $this->modo == 1){
             $this->validate([
-                'expediente' => 'required|file|max:10024|mimes:pdf',
+                'expediente' => 'required|file|mimes:pdf|max:10024',
             ]);
         }else if($exped->requerido == 1 && $this->modo == 2){
             $this->validate([
-                'expediente' => 'nullable|file|max:10024|mimes:pdf',
+                'expediente' => 'nullable|file|mimes:pdf|max:10024',
             ]);
         }else if($exped->requerido != 1 && $this->modo == 2){
             $this->validate([
-                'expediente' => 'nullable|file|max:10024|mimes:pdf',
+                'expediente' => 'nullable|file|mimes:pdf|max:10024',
             ]);
         }
 
@@ -385,6 +386,12 @@ class Create extends Component
                 'titulo' => 'Expediente',
                 'subtitulo' => 'Expediente guardado correctamente',
                 'icon' => 'success'
+            ]);
+        }else{
+            $this->dispatchBrowserEvent('alertaInscripcion', [
+                'titulo' => 'Expediente',
+                'subtitulo' => 'No se ha seleccionado ningún expediente',
+                'icon' => 'warning'
             ]);
         }
         
