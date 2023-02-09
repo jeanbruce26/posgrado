@@ -141,7 +141,7 @@ class Pagos extends Component
                 $pago_constancia->save();
 
                 $pago = Pago::find($pago_id); //actualizar estado del pago
-                $pago->estado = 2;
+                $pago->estado = 3;
                 $pago->save();
             }
         }else if($this->concepto_pago == 3){ //pago por matricula
@@ -153,7 +153,7 @@ class Pagos extends Component
                 $pago_matricula->save();
 
                 $pago = Pago::find($pago_id); //actualizar estado del pago
-                $pago->estado = 2;
+                $pago->estado = 3;
                 $pago->save();
             }
         }else if($this->concepto_pago == 4){
@@ -171,7 +171,7 @@ class Pagos extends Component
                 $pago_matricula->save();
 
                 $pago = Pago::find($pago_id); //actualizar estado del pago
-                $pago->estado = 2;
+                $pago->estado = 3;
                 $pago->save();
             }
         }

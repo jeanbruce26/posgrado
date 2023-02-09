@@ -388,7 +388,7 @@
                     <div class="modal-body">
                         <div>
                             <div class="d-flex justify-content-between align-item-center">
-                                <label class="form-label">{{ $expediente_nombre }}@if ($expediente_requerido == 1) <span class="text-danger" style="font-size: 0.7rem">(Obligatorio)</span> @endif</label>
+                                <label class="form-label">{{ $expediente_nombre }}@if ($expediente_requerido == 1) <span class="text-danger" style="font-size: 0.7rem">(Obligatorio, máximo 10 megabyte)</span> @endif</label>
                                 <span class="text-danger">(pdf)</span>
                             </div>
                             <input type="file" class="form-control @error('expediente') is-invalid  @enderror" wire:model="expediente" accept=".pdf" id="upload{{ $iteration }}">
