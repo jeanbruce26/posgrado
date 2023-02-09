@@ -403,7 +403,7 @@
                         class="btn btn-outline-danger btn-label waves-effect waves-light w-md" data-bs-dismiss="modal"><i
                             class="ri-arrow-left-s-line label-icon align-middle fs-16 me-2"></i> Cancelar</button>
                     <button type="button" wire:click="guardarExpediente()"
-                        class="btn btn-primary btn-label waves-effect right waves-light w-md ms-2"><i
+                        class="btn btn-primary btn-label waves-effect right waves-light w-md ms-2" @if($expediente == null) disabled @endif><i
                             class="ri-check-double-fill label-icon align-middle fs-16 ms-2"></i> Guardar</button>
                 </div>
             </div>
