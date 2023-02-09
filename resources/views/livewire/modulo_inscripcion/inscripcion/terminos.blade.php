@@ -52,26 +52,36 @@
                                 <tr>
                                     <td class="d-flex me-2">-</td>
                                     <td>
-                                        <strong>{{$item->tipo_doc}}. {{$item->complemento}}</strong>
+                                        <strong>{{$item->tipo_doc}} {{$item->complemento}} @if($item->expediente_tipo == 1) (para Maestria). @elseif ($item->expediente_tipo == 2) (para Doctorado). @endif</strong>
                                     </td>
                                 </tr>
                                 @endforeach
+                                <tr>
+                                    <td class="d-flex me-2">-</td>
+                                    <td>
+                                        <strong>Todo formato subido a la plataforma, deberá ser en PDF.</strong>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="card-text mt-4 ms-2">
-                    <input type="checkbox" wire:model="check" class="me-2  @error('check') is-invalid  @enderror">
-                    <span class="fw-bold text-dark fs-5" style="cursor: pointer;" wire:click="aceptarTerminos()">Acepto Terminos y condiciones.</span>
-                
-                    @error('check')
-                        <span class="invalid-feedback ms-4" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div> 
-                <div class="d-flex align-items-start gap-3 mt-2">
-                    <button type="submit" class="btn btn-success btn-label right ms-auto"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Siguiente</button>
+                <div class="row mb-4">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="">
+                            <input type="checkbox" wire:model="check" class="me-2 @error('check') is-invalid  @enderror">
+                            <span class="fw-bold text-dark fs-5" style="cursor: pointer;" wire:click="aceptarTerminos()">Acepto Terminos y Condiciones.</span>
+                        
+                            @error('check')
+                                <span class="invalid-feedback ms-4" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div> 
+                    <div class="col-md-6 col-sm-6 text-end">
+                        <button type="submit" class="btn btn-success btn-label right ms-auto"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Siguiente</button>
+                    </div>
                 </div>
             </div>
             <!-- end tab pane -->
