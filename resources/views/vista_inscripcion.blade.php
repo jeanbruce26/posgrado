@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="en" data-layout="horizontal" data-layout-style="" data-layout-position="fixed" data-topbar="light">
-
+<html lang="en" data-layout="horizontal" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="enable" data-layout-style="default" data-layout-mode="light" data-layout-width="fluid" data-layout-position="fixed">
+    
 <head>
 
     <meta charset="utf-8" />
@@ -39,13 +39,13 @@
 
     <!-- Begin page -->
     <div id="layout-wrapper">
-        <header id="page-topbar" class="">
+        <header id="page-topbar">
             <div class="layout-width">
                 <div class="navbar-header">
                     <div class="d-flex">
                         <!-- LOGO -->
                         <div class="navbar-brand-box horizontal-logo">
-                            <a href="index.html" class="logo logo-dark">
+                            <a class="logo logo-dark">
                                 <span class="logo-sm">
                                     <img src="{{ asset('assets/images/unu.png') }}" alt="" height="35">
                                 </span>
@@ -115,7 +115,6 @@
 
     </div>
     <!-- END layout-wrapper -->
-    </div>
 
     <!-- JAVASCRIPT -->
     <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -124,7 +123,7 @@
     <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
-    
+
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
 

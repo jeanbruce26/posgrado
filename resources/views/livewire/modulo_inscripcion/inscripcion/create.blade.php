@@ -1,9 +1,6 @@
 <div class="p-2">
 
-    <form class="row" method="POST" wire:submit.prevent='inscripcion' enctype="multipart/form-data">
-
-        @csrf
-
+    <form class="row" enctype="multipart/form-data">
         {{-- paso 1 --}}
         @if ($pasoactual == 1)
         <div>
@@ -364,7 +361,7 @@
                                     <p class="text-muted mb-4">Declaro bajo juramento que los documentos presentados y los datos consignados en el presente proceso de admisión son fidedignos.</p>
                                     <div class="hstack gap-2 justify-content-around">
                                         <a href="javascript:void(0);" class="btn btn-danger shadow-none fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>
-                                        <button type="submit" class="btn btn-primary">Inscribirse</button>
+                                        <button type="button" class="btn btn-primary" wire:click="inscripcion">Inscribirse</button>
                                     </div>
                                 </div>
                             </div>
