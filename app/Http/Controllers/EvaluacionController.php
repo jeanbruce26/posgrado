@@ -13,11 +13,6 @@ use Maatwebsite\Excel\Facades\Excel;
 class EvaluacionController extends Controller
 {
 
-    public function index()
-    {
-        //
-    }
-
     public function admitidos()
     {
         return view('modulo_administrador.Evaluacion.Admitidos.index');
