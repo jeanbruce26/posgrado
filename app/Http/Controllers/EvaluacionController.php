@@ -20,6 +20,6 @@ class EvaluacionController extends Controller
 
     public function admitidos()
     {
-        return view('modulo_administrador.evaluacion.admitidos.index');
+        return view('modulo_administrador.Evaluacion.Admitidos.index');
     }
 }
