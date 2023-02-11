@@ -12,4 +12,12 @@ class TrabajadorController extends Controller
     {
         return view('modulo_administrador.Usuario.Trabajador.index');
     }
+
+    public function perfil()
+    {
+        $tipo = 'admin';
+        return view('modulo_administrador.Perfil.index', [
+            'tipo' => $tipo
+        ]);
+    }
 }

@@ -157,4 +157,12 @@ class CoordinadorController extends Controller
 
         return $pdf->stream('acta-evaluacion-'.$fecha2.'.pdf');
     }
+
+    public function perfil()
+    {
+        $tipo = 'coordinador';
+        return view('modulo_administrador.Perfil.index', [
+            'tipo' => $tipo
+        ]);
+    }
 }

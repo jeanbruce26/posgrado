@@ -109,7 +109,7 @@
                                 <!-- item-->
                                 <h6 class="dropdown-header">¡Bienvenido!</h6>
 
-                                <a class="dropdown-item" href="#"><i
+                                <a class="dropdown-item" href="{{ route('coordinador.perfil.index') }}"><i
                                         class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                         class="align-middle">Perfil</span></a>
 
@@ -192,42 +192,9 @@
 
                     <div class="row">
                         <div class="col">
-                            @if (\Session::has('edit'))
-                                <div class="alert alert-success alert-border-left alert-dismissible fade shadow show"
-                                    role="alert">
-                                    <div>
-                                        <i
-                                            class="ri-check-double-line me-3 align-middle fs-16"></i><strong>{{ \Session::get('edit') }}</strong>
-                                    </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                            @endif
 
-                            @if (session('new'))
-                                <div class="alert alert-success alert-border-left alert-dismissible fade shadow show"
-                                    role="alert">
-                                    <div>
-                                        {{ \Session::get('new') }}
-                                    </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                            @endif
-
-                            @if (\Session::has('dupli'))
-                                <div class="alert alert-danger alert-border-left alert-dismissible fade shadow show"
-                                    role="alert">
-                                    <div>
-                                        <i
-                                            class="ri-error-warning-line me-3 align-middle fs-16"></i><strong>{{ \Session::get('dupli') }}</strong>
-                                    </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                            @endif
                             @yield('content')
-
+                            
                         </div> <!-- end col -->
                     </div>
 

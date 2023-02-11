@@ -48,6 +48,8 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
 
     Route::get('/admitidos', [App\Http\Controllers\EvaluacionController::class, 'admitidos'])->name('admin.admitidos.index');
     Route::get('/constancia/{admitido}', [App\Http\Controllers\EvaluacionController::class, 'constancia'])->name('admin.admitidos.constancia');
+
+    Route::get('/perfil', [App\Http\Controllers\TrabajadorController::class, 'perfil'])->name('admin.perfil.index');
 });
 
 
@@ -65,6 +67,7 @@ Route::prefix('coordinador')->middleware(['auth:admin','auth.coordinador'])->gro
     Route::get('/evaluacion/{id}/investigacion/{tipo}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'investigacion'])->name('coordinador.investigacion');
     Route::get('/reportes/{id}/maestria', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'reportes_maestria'])->name('coordinador.reportes.maestria');
     Route::get('/reportes/{id}/doctorado', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'reportes_doctorado'])->name('coordinador.reportes.doctorado');
+    Route::get('/perfil', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'perfil'])->name('coordinador.perfil.index');
     
 });
 
