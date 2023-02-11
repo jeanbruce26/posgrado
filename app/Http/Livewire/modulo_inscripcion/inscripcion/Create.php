@@ -228,7 +228,8 @@ class Create extends Component
                             ->count();
             
             if($expe_model <= $ins_expe_model){
-                $this->dispatchBrowserEvent('abrir-modal');
+                // $this->dispatchBrowserEvent('abrir-modal');
+                $this->inscripcion();
             }else{
                 $this->dispatchBrowserEvent('alertaInscripcion', [
                     'titulo' => 'Expedientes incompletos',
@@ -401,6 +402,8 @@ class Create extends Component
 
     public function inscripcion()
     {
+        $this->dispatchBrowserEvent('alertaFicha');
+
         $this->resetErrorBag();
 
         //FORMULARIO 1

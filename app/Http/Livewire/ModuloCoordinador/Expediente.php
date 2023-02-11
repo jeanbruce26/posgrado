@@ -148,6 +148,14 @@ class Expediente extends Component
         $evaluacion_expediente = EvaluacionExpedienteTitulo::where('tipo_evaluacion_id', $this->tipo_evaluacion_id)->get();
         $puntaje_model = Puntaje::where('puntaje_estado', 1)->first();
 
+        $expedientes = ExpedienteInscripcion::join('expediente', 'ex_insc.expediente_cod_exp', '=', 'expediente.cod_exp')
+                        ->where('ex_insc.id_inscripcion',$evaluacion_data->inscripcion_id)
+                        ->where(function($query) use ($inscripcion){
+                            $query->where('expediente.expediente_tipo', 0)
+                                ->orWhere('expediente.expediente_tipo', $inscripcion->tipo_programa);
+                        })
+                        ->get();
+
         return view('livewire.modulo-coordinador.expediente', [
             'inscripcion' => $inscripcion,
             'evaluacion_data' => $evaluacion_data,
@@ -156,6 +164,7 @@ class Expediente extends Component
             'boton' => $boton,
             'evaluacion_expediente' => $evaluacion_expediente,
             'puntaje_model' => $puntaje_model,
+            'expedientes' => $expedientes,
         ]);
     }
 }

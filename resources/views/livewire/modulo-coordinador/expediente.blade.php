@@ -54,9 +54,6 @@
             @endif
         </div>
     </div>
-    @php 
-        $expedientes = App\Models\ExpedienteInscripcion::where('id_inscripcion', $inscripcion->id_inscripcion)->get();
-    @endphp
     <div class="row">
         @foreach ($expedientes as $item)       
             <div class="col-md-4">

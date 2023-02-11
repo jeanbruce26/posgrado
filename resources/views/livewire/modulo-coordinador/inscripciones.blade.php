@@ -51,22 +51,43 @@
     {{-- Alerta para mostrar la fecha de evaluación de entrevista --}}
     @if ($admision->fecha_evaluacion_entrevista_inicio > today() || $admision->fecha_evaluacion_entrevista_fin < today())
         @if ($admision->fecha_evaluacion_entrevista_inicio > today())
-        <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-            <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - La fecha para realizar la evaluación de entrevista y perfil de proyecto de investigación comienza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_inicio)) }} y finaliza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_fin)) }}.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+            @if ($mencion->descripcion_programa === 'DOCTORADO')
+            <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
+                <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - La fecha para realizar la evaluación de entrevista y perfil de proyecto de investigación comienza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_inicio)) }} y finaliza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_fin)) }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @else
+            <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
+                <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - La fecha para realizar la evaluación de entrevista comienza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_inicio)) }} y finaliza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_fin)) }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
         @endif
         @if ($admision->fecha_evaluacion_entrevista_fin < today())
-        <div class="alert alert-warning alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-            <i class="ri-alarm-warning-line label-icon"></i><strong>Evaluaciones de entrevista  y perfil de proyecto de investigación finalizada.</strong>.
+            @if ($mencion->descripcion_programa === 'DOCTORADO')
+            <div class="alert alert-warning alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
+                <i class="ri-alarm-warning-line label-icon"></i><strong>Evaluaciones de entrevista y perfil de proyecto de investigación finalizada.</strong>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @else
+            <div class="alert alert-warning alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
+                <i class="ri-alarm-warning-line label-icon"></i><strong>Evaluaciones de entrevista finalizada.</strong>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+        @endif
+    @else
+        @if ($mencion->descripcion_programa === 'DOCTORADO')
+        <div class="alert alert-success alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert"> 
+            <i class="ri-contacts-book-2-line label-icon"></i><strong>Evaluaciones de entrevista y perfil de proyecto de investigación habilitada.</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @else
+        <div class="alert alert-success alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert"> 
+            <i class="ri-contacts-book-2-line label-icon"></i><strong>Evaluaciones de entrevista habilitada.</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-    @else
-    <div class="alert alert-success alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert"> 
-        <i class="ri-contacts-book-2-line label-icon"></i><strong>Evaluaciones de entrevista y perfil de proyecto de investigación habilitada.</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
     @endif
 
     {{-- Alerta --}}
