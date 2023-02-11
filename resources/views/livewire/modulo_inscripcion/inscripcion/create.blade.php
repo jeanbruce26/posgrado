@@ -210,11 +210,11 @@
         </div>
         @endif
         
-
         {{-- paso 2 --}}
         @if ($pasoactual == 2)
         <div class="">
             <h4 class="text-center text-white p-2 rounded-pill" style="background: #142e52;">Paso 2 / 2</h4>
+
             <h5 class="card-header fw-bold mt-3">Seleccione su Programa</h5>
             <div class="card-body w-100">
                 <div class="row g-3 col-12 m-auto">
