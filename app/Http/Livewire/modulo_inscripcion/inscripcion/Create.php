@@ -20,6 +20,7 @@ use App\Models\Sede;
 use App\Models\SubPrograma;
 use App\Models\UbigeoPersona;
 use App\Models\Universidad;
+use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -519,6 +520,22 @@ class Create extends Component
         $historial_inscripcion->historial_inscripcion_fecha = now();
         $historial_inscripcion->admitido = 0;
         $historial_inscripcion->save();
+
+        $expediente_inscripcion = ExpedienteInscripcion::where('id_inscripcion',$this->id_inscripcion)->get();
+        //delete storage file and database
+        foreach($expediente_inscripcion as $exp){
+            $expediente = Expediente::where('cod_exp', $exp->expediente_cod_exp)
+                                        ->where(function($query){
+                                            $query->where('expediente_tipo', 0)
+                                                ->orWhere('expediente_tipo', $this->mostrar_tipo_expediente);
+                                        })
+                                        ->first();
+            if($expediente === null){
+                $exp->delete();
+                File::delete($exp->nom_exped);
+            }
+        }
+
         
         return redirect()->route('usuario-pdf', $this->id_inscripcion);
     }
