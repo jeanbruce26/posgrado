@@ -10,7 +10,7 @@
             <div class="col-auto">
                 <div class="avatar-xl">
                     @if ($trabajador_model->trabajador_perfil)
-                    <img src="{{ asset('Perfil/'.$trabajador_model->trabajador_perfil) }}" alt="user-img" class="img-thumbnail rounded-circle">
+                    <img src="{{ asset($trabajador_model->trabajador_perfil) }}" alt="user-img" class="img-thumbnail rounded-circle">
                     @else
                     <img src="{{ asset('assets/images/avatar.png') }}" alt="user-img" class="img-thumbnail rounded-circle">
                     @endif
@@ -37,7 +37,7 @@
                 <div class="d-flex justify-content-end">
                     <!-- Nav tabs -->
                     <div class="flex-shrink-0">
-                        {{-- <a href="#modalPerfil" wire:click="cargarTrabajador" data-bs-toggle="modal" data-bs-target="#modalPerfil" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Editar Perfil</a> --}}
+                        <a href="#modalPerfil" wire:click="cargarTrabajador" data-bs-toggle="modal" data-bs-target="#modalPerfil" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Editar Perfil</a>
                     </div>
                 </div>
                 <!-- Tab panes -->
@@ -187,36 +187,34 @@
                                 </div>
 
                                 @if ($perfil)
-                                <div class="mb-3 col-md-12">
-                                    <img src="{{ asset($perfil->temporaryUrl()) }}" alt="" width="40%">
+                                <div class="mb-3 col-md-12 text-center">
+                                    <img src="{{ asset($perfil->temporaryUrl()) }}" alt="perfil" class="rounded-circle shadow-lg border border-4" width="20%">
                                 </div>
                                 @endif
                             @elseif ($paso == 2)
-                                @foreach ($tipo_trabajador_model as $item)
-                                    <div class="col-md-12">
-                                        <label class="form-label mb-2 fw-bold fs-5">Datos de Usuario {{ ucfirst(strtolower($item->TipoTrabajador->tipo_trabajador)) }}</label>
-                                    </div>
+                                <div class="col-md-12">
+                                    <label class="form-label mb-2 fw-bold fs-5">Datos de Usuario {{ ucfirst(strtolower($tipo_trabajador)) }}</label>
+                                </div>
 
-                                    <div class="mb-3 col-md-12">
-                                        <label class="form-label">Username <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control @error('username') is-invalid  @enderror" wire:model="username" placeholder="Ingrese su nombre de usuario">
-                                        @error('username') <span class="error text-danger" >{{ $message }}</span> @enderror
-                                    </div>
+                                <div class="mb-3 col-md-12">
+                                    <label class="form-label">Username <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('username') is-invalid  @enderror" wire:model="username" placeholder="Ingrese su nombre de usuario">
+                                    @error('username') <span class="error text-danger" >{{ $message }}</span> @enderror
+                                </div>
 
-                                    <div class="mb-3 col-md-6">
-                                        <label class="form-label">Correo <span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control @error('correo_usuario') is-invalid  @enderror"
-                                            wire:model="correo_usuario" placeholder="Ingrese su correo electrónico" autocomplete="off">
-                                        @error('correo_usuario')<span class="error text-danger">{{ $message }}</span>@enderror
-                                    </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">Correo <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control @error('correo_usuario') is-invalid  @enderror"
+                                        wire:model="correo_usuario" placeholder="Ingrese su correo electrónico" autocomplete="off">
+                                    @error('correo_usuario')<span class="error text-danger">{{ $message }}</span>@enderror
+                                </div>
 
-                                    <div class="col-md-6">
-                                        <label class="form-label">Contraseña</label>
-                                        <input type="password" class="form-control @error('password') is-invalid  @enderror" wire:model="password" autocomplete="off">
-                                        @error('password') <span class="error text-danger" >{{ $message }}</span> @enderror
-                                    </div>
-                                @endforeach
+                                <div class="col-md-6">
+                                    <label class="form-label">Contraseña</label>
+                                    <input type="password" class="form-control @error('password') is-invalid  @enderror" wire:model="password" autocomplete="off">
+                                    @error('password') <span class="error text-danger" >{{ $message }}</span> @enderror
+                                </div>
                             @endif
                         </div>
                     </form>

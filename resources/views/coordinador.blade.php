@@ -92,7 +92,7 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="d-flex align-items-center">
                                     @if (auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_perfil)
-                                    <img class="rounded-circle header-profile-user" src="{{asset('Perfil/'.(auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_perfil))}}" alt="Header Avatar">
+                                    <img class="rounded-circle header-profile-user" src="{{asset((auth('admin')->user()->TrabajadorTipoTrabajador->Trabajador->trabajador_perfil))}}" alt="Header Avatar">
                                     @else
                                     <img class="rounded-circle header-profile-user" src="{{asset('assets/images/avatar.png')}}" alt="Header Avatar">
                                     @endif
