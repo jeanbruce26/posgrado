@@ -10,8 +10,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.38/dist/sweetalert2.all.min.js"></script>
 <script>
     window.addEventListener('cerrarModal', event => {
-      var modal = event.detail.modal;
-      $(modal).modal('hide');
+        var modal = event.detail.modal;
+        $(modal).modal('hide');
     })
 
     window.addEventListener('alertaConfirmacionInvestigacion', event => {
