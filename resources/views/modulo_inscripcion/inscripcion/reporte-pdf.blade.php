@@ -854,7 +854,7 @@
                 <tr>
                     <th class="tabla4" style="background-color: rgb(200, 229, 255)"><div class="titulo3" style="font-size: small;">Link</div></th>
                     @foreach ($inscrip as $item)
-                    <th class="tabla4" style="text-align: initial; font-size: small;">http://127.0.0.1:8000/usuarios/login</th>
+                    <th class="tabla4" style="text-align: initial; font-size: small;">http://posgrado.unu.edu.pe/usuarios/login</th>
                     @endforeach
                 </tr>
             </thead>
