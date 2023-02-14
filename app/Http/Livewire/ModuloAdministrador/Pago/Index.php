@@ -71,15 +71,45 @@ class Index extends Component
 
     public function guardarPago()
     {
+        $this->validate([
+            'numero_operacion' => 'required|numeric',
+            'documento' => 'required|digits_between:8,9|numeric',
+            'monto' => 'required|numeric',
+            'fecha_pago' => 'required|date',
+            'canal_pago' => 'required|numeric'
+        ]);
+
+        //validacion de numero de operacion repetido y dni repetido en el mismo dia
         if ($this->modo == 1) {
-            $this->validate([
-                'numero_operacion' => 'required|numeric',
-                'documento' => 'required|digits_between:8,9|numeric',
-                'monto' => 'required|numeric',
-                'fecha_pago' => 'required|date',
-                'canal_pago' => 'required|numeric'
-            ]);
-    
+            $validar = Pago::where('nro_operacion', $this->numero_operacion)->first();
+            
+            if ($validar) {
+                if($validar->dni == $this->documento && $validar->fecha_pago == $this->fecha_pago){
+                    $this->dispatchBrowserEvent('alertaPago', [
+                        'titulo' => '¡Alerta!',
+                        'subtitulo' => 'El número de operación y el DNI ya han sido ingresado el día de hoy.',
+                        'icon' => 'error'
+                    ]);
+                    return back();
+                }else if ($validar->fecha_pago == $this->fecha_pago) {
+                    $this->dispatchBrowserEvent('alertaPago', [
+                        'titulo' => '¡Alerta!',
+                        'subtitulo' => 'El número de operación ya ha sido ingresado el día de hoy.',
+                        'icon' => 'error'
+                    ]);
+                    return back();
+                }else if($validar->dni == $this->documento){
+                    $this->dispatchBrowserEvent('alertaPago', [
+                        'titulo' => '¡Alerta!',
+                        'subtitulo' => 'El número de operación y el DNI ya existen en el registro de pagos.',
+                        'icon' => 'error'
+                    ]);
+                    return back();
+                }
+            }
+        }
+
+        if ($this->modo == 1) {
             $pago = Pago::create([
                 "dni" => $this->documento,
                 "nro_operacion" => $this->numero_operacion,
@@ -92,14 +122,6 @@ class Index extends Component
             $this->subirHistorial($pago->pago_id, 'Creación de Pago', 'pago');
             $this->dispatchBrowserEvent('notificacionPago', ['message' =>'Pago creado satisfactoriamente.', 'color' => '#2eb867']);
         }else{
-            $this->validate([
-                'numero_operacion' => 'required|numeric',
-                'documento' => 'required|digits_between:8,9|numeric',
-                'monto' => 'required|numeric',
-                'fecha_pago' => 'required|date',
-                'canal_pago' => 'required|numeric'
-            ]);
-            
             $pago = Pago::find($this->pago_id);
             $pago->dni = $this->documento;
             $pago->nro_operacion = $this->numero_operacion;

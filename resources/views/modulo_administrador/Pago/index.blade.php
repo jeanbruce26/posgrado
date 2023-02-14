@@ -22,6 +22,14 @@
         $('#modalPago').modal('hide');
     })
 
+    window.addEventListener('alertaPago', event => {
+        Swal.fire(
+        event.detail.titulo,
+        event.detail.subtitulo,
+        event.detail.icon
+        )
+    });
+
     window.addEventListener('notificacionPago', event => {
         Toastify({
             text: event.detail.message,
