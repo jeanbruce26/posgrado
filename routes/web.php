@@ -9,7 +9,7 @@ Route::post('logout', [App\Http\Controllers\AdminLoginController::class, 'logout
 //CONTROLADORES
 
 Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])->group(function () {
-    Route::get('', [App\Http\Controllers\AdminLoginController::class, 'administrador'])->name('admin.index');
+    Route::get('', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('admin.index');
     
     Route::resource ('TipoUbigeo','TipoUbigeoController');
     Route::resource ('TipoDocumento','TipoDocumentoController');

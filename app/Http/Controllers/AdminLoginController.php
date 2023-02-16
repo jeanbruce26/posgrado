@@ -8,11 +8,6 @@ use App\Models\Admision;
 
 class AdminLoginController extends Controller
 {
-    public function administrador()
-    {
-        return view('modulo_administrador.dashboard.index');
-    }
-
     public function login()
     {
         $admision = Admision::where('estado',1)->first();

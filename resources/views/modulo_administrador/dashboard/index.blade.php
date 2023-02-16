@@ -41,6 +41,40 @@
     </div>
 
 </div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0 text-uppercase font-bold">Reporte de Inscritos por Programa</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table table-nowrap mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" class="col-md-2">NRO</th>
+                        <th scope="col" class="col-md-8">PROGRAMA</th>
+                        <th scope="col" class="col-md-2">CANTIDAD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($programas as $item)
+                    <tr>
+                        <td class="fw-bold">{{ $loop->iteration }}</td>
+                        <td style="white-space: initial">
+                            @if ($item->mencion === null)
+                                {{ ucwords(strtolower($item->descripcion_programa))  }} en {{ ucwords(strtolower($item->subprograma)) }}
+                            @else
+                                Mención en {{ ucwords(strtolower($item->mencion)) }}
+                            @endif
+                        </td>
+                        <td class="fs-5">{{ $item->cantidad_mencion }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('javascript')

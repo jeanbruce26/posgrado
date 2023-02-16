@@ -36,8 +36,7 @@
                                                 @if ($item->Mencion->mencion == null)
                                                     {{$item->Mencion->SubPrograma->Programa->descripcion_programa}} EN {{$item->Mencion->SubPrograma->subprograma}}
                                                 @else
-                                                    {{$item->Mencion->SubPrograma->Programa->descripcion_programa}} EN {{$item->Mencion->SubPrograma->subprograma}} <br>
-                                                    CON MENCION EN {{$item->Mencion->mencion}}
+                                                    MENCION EN {{$item->Mencion->mencion}}
                                                 @endif
                                             </td>
                                             <td align="center">

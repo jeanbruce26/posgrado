@@ -3,20 +3,13 @@
         <form method="POST" wire:submit.prevent='login' novalidate autocomplete="off">
             
             @csrf
-
-            <div class="mb-3">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="d-flex me-1"><i class="uil uil-usd-circle"></i></th>
-                            <th class="text-justify"><label class="form-label"> Recuerde que puedes realizar su inscripción al día siguiente de haber hecho su pago.</label></th>
-                        </tr>
-                    </thead>
-                    </tbody>
-                </table>
+            
+            <div class="alert alert-info alert-top-border alert-dismissible shadow fade show" role="alert">
+                <i class="uil uil-usd-circle me-3 align-middle fs-16 text-info"></i><strong>Nota</strong> <br>Recuerde que una vez realizado el pago, deberá mandar su número de documento de identidad y el comprobante de pago al siguiente correo: <strong>admision_posgrado@unu.edu.pe</strong> para que se pueda validar su pago y proceder con su inscripción.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 mt-2">
                 <label class="form-label">Tipo de Documento *</label>
                 <select class="form-select @error('tipo_documento') is-invalid @enderror" wire:model="tipo_documento" aria-label="Default select example">
                     <option value="" selected>Seleccione</option>

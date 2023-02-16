@@ -3,19 +3,12 @@
         <form method="POST" wire:submit.prevent='login' novalidate autocomplete="off">
             @csrf
 
-            <div class="mb-3">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="d-flex me-1"><i class="uil uil-info-circle"></i></th>
-                            <th class="text-justify"><label class="form-label"> Los datos de su usuario y contraseña se encuentran en su ficha de matrícula.</label></th>
-                        </tr>
-                    </thead>
-                    </tbody>
-                </table>
+            <div class="alert alert-success alert-top-border alert-dismissible shadow fade show" role="alert">
+                <i class="uil uil-info-circle me-3 align-middle fs-16 text-success"></i><strong>Nota</strong> <br>Los datos de su usuario y contraseña se encuentran en su ficha de matrícula.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 mt-2">
                 <label class="form-label">Usuario *</label>
                 <input type="text" wire:model="usuario" class="form-control @error('usuario') is-invalid  @enderror" placeholder="Ingrese su usuario de su ficha de inscripcion">
                 @error('usuario')

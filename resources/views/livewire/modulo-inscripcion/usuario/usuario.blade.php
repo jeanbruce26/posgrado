@@ -42,6 +42,17 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div class="card card-body text-center" style="background-color: #ebf7ff">
+                        <div class="avatar-sm mx-auto mb-3">
+                            <div class="avatar-title bg-soft-primary text-primary fs-17 rounded">
+                                <i class="ri-newspaper-line fs-1"></i>
+                            </div> 
+                        </div>
+                        <h4 class="card-title mb-3"><strong>Prospecto de Admisión</strong></h4>
+                        <a target="_blank" href="{{ asset('Manual/prospecto-admision-posgrado.pdf') }}" class="btn btn-success">Descargar</a>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div class="card card-body" style="background-color: #ebf7ff">
                         <div class="avatar-sm mx-auto mb-3">
                             <div class="avatar-title bg-soft-primary text-primary fs-17 rounded">
