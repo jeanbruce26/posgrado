@@ -8,6 +8,7 @@ use App\Models\Evaluacion;
 use App\Models\EvaluacionEntrevistaTitulo;
 use App\Models\EvaluacionEntrevista;
 use App\Models\EvaluacionEntrevistaItem;
+use App\Models\ObservacionEvaluacion;
 use App\Models\Puntaje;
 
 class Entrevista extends Component
@@ -18,6 +19,7 @@ class Entrevista extends Component
     public $puntaje;
     public $total = 0;
     public $evaluacion_entrevista_item_id;
+    public $observacion;
     
     protected $listeners = [
         'render', 
@@ -166,6 +168,15 @@ class Entrevista extends Component
         $evaluacion->fecha_entrevista = today();
         $evaluacion->p_final = $nota_final;
         $evaluacion->save();
+
+        if($this->observacion){
+            $observacion = new ObservacionEvaluacion();
+            $observacion->observacion = $this->observacion;
+            $observacion->tipo_observacion_evaluacion = 3; // 1 = Expediente 2 = Tesis 3 = Entrevista
+            $observacion->fecha_observacion = now();
+            $observacion->evaluacion_id = $this->evaluacion_id;
+            $observacion->save();
+        }
 
         return redirect()->route('coordinador.inscripciones',$inscripcion->id_mencion);
     }

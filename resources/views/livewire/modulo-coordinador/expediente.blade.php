@@ -168,6 +168,15 @@
             <!-- end table responsive -->
         </div>
         <div class="card-footer">
+            <div class="mb-3">
+                <form novalidate autocomplete="off">
+                    <!-- Example Textarea -->
+                    <div>
+                        <label class="form-label">Ingrese observación</label>
+                        <textarea class="form-control" rows="3" wire:model="observacion" ></textarea>
+                    </div>
+                </form>
+            </div>
             <div class="text-end">
                 <button type="button" wire:click="evaluar()" class="btn btn-primary btn-label waves-effect waves-light w-lg" @if ($boton != null) disabled @endif><i class="ri-save-line label-icon align-middle fs-16 me-2"></i> Evaluar</button>
             </div>

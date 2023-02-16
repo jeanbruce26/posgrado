@@ -100,7 +100,7 @@
                                                     @if ($item->descripcion_programa == 'DOCTORADO')
                                                     DOCTORADO EN {{$item->subprograma}}
                                                     @else
-                                                    MAESTRIA EN {{$item->subprograma}} <br> CON MENCION EN {{$item->mencion}}
+                                                    MENCION EN {{$item->mencion}}
                                                     @endif
                                                 @endif
                                             </td>

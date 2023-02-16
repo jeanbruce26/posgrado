@@ -8,6 +8,7 @@ use App\Models\Evaluacion;
 use App\Models\EvaluacionExpediente;
 use App\Models\EvaluacionExpedienteTitulo;
 use App\Models\ExpedienteInscripcion;
+use App\Models\ObservacionEvaluacion;
 use App\Models\Puntaje;
 use App\Models\TipoEvaluacion;
 
@@ -22,6 +23,7 @@ class Expediente extends Component
     // estado 1 => por evaluar
     // estado 2 => evaluacion observada
     // estado 3 => evaluado
+    public $observacion;
     
     protected $listeners = ['render', 'evaluarPaso2', 'evaluarExpediente'];
 
@@ -132,6 +134,15 @@ class Expediente extends Component
         $evaluacion->p_expediente = $this->total;
         $evaluacion->fecha_expediente = today();
         $evaluacion->save();
+
+        if($this->observacion){
+            $observacion = new ObservacionEvaluacion();
+            $observacion->observacion = $this->observacion;
+            $observacion->tipo_observacion_evaluacion = 1; // 1 = Expediente 2 = Tesis 3 = Entrevista
+            $observacion->fecha_observacion = now();
+            $observacion->evaluacion_id = $this->evaluacion_id;
+            $observacion->save();
+        }
 
         return redirect()->route('coordinador.inscripciones',$inscripcion->id_mencion);
     }

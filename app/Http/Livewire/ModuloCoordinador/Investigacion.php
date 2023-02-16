@@ -6,6 +6,7 @@ use App\Models\Evaluacion;
 use App\Models\EvaluacionInvestigacion;
 use App\Models\EvaluacionInvestigacionItem;
 use App\Models\Inscripcion;
+use App\Models\ObservacionEvaluacion;
 use App\Models\Puntaje;
 use Livewire\Component;
 
@@ -17,6 +18,7 @@ class Investigacion extends Component
     public $puntaje;
     public $total = 0;
     public $evaluacion_investigacion_item_id;
+    public $observacion;
 
     protected $listeners = [
         'render', 
@@ -135,6 +137,15 @@ class Investigacion extends Component
         $evaluacion->p_investigacion = $this->total;
         $evaluacion->fecha_investigacion = today();
         $evaluacion->save();
+
+        if($this->observacion){
+            $observacion = new ObservacionEvaluacion();
+            $observacion->observacion = $this->observacion;
+            $observacion->tipo_observacion_evaluacion = 2; // 1 = Expediente 2 = Tesis 3 = Entrevista
+            $observacion->fecha_observacion = now();
+            $observacion->evaluacion_id = $this->evaluacion_id;
+            $observacion->save();
+        }
 
         return redirect()->route('coordinador.inscripciones',$inscripcion->id_mencion);
     }
