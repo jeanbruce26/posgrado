@@ -70,6 +70,11 @@
                         <td class="fs-5">{{ $item->cantidad_mencion }}</td>
                     </tr>
                     @endforeach
+                    @if ($programas->count() === 0)
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">No hay inscritos</td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
