@@ -79,7 +79,7 @@
     </div>
     {{-- Modal --}}
     <div wire:ignore.self class="modal fade" id="modalExpediente" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalExpediente" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="showModalLabel">{{ $titulo }} - {{$nombre}}</h5>
@@ -91,63 +91,32 @@
                         @if ($modo == 2)
                         <div>
                             <span><strong>Previsualización del documento existente</strong></span>
-                            <table class="table mt-2 table-hover align-middle">
-                                <thead>
-                                    <tr style="background-color: rgb(179, 197, 245)">
-                                        <th>DOCUMENTO</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                    
-                                <tbody>
-                                    @if ($expediente_inscripcion_model)
-                                    <tr>
-                                        <td>
-                                            <label class="form-label">{{ $expediente_inscripcion_model->Expediente->tipo_doc }}</label>
-                                        </td>
-                                        <td class="col-md-2">
-                                            <a target="_blank" href="{{asset($expediente_inscripcion_model->nom_exped)}}" class="ms-2 d-flex align-items-center bx-burst-hover"><i style="color:rgb(78, 78, 78)" class="bx bxs-file-pdf bx-sm bx-burst-hover"></i> <strong class="ms-2 text-dark">Descargar</strong></a>
-                                        </td>
-                                    </tr>
-                                    @endif
-                                </tbody>
-                            </table>
+                            <div>
+                                <a target="_blank" href="{{asset($expediente_inscripcion_model->nom_exped)}}" class="mt-2 mb-4 d-flex align-items-center"><i style="color:rgb(78, 78, 78)" class="bx bxs-file-pdf bx-sm"></i> <strong class="ms-2 text-dark" style="text-decoration: underline">Descargar</strong></a>
+                            </div>
                         </div>
                         @endif
-                        <span><strong>Formulario para ingresar nuevo documento</strong></span>
-                        <table class="table mt-2 table-hover align-middle">
-                            <thead>
-                                <tr style="background-color: rgb(179, 197, 245)">
-                                    <th>DOCUMENTO</th>
-                                    <th>SELECCIONAR</th>
-                                    <th class="col-1">FORMATO</th>
-                                </tr>
-                            </thead>
-                                
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <label class="form-label mt-3">{{ $expediente_nombre }}</label>
-                                    </td>
-                                    <td class="col-md-6">
-                                        <input type="file" class="mt-2 mb-2 form-control form-control-sm btn btn-primary @error('expediente') is-invalid  @enderror" style="color:azure" wire:model="expediente" accept=".pdf" id="upload{{ $iteration }}">
-                                        @error('expediente')
-                                            <span class="error text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </td>
-                                    <td align="center">
-                                        <label class="form-label mt-3">PDF</label>
-                                    </td> 
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="d-flex justify-content-between mt-2">
+                            <label class="form-label">{{ $expediente_nombre }} <span class="text-danger">(obligatorio)</span>
+                            </label>
+                            <span class="text-danger">
+                                (.pdf)
+                            </span>
+                        </div>
+                        <input type="file" class="form-control @error('expediente') is-invalid  @enderror" wire:model="expediente" accept=".pdf" id="upload{{ $iteration }}">
+                        <p class="text-muted mt-1">
+                            Max. 10MB
+                        </p>
+                        @error('expediente')
+                            <span class="error text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="modal-footer col-12 d-flex justify-content-between">
                         <button type="button" wire:click="limpiar()"
                             class="btn btn-secondary btn-label waves-effect waves-light w-md" data-bs-dismiss="modal"><i
                                 class="ri-arrow-left-s-line label-icon align-middle fs-16 me-2"></i> Cancelar</button>
-                        <button type="button" wire:click="guardarExpediente()"
+                        <button type="button" wire:click="guardarExpediente()" @if($expediente===null) disabled @endif
                             class="btn btn-primary btn-label waves-effect right waves-light w-md"><i
                                 class="ri-check-double-fill label-icon align-middle fs-16 ms-2"></i> Guardar</button>
                     </div>

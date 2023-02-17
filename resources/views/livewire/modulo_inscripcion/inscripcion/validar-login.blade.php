@@ -5,7 +5,7 @@
             @csrf
             
             <div class="alert alert-info alert-top-border alert-dismissible shadow fade show" role="alert">
-                <i class="uil uil-usd-circle me-3 align-middle fs-16 text-info"></i><strong>Nota</strong> <br>Recuerde que una vez realizado el pago, deberá mandar su número de documento de identidad y el comprobante de pago al siguiente correo: <strong>admision_posgrado@unu.edu.pe</strong> para que se pueda validar su pago y proceder con su inscripción.
+                <i class="uil uil-info-circle me-3 align-middle fs-16 text-info"></i><strong>Nota</strong> <br>Una vez realizado el pago, deberá mandar su número de DNI y Voucher al siguiente correo: <strong>admision_posgrado@unu.edu.pe</strong> para validar su pago y proceder con su inscripción.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 

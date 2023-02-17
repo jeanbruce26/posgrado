@@ -50,16 +50,16 @@
         <div class="table-responsive table-card">
             <table class="table table-nowrap mb-0">
                 <thead class="table-light">
-                    <tr>
-                        <th scope="col" class="col-md-2">NRO</th>
-                        <th scope="col" class="col-md-8">PROGRAMA</th>
+                    <tr align="center">
+                        <th scope="col" class="col-md-1">NRO</th>
+                        <th scope="col" class="col-md-9">PROGRAMA</th>
                         <th scope="col" class="col-md-2">CANTIDAD</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($programas as $item)
                     <tr>
-                        <td class="fw-bold">{{ $loop->iteration }}</td>
+                        <td align="center" class="fw-bold">{{ $loop->iteration }}</td>
                         <td style="white-space: initial">
                             @if ($item->mencion === null)
                                 {{ ucwords(strtolower($item->descripcion_programa))  }} en {{ ucwords(strtolower($item->subprograma)) }}
@@ -67,7 +67,7 @@
                                 Mención en {{ ucwords(strtolower($item->mencion)) }}
                             @endif
                         </td>
-                        <td class="fs-5">{{ $item->cantidad_mencion }}</td>
+                        <td align="center" class="fs-5">{{ $item->cantidad_mencion }}</td>
                     </tr>
                     @endforeach
                     @if ($programas->count() === 0)
@@ -76,6 +76,12 @@
                         </tr>
                     @endif
                 </tbody>
+                <tfoot>
+                    <tr class="table-light" align="center">
+                        <td colspan="2" class="text-end fw-bold fs-6">TOTAL</td>
+                        <td class="fw-bold fs-5">{{ $programas->sum('cantidad_mencion') }}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>

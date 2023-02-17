@@ -218,6 +218,7 @@ class Index extends Component
                         ->orWhere('nombres','LIKE',"%{$buscar}%")
                         ->orWhere('apell_pater','LIKE',"%{$buscar}%")
                         ->orWhere('apell_mater','LIKE',"%{$buscar}%")
+                        ->orWhere('nombre_completo','LIKE',"%{$buscar}%")
                         ->orWhere('fecha_naci','LIKE',"%{$buscar}%")
                         ->orWhere('sexo','LIKE',"%{$buscar}%")
                         ->orWhere('celular1','LIKE',"%{$buscar}%")
