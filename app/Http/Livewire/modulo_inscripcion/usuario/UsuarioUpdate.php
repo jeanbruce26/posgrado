@@ -29,9 +29,15 @@ class UsuarioUpdate extends Component
 
     public function updated($propertyName)
     {
-        $this->validateOnly($propertyName, [
-            'expediente' => 'nullable|mimes:pdf|max:10024',
-        ]);
+        if($this->modo == 1){
+            $this->validateOnly($propertyName, [
+                'expediente' => 'required|file|max:10024|mimetypes:application/octet-stream,application/pdf,application/x-pdf,application/x-download,application/force-download',
+            ]);
+        }else{
+            $this->validateOnly($propertyName, [
+                'expediente' => 'nullable|file|max:10024|mimetypes:application/octet-stream,application/pdf,application/x-pdf,application/x-download,application/force-download',
+            ]);
+        }
     }
 
     public function cargarCodExpIns(ExpedienteInscripcion $id)
@@ -71,12 +77,12 @@ class UsuarioUpdate extends Component
             $this->resetValidation();
 
             $this->validate([
-                'expediente' => 'nullable|mimes:pdf|max:10024',
+                'expediente' => 'required|file|max:10024|mimetypes:application/octet-stream,application/pdf,application/x-pdf,application/x-download,application/force-download',
             ]);
         
             if($data != null){
                 $path = $admision. '/' .auth('usuarios')->user()->id_inscripcion. '/';
-                $filename = $this->expediente_nombre.".".$data->extension();
+                $filename = $this->expediente_nombre.".pdf";
                 $nombreDB = $path.$filename;
                 $data = $this->expediente;
                 $data->storeAs($path, $filename, 'files_publico');
@@ -97,16 +103,18 @@ class UsuarioUpdate extends Component
             $this->resetValidation();
 
             $this->validate([
-                'expediente' => 'nullable|mimes:pdf|max:10024',
+                'expediente' => 'nullable|file|max:10024|mimetypes:application/octet-stream,application/pdf,application/x-pdf,application/x-download,application/force-download',
             ]);
 
             if($data != null){
                 $path = $admision. '/' .auth('usuarios')->user()->id_inscripcion. '/';
-                $filename = $this->expediente_nombre.".".$data->extension();
+                $filename = $this->expediente_nombre.".pdf";
+                $nombreDB = $path.$filename;
                 $data = $this->expediente;
                 $data->storeAs($path, $filename, 'files_publico');
 
                 $expe_inscripcion = ExpedienteInscripcion::find($this->cod_exp_ins);
+                $expe_inscripcion->nom_exped = $nombreDB;
                 $expe_inscripcion->fecha_entre = now();
                 $expe_inscripcion->save();
 

@@ -384,18 +384,18 @@ class Create extends Component
     {
         $exped = Expediente::where('estado', 1)
                     ->where('cod_exp', $this->expediente_cod_exp)->first();
-        
+        // dd($this->expediente->getMimeType(),$this->expediente->getClientOriginalExtension() );
         if($exped->requerido == 1 && $this->modo == 1){
             $this->validate([
-                'expediente' => 'required|file|mimes:pdf|max:10024',
+                'expediente' => 'required|file|max:10024|mimetypes:application/octet-stream,application/pdf,application/x-pdf,application/x-download,application/force-download',
             ]);
         }else if($exped->requerido == 1 && $this->modo == 2){
             $this->validate([
-                'expediente' => 'nullable|file|mimes:pdf|max:10024',
+                'expediente' => 'nullable|file|max:10024|mimetypes:application/octet-stream,application/pdf,application/x-pdf,application/x-download,application/force-download',
             ]);
         }else if($exped->requerido != 1 && $this->modo == 2){
             $this->validate([
-                'expediente' => 'nullable|file|mimes:pdf|max:10024',
+                'expediente' => 'nullable|file|max:10024|mimetypes:application/octet-stream,application/pdf,application/x-pdf,application/x-download,application/force-download',
             ]);
         }
 
@@ -407,7 +407,7 @@ class Create extends Component
         
         if($data != null){
             $path = $admision. '/' .$this->id_inscripcion. '/';
-            $filename = $nombreExpediente.".".$data->extension();
+            $filename = $nombreExpediente.".pdf";
             $nombreDB = $path.$filename;
             $data->storeAs($path, $filename, 'files_publico');
 
