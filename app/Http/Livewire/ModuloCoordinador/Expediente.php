@@ -8,6 +8,7 @@ use App\Models\Evaluacion;
 use App\Models\EvaluacionExpediente;
 use App\Models\EvaluacionExpedienteTitulo;
 use App\Models\ExpedienteInscripcion;
+use App\Models\ExpedienteTipoEvaluacion;
 use App\Models\ObservacionEvaluacion;
 use App\Models\Puntaje;
 use App\Models\TipoEvaluacion;

@@ -21,6 +21,7 @@ class UsuarioUpdate extends Component
     public $expediente_inscripcion_model;
     public $expediente_model_2;
     public $expediente_nombre;
+    public $expediente_nombre_archivo;
     public $cod_exp;
     public $cod_exp_ins;
     public $iteration;
@@ -47,6 +48,7 @@ class UsuarioUpdate extends Component
         $this->modo = 2;
         $this->titulo = 'Actualizar Documento';
         $this->expediente_nombre = $id->Expediente->tipo_doc;
+        $this->expediente_nombre_archivo = $id->Expediente->exp_nombre;
     }
 
     public function limpiar()
@@ -63,6 +65,7 @@ class UsuarioUpdate extends Component
         $this->cod_exp = $id->cod_exp;
         $this->modo = 1;
         $this->expediente_nombre = $id->tipo_doc;
+        $this->expediente_nombre_archivo = $id->exp_nombre;
         $this->titulo = 'Ingresar Documento';
     }
 
@@ -82,7 +85,7 @@ class UsuarioUpdate extends Component
         
             if($data != null){
                 $path = $admision. '/' .auth('usuarios')->user()->id_inscripcion. '/';
-                $filename = $this->expediente_nombre.".pdf";
+                $filename = $this->expediente_nombre_archivo.".pdf";
                 $nombreDB = $path.$filename;
                 $data = $this->expediente;
                 $data->storeAs($path, $filename, 'files_publico');
@@ -108,7 +111,7 @@ class UsuarioUpdate extends Component
 
             if($data != null){
                 $path = $admision. '/' .auth('usuarios')->user()->id_inscripcion. '/';
-                $filename = $this->expediente_nombre.".pdf";
+                $filename = $this->expediente_nombre_archivo.".pdf";
                 $nombreDB = $path.$filename;
                 $data = $this->expediente;
                 $data->storeAs($path, $filename, 'files_publico');

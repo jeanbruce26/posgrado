@@ -3,7 +3,6 @@
 @section('content')
 <div class="row">
      <div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12 col-sm-12 m-auto">
-          <!-- Danger Alert -->
           <div class="alert alert-info alert-top-border alert-dismissible shadow fade show" role="alert">
                <i class="ri-error-warning-line me-3 align-middle fs-18 text-info"></i>
                <strong>Nota</strong> - Al terminar con el registro de sus datos, espere un momento ya que se estará generando su ficha de inscripción.

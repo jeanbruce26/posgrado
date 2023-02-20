@@ -112,6 +112,14 @@
                                 @enderror
                             </div>
 
+                            <div class="mb-3 col-md-12">
+                                <label class="form-label">Nombre del archivo</label>
+                                <input type="text" class="form-control @error('nombre_archivo') is-invalid @enderror" wire:model="nombre_archivo" placeholder="Ejemplo: formato-expediente-2023" readonly>
+                                @error('nombre_archivo')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                             <div class="mb-3 col-md-2">
                                 <label class="form-label">Requerido <span class="text-danger">*</span></label><br>
                                 

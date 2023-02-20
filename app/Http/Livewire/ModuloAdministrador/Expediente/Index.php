@@ -5,6 +5,7 @@ namespace App\Http\Livewire\ModuloAdministrador\Expediente;
 use App\Models\Expediente;
 use App\Models\HistorialAdministrativo;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class Index extends Component
 {
@@ -21,6 +22,7 @@ class Index extends Component
     public $requerido;
     public $tipo; // 0 = maestria y doctorado, 1 = maestria, 2 = doctorado
     public $estado;
+    public $nombre_archivo;
 
     protected $listeners = ['render', 'cambiarEstado'];
 
@@ -34,6 +36,11 @@ class Index extends Component
         ]);
     }
 
+    public function updatedTipoDocumento($value)
+    {
+        $this->nombre_archivo = Str::slug($value);
+    }
+
     public function modo()
     {
         $this->limpiar();
@@ -43,7 +50,7 @@ class Index extends Component
     public function limpiar()
     {
         $this->resetErrorBag();
-        $this->reset('tipoDocumento', 'complemento', 'requerido', 'tipo');
+        $this->reset('tipoDocumento', 'complemento', 'requerido', 'tipo', 'estado', 'nombre_archivo');
         $this->modo = 1;
         $this->titulo = 'Crear Expediente';
     }
@@ -80,6 +87,7 @@ class Index extends Component
         $this->complemento = $expediente->complemento;
         $this->requerido = $expediente->requerido;
         $this->tipo = $expediente->expediente_tipo;
+        $this->nombre_archivo = $expediente->exp_nombre;
     }
 
     public function guardarExpediente()
@@ -95,6 +103,7 @@ class Index extends Component
             $expediente = Expediente::create([
                 "tipo_doc" => $this->tipoDocumento,
                 "complemento" => $this->complemento,
+                "exp_nombre" => $this->nombre_archivo,
                 "requerido" => $this->requerido,
                 "expediente_tipo" => $this->tipo,
                 "estado" => 1
@@ -114,6 +123,7 @@ class Index extends Component
             $expediente = Expediente::find($this->expediente_id);
             $expediente->tipo_doc = $this->tipoDocumento;
             $expediente->complemento = $this->complemento;
+            $expediente->exp_nombre = $this->nombre_archivo;
             $expediente->requerido = $this->requerido;
             $expediente->expediente_tipo = $this->tipo;
             $expediente->save();

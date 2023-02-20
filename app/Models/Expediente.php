@@ -16,10 +16,16 @@ class Expediente extends Model
         'cod_exp',
         'tipo_doc',
         'complemento',
+        'exp_nombre',
         'requerido',
         'expediente_tipo',
         'estado',
     ];
 
     public $timestamps = false;
+
+    public function expediente_tipo_evaluacion()
+    {
+        return $this->hasMany(ExpedienteTipoEvaluacion::class, 'cod_exp');
+    }
 }

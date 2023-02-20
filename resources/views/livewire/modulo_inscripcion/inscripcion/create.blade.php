@@ -286,6 +286,18 @@
                     </div>
                 </div>
             </div>
+            <div class="alert alert-info alert-top-border alert-dismissible shadow fade mb-4 show" role="alert">
+                <i class="ri-error-warning-line me-2 align-middle fs-18 text-info"></i>
+                <strong>
+                    <span class="text-info fs-5">¡Importante!</span>
+                </strong>
+                <span class="d-flex justify-content-star align-items-center ms-1 my-2 fw-bold">
+                    <input type="checkbox" wire:model="check_expediente" class="me-2">
+                    <span style="cursor: pointer; color: #282828" class="text-uppercase">
+                        En caso de no disponer de mi constancia de registro de la SUNEDU, presentaré un documento que acredite que se encuentra en trámite (resolución de grado, grado academico, entre otros).
+                    </span>
+                </span>
+            </div>
             <div class="card mt-3">
                 <div class="card-header">
                     <span class="fw-bold ms-2 fs-5 text-uppercase" style="color: #142e52">

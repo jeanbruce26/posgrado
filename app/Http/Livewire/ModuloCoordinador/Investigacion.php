@@ -5,6 +5,7 @@ namespace App\Http\Livewire\ModuloCoordinador;
 use App\Models\Evaluacion;
 use App\Models\EvaluacionInvestigacion;
 use App\Models\EvaluacionInvestigacionItem;
+use App\Models\ExpedienteInscripcion;
 use App\Models\Inscripcion;
 use App\Models\ObservacionEvaluacion;
 use App\Models\Puntaje;
@@ -159,6 +160,14 @@ class Investigacion extends Component
         $evaluacion_investigacion_item = EvaluacionInvestigacionItem::all();
         $puntaje_model = Puntaje::where('puntaje_estado', 1)->first();
         $this->contarTotal();
+
+        $expedientes = ExpedienteInscripcion::join('expediente', 'ex_insc.expediente_cod_exp', '=', 'expediente.cod_exp')
+                        ->where('ex_insc.id_inscripcion',$evaluacion_data->inscripcion_id)
+                        ->where(function($query) use ($inscripcion){
+                            $query->where('expediente.expediente_tipo', 0)
+                                ->orWhere('expediente.expediente_tipo', $inscripcion->tipo_programa);
+                        })
+                        ->get();
         
         return view('livewire.modulo-coordinador.investigacion', [
             'evaluacion_data' => $evaluacion_data,
@@ -166,7 +175,8 @@ class Investigacion extends Component
             'inscripcion' => $inscripcion,
             'fecha' => $fecha,
             'evaluacion_investigacion_item' => $evaluacion_investigacion_item,
-            'puntaje_model' => $puntaje_model
+            'puntaje_model' => $puntaje_model,
+            'expedientes' => $expedientes,
         ]);
     }
 }

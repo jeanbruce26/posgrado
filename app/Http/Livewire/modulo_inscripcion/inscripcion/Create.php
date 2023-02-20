@@ -400,7 +400,7 @@ class Create extends Component
         }
 
         $estadoExpediente = "Enviado";
-        $nombreExpediente = $exped->tipo_doc;
+        $nombreExpediente = $exped->exp_nombre;
         $admision = Admision::where('estado',1)->first()->admision;
 
         $data = $this->expediente;
