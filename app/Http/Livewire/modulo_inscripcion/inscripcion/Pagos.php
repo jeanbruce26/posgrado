@@ -104,16 +104,6 @@ class Pagos extends Component
         }
     }
 
-    public function seleccionarPago($id_pago)
-    {
-        if($this->seleccionar && in_array($id_pago, $this->seleccionar)){
-            $this->seleccionar = array_diff($this->seleccionar, [$id_pago]);
-        }else{
-            array_push($this->seleccionar, $id_pago);
-        }
-        $this->contarMonto($id_pago);
-    }
-
     public function guardarPagoAlerta()
     {
         if(!$this->seleccionar){

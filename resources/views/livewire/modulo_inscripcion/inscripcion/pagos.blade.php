@@ -80,7 +80,7 @@
                                                 @endphp
                                                 @if (isset($pago))
                                                 @foreach ($pago as $item)
-                                                <tr wire:loading.class.delay="opacity-50" wire:key="{{$item->pago_id}}" style="cursor: pointer" wire:click="seleccionarPago({{$item->pago_id}})">
+                                                <tr>
                                                     <td align="center" class="fw-bold">{{$num++}}</td>
                                                     <td align="center">{{date('d/m/Y', strtotime($item->fecha_pago))}}</td>
                                                     <td align="center">{{$item->nro_operacion}}</td>
