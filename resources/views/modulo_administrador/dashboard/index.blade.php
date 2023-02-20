@@ -59,8 +59,8 @@
                 <tbody>
                     @foreach ($programas as $item)
                     <tr>
-                        <td align="center" class="fw-bold">{{ $loop->iteration }}</td>
-                        <td style="white-space: initial">
+                        <td align="center" class="fw-bold fs-5">{{ $loop->iteration }}</td>
+                        <td style="white-space: initial" class="fs-5">
                             @if ($item->mencion === null)
                                 {{ ucwords(strtolower($item->descripcion_programa))  }} en {{ ucwords(strtolower($item->subprograma)) }}
                             @else
