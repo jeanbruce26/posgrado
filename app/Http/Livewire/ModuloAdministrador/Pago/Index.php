@@ -87,14 +87,14 @@ class Index extends Component
                 if($validar->dni == $this->documento && $validar->fecha_pago == $this->fecha_pago){
                     $this->dispatchBrowserEvent('alertaPago', [
                         'titulo' => '¡Alerta!',
-                        'subtitulo' => 'El número de operación y el DNI ya han sido ingresado el día de hoy.',
+                        'subtitulo' => 'El número de operación y el DNI ya se encuentran registrados en el sistema.',
                         'icon' => 'error'
                     ]);
                     return back();
                 }else if ($validar->fecha_pago == $this->fecha_pago) {
                     $this->dispatchBrowserEvent('alertaPago', [
                         'titulo' => '¡Alerta!',
-                        'subtitulo' => 'El número de operación ya ha sido ingresado el día de hoy.',
+                        'subtitulo' => 'El número de operación ya ha sido ingresado en la fecha seleccionada.',
                         'icon' => 'error'
                     ]);
                     return back();

@@ -33,4 +33,9 @@ class ExpedienteInscripcion extends Model
         return $this->belongsTo(Expediente::class,
         'expediente_cod_exp','cod_exp');
     }
+
+    public function expediente_inscripcion_seguimiento()
+    {
+        return $this->hasMany(ExpedienteInscripcionSeguimiento::class, 'cod_ex_insc');
+    }
 }

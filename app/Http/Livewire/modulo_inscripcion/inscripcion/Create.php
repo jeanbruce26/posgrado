@@ -9,6 +9,8 @@ use App\Models\Distrito;
 use App\Models\EstadoCivil;
 use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
+use App\Models\ExpedienteInscripcionSeguimiento;
+use App\Models\ExpedienteTipoSeguimiento;
 use App\Models\GradoAcademico;
 use App\Models\HistorialInscripcion;
 use App\Models\Inscripcion;
@@ -82,6 +84,9 @@ class Create extends Component
     public $expediente_nombre = '';
     public $expediente_cod_exp;
     public $expediente_requerido;
+
+    public $check_expediente = false;   // sirve para hacer el seguimiento de los expedientes de grado academico
+                                        // true = acepta la declaracion jurada, false = no acepta la declaracion jurada
 
     // protected $listeners = ['inscripcion'];
     
@@ -446,7 +451,7 @@ class Create extends Component
     {
         $this->dispatchBrowserEvent('alertaFicha');
 
-        //FORMULARIO 1
+        // FORMULARIO 1
         $dni_persona = auth('pagos')->user()->dni;
         $persona_buscar = Persona::where('num_doc',$dni_persona)->first();
         if ($this->distrito_nacimiento){
@@ -535,6 +540,7 @@ class Create extends Component
             $ubigeo_persona_nacimiento->save();
         }
 
+        // Actulaizacion de datos de inscripcion
         $inscripcion = Inscripcion::find($this->id_inscripcion);
         $inscripcion->persona_idpersona = $this->id_persona;
         $inscripcion->id_mencion = $this->mencion_combo;
@@ -544,6 +550,7 @@ class Create extends Component
 
         $admision3 = Admision::where('estado',1)->first();
 
+        // Registro del historial de inscripcion
         $historial_inscripcion = new HistorialInscripcion();
         $historial_inscripcion->persona_documento = auth('pagos')->user()->dni;
         $historial_inscripcion->id_inscripcion = $this->id_inscripcion;
@@ -553,8 +560,44 @@ class Create extends Component
         $historial_inscripcion->admitido = 0;
         $historial_inscripcion->save();
 
+        if($this->check_expediente == true){
+            $exp_ins = ExpedienteInscripcion::join('expediente','ex_insc.expediente_cod_exp','=','expediente.cod_exp')
+                                                ->where('ex_insc.id_inscripcion',$this->id_inscripcion)
+                                                ->where(function($query){
+                                                    $query->where('expediente.expediente_tipo', 0)
+                                                        ->orWhere('expediente.expediente_tipo', $this->mostrar_tipo_expediente);
+                                                })
+                                                ->get();
+            $exp_seg = ExpedienteTipoSeguimiento::join('expediente','expediente_tipo_seguimiento.cod_exp','=','expediente.cod_exp')
+                                                ->where('expediente_tipo_seguimiento_estado', 1)
+                                                ->where('tipo_seguimiento', 1)
+                                                ->where(function($query){
+                                                    $query->where('expediente.expediente_tipo', 0)
+                                                        ->orWhere('expediente.expediente_tipo', $this->mostrar_tipo_expediente);
+                                                })
+                                                ->get();
+
+            $array_seguimiento = [];
+            foreach ($exp_ins as $exp) {
+                foreach ($exp_seg as $seg) {
+                    if($exp->expediente_cod_exp == $seg->cod_exp){
+                        array_push($array_seguimiento, $exp->cod_ex_insc);
+                    }
+                }
+            }
+            // Registrar datos del seguimiento del expediente de inscripcion
+            foreach ($array_seguimiento as $item) {
+                $seguimiento_exp_ins = new ExpedienteInscripcionSeguimiento();
+                $seguimiento_exp_ins->cod_ex_insc = $item;
+                $seguimiento_exp_ins->tipo_seguimiento = 1;
+                $seguimiento_exp_ins->expediente_inscripcion_seguimiento_estado = 1;
+                $seguimiento_exp_ins->save();
+            }
+        }
+
+        // Eliminar expedientes de la inscripcion que no son del programa elegido
         $expediente_inscripcion = ExpedienteInscripcion::where('id_inscripcion',$this->id_inscripcion)->get();
-        //delete storage file and database
+        // delete storage file and database
         foreach($expediente_inscripcion as $exp){
             $expediente = Expediente::where('cod_exp', $exp->expediente_cod_exp)
                                         ->where(function($query){

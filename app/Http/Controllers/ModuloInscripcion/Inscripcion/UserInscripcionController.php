@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use App\Models\ExpedienteInscripcionSeguimiento;
 
 class UserInscripcionController extends Controller
 {
@@ -80,6 +81,13 @@ class UserInscripcionController extends Controller
                     })
                     ->get();
 
+        // verificamos si tiene expediente en seguimientos
+        $seguimiento_count = ExpedienteInscripcionSeguimiento::join('ex_insc', 'ex_insc.cod_ex_insc', '=', 'expediente_inscripcion_seguimiento.cod_ex_insc')
+                                                        ->where('ex_insc.id_inscripcion', $id)
+                                                        ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
+                                                        ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
+                                                        ->count();
+
         $data = [ 
             'persona' => $per,
             'fecha_actual' => $fecha_actual,
@@ -92,6 +100,7 @@ class UserInscripcionController extends Controller
             'final' => $final,
             'expedienteInscripcion' => $expedienteInscripcion,
             'expedi' => $expedi,
+            'seguimiento_count' => $seguimiento_count
         ];
 
         $nombre_pdf = 'FICHA_INSCRIPCION.pdf';

@@ -15,20 +15,27 @@
         @endif
     @endif
     @if (date('Y/m/d', strtotime($fecha_admision_normal)) >= date('Y/m/d', strtotime(today())))
+        <div class="alert alert-info alert-dismissible alert-label-icon rounded-label shadow fade show" role="alert">
+            <i class="ri-information-line label-icon"></i><strong>Recuerde que la fecha limite para actualizar sus expedientes es el {{ $fecha_admision }}.</strong>
+        </div>
         @if ($contador != $expediente_count)
         <div class="alert alert-warning alert-dismissible alert-label-icon rounded-label shadow fade show" role="alert">
             <i class="ri-alert-line label-icon"></i><strong>Usted tiene expedientes pendientes por subir a la plataforma, por favor complete el formulario debido.</strong>
         </div>
         @endif
-        <div class="alert alert-info alert-dismissible alert-label-icon rounded-label shadow fade show" role="alert">
-            <i class="ri-information-line label-icon"></i><strong>Recuerde que la fecha limite para actualizar sus expedientes es el {{ $fecha_admision }}.</strong>
+    @endif
+    @if ($expediente_seguimiento_count > 0)
+        <div class="alert alert-warning alert-dismissible alert-label-icon rounded-label shadow fade show" role="alert">
+            <i class="ri-information-line label-icon"></i>
+            <strong>
+                Recuerde que tiene por regularizar su Constancia de Registro ante la SUNEDU, por favor ingrese a la sección de expedientes y suba su documento.
+            </strong>
         </div>
     @endif
 
     <div class="mt-4">
         <div class="card">
-            <h4 class="card-header d-flex fw-bold justify-content-star align-items-center">Bienvenido {{$nombre}}.</h4>
-            
+            <h4 class="card-header d-flex fw-bold justify-content-star align-items-center">Bienvenido {{$nombre}}.</h4>    
             <div class="card-text px-5 my-2 d-flex justify-content-around row g-3">
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div class="card card-body text-center" style="background-color: #ebf7ff">

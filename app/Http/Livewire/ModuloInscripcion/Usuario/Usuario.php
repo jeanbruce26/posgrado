@@ -9,9 +9,11 @@ use App\Models\ConstanciaIngresoPago;
 use App\Models\Evaluacion;
 use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
+use App\Models\ExpedienteInscripcionSeguimiento;
 use App\Models\Inscripcion;
 use App\Models\Persona;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class Usuario extends Component
 {
@@ -45,8 +47,9 @@ class Usuario extends Component
                 $programa = 'MAESTRIA EN ' . $datos->subprograma . ' CON MENCIÓN EN ' . $datos->mencion;
             }
         }
-        setlocale( LC_ALL,"es_ES@euro","es_ES","esp" );
-        $fecha = 'Pucallpa, ' . strftime('%d de %B del %Y', strtotime(today()));
+        $fecha = Carbon::parse(today());
+        $fecha->locale('es');
+        $fecha = 'Pucallpa, ' . $fecha->isoFormat('LL');
         if($admitido->admitidos_id < 10){
             $codigo_constancia = substr($admitido->admitidos_codigo, 1, 1) . substr($admitido->admitidos_codigo, 5, 9) . '00' . $admitido->admitidos_id;
         }else if($admitido->admitidos_id < 100){
@@ -84,8 +87,10 @@ class Usuario extends Component
                                         ->orWhere('expediente_tipo', auth('usuarios')->user()->tipo_programa);
                                 })
                                 ->count();
-        setlocale( LC_ALL,"es_ES@euro","es_ES","esp" );
-        $fecha_admision = strftime('%d de %B del %Y', strtotime(Admision::where('estado',1)->first()->fecha_fin));
+        $fecha_admision = Carbon::parse(Admision::where('estado',1)->first()->fecha_fin);
+        $fecha_admision->locale('es');
+        $fecha_admision = $fecha_admision->isoFormat('LL');
+
         $fecha_admision_normal = Admision::where('estado',1)->first()->fecha_fin;
 
         $evaluacion = Evaluacion::where('inscripcion_id',auth('usuarios')->user()->id_inscripcion)->first();
@@ -105,9 +110,18 @@ class Usuario extends Component
             }
         }
 
-        $admision_fecha_admitidos =strftime('%d de %B del %Y', strtotime(Admision::where('estado',1)->first()->fecha_admitidos)); //fecha de admision de admitidos
+        $admision_fecha_admitidos = Carbon::parse(Admision::where('estado',1)->first()->fecha_admitidos); //fecha de admision de admitidos
+        $admision_fecha_admitidos->locale('es');
+        $admision_fecha_admitidos = $admision_fecha_admitidos->isoFormat('LL');
 
         $lista_admitidos = Admitidos::count();
+
+        // verificar si tiene expediente en seguimiento
+        $expediente_seguimiento_count = ExpedienteInscripcionSeguimiento::join('ex_insc', 'ex_insc.cod_ex_insc', 'expediente_inscripcion_seguimiento.cod_ex_insc')
+                                                    ->where('ex_insc.id_inscripcion', auth('usuarios')->user()->id_inscripcion)
+                                                    ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
+                                                    ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
+                                                    ->count();
 
         return view('livewire.modulo-inscripcion.usuario.usuario', [
             'nombre' => $nombre,
@@ -119,7 +133,8 @@ class Usuario extends Component
             'lista_admitidos' => $lista_admitidos,
             'admitido' => $admitido,
             'admision_fecha_admitidos' => $admision_fecha_admitidos,
-            'pago' => $pago
+            'pago' => $pago,
+            'expediente_seguimiento_count' => $expediente_seguimiento_count
         ]);
     }
 }

@@ -28,4 +28,9 @@ class Expediente extends Model
     {
         return $this->hasMany(ExpedienteTipoEvaluacion::class, 'cod_exp');
     }
+
+    public function expediente_tipo_seguimiento()
+    {
+        return $this->hasMany(ExpedienteTipoSeguimiento::class, 'cod_exp');
+    }
 }
