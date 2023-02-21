@@ -69,8 +69,7 @@ class Kernel extends HttpKernel
         'auth.pagos' => \App\Http\Middleware\AuthPagos::class,
         'auth.administrador' => \App\Http\Middleware\AuthAdministrador::class,
         'auth.coordinador' => \App\Http\Middleware\AuthCoordinador::class,
-        'auth.coordinador' => \App\Http\Middleware\AuthCoordinador::class,
-        'auth.coordinador' => \App\Http\Middleware\AuthCoordinador::class,
+        'auth.contable' => \App\Http\Middleware\AuthContable::class,
         'auth.usuario.admitido' => \App\Http\Middleware\UsuarioAdmitido::class,
     ];
 }

@@ -53,13 +53,8 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
 });
 
 
-
-
-
 //CONTROLADOR DEL MODULO DE COORDINADORES
-
 Route::prefix('coordinador')->middleware(['auth:admin','auth.coordinador'])->group(function () {
-
     Route::get('/index', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'index'])->name('coordinador.index');
     Route::get('/{id}/inscripciones', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'inscripciones'])->name('coordinador.inscripciones');
     Route::get('/evaluacion/{id}/expediente/{tipo}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'expediente'])->name('coordinador.expediente');
@@ -68,11 +63,14 @@ Route::prefix('coordinador')->middleware(['auth:admin','auth.coordinador'])->gro
     Route::get('/reportes/{id}/maestria', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'reportes_maestria'])->name('coordinador.reportes.maestria');
     Route::get('/reportes/{id}/doctorado', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'reportes_doctorado'])->name('coordinador.reportes.doctorado');
     Route::get('/perfil', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'perfil'])->name('coordinador.perfil.index');
-    
 });
 
 
-
+//CONTROLADOR DEL MODULO DEL AREA CONTABLE
+Route::prefix('contable')->middleware(['auth:admin','auth.contable'])->group(function () {
+    Route::get('/index', [App\Http\Controllers\ModuloContable\ContableController::class, 'index'])->name('contable.index');
+    Route::get('/inscripciones', [App\Http\Controllers\ModuloContable\ContableController::class, 'inscripciones'])->name('contable.inscripcion');
+});
 
 
 //RUTA ERRORS
@@ -81,25 +79,18 @@ Route::get('errorLogin', function(){
 });
 
 
-
-
-
 //RUTAS DE LA PARTE DE INSCRIPCION DE USUARIOS
 Route::get('inscripcion', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'index'])->middleware('auth.pagos','pagos.estado')->name('inscripcion');
 Route::get('inscripcion/pagos', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'index2'])->middleware('auth.pagos','pagos.estado')->name('inscripcion.pagos');
 Route::get('inscripcion/inscripcion/{id}', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'inscripcion'])->middleware('auth.pagos')->name('inscripcion.inscripcion');
 Route::get('inscripcion/pdf/{id}', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'pdf'])->middleware('auth.pagos')->name('usuario-pdf');
-
 Route::get('inscripcion/login', [App\Http\Controllers\ModuloInscripcion\Inscripcion\InscripcionLoginController::class, 'index'])->middleware('insc')->name('usuario.login');
 Route::post('inscripcion/logout', [App\Http\Controllers\ModuloInscripcion\Inscripcion\InscripcionLoginController::class, 'logout'])->name('usuario.logout');
-
-
 
 
 //RUTAS DE LOS USUARIOS PARA QUE SUBAN SUS EXPEDIENTES FALTANTES
 Route::get('usuarios/login', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioLoginController::class, 'index'])->name('usuario.usuario.login');
 Route::post('usuarios/logout', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioLoginController::class, 'logout'])->name('usuario.usuario.logout');
-
 Route::prefix('usuarios')->middleware(['auth.usuarios'])->group(function () {
     Route::get('/', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'index'])->middleware('auth.usuarios')->name('usuarios.index');
     Route::get('/documentos', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'edit'])->middleware('auth.usuarios')->name('usuarios.edit');

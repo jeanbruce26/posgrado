@@ -8,7 +8,6 @@ use App\Models\Admitidos;
 use App\Models\Evaluacion;
 use App\Models\HistorialInscripcion;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 

@@ -314,7 +314,7 @@ class Trabajador extends Component
             $data->storeAs($path, $filename, 'files_publico');
 
             $tra = TrabajadorModel::find($id_trabajador);
-            $tra->trabajador_perfil = $filename;
+            $tra->trabajador_perfil = $path.$filename;
             $tra->save();
         }
 

@@ -71,7 +71,7 @@
                                                 <div class="flex-shirnk-0">
                                                     @if ($item->trabajador_perfil)
                                                         <img class="rounded-circle avatar-xs"
-                                                            src="{{ asset('Perfil/' . $item->trabajador_perfil) }}"
+                                                            src="{{ asset($item->trabajador_perfil) }}"
                                                             alt="perfil Avatar">
                                                     @else
                                                         <img class="rounded-circle avatar-xs"
@@ -696,7 +696,7 @@
                                                 <tr>
                                                     <td>Contraseña</td>
                                                     <td>:</td>
-                                                    <td>{{ Illuminate\Support\Facades\Crypt::decryptString($user_model_coordinador->usuario_contraseña) }}</td>
+                                                    <td></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -742,7 +742,7 @@
                                                 <tr>
                                                     <td>Contraseña</td>
                                                     <td>:</td>
-                                                    <td>{{ Illuminate\Support\Facades\Crypt::decryptString($user_model_administrativo->usuario_contraseña) }}</td>
+                                                    <td></td>
                                                 </tr>
                                             </tbody>
                                         </table>

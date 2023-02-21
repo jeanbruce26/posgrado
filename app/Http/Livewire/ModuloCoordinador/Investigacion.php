@@ -49,6 +49,8 @@ class Investigacion extends Component
 
     public function cargarId(EvaluacionInvestigacionItem $id)
     {
+        $this->limpiar();
+        
         $this->evaluacion_investigacion_item_id = $id->evaluacion_investigacion_item_id;
         $eval_inve_item = $id;
         $eva = EvaluacionInvestigacion::where('evaluacion_investigacion_item_id',$eval_inve_item->evaluacion_investigacion_item_id)->where('evaluacion_id',$this->evaluacion_id)->first();

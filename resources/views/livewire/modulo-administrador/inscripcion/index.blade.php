@@ -10,28 +10,40 @@
                             </a>
                         </div>
                         <div class="w-25">
-                            <input class="form-control form-control-sm text-muted" type="search" wire:model="search"
+                            <input class="form-control text-muted" type="search" wire:model="search"
                                 placeholder="Buscar...">
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-hover table-nowrap mb-0">
+                        <table class="table table-hover align-middle table-nowrap mb-0">
                             <thead>
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
                                     <th scope="col" class="col-md-1">ID</th>
                                     <th scope="col">Documento</th>
                                     <th scope="col">Persona</th>
                                     <th scope="col">Programa</th>
-                                    <th scope="col" class="col-md-1">Expedientes</th>
+                                    <th scope="col" class="col-md-1">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($inscripcion as $item)
+                                @php
+                                    $expediente_seguimiento_count = App\Models\ExpedienteInscripcionSeguimiento::join('ex_insc', 'expediente_inscripcion_seguimiento.cod_ex_insc', '=', 'ex_insc.cod_ex_insc')
+                                                ->where('id_inscripcion', $item->id_inscripcion)
+                                                ->count();
+                                @endphp
                                     @if($item->persona_idpersona!=null)
                                         <tr>
-                                            <td align="center" class="fw-bold">{{$item->id_inscripcion}}</td>
-                                            <td align="center">{{$item->persona->num_doc}}</td>
-                                            <td>{{$item->persona->apell_pater}} {{$item->persona->apell_mater}}, {{$item->persona->nombres}}</td>
+                                            <td align="center" class="fw-bold">{{ $item->id_inscripcion }}</td>
+                                            <td align="center">{{ $item->persona->num_doc }}</td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    {{ $item->persona->nombre_completo }}
+                                                    @if ($expediente_seguimiento_count > 0)
+                                                        <i class="ri-information-line text-danger fs-5"></i>
+                                                    @endif
+                                                </div>
+                                            </td>
                                             <td>
                                                 @if ($item->Mencion->mencion == null)
                                                     {{$item->Mencion->SubPrograma->Programa->descripcion_programa}} EN {{$item->Mencion->SubPrograma->subprograma}}
@@ -40,91 +52,93 @@
                                                 @endif
                                             </td>
                                             <td align="center">
-                                                <a href="#showModal" class="link-info fs-16" data-bs-toggle="modal" data-bs-target="#showModal{{$item->id_inscripcion}}"><i class="ri-file-text-line"></i></a>
-                                                {{-- Modal Show --}}
-                                                <div wire:ignore.self class="modal fade" id="showModal{{$item->id_inscripcion}}" tabindex="-1" aria-labelledby="showModal" aria-hidden="true">
-                                                    <div class="modal-dialog  modal-lg modal-dialog-scrollable">
-                                                        <div class="modal-content">
-                                                            @php
-                                                                $expediente = App\Models\Expediente::where('estado', 1)
-                                                                                ->where(function($query) use ($item) {
-                                                                                    $query->where('expediente_tipo', 0)
-                                                                                        ->orWhere('expediente_tipo', $item->tipo_programa);
-                                                                                })
-                                                                                ->get();
-                                                                $expInsc = App\Models\ExpedienteInscripcion::where('id_inscripcion', $item->id_inscripcion)->get();
-                                                                $inscrip = App\Models\Inscripcion::where('id_inscripcion', $item->id_inscripcion)->first();
-                                                                $value = 0;
-                                                            @endphp
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="showModalLabel">Expedientes de Inscripción - {{ $item->persona->nombres }} {{$item->persona->apell_pater}} {{$item->persona->apell_mater}}</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="mb-3">
-                                                                    <table class="table align-middle table-nowrap mb-0">
-                                                                        <thead>
-                                                                            <tr class="col-sm-12" style="background-color: rgb(179, 197, 245)" align="center">
-                                                                                <th class="col-md-4">Documento</th>
-                                                                                <th class="col-md-1">Fecha</th>
-                                                                                <th class="col-md-1">Estado</th>
-                                                                                <th class="col-md-1">Archivo</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                            
-                                                                        <tbody>
-                                                                            @foreach ($expediente as $exp)
-                                                                                @foreach ($expInsc as $expInscripcion)
-                                                                                    @if($exp->cod_exp == $expInscripcion->expediente_cod_exp)
+                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                    <a href="#showModal" class="link-info fs-16" data-bs-toggle="modal" data-bs-target="#showModal{{$item->id_inscripcion}}"><i class="ri-file-text-line"></i></a>
+                                                    {{-- Modal Show --}}
+                                                    <div wire:ignore.self class="modal fade" id="showModal{{$item->id_inscripcion}}" tabindex="-1" aria-labelledby="showModal" aria-hidden="true">
+                                                        <div class="modal-dialog  modal-lg modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                                @php
+                                                                    $expediente = App\Models\Expediente::where('estado', 1)
+                                                                                    ->where(function($query) use ($item) {
+                                                                                        $query->where('expediente_tipo', 0)
+                                                                                            ->orWhere('expediente_tipo', $item->tipo_programa);
+                                                                                    })
+                                                                                    ->get();
+                                                                    $expInsc = App\Models\ExpedienteInscripcion::where('id_inscripcion', $item->id_inscripcion)->get();
+                                                                    $inscrip = App\Models\Inscripcion::where('id_inscripcion', $item->id_inscripcion)->first();
+                                                                    $value = 0;
+                                                                @endphp
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="showModalLabel">Expedientes de Inscripción - {{ $item->persona->nombres }} {{$item->persona->apell_pater}} {{$item->persona->apell_mater}}</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="mb-3">
+                                                                        <table class="table align-middle table-nowrap mb-0">
+                                                                            <thead>
+                                                                                <tr class="col-sm-12" style="background-color: rgb(179, 197, 245)" align="center">
+                                                                                    <th class="col-md-4">Documento</th>
+                                                                                    <th class="col-md-1">Fecha</th>
+                                                                                    <th class="col-md-1">Estado</th>
+                                                                                    <th class="col-md-1">Archivo</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                
+                                                                            <tbody>
+                                                                                @foreach ($expediente as $exp)
+                                                                                    @foreach ($expInsc as $expInscripcion)
+                                                                                        @if($exp->cod_exp == $expInscripcion->expediente_cod_exp)
+                                                                                            <tr>
+                                                                                                <td style="white-space: initial">{{$exp->tipo_doc}}</td>
+                                                                                                <td align="center">{{date('d/m/Y', strtotime($expInscripcion->fecha_entre))}}</td>
+                                                                                                <td align="center" class="text-success"><i class="ri-checkbox-circle-line fs-17 align-middle"></i> {{$expInscripcion->estado}}</td>
+                                                                                                <td align="center">
+                                                                                                    @php
+                                                                                                        $admision = App\Models\Admision::where('estado',1)->first()->admision;
+                                                                                                    @endphp
+                                                                                                    <a target="_blank" href="{{asset($expInscripcion->nom_exped)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="ri-file-download-line bx-sm bx-burst-hover"></i></a>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            @php
+                                                                                                $value=1;
+                                                                                            @endphp
+                                                                                        @endif
+                                                                                    @endforeach
+                                                                                    @if($value != 1)
                                                                                         <tr>
-                                                                                            <td style="white-space: initial">{{$exp->tipo_doc}}</td>
-                                                                                            <td align="center">{{date('d/m/Y', strtotime($expInscripcion->fecha_entre))}}</td>
-                                                                                            <td align="center" class="text-success"><i class="ri-checkbox-circle-line fs-17 align-middle"></i> {{$expInscripcion->estado}}</td>
-                                                                                            <td align="center">
-                                                                                                @php
-                                                                                                    $admision = App\Models\Admision::where('estado',1)->first()->admision;
-                                                                                                @endphp
-                                                                                                <a target="_blank" href="{{asset($expInscripcion->nom_exped)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="ri-file-download-line bx-sm bx-burst-hover"></i></a>
-                                                                                            </td>
+                                                                                            <td>{{$exp->tipo_doc}}</td>
+                                                                                            <td align="center"><p class="ms-4">-</p></td>
+                                                                                            <td align="center" class="text-danger"><i class="ri-close-circle-line fs-17 align-middle"></i> No enviado</td>
+                                                                                            <td align="center"><p class="ms-3">-</p></td>
                                                                                         </tr>
-                                                                                        @php
-                                                                                            $value=1;
-                                                                                        @endphp
                                                                                     @endif
+                                                                                    @php
+                                                                                        $value=0;
+                                                                                    @endphp
                                                                                 @endforeach
-                                                                                @if($value != 1)
-                                                                                    <tr>
-                                                                                        <td>{{$exp->tipo_doc}}</td>
-                                                                                        <td align="center"><p class="ms-4">-</p></td>
-                                                                                        <td align="center" class="text-danger"><i class="ri-close-circle-line fs-17 align-middle"></i> No enviado</td>
-                                                                                        <td align="center"><p class="ms-3">-</p></td>
-                                                                                    </tr>
-                                                                                @endif
-                                                                                @php
-                                                                                    $value=0;
-                                                                                @endphp
-                                                                            @endforeach
-                                                                            <tr>
-                                                                                <td>Ficha de inscripción</td>
-                                                                                <td align="center">{{date('d/m/Y', strtotime($inscrip->fecha_inscripcion))}}</td>
-                                                                                <td align="center" class="text-success"><i class="ri-checkbox-circle-line fs-17 align-middle"></i> Generado</td>
-                                                                                <td align="center">
-                                                                                    <a target="_blank" href="{{asset($inscrip->inscripcion)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="ri-file-download-line bx-sm bx-burst-hover"></i></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
+                                                                                <tr>
+                                                                                    <td>Ficha de inscripción</td>
+                                                                                    <td align="center">{{date('d/m/Y', strtotime($inscrip->fecha_inscripcion))}}</td>
+                                                                                    <td align="center" class="text-success"><i class="ri-checkbox-circle-line fs-17 align-middle"></i> Generado</td>
+                                                                                    <td align="center">
+                                                                                        <a target="_blank" href="{{asset($inscrip->inscripcion)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="ri-file-download-line bx-sm bx-burst-hover"></i></a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    @php
+                                                        $evaluacion = App\Models\Evaluacion::where('inscripcion_id', $item->id_inscripcion)->first();
+                                                    @endphp
+                                                    @if ($evaluacion == null)
+                                                    <a href="#modalCambiarPrograma" wire:click="cargarInscripcion({{ $item->id_inscripcion }})" class="link-primary fs-16" data-bs-toggle="modal" data-bs-target="#modalCambiarPrograma"><i class="ri-pencil-line"></i></a>
+                                                    @endif
                                                 </div>
-                                                @php
-                                                    $evaluacion = App\Models\Evaluacion::where('inscripcion_id', $item->id_inscripcion)->first();
-                                                @endphp
-                                                @if ($evaluacion == null)
-                                                <a href="#modalCambiarPrograma" wire:click="cargarInscripcion({{ $item->id_inscripcion }})" class="link-primary fs-16" data-bs-toggle="modal" data-bs-target="#modalCambiarPrograma"><i class="ri-pencil-line"></i></a>
-                                                @endif
                                             </td>
                                         </tr>
                                     @endif

@@ -833,7 +833,7 @@
         <div style="margin-top: 0.6rem;"></div>
         @if ($seguimiento_count > 0)
         <div style="font-size: small; text-align: justify; margin-top: 0.6rem; margin-bottom: 0.6rem; font-weight: 700;">
-            Declaro bajo juramento regularizar mi constancia de registro ante la SUNEDU en un plazo máximo de 6 meses hábiles en el caso de Maestría, o de 1 año en el caso de Doctorado.
+            Declaro bajo juramento regularizar mi constancia de registro ante la SUNEDU en un plazo máximo de 6 meses hábiles en el caso de Maestría, o de 1 año en el caso de Doctorado, caso contrario se procederá a la cancelación de mi ingreso a la Escuela de Postgrado.
         </div>
         @endif
         <table class="table"  style="width:100%; margin-top: 1rem;">

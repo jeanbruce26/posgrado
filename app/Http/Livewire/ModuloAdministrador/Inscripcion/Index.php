@@ -5,6 +5,7 @@ namespace App\Http\Livewire\ModuloAdministrador\Inscripcion;
 use App\Models\Admision;
 use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
+use App\Models\ExpedienteInscripcionSeguimiento;
 use App\Models\Inscripcion;
 use App\Models\InscripcionPago;
 use App\Models\Mencion;
@@ -138,6 +139,13 @@ class Index extends Component
                     })
                     ->get();
 
+        // verificamos si tiene expediente en seguimientos
+        $seguimiento_count = ExpedienteInscripcionSeguimiento::join('ex_insc', 'ex_insc.cod_ex_insc', '=', 'expediente_inscripcion_seguimiento.cod_ex_insc')
+                                                        ->where('ex_insc.id_inscripcion', $id)
+                                                        ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
+                                                        ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
+                                                        ->count();
+
         $data = [ 
             'persona' => $per,
             'fecha_actual' => $fecha_actual,
@@ -150,6 +158,7 @@ class Index extends Component
             'final' => $final,
             'expedienteInscripcion' => $expedienteInscripcion,
             'expedi' => $expedi,
+            'seguimiento_count' => $seguimiento_count
         ];
 
         $nombre_pdf = 'FICHA_INSCRIPCION.pdf';
@@ -170,6 +179,7 @@ class Index extends Component
                 ->where('persona.nombres','LIKE',"%{$this->search}%")
                 ->orWhere('persona.apell_pater','LIKE',"%{$this->search}%")
                 ->orWhere('persona.apell_mater','LIKE',"%{$this->search}%")
+                ->orWhere('persona.nombre_completo','LIKE',"%{$this->search}%")
                 ->orWhere('inscripcion.id_inscripcion','LIKE',"%{$this->search}%")
                 ->orWhere('persona.num_doc','LIKE',"%{$this->search}%")
                 ->orderBy('inscripcion.id_inscripcion','DESC')->paginate(100);

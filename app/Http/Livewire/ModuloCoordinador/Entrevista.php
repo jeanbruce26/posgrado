@@ -49,6 +49,8 @@ class Entrevista extends Component
 
     public function cargarId(EvaluacionEntrevistaItem $id)
     {
+        $this->limpiar();
+        
         $this->evaluacion_entrevista_item_id = $id->evaluacion_entrevista_item_id;
         $eval_entre_item = EvaluacionEntrevistaItem::find($this->evaluacion_entrevista_item_id);
         $eva = EvaluacionEntrevista::where('evaluacion_entrevista_item_id',$eval_entre_item->evaluacion_entrevista_item_id)->where('evaluacion_id',$this->evaluacion_id)->first();

@@ -42,12 +42,14 @@ class Login extends Component
                 if($validar_usuario){
                     if($usuario->trabajador_tipo_trabajador_id){
                         $tra_tipo_tra = TrabajadorTipoTrabajador::where('trabajador_tipo_trabajador_id', $usuario->trabajador_tipo_trabajador_id)->first();
-    
                         if($tra_tipo_tra->tipo_trabajador_id == 3){
                             $administrativo = Administrativo::where('trabajador_id',$tra_tipo_tra->trabajador_id)->first();
                             if($administrativo->AreaAdministrativo->area_id == 3){
                                 auth('admin')->login($usuario);
                                 return redirect()->route('admin.index');
+                            }elseif($administrativo->AreaAdministrativo->area_id == 1){
+                                    auth('admin')->login($usuario);
+                                    return redirect()->route('contable.index');
                             }else{
                                 return redirect()->back()->with(array('mensaje'=>'Usuario administrativo'));
                             }

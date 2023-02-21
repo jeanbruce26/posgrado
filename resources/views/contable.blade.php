@@ -115,8 +115,6 @@
 
                                 <div class="dropdown-divider"></div>
 
-                                {{-- <a class="dropdown-item" href="#"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a> --}}
-
                                 <a class="dropdown-item" href="{{ route('admin.logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
@@ -157,18 +155,22 @@
             </div>
 
             <div id="scrollbar">
-                <div class="container-fluid">
-
+                <div class="container-fluid"> 
                     <div id="two-column-menu">
                     </div>
                     <!-- Left Menu Start -->
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menú</span></li>
-
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{ route('coordinador.index') }}" role="button"
+                            <a class="nav-link menu-link fw-bold" href="{{ route('contable.index') }}" role="button"
                                 aria-expanded="false" aria-controls="sidebarDashboard">
-                                <i class="mdi mdi-view-grid-plus-outline"></i> <span data-key="t-apps">Inicio</span>
+                                <i class="mdi mdi-view-grid-plus-outline"></i> <span data-key="t-apps">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link fw-bold" href="{{ route('contable.inscripcion') }}" role="button"
+                                aria-expanded="false" aria-controls="sidebarDashboard">
+                                <i class="mdi mdi-clipboard-file-outline"></i> <span data-key="t-apps">Inscripcion</span>
                             </a>
                         </li>
                     </ul>
@@ -227,7 +229,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- JAVASCRIPT -->
     <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
