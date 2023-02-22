@@ -63,6 +63,8 @@ Route::prefix('coordinador')->middleware(['auth:admin','auth.coordinador'])->gro
     Route::get('/reportes/{id}/maestria', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'reportes_maestria'])->name('coordinador.reportes.maestria');
     Route::get('/reportes/{id}/doctorado', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'reportes_doctorado'])->name('coordinador.reportes.doctorado');
     Route::get('/perfil', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'perfil'])->name('coordinador.perfil.index');
+    Route::get('/inscripciones', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'modulo_inscripcion_index'])->name('coordinador.modulo-inscripcion-index.index');
+    Route::get('/inscripciones/{id}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'modulo_inscripcion'])->name('coordinador.modulo-inscripcion.index');
 });
 
 

@@ -63,64 +63,6 @@
                 </div><!-- end col -->
             @endforeach
             </div>
-
-            <div class="card">
-                <div class="card-header align-items-center">
-                    <div class=" d-flex justify-content-between align-items-center">
-                        <h4 class="card-title mb-0 flex-grow-1 fw-bold">COORDINADOR DE LA {{$facultad->Facultad->facultad}} </h4>
-                        {{-- <a href="#newModal" type="button" class="btn btn-x1 btn-primary pull-right d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#newModal">Nuevo <i class="ri-add-circle-fill ms-1"></i></a> --}}
-                    </div>
-                </div><!-- end card header -->
-    
-                <div class="card-body">
-                    <div class="live-preview">
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle table-nowrap table-bordered mb-0">
-                                <thead>
-                                    <tr align="center" style="background-color: rgb(179, 197, 245)">
-                                        <th class="col-1">ID</th>
-                                        <th>Inscripcion</th>
-                                        <th>Programa</th>
-                                        <th>Fecha</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($mostrarInscripcion as $item)
-                                        <tr>
-                                            <td align="center" class="fw-bold">{{$item->id_inscripcion}}</td>
-                                            <td>{{$item->Persona->apell_pater}} {{$item->Persona->apell_mater}}, {{$item->Persona->nombres}}</td>
-                                            <td>
-                                                @if ($item->mencion == null)
-                                                    @if ($item->descripcion_programa == 'DOCTORADO')
-                                                    DOCTORADO EN {{$item->subprograma}}
-                                                    @else
-                                                    MAESTRIA EN {{$item->subprograma}}
-                                                    @endif
-                                                @else
-                                                    @if ($item->descripcion_programa == 'DOCTORADO')
-                                                    DOCTORADO EN {{$item->subprograma}}
-                                                    @else
-                                                    MENCION EN {{$item->mencion}}
-                                                    @endif
-                                                @endif
-                                            </td>
-                                            <td align="center">
-                                                {{date('h:i A - d/m/Y', strtotime($item->fecha_inscripcion))}}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    @if ($mostrarInscripcion->count() == 0)
-                                        <tr>
-                                            <td colspan="4" align="center" class="text-muted">No hay inscripciones</td>
-                                        </tr>
-                                        
-                                    @endif
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div><!-- end card-body -->
-            </div><!-- end card -->
         </div>
     </div>
     <!-- end row -->

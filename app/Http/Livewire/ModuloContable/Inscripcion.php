@@ -21,7 +21,7 @@ class Inscripcion extends Component
 
         $this->dispatchBrowserEvent('notificacionExcel', ['message' =>'Excel exportado satisfactoriamente.', 'color' => '#2eb867']);
 
-        return Excel::download(new ContableInscripcionExport, 'pago-inscipciones-'.$fecha_actual.'-'.$hora_actual.'.xlsx');
+        return Excel::download(new ContableInscripcionExport, 'pago-inscripciones-'.$fecha_actual.'-'.$hora_actual.'.xlsx');
     }
     
     public function render()

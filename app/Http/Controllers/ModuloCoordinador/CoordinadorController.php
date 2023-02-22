@@ -165,4 +165,30 @@ class CoordinadorController extends Controller
             'tipo' => $tipo
         ]);
     }
+
+    public function modulo_inscripcion_index()
+    {
+        return view('modulo_coordinador.modulo-inscripcion.index');
+    }
+
+    public function modulo_inscripcion($id_mencion)
+    {
+        $dato_programa = Mencion::join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
+                                ->join('programa','subprograma.id_programa','=','programa.id_programa')
+                                ->where('mencion.id_mencion',$id_mencion)
+                                ->first();
+
+        if($dato_programa->mencion === null){
+            $programa = $dato_programa->descripcion_programa . ' EN ' . $dato_programa->subprograma;
+            $programa = ucwords(strtolower($programa));
+        }else{
+            $programa = 'MENCION EN ' . $dato_programa->mencion;
+            $programa = ucwords(strtolower($programa));
+        }
+
+        return view('modulo_coordinador.modulo-inscripcion.inscripciones', [
+            'id_mencion' => $id_mencion,
+            'programa' => $programa
+        ]);
+    }
 }

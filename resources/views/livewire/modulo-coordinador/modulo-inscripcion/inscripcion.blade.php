@@ -21,24 +21,39 @@
                                     <th scope="col">ID</th>
                                     <th scope="col" class="col-md-3">Apellidos y Nombres</th>
                                     <th scope="col">Documento</th>
+                                    <th scope="col">Celular</th>
+                                    <th scope="col">Correo Electrónico</th>
                                     <th scope="col">Nro. Operacion</th>
                                     <th scope="col">Monto</th>
                                     <th scope="col">Fecha</th>
-                                    <th scope="col">Programa</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($inscripcion as $item)
+                                @foreach ($inscripciones_pagos as $item)
                                     @if($item->persona_idpersona!=null)
                                         <tr>
                                             <td align="center" class="fw-bold">
                                                 {{ $item->id_inscripcion }}
                                             </td>
-                                            <td>
+                                            <td style="white-space: initial">
                                                 {{ $item->nombre_completo }}
                                             </td>
                                             <td align="center">
                                                 {{ $item->num_doc }}
+                                            </td>
+                                            <td align="center">
+                                                +51 {{ $item->celular1 }}
+                                                @if ($item->celular2)
+                                                    <br>
+                                                    +51 {{ $item->celular2 }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                - {{ $item->email }}
+                                                @if ($item->email2)
+                                                    <br>
+                                                    - {{ $item->email2 }}
+                                                @endif
                                             </td>
                                             <td align="center">
                                                 {{ $item->nro_operacion }}
@@ -49,27 +64,16 @@
                                             <td align="center">
                                                 {{ date('d/m/Y', strtotime($item->fecha_pago)) }}
                                             </td>
-                                            <td style="white-space: initial">
-                                                @if ($item->mencion == null)
-                                                    {{$item->descripcion_programa}} EN {{$item->subprograma}}
-                                                @else
-                                                    MENCION EN {{$item->mencion}}
-                                                @endif
-                                            </td>
                                         </tr>
                                     @endif
                                 @endforeach
                             </tbody>
                         </table>
-                        @if ($inscripcion->count())
-                            <div class="mt-2 d-flex justify-content-end text-muted">
-                                {{ $inscripcion->links() }}
-                            </div>
-                        @elseif ($inscripcion->count() && $search != '')
+                        @if ($inscripciones_pagos->count() == 0 && $search != null)
                             <div class="text-center p-3 text-muted">
                                 <span>No hay resultados para la busqueda "<strong>{{ $search }}</strong>"</span>
                             </div>
-                        @elseif ($inscripcion->count() == 0)
+                        @elseif ($inscripciones_pagos->count() == 0 && $search == null)
                             <div class="text-center p-3 text-muted">
                                 <span>No hay registros</span>
                             </div>
