@@ -463,11 +463,11 @@ class Create extends Component
         }
 
         if($persona_buscar){
-            $persona_buscar->apell_pater = $this->apellido_paterno;
-            $persona_buscar->apell_mater = $this->apellido_materno;
-            $persona_buscar->nombres = $this->nombres;
-            $persona_buscar->nombre_completo = $this->apellido_paterno.' '.$this->apellido_materno.' '.$this->nombres;
-            $persona_buscar->direccion = $this->direccion;
+            $persona_buscar->apell_pater = strtoupper($persona_buscar->apell_pater);
+            $persona_buscar->apell_mater = strtoupper($this->apellido_materno);
+            $persona_buscar->nombres = strtoupper($this->nombres);
+            $persona_buscar->nombre_completo = strtoupper($this->apellido_paterno.' '.$this->apellido_materno.' '.$this->nombres);
+            $persona_buscar->direccion = strtoupper($this->direccion);
             $persona_buscar->celular1 = $this->celular;
             $persona_buscar->celular2 = $this->celular_opcional;
             $persona_buscar->sexo = $this->genero;
@@ -475,13 +475,13 @@ class Create extends Component
             $persona_buscar->email = $this->correo;
             $persona_buscar->email2 = $this->correo_opcional;
             $persona_buscar->año_egreso = $this->año_egreso;
-            $persona_buscar->centro_trab = $this->trabajo;
+            $persona_buscar->centro_trab = strtoupper($this->trabajo);
             $persona_buscar->discapacidad_cod_disc = $this->discapacidad;
             $persona_buscar->est_civil_cod_est = $this->estado_civil;
             $persona_buscar->univer_cod_uni = $this->universidad;
             $persona_buscar->id_grado_academico = $this->grado_academico;
-            $persona_buscar->especialidad = $this->especialidad;
-            $persona_buscar->pais_extra = $pais;
+            $persona_buscar->especialidad = strtoupper($this->especialidad);
+            $persona_buscar->pais_extra = strtoupper($pais);
             $persona_buscar->save();
 
             $this->id_persona = $persona_buscar->idpersona;
@@ -500,11 +500,11 @@ class Create extends Component
         }else{
             $persona = new Persona();
             $persona->num_doc = auth('pagos')->user()->dni;
-            $persona->apell_pater = $this->apellido_paterno;
-            $persona->apell_mater = $this->apellido_materno;
-            $persona->nombres = $this->nombres;
-            $persona->nombre_completo = $this->apellido_paterno.' '.$this->apellido_materno.' '.$this->nombres;
-            $persona->direccion = $this->direccion;
+            $persona->apell_pater = strtoupper($this->apellido_paterno);
+            $persona->apell_mater = strtoupper($this->apellido_materno);
+            $persona->nombres = strtoupper($this->nombres);
+            $persona->nombre_completo = strtoupper($this->apellido_paterno.' '.$this->apellido_materno.' '.$this->nombres);
+            $persona->direccion = strtoupper($this->direccion);
             $persona->celular1 = $this->celular;
             $persona->celular2 = $this->celular_opcional;
             $persona->sexo = $this->genero;
@@ -512,13 +512,13 @@ class Create extends Component
             $persona->email = $this->correo;
             $persona->email2 = $this->correo_opcional;
             $persona->año_egreso = $this->año_egreso;
-            $persona->centro_trab = $this->trabajo;
+            $persona->centro_trab = strtoupper($this->trabajo);
             $persona->discapacidad_cod_disc = $this->discapacidad;
             $persona->est_civil_cod_est = $this->estado_civil;
             $persona->univer_cod_uni = $this->universidad;
             $persona->id_grado_academico = $this->grado_academico;
-            $persona->especialidad = $this->especialidad;
-            $persona->pais_extra = $pais;
+            $persona->especialidad = strtoupper($this->especialidad);
+            $persona->pais_extra = strtoupper($pais);
             $persona->save();
     
             $this->id_persona = $persona->idpersona;
