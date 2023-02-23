@@ -286,14 +286,16 @@
                     </div>
                 </div>
             </div>
-            <div class="alert alert-info alert-top-border alert-dismissible shadow fade mb-4 show" role="alert">
-                <i class="ri-error-warning-line me-2 align-middle fs-18 text-info"></i>
+            <div class="alert alert-danger alert-top-border alert-dismissible shadow fade mb-4 show" role="alert">
+                <i class="ri-error-warning-line me-2 align-middle fs-18 text-danger"></i>
                 <strong>
-                    <span class="text-info fs-5">¡Importante!</span>
+                    <span class="text-danger fs-5">
+                        ¡Importante! - La casilla debe ser marcada sólo si no se cumple con el requisito de constancia de registro de la SUNEDU.
+                    </span>
                 </strong>
                 <span class="d-flex justify-content-star align-items-center ms-1 my-2 fw-bold">
                     <input type="checkbox" wire:model="check_expediente" class="me-2">
-                    <span style="cursor: pointer; color: #282828" class="text-uppercase">
+                    <span style="cursor: pointer; color: #363636" class="text-uppercase ms-1">
                         En caso de no disponer de mi constancia de registro de la SUNEDU, presentaré un documento que acredite que se encuentra en trámite (resolución de grado, grado academico, entre otros).
                     </span>
                 </span>
