@@ -10,10 +10,12 @@ use App\Models\Inscripcion;
 use App\Models\InscripcionPago;
 use App\Models\Mencion;
 use App\Models\Persona;
+use App\Models\Programa;
 use App\Models\SubPrograma;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\File;
 
 class Index extends Component
 {
@@ -29,10 +31,14 @@ class Index extends Component
     //variables
     public $inscripcion_id;
     public $programa;
+    public $programa_nombre;
+    public $programa_model = null;
     public $subprograma;
     public $subprograma_model = null;
     public $mencion;
     public $mencion_model = null;
+    
+    public $tipo_expediente;
 
     protected $listeners = [
         'render', 'cambiarPrograma', 'cambiarSeguimiento'
@@ -59,10 +65,22 @@ class Index extends Component
     public function cargarInscripcion(Inscripcion $inscripcion)
     {   
         $this->inscripcion_id = $inscripcion->id_inscripcion;
-        $this->programa = ucfirst(strtolower($inscripcion->mencion->subprograma->programa->descripcion_programa));
+        $this->programa_model = Programa::where('id_sede',$inscripcion->mencion->subprograma->programa->sede->cod_sede)->get();
+        $this->programa = $inscripcion->mencion->subprograma->programa->id_programa;
+        $this->programa_nombre = ucfirst(strtolower($inscripcion->mencion->subprograma->programa->descripcion_programa));
         $this->subprograma_model = SubPrograma::where('id_programa',$inscripcion->mencion->subprograma->programa->id_programa)->get();
         $this->subprograma = $inscripcion->mencion->subprograma->id_subprograma;
         $this->updatedSubPrograma($this->subprograma);
+    }
+
+    public function updatedPrograma($programa)
+    {
+        $pro = Programa::find($programa);
+        $this->programa_nombre = ucfirst(strtolower($pro->descripcion_programa));
+        $this->subprograma_model = SubPrograma::where('id_programa',$programa)->get();
+        $this->subprograma = null;
+        $this->mencion_model = collect();
+        $this->mencion = null;
     }
 
     public function updatedSubPrograma($subprograma){
@@ -93,9 +111,33 @@ class Index extends Component
 
     public function cambiarPrograma()
     {
+        $programa = Programa::find($this->programa);
         $inscripcion = Inscripcion::find($this->inscripcion_id);
+        if($programa->descripcion_programa === 'DOCTORADO'){
+            $inscripcion->tipo_programa = 2;
+            $this->tipo_expediente = 2;
+        }else{
+            $inscripcion->tipo_programa = 1;
+            $this->tipo_expediente = 1;
+        }
         $inscripcion->id_mencion = $this->mencion;
         $inscripcion->save();
+
+        // Eliminar expedientes de la inscripcion que no son del programa elegido
+        $expediente_inscripcion = ExpedienteInscripcion::where('id_inscripcion',$this->inscripcion_id)->get();
+        // delete storage file and database
+        foreach($expediente_inscripcion as $exp){
+            $expediente = Expediente::where('cod_exp', $exp->expediente_cod_exp)
+                                        ->where(function($query){
+                                            $query->where('expediente_tipo', 0)
+                                                ->orWhere('expediente_tipo', $this->tipo_expediente);
+                                        })
+                                        ->first();
+            if($expediente === null){
+                $exp->delete();
+                File::delete($exp->nom_exped);
+            }
+        }
         
         $this->limpiar();
         $this->dispatchBrowserEvent('modalCambiarPrograma');

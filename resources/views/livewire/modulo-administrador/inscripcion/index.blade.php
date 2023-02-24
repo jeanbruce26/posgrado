@@ -175,12 +175,20 @@
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label class="form-label">Programa <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('programa') is-invalid  @enderror"
-                                    wire:model="programa" readonly>
+                                <select class="form-select @error('programa') is-invalid  @enderror"
+                                    wire:model="programa">
+                                    <option value="" selected>Seleccione</option>
+                                    @if ($programa_model)
+                                    @foreach ($programa_model as $item)
+                                        <option value="{{ $item->id_programa }}">{{ $item->descripcion_programa }}
+                                        </option>
+                                    @endforeach
+                                    @endif
+                                </select>
                             </div>
 
                             <div class="mb-3 col-md-12">
-                                <label class="form-label">@if($programa) {{ $programa }} @endif <span class="text-danger">*</span></label>
+                                <label class="form-label">@if($programa_nombre) {{ $programa_nombre }} @else Esperando Programa... @endif <span class="text-danger">*</span></label>
                                 <select class="form-select @error('subprograma') is-invalid  @enderror"
                                     wire:model="subprograma">
                                     <option value="" selected>Seleccione</option>
