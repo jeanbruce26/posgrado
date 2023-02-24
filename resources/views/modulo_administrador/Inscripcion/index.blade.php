@@ -43,11 +43,35 @@
             }
         })
     })
+    window.addEventListener('alertaSeguimiento', event => {
+        // alert('Name updated to: ' + event.detail.id);
+        Swal.fire({
+            title: '¿Estás seguro de quitar el seguimiento de expediente de esta inscripción?',
+            text: "",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Modificar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-administrador.inscripcion.index', 'cambiarSeguimiento');
+            }
+        })
+    })
     window.addEventListener('alertaSuccess', event => {
         Swal.fire(
             event.detail.titulo,
             event.detail.mensaje,
             'success'
+        )
+    });
+    window.addEventListener('alertaError', event => {
+        Swal.fire(
+            event.detail.titulo,
+            event.detail.mensaje,
+            'error'
         )
     });
 </script>

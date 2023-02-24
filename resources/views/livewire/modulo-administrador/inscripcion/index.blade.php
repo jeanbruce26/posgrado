@@ -30,6 +30,8 @@
                                 @php
                                     $expediente_seguimiento_count = App\Models\ExpedienteInscripcionSeguimiento::join('ex_insc', 'expediente_inscripcion_seguimiento.cod_ex_insc', '=', 'ex_insc.cod_ex_insc')
                                                 ->where('id_inscripcion', $item->id_inscripcion)
+                                                ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
+                                                ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
                                                 ->count();
                                 @endphp
                                     @if($item->persona_idpersona!=null)
@@ -52,7 +54,7 @@
                                                 @endif
                                             </td>
                                             <td align="center">
-                                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                                <div class="d-flex justify-content-center align-items-center gap-2">
                                                     <a href="#showModal" class="link-info fs-16" data-bs-toggle="modal" data-bs-target="#showModal{{$item->id_inscripcion}}"><i class="ri-file-text-line"></i></a>
                                                     {{-- Modal Show --}}
                                                     <div wire:ignore.self class="modal fade" id="showModal{{$item->id_inscripcion}}" tabindex="-1" aria-labelledby="showModal" aria-hidden="true">
@@ -138,6 +140,7 @@
                                                     @if ($evaluacion == null)
                                                     <a href="#modalCambiarPrograma" wire:click="cargarInscripcion({{ $item->id_inscripcion }})" class="link-primary fs-16" data-bs-toggle="modal" data-bs-target="#modalCambiarPrograma"><i class="ri-pencil-line"></i></a>
                                                     @endif
+                                                    <a wire:click="cargarAlertaSeguimiento({{ $item->id_inscripcion }})" class="link-danger fs-16" style="cursor: pointer;"><i class="ri-close-circle-line"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -236,4 +239,40 @@
             </div>
         </div>
     </div>
+    {{-- modal cambiar seguimiento --}}
+    {{-- <div wire:ignore.self class="modal fade" id="modalSeguimiento" tabindex="-1" aria-labelledby="modalSeguimiento" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="showModalLabel">Cambiar Seguimiento de Expediente</h5>
+                    <button type="button" wire:click="limpiar()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form novalidate>
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label class="form-label">Programa <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('programa') is-invalid  @enderror"
+                                    wire:model="programa" readonly>
+                            </div>
+                            
+                            <div class="mb-3 col-md-12">
+                                <label class="form-label">Programa <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('programa') is-invalid  @enderror"
+                                    wire:model="programa" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer col-12 d-flex justify-content-between">
+                    <button type="button" wire:click="limpiar()"
+                        class="btn btn-secondary btn-label waves-effect waves-light w-md" data-bs-dismiss="modal"><i
+                            class="ri-arrow-left-s-line label-icon align-middle fs-16 me-2"></i> Cancelar</button>
+                    <button type="button" wire:click="guardarCambioPrograma()"
+                        class="btn btn-primary btn-label waves-effect right waves-light w-md"><i
+                            class="ri-check-double-fill label-icon align-middle fs-16 ms-2"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 </div>

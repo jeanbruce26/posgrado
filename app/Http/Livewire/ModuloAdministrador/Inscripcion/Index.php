@@ -35,7 +35,7 @@ class Index extends Component
     public $mencion_model = null;
 
     protected $listeners = [
-        'render', 'cambiarPrograma',
+        'render', 'cambiarPrograma', 'cambiarSeguimiento'
     ];
     
     public function updated($propertyName)
@@ -168,6 +168,41 @@ class Index extends Component
         $ins = Inscripcion::find($id);
         $ins->inscripcion = $path_pdf;
         $ins->save();
+    }
+
+    public function cargarAlertaSeguimiento($id)
+    {
+        $this->inscripcion_id = $id;
+        $expediente_seguimiento = ExpedienteInscripcionSeguimiento::join('ex_insc', 'ex_insc.cod_ex_insc', '=', 'expediente_inscripcion_seguimiento.cod_ex_insc')
+                                                        ->where('ex_insc.id_inscripcion', $id)
+                                                        ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
+                                                        ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
+                                                        ->count();
+        if($expediente_seguimiento > 0){
+            $this->dispatchBrowserEvent('alertaSeguimiento');
+        }else{
+            $this->dispatchBrowserEvent('alertaError', [
+                'titulo' => '¡Error!',
+                'mensaje' => 'No se puede modificar su inscripción, porque no tiene expediente en seguimiento.'
+            ]);
+        }
+    }
+
+    public function cambiarSeguimiento()
+    {
+        $expediente_seguimiento = ExpedienteInscripcionSeguimiento::join('ex_insc', 'ex_insc.cod_ex_insc', '=', 'expediente_inscripcion_seguimiento.cod_ex_insc')
+                                                        ->where('ex_insc.id_inscripcion', $this->inscripcion_id)
+                                                        ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
+                                                        ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
+                                                        ->get();
+        foreach($expediente_seguimiento as $item){
+            $item->expediente_inscripcion_seguimiento_estado = 0;
+            $item->save();
+        }
+        $this->dispatchBrowserEvent('alertaSuccess', [
+            'titulo' => '¡Éxito!',
+            'mensaje' => 'Se ha cambiado el seguimiento correctamente.'
+        ]);
     }
 
     public function render()
