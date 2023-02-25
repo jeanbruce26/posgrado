@@ -21,11 +21,12 @@
                                     <th scope="col">ID</th>
                                     <th scope="col" class="col-md-3">Apellidos y Nombres</th>
                                     <th scope="col">Documento</th>
+                                    <th scope="col">Fecha de Inscripción</th>
                                     <th scope="col">Celular</th>
                                     <th scope="col">Correo Electrónico</th>
                                     <th scope="col">Nro. Operacion</th>
                                     <th scope="col">Monto</th>
-                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Fecha de Pago</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,6 +43,9 @@
                                                 {{ $item->num_doc }}
                                             </td>
                                             <td align="center">
+                                                {{ date('d/m/Y', strtotime($item->fecha_inscripcion)) }}
+                                            </td>
+                                            <td align="center">
                                                 +51 {{ $item->celular1 }}
                                                 @if ($item->celular2)
                                                     <br>
@@ -49,17 +53,17 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                - {{ $item->email }}
+                                                {{ $item->email }}
                                                 @if ($item->email2)
                                                     <br>
-                                                    - {{ $item->email2 }}
+                                                    {{ $item->email2 }}
                                                 @endif
                                             </td>
                                             <td align="center">
                                                 {{ $item->nro_operacion }}
                                             </td>
                                             <td align="center">
-                                                {{ $item->monto }}
+                                                S/. {{ $item->monto }}
                                             </td>
                                             <td align="center">
                                                 {{ date('d/m/Y', strtotime($item->fecha_pago)) }}

@@ -167,7 +167,7 @@
                         <li class="nav-item">
                             <a class="nav-link menu-link fw-bold" href="{{ route('coordinador.index') }}" role="button"
                                 aria-expanded="false" aria-controls="sidebarDashboard">
-                                <i class="mdi mdi-view-grid-plus-outline"></i> <span data-key="t-apps">Dashboard</span>
+                                <i class="mdi mdi-view-grid-plus-outline"></i> <span data-key="t-apps">Admision 2023 - I</span>
                             </a>
                         </li>
                         <li class="nav-item">
