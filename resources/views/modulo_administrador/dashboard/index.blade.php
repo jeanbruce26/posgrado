@@ -77,12 +77,12 @@
 
 <div class="card">
     <div class="card-header">
-        <h5 class="card-title mb-0 text-uppercase font-bold">Reporte de Inscritos por Programa</h5>
+        <h5 class="card-title mb-0 ms-2 text-uppercase font-bold">Reporte de Inscritos por Programa en Mastría</h5>
     </div>
     <div class="card-body">
         <div class="table-responsive table-card">
             <table class="table table-nowrap mb-0">
-                <thead class="table-light">
+                <thead class="" style="background-color: #d9ffe3">
                     <tr align="center">
                         <th scope="col" class="col-md-1">NRO</th>
                         <th scope="col" class="col-md-9">PROGRAMA</th>
@@ -90,10 +90,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($programas as $item)
+                    @foreach ($programas_maestria as $item)
                     <tr>
                         <td align="center" class="fw-bold fs-5">{{ $loop->iteration }}</td>
-                        <td style="white-space: initial" class="fs-5">
+                        <td style="white-space: initial" class="fs-5 text-uppercase">
                             @if ($item->mencion === null)
                                 {{ ucwords(strtolower($item->descripcion_programa))  }} en {{ ucwords(strtolower($item->subprograma)) }}
                             @else
@@ -103,16 +103,65 @@
                         <td align="center" class="fs-5">{{ $item->cantidad_mencion }}</td>
                     </tr>
                     @endforeach
-                    @if ($programas->count() === 0)
+                    @if ($programas_maestria->count() === 0)
                         <tr>
-                            <td colspan="3" class="text-center text-muted">No hay inscritos</td>
+                            <td colspan="3" class="text-center text-muted">
+                                No hay inscritos en los programas de maestría
+                            </td>
                         </tr>
                     @endif
                 </tbody>
                 <tfoot>
                     <tr class="table-light" align="center">
                         <td colspan="2" class="text-end fw-bold fs-6">TOTAL</td>
-                        <td class="fw-bold fs-5">{{ $programas->sum('cantidad_mencion') }}</td>
+                        <td class="fw-bold fs-5">{{ $programas_maestria->sum('cantidad_mencion') }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0 ms-2 text-uppercase font-bold">Reporte de Inscritos por Programa de Doctorado</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table table-nowrap mb-0">
+                <thead class="" style="background-color: #dcedff">
+                    <tr align="center">
+                        <th scope="col" class="col-md-1">NRO</th>
+                        <th scope="col" class="col-md-9">PROGRAMA</th>
+                        <th scope="col" class="col-md-2">CANTIDAD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($programas_doctorado as $item)
+                    <tr>
+                        <td align="center" class="fw-bold fs-5">{{ $loop->iteration }}</td>
+                        <td style="white-space: initial" class="fs-5 text-uppercase">
+                            @if ($item->mencion === null)
+                                {{ ucwords(strtolower($item->descripcion_programa))  }} en {{ ucwords(strtolower($item->subprograma)) }}
+                            @else
+                                Mención en {{ ucwords(strtolower($item->mencion)) }}
+                            @endif
+                        </td>
+                        <td align="center" class="fs-5">{{ $item->cantidad_mencion }}</td>
+                    </tr>
+                    @endforeach
+                    @if ($programas_doctorado->count() === 0)
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">
+                                No hay inscritos en los programas de doctorado
+                            </td>
+                        </tr>
+                    @endif
+                </tbody>
+                <tfoot>
+                    <tr class="table-light" align="center">
+                        <td colspan="2" class="text-end fw-bold fs-6">TOTAL</td>
+                        <td class="fw-bold fs-5">{{ $programas_doctorado->sum('cantidad_mencion') }}</td>
                     </tr>
                 </tfoot>
             </table>
