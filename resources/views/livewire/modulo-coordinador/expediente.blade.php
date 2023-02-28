@@ -23,7 +23,7 @@
             </span>
         </div>
     </div>
-    <div class="alert alert-info alert-dismissible alert-additional shadow fade show" role="alert">
+    {{-- <div class="alert alert-info alert-dismissible alert-additional shadow fade show" role="alert">
         <div class="alert-body">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <div class="d-flex">
@@ -41,19 +41,24 @@
             <p class="mb-1">
                 - El puntaje maximo para la evaluación de expediente de maestria es de {{ number_format($puntaje_model->puntaje_maximo_expediente_maestria) }} puntos.
             </p>
-            <p class="mb-0">
-                - El puntaje minimo para aprobar las evaluaciones de maestria es tener una sumatoria de {{ number_format($puntaje_model->puntaje_minimo_final_maestria) }} puntos.
-            </p>
             @else
             <p class="mb-1">
                 - El puntaje maximo para la evaluación de expediente de doctorado es de {{ number_format($puntaje_model->puntaje_maximo_expediente_doctorado) }} puntos.
             </p>
-            <p class="mb-0">
-                - El puntaje minimo para aprobar las evaluaciones de doctorado es tener una sumatoria de {{ number_format($puntaje_model->puntaje_minimo_final_doctorado) }} puntos.
-            </p>
             @endif
         </div>
+    </div> --}}
+    @if ($seguimiento_expediente_count > 0)
+    <div class="alert alert-danger alert-top-border alert-dismissible shadow fade show" role="alert">
+        <div class="d-flex align-items-center mt-1">
+            <i class="ri-error-warning-line me-3 align-middle fs-18 text-danger "></i>
+            <strong class="text-danger">
+                Observacíon: Alumno con declaracion de regulización de constancia en lina de la SUNEDU.
+            </strong>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    @endif
     <div class="row">
         @foreach ($expedientes as $item)  
         @php

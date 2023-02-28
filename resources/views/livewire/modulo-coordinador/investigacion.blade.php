@@ -23,7 +23,7 @@
             </span>
         </div>
     </div>
-    <div class="alert alert-info alert-dismissible alert-additional shadow fade show" role="alert">
+    {{-- <div class="alert alert-info alert-dismissible alert-additional shadow fade show" role="alert">
         <div class="alert-body">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <div class="d-flex">
@@ -40,11 +40,8 @@
             <p class="mb-1">
                 - El puntaje maximo para la evaluación de perfil de proyecto de investigacion de doctorado es de {{ number_format($puntaje_model->puntaje_maximo_investigacion_doctorado) }} puntos.
             </p>
-            <p class="mb-0">
-                - El puntaje minimo para aprobar las evaluaciones de doctorado es tener una sumatoria de {{ number_format($puntaje_model->puntaje_minimo_final_doctorado) }} puntos.
-            </p>
         </div>
-    </div>
+    </div> --}}
     <div class="row">
         @foreach ($expedientes as $item)  
         @php

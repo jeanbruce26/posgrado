@@ -8,7 +8,9 @@ use App\Models\Evaluacion;
 use App\Models\EvaluacionExpediente;
 use App\Models\EvaluacionExpedienteTitulo;
 use App\Models\ExpedienteInscripcion;
+use App\Models\ExpedienteInscripcionSeguimiento;
 use App\Models\ExpedienteTipoEvaluacion;
+use App\Models\ExpedienteTipoSeguimiento;
 use App\Models\ObservacionEvaluacion;
 use App\Models\Puntaje;
 use App\Models\TipoEvaluacion;
@@ -158,6 +160,12 @@ class Expediente extends Component
         $evaluacion_expediente = EvaluacionExpedienteTitulo::where('tipo_evaluacion_id', $this->tipo_evaluacion_id)->get();
         $puntaje_model = Puntaje::where('puntaje_estado', 1)->first();
 
+        $seguimiento_expediente_count = ExpedienteInscripcionSeguimiento::join('ex_insc', 'ex_insc.cod_ex_insc', '=', 'expediente_inscripcion_seguimiento.cod_ex_insc')
+                                                                        ->where('ex_insc.id_inscripcion', $evaluacion_data->inscripcion_id)
+                                                                        ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
+                                                                        ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
+                                                                        ->count();
+
         $expedientes = ExpedienteInscripcion::join('expediente', 'ex_insc.expediente_cod_exp', '=', 'expediente.cod_exp')
                         ->where('ex_insc.id_inscripcion',$evaluacion_data->inscripcion_id)
                         ->where(function($query) use ($inscripcion){
@@ -175,6 +183,7 @@ class Expediente extends Component
             'evaluacion_expediente' => $evaluacion_expediente,
             'puntaje_model' => $puntaje_model,
             'expedientes' => $expedientes,
+            'seguimiento_expediente_count' => $seguimiento_expediente_count, // para ver si tiene seguimiento de su expediente
         ]);
     }
 }
