@@ -16,85 +16,32 @@
                 @endif
             </div>
             @if($inscripciones_count != $evaluaciones_count)
-            <button type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Ver acta de evaluación" disabled><span>Ver acta de evaluación</span></button>
+            <button type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Generar acta de evaluación" disabled><span>Generar acta de evaluación</span></button>
             @else
                 @if ($mencion->descripcion_programa == 'DOCTORADO')
-                <a target="_blank" href="{{route('coordinador.reportes.doctorado',$id_mencion)}}" type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Ver acta de evaluación"><span>Ver acta de evaluación</span></a>
+                <a target="_blank" href="{{route('coordinador.reportes.doctorado',$id_mencion)}}" type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Generar acta de evaluación"><span>Generar acta de evaluación</span></a>
                 @else
-                <a target="_blank" href="{{route('coordinador.reportes.maestria',$id_mencion)}}" type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Ver acta de evaluación"><span>Ver acta de evaluación</span></a>
+                <a target="_blank" href="{{route('coordinador.reportes.maestria',$id_mencion)}}" type="button" class="btn btn-primary btn-animation waves-effect waves-light w-md fw-bold" data-text="Generar acta de evaluación"><span>Generar acta de evaluación</span></a>
                 @endif
             @endif
         </div>
     </div>
 
-    {{-- Alerta para mostrar la fecha de evaluación de expediente --}}
-    @if ($admision->fecha_evaluacion_expediente_inicio > today() || $admision->fecha_evaluacion_expediente_fin < today())
-        @if ($admision->fecha_evaluacion_expediente_inicio > today())
-        <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-            <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - La fecha para realizar la evaluación de expediente comienza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_expediente_inicio)) }} y finaliza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_expediente_fin)) }}.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-        @if ($admision->fecha_evaluacion_expediente_fin < today())
-        <div class="alert alert-warning alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-            <i class="ri-alarm-warning-line label-icon"></i><strong>Evaluaciones de expedientes finalizada.</strong>.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
+    @if ($mencion->descripcion_programa === 'DOCTORADO')
+    <div class="alert alert-info alert-top-border alert-dismissible shadow fade show" role="alert">
+        <i class="ri-information-line me-3 align-middle fs-18 text-info"></i>
+        <strong>Recuerde: La nota aprobatoria para ser admitido es de 40 puntos totales (EVA. EXPEDIENTE + ENTREVISTA + TEMA DE TESIS).
+Una vez realizado la evaluación, no podrá realizar modificación de las notas ingresadas.</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     @else
-    <div class="alert alert-success alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-        <i class="ri-contacts-book-2-line label-icon"></i><strong>Evaluaciones de expediente habilitada.</strong> 
+    <div class="alert alert-info alert-top-border alert-dismissible shadow fade show" role="alert">
+        <i class="ri-information-line me-3 align-middle fs-18 text-info"></i>
+        <strong>Recuerde: La nota aprobatoria para ser admitido es de 20 puntos totales (EVA. EXPEDIENTE + ENTREVISTA). 
+        Una vez realizado la evaluación, no podrá realizar modificación de las notas ingresadas.</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-
-    {{-- Alerta para mostrar la fecha de evaluación de entrevista --}}
-    @if ($admision->fecha_evaluacion_entrevista_inicio > today() || $admision->fecha_evaluacion_entrevista_fin < today())
-        @if ($admision->fecha_evaluacion_entrevista_inicio > today())
-            @if ($mencion->descripcion_programa === 'DOCTORADO')
-            <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-                <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - La fecha para realizar la evaluación de entrevista y perfil de proyecto de investigación comienza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_inicio)) }} y finaliza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_fin)) }}.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @else
-            <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-                <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - La fecha para realizar la evaluación de entrevista comienza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_inicio)) }} y finaliza el {{ date('d/m/Y', strtotime($admision->fecha_evaluacion_entrevista_fin)) }}.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-        @endif
-        @if ($admision->fecha_evaluacion_entrevista_fin < today())
-            @if ($mencion->descripcion_programa === 'DOCTORADO')
-            <div class="alert alert-warning alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-                <i class="ri-alarm-warning-line label-icon"></i><strong>Evaluaciones de entrevista y perfil de proyecto de investigación finalizada.</strong>.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @else
-            <div class="alert alert-warning alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-                <i class="ri-alarm-warning-line label-icon"></i><strong>Evaluaciones de entrevista finalizada.</strong>.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-        @endif
-    @else
-        @if ($mencion->descripcion_programa === 'DOCTORADO')
-        <div class="alert alert-success alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert"> 
-            <i class="ri-contacts-book-2-line label-icon"></i><strong>Evaluaciones de entrevista y perfil de proyecto de investigación habilitada.</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @else
-        <div class="alert alert-success alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert"> 
-            <i class="ri-contacts-book-2-line label-icon"></i><strong>Evaluaciones de entrevista habilitada.</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-    @endif
-
-    {{-- Alerta --}}
-    <div class="alert alert-info alert-dismissible alert-label-icon label-arrow shadow fade show" role="alert">
-        <i class="ri-information-line label-icon"></i><strong>Recuerde</strong> - Una vez realizado la evaluación, no podrá realizar modificación de las notas ingresadas.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
 
     <div class="card mt-4">
         <div class="card-body">
