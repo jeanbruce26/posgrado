@@ -110,28 +110,28 @@ class Investigacion extends Component
         
         if($eva == $eva_item){
             $this->dispatchBrowserEvent('alertaConfirmacionInvestigacion', [
-                    'mensaje' =>'El puntaje minimo para aprobar las evaluaciones de doctorado es tener una sumatoria de ' . number_format($evaluacion->Puntaje->puntaje_minimo_final_doctorado) . ' puntos.', 
-                    'icon' => 'question', 
-                    'titulo' => '¿Está seguro de evaluar la entrevista?', 
-                    'button' => 'Si, continuar',
-                    'metodo' => 'evaluarPaso2'
-                ]);
+                'mensaje' =>'Una vez evaluado no se podrá modificar las notas.', 
+                'icon' => 'question', 
+                'titulo' => '¿Está seguro de evaluar el perfil de proyecto de investigacion?', 
+                'button' => 'Si, evaluar',
+                'metodo' => 'evaluarInvestigacion'
+            ]);
         }else{
             $this->dispatchBrowserEvent('alertaInvestigacion', ['mensaje' =>'Faltan notas por ingresar', 'tipo' => 'error']);
             return back();
         }
     }
 
-    public function evaluarPaso2()
-    {
-        $this->dispatchBrowserEvent('alertaConfirmacionInvestigacion', [
-            'mensaje' =>'Una vez evaluado no se podrá modificar las notas.', 
-            'icon' => 'question', 
-            'titulo' => '¿Está seguro de evaluar el perfil de proyecto de investigacion?', 
-            'button' => 'Si, evaluar',
-            'metodo' => 'evaluarInvestigacion'
-        ]);
-    }
+    // public function evaluarPaso2()
+    // {
+    //     $this->dispatchBrowserEvent('alertaConfirmacionInvestigacion', [
+    //         'mensaje' =>'Una vez evaluado no se podrá modificar las notas.', 
+    //         'icon' => 'question', 
+    //         'titulo' => '¿Está seguro de evaluar el perfil de proyecto de investigacion?', 
+    //         'button' => 'Si, evaluar',
+    //         'metodo' => 'evaluarInvestigacion'
+    //     ]);
+    // }
 
     public function evaluarInvestigacion()
     {

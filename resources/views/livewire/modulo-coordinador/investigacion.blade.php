@@ -133,7 +133,7 @@
                 </form>
             </div>
             <div class="text-end">
-                <button type="button" wire:click="evaluarPaso2()" class="btn btn-primary btn-label waves-effect waves-light w-lg" @if ($boton != null) disabled @endif><i class="ri-save-line label-icon align-middle fs-16 me-2"></i> Evaluar</button>
+                <button type="button" wire:click="evaluar()" class="btn btn-primary btn-label waves-effect waves-light w-lg" @if ($boton != null) disabled @endif><i class="ri-save-line label-icon align-middle fs-16 me-2"></i> Evaluar</button>
             </div>
         </div>
     </div>
