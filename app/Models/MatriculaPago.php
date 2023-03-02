@@ -13,9 +13,11 @@ class MatriculaPago extends Model
     protected $primaryKey = 'matricula_pago_id';
     protected $fillable = [
         'matricula_pago_id',
+        'ficha_matricula',
         'pago_id',
         'admitidos_id',
-        'concepto_id'
+        'concepto_id',
+        'ciclo_id'
     ];
 
     public $timestamps = false;
@@ -33,5 +35,10 @@ class MatriculaPago extends Model
     public function concepto()
     {
         return $this->belongsTo(ConceptoPago::class, 'concepto_id');
+    }
+
+    public function ciclo()
+    {
+        return $this->belongsTo(Ciclo::class, 'ciclo_id');
     }
 }

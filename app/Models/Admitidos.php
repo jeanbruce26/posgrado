@@ -15,7 +15,10 @@ class Admitidos extends Model
     protected $fillable = [
         'admitidos_id',
         'admitidos_codigo',
+        'persona_id',
         'evaluacion_id',
+        'constancia_codigo',
+        'constancia'
     ];
 
     public $timestamps = false;

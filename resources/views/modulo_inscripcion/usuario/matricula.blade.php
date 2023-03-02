@@ -22,7 +22,7 @@
 
 <body>
     <table class="table"
-        style="width:100%; padding-right: 3.5rem; padding-left: 3.5rem; padding-bottom: 1rem; padding-top: 2.5rem;">
+        style="width:100%; padding-right: 3.5rem; padding-left: 3.5rem; padding-bottom: 1rem; padding-top: 3.5rem;">
         <thead>
             <tr>
                 <th>
@@ -52,139 +52,93 @@
         </thead>
     </table>
 
-    <div style="padding-left: 1rem; padding-right: 1rem; text-align: center; font-size: 1.4rem; font-weight: bold;">
-        FICHA DE MATRICULA
-    </div>
-
-    <table style="padding-right: 6rem; padding-left: 6rem; padding-top: 2rem; font-weight: bold; font-size: 0.9rem;">
+    <table style="padding-right: 6.5rem; padding-left: 6.5rem; padding-top: 0.2rem; font-weight: bold; font-size: 1rem;" width="100%">
         <tbody>
             <tr>
                 <td align="left">
-                    MAESTRIA*: <span style="font-weight: regular;">INGENIERIA DE SISTEMAS* - 2021*</span>
+                    {{ $programa }}: <span style="font-weight: regular;">{{ $subprograma }}</span>
+                </td>
+                <td align="center" style="font-size: 0.9rem; border: 1px solid black; padding: 0.2rem 0rem;">
+                    PLAN DE ESTUDIOS
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <table style="padding-right: 6rem; padding-left: 6rem; padding-top: 1rem; font-weight: bold; font-size: 0.9rem;">
+    @if ($mencion != null)
+    <table style="padding-right: 6.5rem; padding-left: 6.5rem; padding-top: 0.9rem; font-weight: bold; font-size: 1rem;">
         <tbody>
             <tr>
                 <td align="left">
-                    MENCION*: <span style="font-weight: regular;">TEGNOLOGIAS DE LA INFORMACION*</span>
+                    MENCION: <span style="font-weight: regular;">{{ $mencion }}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    @endif
+
+    <table style="padding-right: 6.5rem; padding-left: 6.5rem; padding-top: 0.9rem; font-weight: bold; font-size: 1rem;">
+        <tbody>
+            <tr>
+                <td align="left">
+                    FICHA DE MATRICULA
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <table
-        style="padding-right: 6rem; padding-left: 6rem; padding-top: 1rem; font-weight: bold; font-size: 0.9rem; width: 100%">
+    <table style="padding-right: 6.5rem; padding-left: 6.5rem; padding-top: 0.9rem; font-weight: bold; font-size: 1rem;" width="100%">
         <tbody>
             <tr>
                 <td align="left">
-                    ALUMNO: <span style="font-weight: regular;">JAMT AMERICO MENDOZA FLORES*</span>
-                </td>
-                <td align="right">
-                    CODIGO: <span style="font-weight: regular;">0M02023999*</span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table
-        style="padding-right: 6rem; padding-left: 6rem; padding-top: 1rem; font-weight: bold; font-size: 0.9rem; width: 100%">
-        <tbody>
-            <tr>
-                <td align="left">
-                    PLAN DE ESTUDIOS: <span style="font-weight: regular;">2021*</span>
+                    FECHA: <span style="font-weight: regular;">{{ $fecha }}</span>
                 </td>
                 <td align="center">
-                    FECHA: <span style="font-weight: regular;">24/10/2000*</span>
+                    RECIBO: <span style="font-weight: regular;">{{ $numero_operacion }}</span>
                 </td>
                 <td align="right">
-                    RECIBO: <span style="font-weight: regular;">00001244*</span>
+                    PLAN/CICLO: <span style="font-weight: regular;">{{ $plan }}/{{ $ciclo }}</span>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <table style="padding-right: 6rem; padding-left: 6rem; padding-top: 1rem; font-weight: bold; font-size: 0.9rem;">
-        <tbody>
-            <tr>
-                <td align="left">
-                    DOMICILIO: <span style="font-weight: regular;">JR LOS CEDROS 240*</span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table
-        style="padding-right: 6rem; padding-left: 6rem; padding-top: 1rem; font-weight: bold; font-size: 0.9rem; width: 100%">
-        <tbody>
-            <tr>
-                <td align="left">
-                    FECHA DE NACIMIENTO: <span style="font-weight: regular;">24/10/2000*</span>
-                </td>
-                <td align="center">
-                    DNI: <span style="font-weight: regular;">72155069*</span>
-                </td>
-                <td align="center">
-                    EDAD: <span style="font-weight: regular;">22*</span>
-                </td>
-                <td align="right">
-                    SEXO: <span style="font-weight: regular;">MASCULINO*</span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table
-        style="padding-right: 6rem; padding-left: 6rem; padding-top: 1rem; font-weight: bold; font-size: 0.9rem; width: 100%">
-        <tbody>
-            <tr>
-                <td align="left">
-                    CORREO ELECTRONICO: <span style="font-weight: regular;">jamt.mendozaf@gmail.com*</span>
-                </td>
-                <td align="right">
-                    TELF: <span style="font-weight: regular;">+51 955270500*</span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table
-        style="padding-right: 6rem; padding-left: 6rem; padding-top: 2rem; font-size: 0.9rem; width: 100%; border-collapse: collapse;">
+    <table style="padding-right: 6.5rem; padding-left: 6.5rem; padding-top: 0.9rem; font-size: 0.9rem; width: 100%; border-collapse: collapse;">
         <thead>
             <tr style="font-weight: bold;">
-                <th style="border: 1px solid; padding: 0.3rem; width: 10%"><em>Ciclo</em></th>
-                <th style="border: 1px solid; padding: 0.3rem; width: 15%"><em>Código</em></th>
-                <th style="border: 1px solid; padding: 0.3rem; width: 60%"><em>Curso</em></th>
+                <th style="border: 1px solid; padding: 0.3rem; width: 15%"><em>Código de Alumno</em></th>
+                <th style="border: 1px solid; padding: 0.3rem; width: 60%"><em>Apellidos y Nombres</em></th>
+                <th style="border: 1px solid; padding: 0.3rem; width: 15%"><em>Ciclo</em></th>
+            </tr>
+            <tr style="font-weight: regular; font-size: 0.8rem;">
+                <th style="border: 1px solid; padding: 0.3rem; width: 15%; font-weight: regular;">{{ $codigo }}</th>
+                <th style="border: 1px solid; padding: 0.3rem; width: 60%; font-weight: regular;" align="left">{{ $nombre }}</th>
+                <th style="border: 1px solid; padding: 0.3rem; width: 15%; font-weight: regular;">{{ $ciclo }}</th>
+            </tr>
+            <tr style="font-weight: bold; font-size: 0.8rem;">
+                <th style="border: 1px solid; padding: 0.3rem; width: 15%; font-size: 0.9rem;"><em>Domicilio del Alumno</em></th>
+                <th style="border: 1px solid; padding: 0.3rem; width: 60%; font-weight: regular;" align="left">{{ $domicilio }}</th>
+                <th style="border: 1px solid; padding: 0.3rem; width: 15%"><em>Teléfono: </em><span style="font-weight: regular;"><br>{{ $celular }}</span></th>
+            </tr>
+            <tr style="font-weight: bold;">
+                <th style="border: 1px solid; padding: 0.3rem; width: 15%"><em>Código de Asignatura</em></th>
+                <th style="border: 1px solid; padding: 0.3rem; width: 60%"><em>Nombre del Curso</em></th>
                 <th style="border: 1px solid; padding: 0.3rem; width: 15%"><em>Créditos</em></th>
             </tr>
         </thead>
         <tbody>
+            @foreach ($cursos as $item)
             <tr>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">III</td>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">JAMT001</td>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;">Curso 1</td>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">4</td>
+                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">{{ $item->curso_codigo }}</td>
+                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;">{{ $item->curso_nombre }}</td>
+                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">{{ $item->curso_credito }}</td>
             </tr>
-            <tr>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">III</td>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">JAMT001</td>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;">Curso 2</td>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">4</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">III</td>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">JAMT001</td>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;">Curso 3</td>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">4</td>
-            </tr>
+            @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3" align="right" style="border: 1px solid; padding: 0.3rem; font-weight: bold"><em>TOTAL</em></td>
-                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">12</td>
+                <td colspan="2" align="right" style="border: 1px solid; padding: 0.3rem; font-weight: bold"><em>TOTAL</em></td>
+                <td style="border: 1px solid; padding: 0.3rem; font-size: 0.8rem;" align="center">{{ $cursos->sum('curso_credito') }}</td>
             </tr>
         </tfoot>
     </table>
@@ -213,5 +167,4 @@
         </tbody>
     </table>
 </body>
-
 </html>

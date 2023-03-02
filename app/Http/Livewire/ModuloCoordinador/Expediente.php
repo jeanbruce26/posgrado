@@ -67,6 +67,9 @@ class Expediente extends Component
         $this->id_eva_exp = $evaluacion_expediente_titulo->evaluacion_expediente_titulo_id;
 
         $eva = EvaluacionExpediente::where('evaluacion_expediente_titulo_id',$this->id_eva_exp)->where('evaluacion_id',$this->evaluacion_id)->first();
+        if($eva){
+            $this->puntaje = number_format($eva->evaluacion_expediente_puntaje, 0);
+        }
     }
 
     public function agregarNota()

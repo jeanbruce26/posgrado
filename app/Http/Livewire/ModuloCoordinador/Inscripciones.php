@@ -53,7 +53,7 @@ class Inscripciones extends Component
             }else{ // si no existe una evaluacion
                 $eva = new Evaluacion();
                 $eva->evaluacion_estado = 1;
-                $eva->evaluacion_estado_admitido = 0;
+                $eva->evaluacion_estado_admitido = 1; // 1 = sin codigo, 0 = con codigo y admitido
                 $eva->puntaje_id = $puntaje->puntaje_id;
                 $eva->inscripcion_id = $id;
                 $eva->fecha_expediente = $fecha;

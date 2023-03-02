@@ -22,6 +22,7 @@
                                     <th scope="col">Documento</th>
                                     <th scope="col">Persona</th>
                                     <th scope="col">Programa</th>
+                                    <th scope="col" class="col-md-2">Fecha</th>
                                     <th scope="col" class="col-md-1">Acciones</th>
                                 </tr>
                             </thead>
@@ -52,6 +53,9 @@
                                                 @else
                                                     MENCION EN {{$item->Mencion->mencion}}
                                                 @endif
+                                            </td>
+                                            <td align="center">
+                                                {{date('d/m/Y', strtotime($item->fecha_inscripcion))}}
                                             </td>
                                             <td align="center">
                                                 <div class="d-flex justify-content-center align-items-center gap-2">

@@ -79,17 +79,9 @@
                         </button>
                     </div>
 
-                    
-
                     <div class="d-flex align-items-center">
                         <div class="dropdown ms-sm-3 header-item">
                             <div class="d-flex align-items-center px-4">
-                                @php
-                                    $admision = App\Models\Admision::where('estado',1)->first();
-                                @endphp
-                                @if ($admision->fecha_constancia <= today())
-                                    <a  href="{{ route('usuarios.pagos') }}" type="button" class="btn btn-info bg-gradient waves-effect waves-light me-4">Validar Pagos</a>
-                                @endif
 
                                 <form action="{{ route('usuario.usuario.logout') }}" method="post">
                                     @csrf

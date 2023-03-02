@@ -20,6 +20,8 @@ class Pago extends Authenticatable
         'fecha_pago',
         'estado',
         'canal_pago_id',
+        'verificacion_pago',
+        'voucher'
     ];
 
     public $timestamps = false;

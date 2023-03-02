@@ -31,7 +31,7 @@ class Entrevista extends Component
     {
         $eva_ent_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id',$this->tipo_evaluacion_id)->get();
         foreach($eva_ent_item as $item){
-            if($item->evaluacion_expediente_item_id == $this->evaluacion_entrevista_item_id){
+            if($item->evaluacion_entrevista_item_id == $this->evaluacion_entrevista_item_id){
                 $this->validateOnly($propertyName, [
                     'puntaje'=> 'required|numeric|min:0|max:'.$item->evaluacion_entrevista_item_puntaje,
                 ]);
@@ -75,7 +75,7 @@ class Entrevista extends Component
     {
         $eva_ent_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id',$this->tipo_evaluacion_id)->get();
         foreach($eva_ent_item as $item){
-            if($item->evaluacion_expediente_item_id == $this->evaluacion_entrevista_item_id){
+            if($item->evaluacion_entrevista_item_id == $this->evaluacion_entrevista_item_id){
                 $this->validate([
                     'puntaje'=> 'required|numeric|min:0|max:'.$item->evaluacion_entrevista_item_puntaje,
                 ]);
@@ -174,7 +174,7 @@ class Entrevista extends Component
         if($this->observacion){
             $observacion = new ObservacionEvaluacion();
             $observacion->observacion = $this->observacion;
-            $observacion->tipo_observacion_evaluacion = 3; // 1 = Expediente 2 = Tesis 3 = Entrevista
+            $observacion->tipo_observacion_evaluacion = 3; // 1 = Expediente, 2 = Tesis, 3 = Entrevista
             $observacion->fecha_observacion = now();
             $observacion->evaluacion_id = $this->evaluacion_id;
             $observacion->save();

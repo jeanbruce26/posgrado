@@ -1,5 +1,5 @@
-<div class="row">
-    <div class="m-auto">
+<div>
+    {{-- <div class="m-auto">
         <div class="card">
             <h4 class="fw-bold mt-2 py-2 px-4">Validación de pago de constancia de ingreso y/o matricula</h4>
         </div>
@@ -135,6 +135,5 @@
             <!-- end card body -->
         </div>
         <!-- end card -->
-    </div>
-    <!-- end col -->
+    </div> --}}
 </div>

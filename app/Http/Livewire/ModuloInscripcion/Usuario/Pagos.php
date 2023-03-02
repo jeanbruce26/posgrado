@@ -47,7 +47,6 @@ class Pagos extends Component
                 'documento' => 'required|numeric|digits:8'
             ]);
         }
-        
     }
 
     public function buscarPago()

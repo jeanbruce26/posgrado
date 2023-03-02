@@ -50,6 +50,7 @@ class Index extends Component
     public function generar_codigo()
     {
         $evaluacion_admitidos = Evaluacion::join('inscripcion', 'evaluacion.inscripcion_id', '=', 'inscripcion.id_inscripcion')
+                ->join('persona', 'inscripcion.persona_idpersona', '=', 'persona.idpersona')
                 ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
                 ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
                 ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
@@ -110,6 +111,7 @@ class Index extends Component
 
             $admitido_create = Admitidos::create([
                 "admitidos_codigo" => $codigo,
+                "persona_id" => $admitido->persona_idpersona,
                 "evaluacion_id" => $admitido->evaluacion_id,
             ]);
 

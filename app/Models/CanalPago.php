@@ -15,6 +15,7 @@ class CanalPago extends Model
     protected $fillable = [
         'canal_pago_id',
         'descripcion',
+        'canal_pago_estado'
     ];
 
     public $timestamps = false;
