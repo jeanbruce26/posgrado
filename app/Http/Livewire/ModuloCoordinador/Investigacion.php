@@ -32,8 +32,9 @@ class Investigacion extends Component
         $eva_inv_item = EvaluacionInvestigacionItem::all();
         foreach($eva_inv_item as $item){
             if($item->evaluacion_investigacion_item_id == $this->evaluacion_investigacion_item_id){
+                $puntaje = number_format($item->evaluacion_investigacion_item_puntaje, 0);
                 $this->validateOnly($propertyName, [
-                    'puntaje'=> 'required|numeric|min:0|max:'.number_format($item->evaluacion_investigacion_item_puntaje, 0),
+                    'puntaje'=> 'required|numeric|min:0|max:'.$puntaje,
                 ]);
             }
         }
@@ -76,8 +77,9 @@ class Investigacion extends Component
         $eva_inv_item = EvaluacionInvestigacionItem::all();
         foreach($eva_inv_item as $item){
             if($item->evaluacion_investigacion_item_id == $this->evaluacion_investigacion_item_id){
+                $puntaje = number_format($item->evaluacion_investigacion_item_puntaje, 0);
                 $this->validate([
-                    'puntaje'=> 'required|numeric|min:0|max:'.number_format($item->evaluacion_investigacion_item_puntajea, 0),
+                    'puntaje'=> 'required|numeric|min:0|max:'.$puntaje,
                 ]);
             }
         }

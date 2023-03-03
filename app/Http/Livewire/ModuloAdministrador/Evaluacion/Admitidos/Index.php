@@ -80,7 +80,22 @@ class Index extends Component
                         }
                         $codigo = $codigo_doctorado.$codigo;
                     }else{
-                        $codigo = $codigo_doctorado.'001';
+                        $maximo_codigo_admitidos = Admitidos::where('admitidos_codigo', 'like', $codigo_doctorado.'%')
+                                                        ->orderBy('admitidos_codigo', 'desc')->first(); // codigo maximo de admitidos
+                        if($maximo_codigo_admitidos){
+                            $codigo = substr($maximo_codigo_admitidos->admitidos_codigo, 7, 10);
+                            $codigo = intval($codigo) + 1;
+                            if($codigo < 10){
+                                $codigo = '00'.$codigo;
+                            }else if($codigo < 100 && $codigo > 9){
+                                $codigo = '0'.$codigo;
+                            }else if($codigo < 1000 && $codigo > 99){
+                                $codigo = $codigo;
+                            }
+                            $codigo = $codigo_doctorado.$codigo;
+                        }else{
+                            $codigo = $codigo_doctorado.'001';
+                        }
                     }
                 }else{
                     $codigo = $codigo_doctorado.'001';
@@ -102,7 +117,22 @@ class Index extends Component
                         }
                         $codigo = $codigo_maestria.$codigo;
                     }else{
-                        $codigo = $codigo_maestria.'001';
+                        $maximo_codigo_admitidos = Admitidos::where('admitidos_codigo', 'like', $codigo_maestria.'%')
+                                                        ->orderBy('admitidos_codigo', 'desc')->first(); // codigo maximo de admitidos
+                        if($maximo_codigo_admitidos){
+                            $codigo = substr($maximo_codigo_admitidos->admitidos_codigo, 7, 10);
+                            $codigo = intval($codigo) + 1;
+                            if($codigo < 10){
+                                $codigo = '00'.$codigo;
+                            }else if($codigo < 100 && $codigo > 9){
+                                $codigo = '0'.$codigo;
+                            }else if($codigo < 1000 && $codigo > 99){
+                                $codigo = $codigo;
+                            }
+                            $codigo = $codigo_maestria.$codigo;
+                        }else{
+                            $codigo = $codigo_maestria.'001';
+                        }
                     }
                 }else{
                     $codigo = $codigo_maestria.'001';

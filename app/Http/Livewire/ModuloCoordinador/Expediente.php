@@ -35,8 +35,9 @@ class Expediente extends Component
         $eva_exp_titulo = EvaluacionExpedienteTitulo::where('tipo_evaluacion_id',$this->tipo_evaluacion_id)->get();
         foreach($eva_exp_titulo as $item){
             if($item->evaluacion_expediente_titulo_id == $this->id_eva_exp){
+                $puntaje = number_format($item->evaluacion_expediente_titulo_puntaje_maximo, 0);
                 $this->validateOnly($propertyName, [
-                    'puntaje'=> 'required|numeric|min:0|max:'.number_format($item->evaluacion_expediente_titulo_puntaje_maximoa, 0),
+                    'puntaje'=> 'required|numeric|min:0|max:'.$puntaje,
                 ]);
             }
         }
@@ -77,8 +78,9 @@ class Expediente extends Component
         $eva_exp_titulo = EvaluacionExpedienteTitulo::where('tipo_evaluacion_id',$this->tipo_evaluacion_id)->get();
         foreach($eva_exp_titulo as $item){
             if($item->evaluacion_expediente_titulo_id == $this->id_eva_exp){
+                $puntaje = number_format($item->evaluacion_expediente_titulo_puntaje_maximo, 0);
                 $this->validate([
-                    'puntaje'=> 'required|numeric|min:0|max:'.number_format($item->evaluacion_expediente_titulo_puntaje_maximo, 0),
+                    'puntaje'=> 'required|numeric|min:0|max:'.$puntaje,
                 ]);
             }
         }

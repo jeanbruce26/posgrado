@@ -32,8 +32,9 @@ class Entrevista extends Component
         $eva_ent_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id',$this->tipo_evaluacion_id)->get();
         foreach($eva_ent_item as $item){
             if($item->evaluacion_entrevista_item_id == $this->evaluacion_entrevista_item_id){
+                $puntaje = number_format($item->evaluacion_entrevista_item_puntaje, 0);
                 $this->validateOnly($propertyName, [
-                    'puntaje'=> 'required|numeric|min:0|max:'.number_format($item->evaluacion_entrevista_item_puntaje, 0),
+                    'puntaje'=> 'required|numeric|min:0|max:'.$puntaje,
                 ]);
             }
         }
@@ -76,8 +77,9 @@ class Entrevista extends Component
         $eva_ent_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id',$this->tipo_evaluacion_id)->get();
         foreach($eva_ent_item as $item){
             if($item->evaluacion_entrevista_item_id == $this->evaluacion_entrevista_item_id){
+                $puntaje = number_format($item->evaluacion_entrevista_item_puntaje, 0);
                 $this->validate([
-                    'puntaje'=> 'required|numeric|min:0|max:'.number_format($item->evaluacion_entrevista_item_puntaje, 0),
+                    'puntaje'=> 'required|numeric|min:0|max:'.$puntaje,
                 ]);
             }
         }
