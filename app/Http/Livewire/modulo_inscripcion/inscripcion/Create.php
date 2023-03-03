@@ -462,6 +462,11 @@ class Create extends Component
             }
         }
 
+        // reemplazar tildes por letras sin tildes en los campos de apellido paterno, apellido materno y nombres
+        $this->nombres = str_replace(["á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú"], ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"], $this->nombres);
+        $this->apellido_paterno = str_replace(["á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú"], ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"], $this->apellido_paterno);
+        $this->apellido_materno = str_replace(["á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú"], ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"], $this->apellido_materno);
+
         if($persona_buscar){
             $persona_buscar->apell_pater = strtoupper($persona_buscar->apell_pater);
             $persona_buscar->apell_mater = strtoupper($this->apellido_materno);
