@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\ModuloAdministrador\Inscripcion;
 
+use App\Exports\DataInscripcionesExport;
 use App\Models\Admision;
 use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
@@ -16,6 +17,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Index extends Component
 {
@@ -245,6 +247,16 @@ class Index extends Component
             'titulo' => '¡Éxito!',
             'mensaje' => 'Se ha cambiado el seguimiento correctamente.'
         ]);
+    }
+
+    public function export() 
+    {
+        $fecha_actual = date("Ymd", strtotime(today()));
+        $hora_actual = date("His", strtotime(now()));
+
+        $this->dispatchBrowserEvent('notificacionInscripcion', ['message' =>'Excel exportado satisfactoriamente.', 'color' => '#2eb867']);
+
+        return Excel::download(new DataInscripcionesExport, 'inscritos-'.$fecha_actual.'-'.$hora_actual.'.xlsx');
     }
 
     public function render()

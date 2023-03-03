@@ -8,6 +8,7 @@
                             <a class="btn btn-primary" href="{{ route('admin.inscripcion.lista') }}">
                                 Lista de usuarios
                             </a>
+                            <button type="button" wire:click="export()" class="btn btn-success btn-label waves-effect right waves-light w-md me-3"><i class="ri-file-excel-2-line label-icon align-middle fs-16 ms-2"></i> Excel</button>
                         </div>
                         <div class="w-25">
                             <input class="form-control text-muted" type="search" wire:model="search"
