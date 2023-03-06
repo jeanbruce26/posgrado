@@ -23,6 +23,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use SimpleSoftwareIO\QrCode\Generator;
 
 class Usuario extends Component
 {
@@ -128,6 +130,8 @@ class Usuario extends Component
         }else if($admitido->admitidos_id < 1000){
             $codigo_constancia = substr($admitido->admitidos_codigo, 1, 1) . substr($admitido->admitidos_codigo, 5, 9) . $admitido->admitidos_id;
         }
+
+        $codigo_constancia_qr = QrCode::size(100)->generate($codigo_constancia);
         
         $data = [ 
             'nombre' => $nombre,
@@ -135,7 +139,7 @@ class Usuario extends Component
             'admision' => $admision,
             'programa' => $programa,
             'fecha' => $fecha,
-            'codigo_constancia' => $codigo_constancia
+            'codigo_constancia' => $codigo_constancia_qr
         ];
 
         $nombre_pdf = $nombre . ' - ' . $codigo_constancia . '.pdf';

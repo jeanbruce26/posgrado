@@ -10,6 +10,7 @@ use App\Models\HistorialInscripcion;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Index extends Component
 {
@@ -57,6 +58,7 @@ class Index extends Component
                 ->where('evaluacion.evaluacion_estado', 3)
                 ->where('evaluacion.evaluacion_estado_admitido', 1)
                 ->orderBy('mencion.id_mencion')
+                ->orderBy('persona.nombre_completo')
                 ->get();
 
         $admision_year = Admision::where('estado', 1)->first()->admision_year; // año de la admision activa
@@ -195,6 +197,8 @@ class Index extends Component
         }else if($admitido->admitidos_id < 1000){
             $codigo_constancia = substr($admitido->admitidos_codigo, 1, 1) . substr($admitido->admitidos_codigo, 5, 9) . $admitido->admitidos_id;
         }
+
+        $codigo_constancia_qr = QrCode::size(100)->generate($codigo_constancia);
         
         $data = [ 
             'nombre' => $nombre,
@@ -202,7 +206,7 @@ class Index extends Component
             'admision' => $admision,
             'programa' => $programa,
             'fecha' => $fecha,
-            'codigo_constancia' => $codigo_constancia
+            'codigo_constancia' => $codigo_constancia_qr
         ];
 
         $nombre_pdf = $nombre . ' - ' . $codigo_constancia . '.pdf';

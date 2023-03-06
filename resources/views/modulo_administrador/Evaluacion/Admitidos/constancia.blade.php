@@ -71,12 +71,14 @@
         {{ $fecha }}
     </div>
 
-    <div style="text-align: center;  padding-top: 1rem;">
-        <img src="{{ public_path('asset-pdf/firma_doctor_posgrado.png') }}" alt="firma" width="350">
+    <div style="text-align: center;  padding-top: 0.8rem;">
+        <img src="{{ public_path('asset-pdf/firma_doctor_posgrado.png') }}" alt="firma" width="300">
     </div>
 
-    <div style="padding-right: 7rem; padding-left: 7rem; padding-top: 2rem; font-size: 1rem;">
-        {{ $codigo_constancia }}
+    <div style="padding-right: 7rem; padding-left: 7rem; padding-top: 0.8rem; font-size: 1rem;">
+        {{-- {{ $codigo_constancia }}
+        {!! QrCode::size(50)->generate($codigo_constancia) !!} --}}
+        <img src="data:image/svg+xml;base64,{{ base64_encode($codigo_constancia) }}" alt="qr" width="100">
     </div>
 </body>
 </html>
