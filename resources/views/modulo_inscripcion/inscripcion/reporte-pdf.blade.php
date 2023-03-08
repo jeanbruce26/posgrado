@@ -836,10 +836,12 @@
             Declaro bajo juramento regularizar mi constancia de registro ante la SUNEDU en un plazo máximo de 6 meses hábiles en el caso de Maestría, o de 1 año en el caso de Doctorado, caso contrario se procederá a la cancelación de mi ingreso a la Escuela de Postgrado.
         </div>
         @endif
-        <table class="table"  style="width:100%; margin-top: 1rem;">
+        <table class="table"  style="width:100%; margin-top: 2.5rem;">
             <thead>
                 <tr>
-                    <th class="" style="text-align: initial; font-size: small;">Para la posterior subida de expedientes pedientes, debera ingresar al sistema con su usuario y contraseña:</th>
+                    <th class="" style="text-align: initial;">
+                        Para consultar los resultados de la evaluación de expediente y entrevista personal, deberá acceder al siguiente enlace utilizando sus credenciales de usuario y contraseña que se les entregará a continuación:
+                    </th>
                 </tr>
             </thead>
         </table>
