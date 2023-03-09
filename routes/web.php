@@ -72,6 +72,7 @@ Route::prefix('coordinador')->middleware(['auth:admin','auth.coordinador'])->gro
 Route::prefix('contable')->middleware(['auth:admin','auth.contable'])->group(function () {
     Route::get('/index', [App\Http\Controllers\ModuloContable\ContableController::class, 'index'])->name('contable.index');
     Route::get('/inscripciones', [App\Http\Controllers\ModuloContable\ContableController::class, 'inscripciones'])->name('contable.inscripcion');
+    Route::get('/pagos', [App\Http\Controllers\ModuloContable\ContableController::class, 'pagos'])->name('contable.pagos');
 });
 
 

@@ -16,4 +16,9 @@ class ContableController extends Controller
     {
         return view('modulo-contable.inscripcion');
     }
+    
+    public function pagos()
+    {
+        return view('modulo-contable.pago');
+    }
 }

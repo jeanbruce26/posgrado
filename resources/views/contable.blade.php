@@ -173,6 +173,12 @@
                                 <i class="mdi mdi-clipboard-file-outline"></i> <span data-key="t-apps">Inscripcion</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link fw-bold" href="{{ route('contable.pagos') }}" role="button"
+                                aria-expanded="false" aria-controls="sidebarDashboard">
+                                <i class="mdi mdi-account-cash-outline"></i> <span data-key="t-apps">Pagos</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- Sidebar -->
