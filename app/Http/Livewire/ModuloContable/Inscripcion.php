@@ -12,7 +12,9 @@ use Maatwebsite\Excel\Facades\Excel;
 class Inscripcion extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $search = '';
+
 
     public function export_excel() 
     {

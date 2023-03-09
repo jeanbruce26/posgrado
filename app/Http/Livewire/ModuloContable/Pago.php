@@ -9,6 +9,7 @@ use App\Models\Pago as PagoModel;
 class Pago extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $search = '';
 
     public function render()
