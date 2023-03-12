@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire\ModuloAdministrador\Pago;
 
+use App\Models\Admision;
 use App\Models\CanalPago;
 use App\Models\HistorialAdministrativo;
+use App\Models\Inscripcion;
+use App\Models\InscripcionPago;
 use App\Models\Pago;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -115,9 +118,37 @@ class Index extends Component
                 "nro_operacion" => $this->numero_operacion,
                 "monto" => $this->monto,
                 "fecha_pago" => $this->fecha_pago,
-                "estado" => 1,
+                "estado" => 2,
                 "canal_pago_id" => $this->canal_pago,
             ]);
+
+            //  obtener el ultimo codigo de inscripcion
+            $ultimo_codifo_inscripcion = Inscripcion::orderBy('inscripcion_codigo','DESC')->first();
+            if($ultimo_codifo_inscripcion == null)
+            {
+                $codigo_inscripcion = 'IN0001';
+            }else
+            {
+                $codigo_inscripcion = $ultimo_codifo_inscripcion->inscripcion_codigo;
+                $codigo_inscripcion = substr($codigo_inscripcion, 2, 6);
+                $codigo_inscripcion = intval($codigo_inscripcion) + 1;
+                $codigo_inscripcion = str_pad($codigo_inscripcion, 4, "0", STR_PAD_LEFT);
+                $codigo_inscripcion = 'IN'.$codigo_inscripcion;
+            }
+
+            // crear la inscripcion
+            $inscripcion = new Inscripcion();
+            $inscripcion->inscripcion_codigo = $codigo_inscripcion;
+            $inscripcion->estado = 'activo';
+            $inscripcion->admision_cod_admi = Admision::where('estado', 1)->first()->cod_admi;
+            $inscripcion->save();
+
+            // asigar el pago creado a la tabla de inscripcion pago
+            $inscripcion_pago = new InscripcionPago();
+            $inscripcion_pago->pago_id = $pago->pago_id;
+            $inscripcion_pago->inscripcion_id = $inscripcion->id_inscripcion;
+            $inscripcion_pago->concepto_pago_id = 1;
+            $inscripcion_pago->save();
     
             $this->subirHistorial($pago->pago_id, 'Creación de Pago', 'pago');
             $this->dispatchBrowserEvent('notificacionPago', ['message' =>'Pago creado satisfactoriamente.', 'color' => '#2eb867']);
