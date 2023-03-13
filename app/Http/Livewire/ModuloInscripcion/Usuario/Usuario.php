@@ -10,6 +10,8 @@ use App\Models\Ciclo;
 use App\Models\ConceptoPago;
 use App\Models\ConstanciaIngresoPago;
 use App\Models\Curso;
+use App\Models\Encuesta;
+use App\Models\EncuestaDetalle;
 use App\Models\Evaluacion;
 use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
@@ -42,6 +44,10 @@ class Usuario extends Component
     public $voucher;
     public $iteration = 0;
     public $modo;
+
+    public $encuesta = []; // variable del formulario de encuestas
+    public $mostra_otros = false; // variable para mostrar el campo de otros en la encuesta
+    public $encuesta_otro = null; // variable para guardar el valor del campo otros en la encuesta
 
     protected $listeners = ['render', 'crearConstancia', 'crearFichaMatricula', 'registrar_pago'];
 
@@ -459,6 +465,73 @@ class Usuario extends Component
         $this->dispatchBrowserEvent('cerrarModalRegistroPago');
     }
 
+    public function open_modal_encuesta()
+    {
+        $documento = auth('usuarios')->user()->Persona->num_doc; // documento del usuario logueado
+
+        $encuesta = EncuestaDetalle::where('documento', $documento)->get(); // buscamos si el usuario ya realizo la encuesta
+        if($encuesta->count() == 0){
+            $this->dispatchBrowserEvent('modal_encuesta', [
+                'modal' => 'show'
+            ]);
+        }
+    }
+
+    public function updatedEncuesta($value)
+    {
+        $contador = 0;
+        foreach ($this->encuesta as $key => $value) {
+            if($value == 8){
+                $contador++;
+            }
+        }
+        if($contador > 0){
+            $this->mostra_otros = true;
+        }else{
+            $this->mostra_otros = false;
+        }
+    }
+
+    public function guardar_encuesta()
+    {
+        // dd($this->encuesta);
+        // validamos los campos del formulario
+        if($this->encuesta == null){
+            $this->dispatchBrowserEvent('alertaEncuestaError', ['mensaje' => 'Debe seleccionar una opción para continuar.']);
+            return;
+        }
+        if($this->mostra_otros == true){
+            if($this->encuesta_otro == null || $this->encuesta_otro == ''){
+                $this->dispatchBrowserEvent('alertaEncuestaError', ['mensaje' => 'Debe especificar la opción seleccionada.']);
+                return;
+            }
+        }
+
+        // guardamos la encuesta
+        foreach ($this->encuesta as $key => $value) {
+            $encuesta = new EncuestaDetalle();
+            $encuesta->documento = auth('usuarios')->user()->Persona->num_doc;
+            $encuesta->encuesta_id = $value;
+            if($value == 8){
+                $encuesta->otros = $this->encuesta_otro;
+            }else{
+                $encuesta->otros = null;
+            }
+            $encuesta->created_at = now();
+            $encuesta->save();
+        }
+
+        // mostrar alerta de registro de pago con exito
+        $this->dispatchBrowserEvent('alertaRegistroPagoSuccess', ['mensaje' => 'Encuesta registrada correctamente.']);
+
+        // resetear el formulario
+        $this->reset('encuesta', 'encuesta_otro', 'mostra_otros');
+
+        // aqui cerra el modal de encuesta
+        $this->dispatchBrowserEvent('modal_encuesta', [
+            'modal' => 'hide'
+        ]);
+    }
 
     public function render()
     {
@@ -524,6 +597,8 @@ class Usuario extends Component
                             ->get();
         $canal_pago_model = CanalPago::where('canal_pago_estado', 1)->get();
 
+        $encuestas = Encuesta::where('encuesta_estado', 1)->get(); // obtenemos las encuestas activas
+
         return view('livewire.modulo-inscripcion.usuario.usuario', [
             'nombre' => $nombre,
             'expediente' => Expediente::all(),
@@ -542,6 +617,7 @@ class Usuario extends Component
             'concepto_pago_model' => $concepto_pago_model,
             'ciclo_model' => $ciclo_model,
             'canal_pago_model' => $canal_pago_model,
+            'encuestas' => $encuestas
         ]);
     }
 }

@@ -17,6 +17,10 @@
             $('#modalRegistrarPago').modal('hide');
         });
 
+        window.addEventListener('modal_encuesta', event => {
+            $('#modal_encuesta').modal(event.detail.modal);
+        });
+
         window.addEventListener('confirmacion-registro_pago', event => {
             Swal.fire({
                 title: '¿Confirmación de registro de pago?',
@@ -107,6 +111,14 @@
                 event.detail.mensaje,
                 '',
                 'success'
+            )
+        });
+
+        window.addEventListener('alertaEncuestaError', event => {
+            Swal.fire(
+                event.detail.mensaje,
+                '',
+                'error'
             )
         });
     </script>

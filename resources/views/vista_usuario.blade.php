@@ -172,9 +172,9 @@
 
     @yield('javascript')
 
-    @livewireScripts
-
     @stack('js')
+
+    @livewireScripts
 
     <script>
         window.addEventListener('confirmacion-pago', event =>{
