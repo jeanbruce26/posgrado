@@ -28,11 +28,8 @@
                                 Limpiar
                             </button>
                         </div>
-                        <div class="w-25">
-                            <input class="form-control text-muted" type="search" wire:model="search"
-                                placeholder="Buscar...">
-                        </div>
-                    </div>
+                        
+                    {{-- </div> --}}
                     <div class="table-responsive">
                         <table class="table table-hover align-middle table-nowrap mb-0">
                             <thead>
