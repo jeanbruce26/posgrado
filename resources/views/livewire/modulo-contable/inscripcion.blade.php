@@ -3,17 +3,30 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-end align-items-center mb-3">
-                        <div class="d-flex justify-content-between align-items-center gap-4">
-                            <button type="button" wire:click="export_excel()" class="btn btn-success btn-label waves-effect right waves-light w-md me-3">
-                                <i class="ri-file-excel-2-line label-icon align-middle fs-16 ms-2"></i> Excel
-                            </button>
+                    {{-- <div class="d-flex justify-content-between mb-3"> --}}
+                        {{-- <div class="w-25">
+                            <select class="form-select w-75" wire:model="programa">
+                                <option value="" selected>Seleccione</option>
+                                @foreach ($programa as $item)
+                                    <option value="{{$item->canal_pago_id}}">{{$item->descripcion}}</option>
+                                @endforeach
+                            </select>
+                        </div> --}}
+
+                        <div class="d-flex justify-content-end mb-3">
+                        {{-- <div class="d-flex justify-content-end w-50"> --}}
+                            <div class="d-flex justify-content-between align-items-center gap-4">
+                                <button type="button" wire:click="export_excel()" class="btn btn-success btn-label waves-effect right waves-light w-md me-3">
+                                    <i class="ri-file-excel-2-line label-icon align-middle fs-16 ms-2"></i> Excel
+                                </button>
+                            </div>
+                            <div class="w-25">
+                                <input class="form-control text-muted" type="search" wire:model="search"
+                                    placeholder="Buscar...">
+                            </div>
                         </div>
-                        <div class="w-25">
-                            <input class="form-control text-muted" type="search" wire:model="search"
-                                placeholder="Buscar...">
-                        </div>
-                    </div>
+                        
+                    {{-- </div> --}}
                     <div class="table-responsive">
                         <table class="table table-hover align-middle table-nowrap mb-0">
                             <thead>
