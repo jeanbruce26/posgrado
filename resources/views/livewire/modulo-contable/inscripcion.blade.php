@@ -28,8 +28,7 @@
                                 Limpiar
                             </button>
                         </div>
-                        
-                    {{-- </div> --}}
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle table-nowrap mb-0">
                             <thead>
