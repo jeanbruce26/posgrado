@@ -1,14 +1,35 @@
 <div>
     <div class="row">
         <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="d-flex align-items-center justify-content-end gap-4">
+                    <a class="btn btn-primary" href="{{ route('admin.inscripcion.lista') }}">
+                        Lista de usuarios
+                    </a>
+                    <button type="button" wire:click="export()" class="btn btn-success btn-label waves-effect right waves-light w-md"><i class="ri-file-excel-2-line label-icon align-middle fs-16 ms-2"></i>
+                        Excel
+                    </button>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex justify-content-between align-items-center gap-4">
-                            <a class="btn btn-primary" href="{{ route('admin.inscripcion.lista') }}">
-                                Lista de usuarios
-                            </a>
-                            <button type="button" wire:click="export()" class="btn btn-success btn-label waves-effect right waves-light w-md me-3"><i class="ri-file-excel-2-line label-icon align-middle fs-16 ms-2"></i> Excel</button>
+                        <div class="d-flex align-items-center gap-4">
+                            <select class="form-select w-75" wire:model="filtro_programa">
+                                <option value="">Seleccione el programa</option>
+                                @foreach ($programas as $item)
+                                    <option value="{{ $item->id_mencion }}">
+                                        @if ($item->mencion == null)
+                                            {{$item->SubPrograma->Programa->descripcion_programa}} EN {{$item->SubPrograma->subprograma}}
+                                        @else
+                                            MENCION EN {{$item->mencion}}
+                                        @endif
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button type="button" wire:click="limpiar_filtro()" class="btn btn-secondary">
+                                Limpiar
+                            </button>
                         </div>
                         <div class="w-25">
                             <input class="form-control text-muted" type="search" wire:model="search"
@@ -157,9 +178,13 @@
                             <div class="mt-2 d-flex justify-content-end text-muted">
                                 {{ $inscripcion->links() }}
                             </div>
-                        @else
+                        @elseif ($search != null)
                             <div class="text-center p-3 text-muted">
                                 <span>No hay resultados para la busqueda "<strong>{{ $search }}</strong>"</span>
+                            </div>
+                        @else
+                            <div class="text-center p-3 text-muted">
+                                <span>No hay resultados</span>
                             </div>
                         @endif
                     </div>

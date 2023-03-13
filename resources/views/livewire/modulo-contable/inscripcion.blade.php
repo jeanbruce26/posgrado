@@ -1,12 +1,31 @@
 <div>
     <div class="row">
         <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="d-flex align-items-center justify-content-end gap-4">
+                    <button type="button" wire:click="export_excel()" class="btn btn-success btn-label waves-effect right waves-light w-md me-3">
+                        <i class="ri-file-excel-2-line label-icon align-middle fs-16"></i> Excel
+                    </button>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-end align-items-center mb-3">
-                        <div class="d-flex justify-content-between align-items-center gap-4">
-                            <button type="button" wire:click="export_excel()" class="btn btn-success btn-label waves-effect right waves-light w-md me-3">
-                                <i class="ri-file-excel-2-line label-icon align-middle fs-16 ms-2"></i> Excel
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center gap-4">
+                            <select class="form-select w-75" wire:model="filtro_programa">
+                                <option value="">Seleccione el programa</option>
+                                @foreach ($programas as $item)
+                                    <option value="{{ $item->id_mencion }}">
+                                        @if ($item->mencion == null)
+                                            {{$item->SubPrograma->Programa->descripcion_programa}} EN {{$item->SubPrograma->subprograma}}
+                                        @else
+                                            MENCION EN {{$item->mencion}}
+                                        @endif
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button type="button" wire:click="limpiar_filtro()" class="btn btn-secondary">
+                                Limpiar
                             </button>
                         </div>
                         <div class="w-25">
