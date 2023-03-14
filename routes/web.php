@@ -50,6 +50,8 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
     Route::get('/constancia/{admitido}', [App\Http\Controllers\EvaluacionController::class, 'constancia'])->name('admin.admitidos.constancia');
 
     Route::get('/perfil', [App\Http\Controllers\TrabajadorController::class, 'perfil'])->name('admin.perfil.index');
+
+    Route::get('/encuestas', [App\Http\Controllers\EncuestaController::class, 'index'])->name('admin.encuesta.index');
 });
 
 

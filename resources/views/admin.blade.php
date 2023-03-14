@@ -263,7 +263,13 @@
                                 </ul>
                             </div>
                         </li>
-
+                        
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('admin.encuesta.index') }}" role="button" aria-expanded="false"
+                                aria-controls="sidebarDashboard">
+                                <i class="mdi mdi-chart-bar"></i> <span data-key="t-apps">Encuestas</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- Sidebar -->
