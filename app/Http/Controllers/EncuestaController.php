@@ -30,8 +30,11 @@ class EncuestaController extends Controller
 
         // dd($data_encuesta);
 
+        $encuesta_otros = EncuestaDetalle::where('encuesta_id', 8)->get();
+
         return view('modulo_administrador.Encuesta.index', [
-            'data_encuesta' => $data_encuesta
+            'data_encuesta' => $data_encuesta,
+            'encuesta_otros' => $encuesta_otros
         ]);
     }
 }

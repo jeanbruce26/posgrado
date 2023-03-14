@@ -14,12 +14,30 @@
     </div>
 </div>
 
-<div class="card">
-  <div class="card-body">
-      <figure class="highcharts-figure">
-          <div id="reporte_encuesta">
-          </div>
-      </figure>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+          <figure class="highcharts-figure">
+              <div id="reporte_encuesta">
+              </div>
+          </figure>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mt-1 fw-bold">Encuestas Otros</h5>
+      </div>
+      <div class="card-body">
+        <ul class="mb-0">
+          @foreach ($encuesta_otros as $item)
+          <li class="list-group-item"><i class="ri-arrow-right-line align-middle me-2"></i> {{ $item->otros }}</li>
+          @endforeach
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 @endsection
