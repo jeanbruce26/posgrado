@@ -281,6 +281,7 @@ class Index extends Component
                         ->orWhere('persona.apell_pater','LIKE',"%{$this->search}%")
                         ->orWhere('persona.apell_mater','LIKE',"%{$this->search}%")
                         ->orWhere('persona.nombre_completo','LIKE',"%{$this->search}%")
+                        ->orWhere('persona.num_doc','LIKE',"%{$this->search}%")
                         ->orWhere('inscripcion.id_inscripcion','LIKE',"%{$this->search}%");
                 })
                 ->orderBy('inscripcion.id_inscripcion','desc')
@@ -295,6 +296,7 @@ class Index extends Component
                         ->orWhere('persona.apell_pater','LIKE',"%{$this->search}%")
                         ->orWhere('persona.apell_mater','LIKE',"%{$this->search}%")
                         ->orWhere('persona.nombre_completo','LIKE',"%{$this->search}%")
+                        ->orWhere('persona.num_doc','LIKE',"%{$this->search}%")
                         ->orWhere('inscripcion.id_inscripcion','LIKE',"%{$this->search}%");
                 })
                 ->orderBy('inscripcion.id_inscripcion','desc')
