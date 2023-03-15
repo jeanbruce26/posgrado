@@ -68,6 +68,7 @@
                     </div>
 
                     <div class="d-flex align-items-center">
+                        @auth('pagos')
                         <div class="dropdown ms-sm-3 header-item">
                             <div class="d-flex align-items-center px-4">
                                 <form action="{{ route('usuario.logout') }}" method="post">
@@ -78,6 +79,7 @@
                                 </form>
                             </div>
                         </div>
+                        @endauth
                     </div>
                 </div>
             </div>

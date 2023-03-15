@@ -106,7 +106,6 @@ class UserInscripcionController extends Controller
         $nombre_pdf = 'FICHA_INSCRIPCION.pdf';
         $path = $admi.'/'.$id.'/'.$nombre_pdf;
         $pdf = PDF::loadView('modulo_inscripcion.inscripcion.reporte-pdf', $data)->save(public_path($admi.'/'.$id.'/'). $nombre_pdf);
-        $pdf2 = PDF::loadView('modulo_inscripcion.inscripcion.reporte-pdf', $data);
 
         $ins = Inscripcion::find($id);
         $ins->inscripcion = $path;
@@ -114,6 +113,14 @@ class UserInscripcionController extends Controller
 
         auth('pagos')->logout();
 
-        return $pdf2->stream($nombre_pdf);
+        // retornar a la ultima vista de gracias en la inscripcion
+        return redirect()->route('inscripcion.gracias', $id); 
     }
+
+    public function gracias($id)
+    {
+        $inscripcion = Inscripcion::where('id_inscripcion',$id)->first();
+        return view('modulo_inscripcion.inscripcion.gracias', compact('inscripcion'));
+    }
+
 }
