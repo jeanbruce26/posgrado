@@ -32,9 +32,12 @@ class EncuestaController extends Controller
 
         $encuesta_otros = EncuestaDetalle::where('encuesta_id', 8)->get();
 
+        $total_ecuestados = EncuestaDetalle::groupBy('documento')->get()->count();
+
         return view('modulo_administrador.Encuesta.index', [
             'data_encuesta' => $data_encuesta,
-            'encuesta_otros' => $encuesta_otros
+            'encuesta_otros' => $encuesta_otros,
+            'total_ecuestados' => $total_ecuestados
         ]);
     }
 }

@@ -14,56 +14,44 @@
     </div>
 </div>
 
+<div class="card">
+    <div class="card-header mt-1">
+        <span class="fs-4 fw-bold text-uppercase">
+            Total de encuestados: {{ $total_ecuestados }}
+        </span>
+    </div>
+</div>
+
 <div class="row">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-body">
-          <figure class="highcharts-figure">
-              <div id="reporte_encuesta">
-              </div>
-          </figure>
-      </div>
+    <div class="col-md-12">
+        <div class="card">
+        <div class="card-body">
+            <figure class="highcharts-figure">
+                <div id="reporte_encuesta">
+                </div>
+            </figure>
+        </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title mt-1 fw-bold">Encuestas Otros</h5>
-      </div>
-      <div class="card-body">
-        <ul class="mb-0">
-          @foreach ($encuesta_otros as $item)
-          <li class="list-group-item"><i class="ri-arrow-right-line align-middle me-2"></i> {{ $item->otros }}</li>
-          @endforeach
-        </ul>
-      </div>
+    <div class="col-md-12">
+        <div class="card">
+        <div class="card-header">
+            <h5 class="card-title mt-1 fw-bold">Encuestas Otros</h5>
+        </div>
+        <div class="card-body">
+            <ul class="mb-0">
+            @foreach ($encuesta_otros as $item)
+            <li class="list-group-item"><i class="ri-arrow-right-line align-middle me-2"></i> {{ $item->otros }}</li>
+            @endforeach
+            </ul>
+        </div>
+        </div>
     </div>
-  </div>
 </div>
 @endsection
 
 @section('javascript')
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-        $('#tablaDashboard').DataTable({
-            autoWidth: true,
-            "language": {
-                "lengthMenu": "Mostrar _MENU_ registros por páginas",
-                "zeroRecords": "Nada encontrado - disculpa",
-                "info": "Mostrando la página _PAGE_ de _PAGES_",
-                "infoEmpty": "No hay registros",
-                "infoFiltered": "(filtrado de _MAX_ registros totales)",
-                "search": "Buscar:",
-                "order": "desc",
-                "paginate": {
-                    "next": "Siguiente",
-                    "previous": "Anterior",
-                }
-            }
-        });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
@@ -104,6 +92,10 @@
                 column: {
                     pointPadding: 0.2,
                     borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:.0f}'
+                    }
                 },
                 series: {
                     colorByPoint: true
