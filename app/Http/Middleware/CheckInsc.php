@@ -18,7 +18,9 @@ class CheckInsc
     public function handle(Request $request, Closure $next)
     {
         $admision = Admision::where('estado', 1)->first();
-        if($admision->fecha_fin < today()){
+        $valor = '+ 2 day';
+        $final = date('Y-m-d',strtotime($admision->fecha_fin.$valor));
+        if($final < today()){
             return redirect('errorLogin');
         }else{
             return $next($request);
