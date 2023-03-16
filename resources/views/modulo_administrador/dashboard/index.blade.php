@@ -14,6 +14,14 @@
     </div>
 </div>
 
+<div class="page-title-box d-sm-flex align-items-center justify-content-end">
+    <a href="{{ route('admin.export_pdf') }}" target="_blank">
+        <button type="button" class="btn btn-info">
+            <i class="fas fa-file-pdf"></i> Exportar PDF
+        </button>
+    </a>
+</div>
+
 <div class="row">
     <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <div class="card px-4 py-3" style="height: 140px">
@@ -35,13 +43,23 @@
             </div>
         </div>
     </div>
-    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+    {{-- <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <div class="card px-4 py-3" style="height: 140px">
             <div class="pt-2 pb-2">
                 <span class="card-title mb-1 fs-3 fw-bold" style="color: rgb(71, 71, 71)">Ingreso por Constancia</span>
             </div>
             <div class="pt-2 pb-2">
                 <span class="fs-2 fw-semibold" style="color: rgb(63, 63, 63)">S/. {{ number_format($ingreso_constancia, 2, ',', ' ') }}</span>
+            </div>
+        </div>
+    </div> --}}
+    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card px-4 py-3" style="height: 140px">
+            <div class="pt-2 pb-2">
+                <span class="card-title mb-1 fs-3 fw-bold" style="color: rgb(71, 71, 71)">Pagos Registrados</span>
+            </div>
+            <div class="pt-2 pb-2">
+                <span class="fs-2 fw-semibold" style="color: rgb(63, 63, 63)">{{ $pagos->count() }}</span>
             </div>
         </div>
     </div>

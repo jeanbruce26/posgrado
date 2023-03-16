@@ -10,6 +10,7 @@ Route::post('logout', [App\Http\Controllers\AdminLoginController::class, 'logout
 
 Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])->group(function () {
     Route::get('', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('admin.index');
+    Route::get('/reporte-dashboard', [App\Http\Controllers\DashboardController::class, 'export_pdf'])->name('admin.export_pdf');
     
     Route::resource ('TipoUbigeo','TipoUbigeoController');
     Route::resource ('TipoDocumento','TipoDocumentoController');
