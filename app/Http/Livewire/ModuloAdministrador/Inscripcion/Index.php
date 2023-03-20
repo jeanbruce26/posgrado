@@ -10,6 +10,7 @@ use App\Models\ExpedienteInscripcionSeguimiento;
 use App\Models\Inscripcion;
 use App\Models\InscripcionPago;
 use App\Models\Mencion;
+use App\Models\Pago;
 use App\Models\Persona;
 use App\Models\Programa;
 use App\Models\SubPrograma;
@@ -46,7 +47,7 @@ class Index extends Component
     public $filtro_programa;
 
     protected $listeners = [
-        'render', 'cambiarPrograma', 'cambiarSeguimiento'
+        'render', 'cambiarPrograma', 'cambiarSeguimiento', 'reservarPago'
     ];
     
     public function updated($propertyName)
@@ -260,6 +261,67 @@ class Index extends Component
         $this->dispatchBrowserEvent('notificacionInscripcion', ['message' =>'Excel exportado satisfactoriamente.', 'color' => '#2eb867']);
 
         return Excel::download(new DataInscripcionesExport, 'inscritos-'.$fecha_actual.'-'.$hora_actual.'.xlsx');
+    }
+
+    public function reservar_inscripcion($id_inscripcion){
+        $this->dispatchBrowserEvent('alertaReserva', [
+            'titulo' => '¡Reservar inscripción!',
+            'mensaje' => '¿Está seguro de reservar la inscripción?',
+            'id_inscripcion' => $id_inscripcion
+        ]);
+    }
+
+    public function reservarPago($id_inscripcion){
+        $mostrar_tipo_expediente = Inscripcion::find($id_inscripcion)->tipo_programa;
+        // verificamos si tiene seguimiento
+        $expediente_seguimiento = ExpedienteInscripcionSeguimiento::join('ex_insc', 'ex_insc.cod_ex_insc', '=', 'expediente_inscripcion_seguimiento.cod_ex_insc')
+                                                        ->where('ex_insc.id_inscripcion', $this->inscripcion_id)
+                                                        ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
+                                                        ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
+                                                        ->get();
+        if($expediente_seguimiento->count() > 0){ // si tiene seguimiento eliminamos su seguimiento
+            foreach($expediente_seguimiento as $item){
+                $item->delete();
+            }
+        }
+        // obtenemos los expedientes de la inscripcion
+        $expediente_inscripcion = ExpedienteInscripcion::where('id_inscripcion', $id_inscripcion)->get(); 
+        // Eliminar expedientes de la inscripcion que no son del programa elegido
+        // delete storage file and database
+        foreach($expediente_inscripcion as $exp){
+            $expediente = Expediente::where('cod_exp', $exp->expediente_cod_exp)
+                                        ->where(function($query) use ($mostrar_tipo_expediente){
+                                            $query->where('expediente_tipo', 0)
+                                                ->orWhere('expediente_tipo', $mostrar_tipo_expediente);
+                                        })
+                                        ->first();
+            if($expediente === null){
+                $exp->delete();
+                File::delete($exp->nom_exped);
+            }
+        }
+        // ahora eliminamos los expedientes de la inscripcion
+        foreach($expediente_inscripcion as $item){
+            $item->delete(); // eliminamos los expedientes de la inscripcion
+        }
+        // verificamos los pagos de la inscripcion
+        $inscripcion_pago = InscripcionPago::where('inscripcion_id', $id_inscripcion)->get();
+        // eliminamos los pagos de la inscripcion y al pago le cambiamos el estado a 0
+        foreach($inscripcion_pago as $item){
+            $pago = Pago::find($item->pago_id);
+            $pago->estado = 0;
+            $pago->save();
+            $item->delete();
+        }
+        // obtenemos la inscripcion
+        $inscripcion = Inscripcion::find($id_inscripcion);
+        // eliminamos la inscripcion
+        $inscripcion->delete();
+        // emitimos la alerta de exito
+        $this->dispatchBrowserEvent('alertaSuccess', [
+            'titulo' => '¡Éxito!',
+            'mensaje' => 'Se ha eliminado la inscripción correctamente y se ha reservado el pago.'
+        ]);
     }
 
     public function limpiar_filtro()

@@ -86,5 +86,29 @@
             }
         }).showToast();
     })
+    window.addEventListener('alertaReserva', event => {
+        // alert('Name updated to: ' + event.detail.id);
+        Swal.fire({
+            title: event.detail.titulo,
+            text: event.detail.mensaje,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Reservar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-administrador.inscripcion.index', 'reservarPago', event.detail.id_inscripcion);
+            }
+        })
+    })
+    window.addEventListener('alertaSuccess', event => {
+        Swal.fire(
+            event.detail.titulo,
+            event.detail.mensaje,
+            'error'
+        )
+    });
 </script>
 @endsection
