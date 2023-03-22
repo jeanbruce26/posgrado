@@ -217,6 +217,13 @@
         @if ($pasoactual == 2)
         <div class="">
             <h4 class="text-center text-white p-2 rounded" style="background: #142e52;">Paso 2 / 2</h4>
+            <!-- Danger Alert -->
+            <div class="alert alert-danger alert-dismissible alert-label-icon label-arrow shadow fade show mt-3 mb-3" role="alert">
+                <i class="ri-error-warning-line label-icon"></i><strong>
+                    Las inscripciones para el Programa de Maestría en Gestión Pública se cerraro el día 22 de marzo de 2023.
+                </strong>
+                <button type="button" class="btn-close" data-bs-dismiss=" alert" aria-label="Close"></button>
+            </div>
             <div class="card mt-3">
                 <div class="card-header">
                     <span class="fw-bold ms-2 fs-5 text-uppercase" style="color: #142e52">
