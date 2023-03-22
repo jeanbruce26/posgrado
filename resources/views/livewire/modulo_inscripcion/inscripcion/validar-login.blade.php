@@ -35,7 +35,10 @@
 
             <div class="mb-3">
                 <label class="form-label">Número de Operación *</label>
-                <input type="text" wire:model="numero_operacion" class="form-control @error('numero_operacion') is-invalid @enderror" placeholder="Ingrese su documento">
+                <input type="text" wire:model="numero_operacion" class="form-control @error('numero_operacion') is-invalid @enderror" placeholder="Ingrese su numero de operación">
+                <div class="mt-1 text-muted" style="font-size: .77rem">
+                    <strong>Nota: </strong>Omitir los ceros iniciales, por ejemplo: 00000023456 debe ingresar 23456.
+                </div>
                 @error('numero_operacion')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
