@@ -5,15 +5,23 @@
                 {{ $admision_fecha_admitidos }}.</strong>
         </div>
     @else
-        @if ($admitido)
-            <div class="alert alert-success alert-solid shadow" role="alert">
-                <strong>¡Admitido!</strong>
-            </div>
+        @if ($evaluacion)
+            @if ($admitido)
+                <div class="alert alert-success alert-solid shadow" role="alert">
+                    <strong>¡Admitido!</strong>
+                </div>
+            @else
+                <div class="alert alert-danger alert-solid shadow" role="alert">
+                    <strong>¡No admitido!</strong>
+                </div>
+            @endif
         @else
-            <div class="alert alert-danger alert-solid shadow" role="alert">
-                <strong>¡No admitido!</strong>
+            <div class="alert alert-info alert-dismissible alert-label-icon rounded-label shadow fade show" role="alert">
+                <i class="ri-information-line label-icon"></i><strong>Los resultados de admitidos se presentará el
+                    {{ $admision_fecha_admitidos }}.</strong>
             </div>
         @endif
+        
     @endif
     @if (date('Y/m/d', strtotime($fecha_admision_normal)) >= date('Y/m/d', strtotime(today())))
         <div class="alert alert-info alert-dismissible alert-label-icon rounded-label shadow fade show" role="alert">
@@ -38,19 +46,50 @@
             </strong>
         </div>
     @endif
-
+    <!-- Success Alert -->
+    <div class="alert alert-primary alert-dismissible alert-additional shadow fade show" role="alert">
+        <div class="alert-body">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="d-flex">
+                <div class="flex-shrink-0 me-3">
+                    <i class="ri-notification-line fs-16 align-middle"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="alert-heading fw-bold text-uppercase">Puntajes</h5>
+                    <p class="mb-0">
+                        <strong>Evalaución de Expedientes:</strong> @if($evaluacion) {{ number_format($evaluacion->p_expediente) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif 
+                    </p>
+                    @if ($inscripcion->tipo_programa == 2)
+                    <p class="mb-0">
+                        <strong>Evalaución de Investigación:</strong> @if($evaluacion) {{ number_format($evaluacion->p_investigacion) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif
+                    </p>
+                    @endif
+                    <p class="mb-0">
+                        <strong>Evalaución de Entrevista:</strong> @if($evaluacion) {{ number_format($evaluacion->p_entrevista) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif
+                    </p>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="alert-content">
+            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+        </div> --}}
+    </div>
     <div class="mt-4">
         <div class="card">
             <h4 class="card-header d-flex fw-bold justify-content-between align-items-center">
                 <span>
                     Bienvenido {{ $nombre }}.
                 </span>
-                @if ($admision_fecha_constancia <= today())
-                    <a href="#modalRegistrarPago" wire:click="modal_registrar_pago"
-                        class="btn btn-info bg-gradient waves-effect waves-light" data-bs-toggle="modal"
-                        data-bs-target="#modalRegistrarPago">
-                        Registrar Pago
-                    </a>
+                @if ($evaluacion)
+                    @if ($admitido)
+                        @if ($admision_fecha_constancia <= today())
+                            <a href="#modalRegistrarPago" wire:click="modal_registrar_pago"
+                                class="btn btn-info bg-gradient waves-effect waves-light" data-bs-toggle="modal"
+                                data-bs-target="#modalRegistrarPago">
+                                Registrar Pago
+                            </a>
+                        @endif
+                    @endif
                 @endif
             </h4>
             <div class="card-text px-5 my-2 d-flex justify-content-around row g-3">
@@ -153,7 +192,7 @@
     {{-- Modal Usuario --}}
     <div wire:ignore.self class="modal fade" id="modalRegistrarPago" tabindex="-1" aria-labelledby="modalRegistrarPago"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-uppercase" id="exampleModalLabel">{{ $titulo_modal }}</h5>
@@ -163,7 +202,7 @@
                 <div class="modal-body">
                     <form novalidate>
                         <div class="row">
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Documento de Identidad <span
                                         class="text-danger">*</span></label>
                                 <input type="number" class="form-control @error('documento') is-invalid  @enderror"
@@ -172,7 +211,7 @@
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label"> Número de Operación
                                     <span class="text-danger">*</span></label>
                                 <input type="number"
@@ -185,7 +224,7 @@
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label"> Monto de Operación
                                     <span class="text-danger">*</span></label>
                                 <input type="number"
@@ -195,7 +234,7 @@
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label"> Fecha de Operación
                                     <span class="text-danger">*</span></label>
                                 <input type="date"
@@ -205,7 +244,7 @@
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label"> Canal de Pago
                                     <span class="text-danger">*</span></label>
                                 <select type="text" class="form-select @error('canal_pago') is-invalid @enderror"
@@ -220,7 +259,7 @@
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label"> Concepto de Pago
                                     <span class="text-danger">*</span></label>
                                 <select type="text"

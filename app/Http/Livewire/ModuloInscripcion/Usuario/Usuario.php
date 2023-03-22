@@ -549,6 +549,7 @@ class Usuario extends Component
 
         $fecha_admision_normal = Admision::where('estado',1)->first()->fecha_fin;
 
+        $inscripcion = Inscripcion::find(auth('usuarios')->user()->id_inscripcion);
         $evaluacion = Evaluacion::where('inscripcion_id',auth('usuarios')->user()->id_inscripcion)->first();
         // dd($evaluacion);
         $admitido = null;
@@ -607,6 +608,8 @@ class Usuario extends Component
             'fecha_admision' => $fecha_admision,
             'fecha_admision_normal' => $fecha_admision_normal,
             'lista_admitidos' => $lista_admitidos,
+            'inscripcion' => $inscripcion,
+            'evaluacion' => $evaluacion,
             'admitido' => $admitido,
             'admision_fecha_admitidos' => $admision_fecha_admitidos,
             'pago_constancia_ingreso' => $pago_constancia_ingreso,

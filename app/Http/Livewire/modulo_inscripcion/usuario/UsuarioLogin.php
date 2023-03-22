@@ -35,31 +35,33 @@ class UsuarioLogin extends Component
         if(!$inscripcion){
             return redirect()->back()->with(array('mensaje'=>'Credenciales incorrectas'));
         }else{
-            if(today() < $admision->fecha_admitidos){
-                auth('usuarios')->login($inscripcion);
-                return redirect()->route('usuarios.index');
-            }else{
-                $evaluacion = Evaluacion::where('inscripcion_id',$inscripcion->id_inscripcion)->first();
+            // if(today() < $admision->fecha_admitidos){
+            //     auth('usuarios')->login($inscripcion);
+            //     return redirect()->route('usuarios.index');
+            // }else{
+            //     $evaluacion = Evaluacion::where('inscripcion_id',$inscripcion->id_inscripcion)->first();
 
-                if($evaluacion){
-                    $admitido_count = Admitidos::count();
-                    $admitido = Admitidos::where('evaluacion_id',$evaluacion->evaluacion_id)->first();
-                    if($admitido_count == 0){
-                        auth('usuarios')->login($inscripcion);
-                        return redirect()->route('usuarios.index');
-                    }else{
-                        if($admitido == null){
-                            return redirect()->back()->with(array('mensaje'=>'Usuario no admitido'));
-                        }else{
-                            auth('usuarios')->login($inscripcion);
-                            return redirect()->route('usuarios.index');
-                        }
-                    }
-                }else{
-                    auth('usuarios')->login($inscripcion);
-                    return redirect()->route('usuarios.index');
-                }
-            }
+            //     if($evaluacion){
+            //         $admitido_count = Admitidos::count();
+            //         $admitido = Admitidos::where('evaluacion_id',$evaluacion->evaluacion_id)->first();
+            //         if($admitido_count == 0){
+            //             auth('usuarios')->login($inscripcion);
+            //             return redirect()->route('usuarios.index');
+            //         }else{
+            //             if($admitido == null){
+            //                 return redirect()->back()->with(array('mensaje'=>'Usuario no admitido'));
+            //             }else{
+            //                 auth('usuarios')->login($inscripcion);
+            //                 return redirect()->route('usuarios.index');
+            //             }
+            //         }
+            //     }else{
+            //         auth('usuarios')->login($inscripcion);
+            //         return redirect()->route('usuarios.index');
+            //     }
+            // }
+            auth('usuarios')->login($inscripcion);
+            return redirect()->route('usuarios.index');
         }
     }
 
