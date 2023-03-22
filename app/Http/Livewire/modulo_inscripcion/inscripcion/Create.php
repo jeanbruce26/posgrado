@@ -474,14 +474,26 @@ class Create extends Component
             $persona_buscar->nombre_completo = strtoupper($this->apellido_paterno.' '.$this->apellido_materno.' '.$this->nombres);
             $persona_buscar->direccion = strtoupper($this->direccion);
             $persona_buscar->celular1 = $this->celular;
-            $persona_buscar->celular2 = $this->celular_opcional;
+            if($this->celular_opcional != null || $this->celular_opcional != ''){
+                $persona_buscar->celular2 = $this->celular_opcional;
+            }else{
+                $persona_buscar->celular2 = null;
+            }
             $persona_buscar->sexo = $this->genero;
             $persona_buscar->fecha_naci = $this->fecha_nacimiento;
             $persona_buscar->email = $this->correo;
-            $persona_buscar->email2 = $this->correo_opcional;
+            if($this->correo_opcional != null || $this->correo_opcional != ''){
+                $persona_buscar->email2 = $this->correo_opcional;
+            }else{
+                $persona_buscar->email2 = null;
+            }
             $persona_buscar->año_egreso = $this->año_egreso;
             $persona_buscar->centro_trab = strtoupper($this->trabajo);
-            $persona_buscar->discapacidad_cod_disc = $this->discapacidad;
+            if($this->discapacidad == null || $this->discapacidad == ''){
+                $persona_buscar->discapacidad_cod_disc = null;
+            }else{
+                $persona_buscar->discapacidad_cod_disc = $this->discapacidad;
+            }
             $persona_buscar->est_civil_cod_est = $this->estado_civil;
             $persona_buscar->univer_cod_uni = $this->universidad;
             $persona_buscar->id_grado_academico = $this->grado_academico;
@@ -511,14 +523,26 @@ class Create extends Component
             $persona->nombre_completo = strtoupper($this->apellido_paterno.' '.$this->apellido_materno.' '.$this->nombres);
             $persona->direccion = strtoupper($this->direccion);
             $persona->celular1 = $this->celular;
-            $persona->celular2 = $this->celular_opcional;
+            if($this->celular_opcional == null || $this->celular_opcional == ''){
+                $persona->celular2 = null;
+            }else{
+                $persona->celular2 = $this->celular_opcional;
+            }
             $persona->sexo = $this->genero;
             $persona->fecha_naci = $this->fecha_nacimiento;
             $persona->email = $this->correo;
-            $persona->email2 = $this->correo_opcional;
+            if($this->correo_opcional == null || $this->correo_opcional == ''){
+                $persona->email2 = null;
+            }else{
+                $persona->email2 = $this->correo_opcional;
+            }
             $persona->año_egreso = $this->año_egreso;
             $persona->centro_trab = strtoupper($this->trabajo);
-            $persona->discapacidad_cod_disc = $this->discapacidad;
+            if($this->discapacidad == null || $this->discapacidad == ''){
+                $persona->discapacidad_cod_disc = null;
+            }else{
+                $persona->discapacidad_cod_disc = $this->discapacidad;
+            }
             $persona->est_civil_cod_est = $this->estado_civil;
             $persona->univer_cod_uni = $this->universidad;
             $persona->id_grado_academico = $this->grado_academico;
