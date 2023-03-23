@@ -17,13 +17,15 @@ class Inscripciones extends Component
     protected $paginationTheme = 'bootstrap';
     protected $queryString = [
         'search' => ['except' => ''],
-        'mostrar' => ['except' => '10']
+        'mostrar' => [
+            'except' => '50'
+        ]
     ];
 
     public $id_mencion;
     public $boton = 'disabled';
     public $search = '';
-    public $mostrar = 10;
+    public $mostrar = 50;
 
     public function evaExpe($id)
     {

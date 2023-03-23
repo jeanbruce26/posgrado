@@ -24,9 +24,10 @@
                                     <th scope="col">Fecha de Inscripción</th>
                                     <th scope="col">Celular</th>
                                     <th scope="col">Correo Electrónico</th>
-                                    <th scope="col">Nro. Operacion</th>
+                                    <th scope="col">Especialidad</th>
+                                    {{-- <th scope="col">Nro. Operacion</th>
                                     <th scope="col">Monto</th>
-                                    <th scope="col">Fecha de Pago</th>
+                                    <th scope="col">Fecha de Pago</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,7 +60,10 @@
                                                     {{ $item->email2 }}
                                                 @endif
                                             </td>
-                                            <td align="center">
+                                            <td>
+                                                {{ $item->especialidad }}
+                                            </td>
+                                            {{-- <td align="center">
                                                 {{ $item->nro_operacion }}
                                             </td>
                                             <td align="center">
@@ -67,7 +71,7 @@
                                             </td>
                                             <td align="center">
                                                 {{ date('d/m/Y', strtotime($item->fecha_pago)) }}
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endif
                                 @endforeach

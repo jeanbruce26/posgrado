@@ -49,10 +49,10 @@ Una vez realizado la evaluación, no podrá realizar modificación de las notas 
                 <div class="text-muted d-flex align-items-center mb-1">
                     <label class="col-form-label me-2">Mostrar</label>
                     <select class="form-select text-muted" wire:model="mostrar" aria-label="Default select example">
-                        <option value="10" selected>10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
+                        <option value="50" selected>50</option>
                         <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="300">300</option>
                     </select>
                 </div>
                 <div class="w-25 mb-1">
