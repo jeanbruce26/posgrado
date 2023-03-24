@@ -840,7 +840,7 @@
             <thead>
                 <tr>
                     <th class="" style="text-align: initial;">
-                        Para consultar los resultados de la evaluación de expediente y entrevista personal, deberá acceder al siguiente enlace utilizando sus credenciales de usuario y contraseña que se les entregará a continuación:
+                        Para consultar los resultados de la evaluación de expediente, entrevista personal y modificacion de los expedientes ingresados deberá acceder al siguiente enlace utilizando sus credenciales de usuario y contraseña que se les entregará a continuación:
                     </th>
                 </tr>
             </thead>
