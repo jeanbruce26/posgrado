@@ -167,6 +167,7 @@ class Inscripciones extends Component
                     ->orWhere('persona.num_doc','LIKE',"%{$buscar}%")
                     ->orWhere('inscripcion.id_inscripcion','LIKE',"%{$buscar}%");
                 })
+            ->orderBy('persona.nombre_completo','ASC')
             ->paginate($this->mostrar);
 
         $mencion = Mencion::join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')

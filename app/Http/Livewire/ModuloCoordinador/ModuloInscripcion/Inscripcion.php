@@ -45,7 +45,7 @@ class Inscripcion extends Component
                     ->orWhere('programa.descripcion_programa','LIKE',"%{$search}%")
                     ->orWhere('persona.num_doc','LIKE',"%{$search}%");
                 })
-                ->orderBy('inscripcion.id_inscripcion','DESC')
+                ->orderBy('persona.nombre_completo', 'asc')
                 ->get();
 
         return view('livewire.modulo-coordinador.modulo-inscripcion.inscripcion', [

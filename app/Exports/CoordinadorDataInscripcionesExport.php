@@ -33,6 +33,7 @@ class CoordinadorDataInscripcionesExport implements FromCollection, WithHeadings
                                             ->join('programa','subprograma.id_programa','=','programa.id_programa')
                                             ->join('pago','inscripcion_pago.pago_id','=','pago.pago_id')
                                             ->where('inscripcion.id_mencion', $id_mencion)
+                                            ->orderBy('persona.nombre_completo', 'asc')
                                             ->get();
         
         return $inscripcion_pago;
