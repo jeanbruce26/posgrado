@@ -18,7 +18,9 @@ class Admitidos extends Model
         'persona_id',
         'evaluacion_id',
         'constancia_codigo',
-        'constancia'
+        'constancia',
+        'id_mencion',
+        'tipo_programa',
     ];
 
     public $timestamps = false;
@@ -27,5 +29,17 @@ class Admitidos extends Model
     public function Evaluacion(){
         return $this->belongsTo(Evaluacion::class,
         'evaluacion_id','evaluacion_id');
+    }
+
+    // Mencion
+    public function Mencion(){
+        return $this->belongsTo(Mencion::class,
+        'id_mencion','id_mencion');
+    }
+
+    // persona
+    public function Persona(){
+        return $this->belongsTo(Persona::class,
+        'persona_id','idpersona');
     }
 }

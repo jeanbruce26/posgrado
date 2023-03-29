@@ -36,12 +36,11 @@
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
                                     <th scope="col" class="">ID</th>
                                     <th scope="col" class="col-md-2">Codigo</th>
-                                    <th scope="col" class="col-md-3">Apellidos y Nombres</th>
                                     <th scope="col" class="col-md-2">Documento</th>
-                                    <th scope="col" class="col-md-1">Estado</th>
-                                    <th scope="col" class="col-md-2">Codigo Constancia</th>
-                                    <th scope="col" class="col-md-1">Constancia</th>
-                                    <th scope="col" class="col-md-1">Acciones</th>
+                                    <th scope="col" class="col-md-3">Apellidos y Nombres</th>
+                                    <th scope="col" class="col-md-3">Celular</th>
+                                    <th scope="col" class="col-md-2">Pago Constancia</th>
+                                    <th scope="col" class="col-md-2">Pago Matricula</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,31 +50,32 @@
                                     </tr>
                                 @else
                                     @foreach ($admitidos_model as $item)
+                                    @php
+                                        $constancia = App\Models\ConstanciaIngresoPago::where('admitidos_id', $item->admitidos_id)->first();
+                                        $matricula = App\Models\MatriculaPago::where('admitidos_id', $item->admitidos_id)->where('ciclo_id',1)->first();
+                                    @endphp
                                     <tr>
                                         <td align="center" class="fw-bold">{{$item->admitidos_id}}</td>
                                         <td align="center">{{ $item->admitidos_codigo }}</td>
-                                        <td align="">{{ $item->apell_pater }} {{ $item->apell_mater }}, {{ $item->nombres }}</td>
                                         <td align="center">{{ $item->num_doc }}</td>
-                                        <td align="center"><span class="badge text-bg-primary">Admitido</span></td>
+                                        <td align="">{{ $item->apell_pater }} {{ $item->apell_mater }}, {{ $item->nombres }}</td>
+                                        <td align="center">+51 {{ $item->celular1 }}</td>
                                         <td align="center">
-                                            @if ($item->constancia_codigo == null)
-                                                -                                                
+                                            @if ($constancia)
+                                                <button class="btn btn-sm btn-secondary" wire:click="cargar_pago(1, {{ $item->admitidos_id }})" data-bs-toggle="modal" data-bs-target="#modal_pago">
+                                                    Ver pago
+                                                </button>
                                             @else
-                                                {{ $item->constancia_codigo }}
+                                                ---
                                             @endif
                                         </td>
                                         <td align="center">
-                                            @if ($item->constancia == null)
-                                                -
+                                            @if ($matricula)
+                                                <button class="btn btn-sm btn-secondary" wire:click="cargar_pago(2, {{ $item->admitidos_id }})" data-bs-toggle="modal" data-bs-target="#modal_pago">
+                                                    Ver pago
+                                                </button>
                                             @else
-                                                <a href="{{ asset($item->constancia) }}" target="_blank" class="link-success fs-16"><i class="ri-file-text-line"></i></a>
-                                            @endif
-                                        </td>
-                                        <td align="center">
-                                            @if ($item->constancia)
-                                                -
-                                            @else
-                                                <a wire:click="cargarAlertaCrearConstancia({{ $item->admitidos_id }})"  class="link-secondary fs-16" style="cursor: pointer" ><i class="ri-file-add-line"></i></a>
+                                                ---
                                             @endif
                                         </td>
                                     </tr>
@@ -88,3 +88,50 @@
             </div>
         </div>
     </div>
+    {{-- Modal --}}
+    <div wire:ignore.self class="modal fade" id="modal_pago" tabindex="-1" role="dialog" aria-labelledby="modal_pago_label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h5 class="modal-title text-uppercase" id="modalNotaLabel">Ver Pago</h5>
+                        <button type="button" wire:click="limpiar()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body mb-3">
+                        <div class="row g-2">
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span>
+                                        Voucher
+                                    </span>
+                                    <a href="{{ asset($voucher) }}" target="_blank" class="btn btn-sm btn-primary">
+                                        Ver Voucher Completo
+                                    </a>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <img src="{{ asset($voucher) }}" alt="voucher" height="200">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="documento" class="col-form-label">Documento Identidad</label>
+                                <input type="text" id="documento" class="form-control" wire:model="documento" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="operacion" class="col-form-label">Numero Operacion</label>
+                                <input type="text" id="operacion" class="form-control" wire:model="operacion" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fecha" class="col-form-label">Fecha Pago</label>
+                                <input type="text" id="fecha" class="form-control" wire:model="fecha" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="monto" class="col-form-label">Monto Pago</label>
+                                <input type="text" id="monto" class="form-control" wire:model="monto" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

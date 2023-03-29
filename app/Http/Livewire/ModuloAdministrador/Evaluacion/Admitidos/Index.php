@@ -5,6 +5,7 @@ namespace App\Http\Livewire\ModuloAdministrador\Evaluacion\Admitidos;
 use App\Exports\UsersExport;
 use App\Models\Admision;
 use App\Models\Admitidos;
+use App\Models\ConstanciaIngresoPago;
 use App\Models\Evaluacion;
 use App\Models\HistorialInscripcion;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -21,6 +22,8 @@ class Index extends Component
 
     public $search = '';
     public $mostrar_alerta = 0;
+
+    public $operacion, $fecha, $monto, $documento, $voucher; // variables para el modal de constancia de ingreso y pago
 
     protected $listeners = ['render', 'generar_codigo', 'crearConstancia'];
 
@@ -145,6 +148,8 @@ class Index extends Component
                 "admitidos_codigo" => $codigo,
                 "persona_id" => $admitido->persona_idpersona,
                 "evaluacion_id" => $admitido->evaluacion_id,
+                "id_mencion" => $admitido->id_mencion,
+                "tipo_programa" => $admitido->tipo_programa,
             ]);
 
             $evaluacion = Evaluacion::find($admitido->evaluacion_id);
@@ -163,6 +168,33 @@ class Index extends Component
     public function crearConstancia(Admitidos $admitido)
     {
         $this->crearConstanciaPdf($admitido);
+    }
+
+    public function cargar_pago($tipo_pago, Admitidos $admitidos)
+    {
+        if($tipo_pago == '1'){
+            $pago_constancia = ConstanciaIngresoPago::where('admitidos_id', $admitidos->admitidos_id)->first();
+            if($pago_constancia){
+                $this->operacion = $pago_constancia->pago->nro_operacion;
+                $this->monto = 'S/. ' . $pago_constancia->pago->monto;
+                $this->fecha = date('d/m/Y', strtotime($pago_constancia->pago->fecha_pago));
+                $this->voucher = $pago_constancia->pago->voucher;
+                $this->documento = $pago_constancia->pago->dni;
+            }else{
+                $this->dispatchBrowserEvent('alertaPagoConstancia');
+            }
+        }else if($tipo_pago == '2'){
+            
+        }
+    }
+
+    public function limpiar()
+    {
+        $this->operacion = '';
+        $this->monto = '';
+        $this->fecha = '';
+        $this->voucher = '';
+        $this->documento = '';
     }
 
     public function crearConstanciaPdf($admitido)

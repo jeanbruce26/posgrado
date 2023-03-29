@@ -191,4 +191,9 @@ class CoordinadorController extends Controller
             'programa' => $programa
         ]);
     }
+
+    public function matriculados()
+    {
+        return view('modulo_coordinador.matriculados.index');
+    }
 }

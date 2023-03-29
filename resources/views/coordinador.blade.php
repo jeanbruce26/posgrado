@@ -174,6 +174,12 @@
                                 <i class="mdi mdi-clipboard-file-outline"></i> <span data-key="t-apps">Inscripciones</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link fw-bold" href="{{ route('coordinador.matriculados.index') }}" role="button"
+                                aria-expanded="false" aria-controls="sidebarDashboard">
+                                <i class="mdi mdi-book-education-outline"></i> <span data-key="t-apps">Matriculados</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- Sidebar -->
