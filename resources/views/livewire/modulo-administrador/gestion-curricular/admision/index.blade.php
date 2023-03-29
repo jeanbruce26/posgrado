@@ -65,7 +65,7 @@
     {{-- Modal Usuario --}}
     <div wire:ignore.self class="modal fade" id="modalAdmision" tabindex="-1" aria-labelledby="modalAdmision"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{ $titulo }}</h5>
@@ -75,13 +75,13 @@
                 <div class="modal-body">
                     <form novalidate>
                         <div class="row">
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Año <span
                                         class="text-danger">*</span></label>
                                 <input type="number" class="form-control @error('año') is-invalid  @enderror" wire:model="año" placeholder="Ingrese el año del proceso de admision">
                                 @error('año') <span class="error text-danger" >{{ $message }}</span> @enderror
                             </div>
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Convocatoria</label>
                                 <input type="text" class="form-control @error('convocatoria') is-invalid  @enderror" wire:model="convocatoria" placeholder="Ingrese la convocatoria del proceso de admision">
                                 @error('convocatoria') <span class="error text-danger" >{{ $message }}</span> @enderror
@@ -117,17 +117,29 @@
                                 <input type="date" class="form-control @error('fecha_entrevista_fin') is-invalid  @enderror" wire:model="fecha_entrevista_fin">
                                 @error('fecha_fifecha_entrevista_finnal') <span class="error text-danger" >{{ $message }}</span> @enderror
                             </div>
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Fecha de admitidos <span
                                         class="text-danger">*</span></label>
                                 <input type="date" class="form-control @error('fecha_admitidos') is-invalid  @enderror" wire:model="fecha_admitidos">
                                 @error('fecha_admitidos') <span class="error text-danger" >{{ $message }}</span> @enderror
                             </div>
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Fecha de constancia de ingreso <span
                                         class="text-danger">*</span></label>
                                 <input type="date" class="form-control @error('fecha_constancia') is-invalid  @enderror" wire:model="fecha_constancia">
                                 @error('fecha_constancia') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Fecha de matricula extemporanea inicio <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control @error('fecha_extemporanea_inicio') is-invalid  @enderror" wire:model="fecha_extemporanea_inicio">
+                                @error('fecha_extemporanea_inicio') <span class="error text-danger" >{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Fecha de matricula extemporanea fin <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control @error('fecha_extemporanea_fin') is-invalid  @enderror" wire:model="fecha_extemporanea_fin">
+                                @error('fecha_extemporanea_fin') <span class="error text-danger" >{{ $message }}</span> @enderror
                             </div>
                         </div>
                     </form>

@@ -36,6 +36,9 @@ class Index extends Component
 
     public $fecha_constancia;
 
+    public $fecha_extemporanea_inicio;
+    public $fecha_extemporanea_fin;
+
     protected $listeners = ['render', 'cambiarEstado'];
 
     public function updated($propertyName)
@@ -50,6 +53,8 @@ class Index extends Component
             'fecha_entrevista_fin' => 'required|date',
             'fecha_admitidos' => 'required|date',
             'fecha_constancia' => 'required|date',
+            'fecha_extemporanea_inicio' => 'required|date',
+            'fecha_extemporanea_fin' => 'required|date',
         ]);
     }
 
@@ -73,6 +78,8 @@ class Index extends Component
             'fecha_entrevista_fin',
             'fecha_admitidos',
             'fecha_constancia',
+            'fecha_extemporanea_inicio',
+            'fecha_extemporanea_fin',
         ]);
         $this->modo = 1;
     }
@@ -110,6 +117,8 @@ class Index extends Component
         $this->fecha_entrevista_fin = $admision->fecha_evaluacion_entrevista_fin;
         $this->fecha_admitidos = $admision->fecha_admitidos;
         $this->fecha_constancia = $admision->fecha_constancia;
+        $this->fecha_extemporanea_inicio = $admision->fecha_matricula_extemporanea;
+        $this->fecha_extemporanea_fin = $admision->fecha_matricula_extemporanea_fin;
     }
 
     public function guardarAdmision()
@@ -125,6 +134,8 @@ class Index extends Component
                 'fecha_entrevista_fin' => 'required|date',
                 'fecha_admitidos' => 'required|date',
                 'fecha_constancia' => 'required|date',
+                'fecha_extemporanea_inicio' => 'required|date',
+                'fecha_extemporanea_fin' => 'required|date',
             ]);
     
             $admision = new Admision();
@@ -143,6 +154,8 @@ class Index extends Component
             $admision->fecha_evaluacion_entrevista_fin = $this->fecha_entrevista_fin;
             $admision->fecha_admitidos = $this->fecha_admitidos;
             $admision->fecha_constancia = $this->fecha_constancia;
+            $admision->fecha_matricula_extemporanea = $this->fecha_extemporanea_inicio;
+            $admision->fecha_matricula_extemporanea_fin = $this->fecha_extemporanea_fin;
             $admision->save();
 
             $this->subirHistorial($admision->cod_admi,'Creacion de Admision','admision');
@@ -175,6 +188,8 @@ class Index extends Component
             $admision->fecha_evaluacion_entrevista_fin = $this->fecha_entrevista_fin;
             $admision->fecha_admitidos = $this->fecha_admitidos;
             $admision->fecha_constancia = $this->fecha_constancia;
+            $admision->fecha_matricula_extemporanea = $this->fecha_extemporanea_inicio;
+            $admision->fecha_matricula_extemporanea_fin = $this->fecha_extemporanea_fin;
             $admision->save();
             
             $this->subirHistorial($admision->cod_admi,'Actualizacion de Admision','admision');
