@@ -82,9 +82,12 @@
                 </span>
                 @if ($evaluacion)
                     @if ($admitido)
-                        @if ($admision_fecha_constancia <= today())
-                            <a href="#modalRegistrarPago" wire:click="modal_registrar_pago"
-                                class="btn btn-info bg-gradient waves-effect waves-light" data-bs-toggle="modal"
+                        @if ($admision_fecha_constancia <= today() && $admision_fecha_matricula_extemporanea_fin >= today())
+                            <a
+                                href="#modalRegistrarPago"
+                                wire:click="modal_registrar_pago"
+                                class="btn btn-info bg-gradient waves-effect waves-light" 
+                                data-bs-toggle="modal"
                                 data-bs-target="#modalRegistrarPago">
                                 Registrar Pago
                             </a>
@@ -275,7 +278,7 @@
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            @if ($concepto_pago == 3 || $concepto_pago == 4)
+                            @if ($concepto_pago == 3 || $concepto_pago == 4 || $concepto_pago == 5)
                                 <div class="mb-3 col-md-12">
                                     <label class="form-label"> Ciclo Académico
                                         <span class="text-danger">*</span></label>

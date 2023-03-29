@@ -128,6 +128,10 @@
                                 <label for="monto" class="col-form-label">Monto Pago</label>
                                 <input type="text" id="monto" class="form-control" wire:model="monto" readonly>
                             </div>
+                            <div class="col-md-12">
+                                <label for="concepto" class="col-form-label">Concepto de Pago</label>
+                                <input type="text" id="concepto" class="form-control" wire:model="concepto" readonly>
+                            </div>
                         </div>
                     </div>
                 </form>

@@ -8,6 +8,7 @@ use App\Models\Admitidos;
 use App\Models\ConstanciaIngresoPago;
 use App\Models\Evaluacion;
 use App\Models\HistorialInscripcion;
+use App\Models\MatriculaPago;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
@@ -23,7 +24,7 @@ class Index extends Component
     public $search = '';
     public $mostrar_alerta = 0;
 
-    public $operacion, $fecha, $monto, $documento, $voucher; // variables para el modal de constancia de ingreso y pago
+    public $operacion, $fecha, $monto, $documento, $voucher, $concepto; // variables para el modal de constancia de ingreso y pago
 
     protected $listeners = ['render', 'generar_codigo', 'crearConstancia'];
 
@@ -176,15 +177,26 @@ class Index extends Component
             $pago_constancia = ConstanciaIngresoPago::where('admitidos_id', $admitidos->admitidos_id)->first();
             if($pago_constancia){
                 $this->operacion = $pago_constancia->pago->nro_operacion;
-                $this->monto = 'S/. ' . $pago_constancia->pago->monto;
+                $this->monto = 'S/. ' . number_format($pago_constancia->concepto->monto, 2, ',', '');
                 $this->fecha = date('d/m/Y', strtotime($pago_constancia->pago->fecha_pago));
                 $this->voucher = $pago_constancia->pago->voucher;
                 $this->documento = $pago_constancia->pago->dni;
+                $this->concepto = $pago_constancia->concepto->concepto . ' - S/. ' . number_format($pago_constancia->concepto->monto, 2, ',', '');
             }else{
                 $this->dispatchBrowserEvent('alertaPagoConstancia');
             }
         }else if($tipo_pago == '2'){
-            
+            $pago_matricula = MatriculaPago::where('admitidos_id', $admitidos->admitidos_id)->first();
+            if($pago_matricula){
+                $this->operacion = $pago_matricula->pago->nro_operacion;
+                $this->monto = 'S/. ' . number_format($pago_matricula->concepto->monto, 2, ',', '');
+                $this->fecha = date('d/m/Y', strtotime($pago_matricula->pago->fecha_pago));
+                $this->voucher = $pago_matricula->pago->voucher;
+                $this->documento = $pago_matricula->pago->dni;
+                $this->concepto = $pago_matricula->concepto->concepto . ' - S/. ' . number_format($pago_matricula->concepto->monto, 2, ',', '');
+            }else{
+                $this->dispatchBrowserEvent('alertaPagoMatricula');
+            }
         }
     }
 

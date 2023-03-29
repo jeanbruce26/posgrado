@@ -370,13 +370,33 @@ class Usuario extends Component
                 return back();
             }
         }
+        
+        // validar si el pago es de matricula extemporanea
+        $fecha_matricula_extemporanea = Admision::where('estado',1)->first()->fecha_matricula_extemporanea;
+        $fecha_matricula_extemporanea_fin = Admision::where('estado',1)->first()->fecha_matricula_extemporanea_fin;
+        if($this->concepto_pago != 5){
+            if($this->fecha_operacion >= $fecha_matricula_extemporanea && $this->fecha_operacion <= $fecha_matricula_extemporanea_fin){
+                $this->dispatchBrowserEvent('alertaRegistroPago', [
+                    'mensaje' => 'El concepto de pago ingresado no es el correcto, debe realizar su matrícula extemporánea.'
+                ]);
+                return back();
+            }
+        }
+        if($this->fecha_operacion >= $fecha_matricula_extemporanea && $this->fecha_operacion <= $fecha_matricula_extemporanea_fin){
+            if($this->monto_operacion != 200){
+                $this->dispatchBrowserEvent('alertaRegistroPago', [
+                    'mensaje' => 'El monto de operación ingresado no es el correcto, el monto de la matrícula extemporánea es de S/. 200.00'
+                ]);
+                return back();
+            }
+        }
 
         // validar si ya cuenta con su matricula de pago y si el ciclo es correcto
         $evaluacion_id = Evaluacion::where('inscripcion_id', auth('usuarios')->user()->id_inscripcion)->first()->evaluacion_id;
         $admitidos_id = Admitidos::where('evaluacion_id', $evaluacion_id)->first()->admitidos_id;
         $matricula = MatriculaPago::where('admitidos_id', $admitidos_id)->first();
         if($matricula){
-            if($this->concepto_pago == 3 || $this->concepto_pago == 4){
+            if($this->concepto_pago == 3 || $this->concepto_pago == 4 || $this->concepto_pago == 5){
                 if($matricula->ciclo_id == $this->ciclo){
                     $this->dispatchBrowserEvent('alertaRegistroPago', [
                         'mensaje' => 'Ya cuenta con su matrícula de pago en el ciclo '. $matricula->ciclo->ciclo
@@ -425,7 +445,7 @@ class Usuario extends Component
             $pago = Pago::find($pago->pago_id); //actualizar estado del pago
             $pago->estado = 4; // estado 4 = pago por constancia de ingreso
             $pago->save();
-        }else if($this->concepto_pago == 3){ //pago por matricula
+        }else if($this->concepto_pago == 3 || $this->concepto_pago == 5){ //pago por matricula
             $pago_matricula = new MatriculaPago(); //guardar pago por matricula
             $pago_matricula->pago_id = $pago->pago_id;
             $pago_matricula->admitidos_id = $admitido->admitidos_id;
@@ -568,7 +588,7 @@ class Usuario extends Component
                     }
                 } 
                 if($matricula_pago){
-                    if($matricula_pago->concepto_id == 3 || $matricula_pago->concepto_id == 4){
+                    if($matricula_pago->concepto_id == 3 || $matricula_pago->concepto_id == 4 || $matricula_pago->concepto_id == 5){
                         $pago_matricula = 1;
                     }
                 }  
@@ -588,6 +608,8 @@ class Usuario extends Component
                                                     ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
                                                     ->count();
         $admision_fecha_constancia = Admision::where('estado',1)->first()->fecha_constancia;
+        $admision_fecha_matricula_extemporanea = Admision::where('estado',1)->first()->fecha_matricula_extemporanea;
+        $admision_fecha_matricula_extemporanea_fin = Admision::where('estado',1)->first()->fecha_matricula_extemporanea_fin;
 
         $concepto_pago_model = ConceptoPago::where('estado', 1)->get();
         $ciclo_model = Ciclo::where('ciclo_estado', 1)
@@ -617,6 +639,8 @@ class Usuario extends Component
             'matricula_pago' => $matricula_pago,
             'expediente_seguimiento_count' => $expediente_seguimiento_count,
             'admision_fecha_constancia' => $admision_fecha_constancia,
+            'admision_fecha_matricula_extemporanea' => $admision_fecha_matricula_extemporanea,
+            'admision_fecha_matricula_extemporanea_fin' => $admision_fecha_matricula_extemporanea_fin,
             'concepto_pago_model' => $concepto_pago_model,
             'ciclo_model' => $ciclo_model,
             'canal_pago_model' => $canal_pago_model,

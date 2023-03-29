@@ -24,8 +24,8 @@ class Admision extends Model
         'fecha_evaluacion_entrevista_inicio',
         'fecha_evaluacion_entrevista_fin',
         'fecha_admitidos',
-        'estado_matricula',
-
+        'fecha_constancia',
+        'fecha_matricula_extemporanea',
     ];
 
     public $timestamps = false;
