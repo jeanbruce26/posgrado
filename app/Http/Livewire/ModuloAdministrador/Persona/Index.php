@@ -3,8 +3,10 @@
 namespace App\Http\Livewire\ModuloAdministrador\Persona;
 
 use App\Models\Admision;
+use App\Models\Departamento;
 use App\Models\Persona;
 use App\Models\Discapacidad;
+use App\Models\Distrito;
 use App\Models\EstadoCivil;
 use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
@@ -15,6 +17,8 @@ use App\Models\HistorialAdministrativo;
 use App\Models\Inscripcion;
 use App\Models\InscripcionPago;
 use App\Models\Mencion;
+use App\Models\Provincia;
+use App\Models\UbigeoPersona;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 
@@ -52,6 +56,19 @@ class Index extends Component
     public $tipoDocumento;
     public $pais;
 
+    public $departamento_direccion, $departamento_direccion_array, $provincia_direccion, $provincia_direccion_array, $distrito_direccion, $distrito_direccion_array; // Direccion
+    public $departamento_nacimiento, $departamento_nacimiento_array, $provincia_nacimiento, $provincia_nacimiento_array, $distrito_nacimiento, $distrito_nacimiento_array; // Nacimiento
+
+    public function moun()
+    {
+        $this->departamento_direccion_array = Departamento::all();
+        $this->provincia_direccion_array = collect();
+        $this->distrito_direccion_array = collect();
+        $this->departamento_nacimiento_array = Departamento::all();
+        $this->provincia_nacimiento_array = collect();
+        $this->distrito_nacimiento_array = collect();
+    }
+
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName, [
@@ -75,13 +92,19 @@ class Index extends Component
             'especialidad' => 'nullable|string',
             'tipoDocumento' => 'nullable|numeric',
             'pais' => 'nullable|string',
+            'departamento_direccion' => 'required|numeric',
+            'provincia_direccion' => 'required|numeric',
+            'distrito_direccion' => 'required|numeric',
+            'departamento_nacimiento' => 'required|numeric',
+            'provincia_nacimiento' => 'required|numeric',
+            'distrito_nacimiento' => 'required|numeric',
         ]);
     }
 
     public function limpiar()
     {
         $this->resetErrorBag();
-        $this->reset('documento','nombres','apellidoPate','apellidoMate','fechaNacimineto','sexo','estadoCivil','direccion','discapacidad','celular1','celular2','email1','email2','centroTrabajo','universidad','anioEgreso','gradoAcademico','especialidad','tipoDocumento','pais');
+        $this->reset('documento','nombres','apellidoPate','apellidoMate','fechaNacimineto','sexo','estadoCivil','direccion','discapacidad','celular1','celular2','email1','email2','centroTrabajo','universidad','anioEgreso','gradoAcademico','especialidad','tipoDocumento','pais', 'departamento_direccion', 'provincia_direccion', 'distrito_direccion', 'departamento_nacimiento', 'provincia_nacimiento', 'distrito_nacimiento');
         $this->modo = 1;
         $this->titulo = "Mostrar Datos del Estudiante";
     }
@@ -111,6 +134,14 @@ class Index extends Component
         $this->anioEgreso = $persona->año_egreso;
         $this->gradoAcademico = $persona->GradoAcademico->nom_grado;
         $this->especialidad = $persona->especialidad;
+        $ubi_dire = UbigeoPersona::where('persona_idpersona',$persona->idpersona)->where('tipo_ubigeo_cod_tipo',1)->first();
+        $ubi_naci = UbigeoPersona::where('persona_idpersona',$persona->idpersona)->where('tipo_ubigeo_cod_tipo',2)->first();
+        $this->departamento_direccion = $ubi_dire->Distrito->Provincia->Departamento->departamento;
+        $this->provincia_direccion = $ubi_dire->Distrito->Provincia->provincia;
+        $this->distrito_direccion = $ubi_dire->Distrito->distrito;
+        $this->departamento_nacimiento = $ubi_naci->Distrito->Provincia->Departamento->departamento;
+        $this->provincia_nacimiento = $ubi_naci->Distrito->Provincia->provincia;
+        $this->distrito_nacimiento = $ubi_naci->Distrito->distrito;
     }
     
     public function cargarPersonaUpdate(Persona $persona){
@@ -137,6 +168,50 @@ class Index extends Component
         $this->anioEgreso = $persona->año_egreso;
         $this->gradoAcademico = $persona->id_grado_academico;
         $this->especialidad = $persona->especialidad;
+        $ubigeo_direccion = UbigeoPersona::where('persona_idpersona',$persona->idpersona)->where('tipo_ubigeo_cod_tipo',1)->first();
+        $id_distrito_direccion = $ubigeo_direccion->id_distrito;
+        $distrito_direccion = Distrito::where('id',$id_distrito_direccion)->first();
+        $id_provincia_direccion = $distrito_direccion->id_provincia;
+        $provincia_direccion = Provincia::where('id',$id_provincia_direccion)->first();
+        $id_departamento_direccion = $provincia_direccion->id_departamento;
+        $ubigeo_nacimiento = UbigeoPersona::where('persona_idpersona',$persona->idpersona)->where('tipo_ubigeo_cod_tipo',2)->first();
+        $id_distrito_nacimiento = $ubigeo_nacimiento->id_distrito;
+        $distrito_nacimiento = Distrito::where('id',$id_distrito_nacimiento)->first();
+        $id_provincia_nacimiento = $distrito_nacimiento->id_provincia;
+        $provincia_nacimiento = Provincia::where('id',$id_provincia_nacimiento)->first();
+        $id_departamento_nacimiento = $provincia_nacimiento->id_departamento;
+        $this->departamento_direccion_array = Departamento::all();
+        $this->provincia_direccion_array = Provincia::where('id_departamento', $id_departamento_direccion)->get();
+        $this->distrito_direccion_array = Distrito::where('id_provincia', $id_provincia_direccion)->get();
+        $this->departamento_direccion = $id_departamento_direccion;
+        $this->provincia_direccion = $id_provincia_direccion;
+        $this->distrito_direccion = $id_distrito_direccion;
+        $this->departamento_nacimiento_array = Departamento::all();
+        $this->provincia_nacimiento_array = Provincia::where('id_departamento', $id_departamento_nacimiento)->get();
+        $this->distrito_nacimiento_array = Distrito::where('id_provincia', $id_provincia_nacimiento)->get();
+        $this->departamento_nacimiento = $id_departamento_nacimiento;
+        $this->provincia_nacimiento = $id_provincia_nacimiento;
+        $this->distrito_nacimiento = $id_distrito_nacimiento;
+    }
+
+    public function updatedDepartamentoDireccion($departamento_direccion){
+        $this->provincia_direccion_array = Provincia::where('id_departamento',$departamento_direccion)->get();
+        $this->distrito_direccion = null;
+        $this->distrito_direccion_array = collect();
+    }
+    
+    public function updatedProvinciaDireccion($provincia_direccion){
+        $this->distrito_direccion_array = Distrito::where('id_provincia',$provincia_direccion)->get();
+    }
+
+    public function updatedDepartamentoNacimiento($departamento_nacimiento){
+        $this->provincia_nacimiento_array = Provincia::where('id_departamento',$departamento_nacimiento)->get();
+        $this->distrito_nacimiento = null;
+        $this->distrito_nacimiento_array = collect();
+    }
+    
+    public function updatedProvinciaNacimiento($provincia_nacimiento){
+        $this->distrito_nacimiento_array = Distrito::where('id_provincia',$provincia_nacimiento)->get();
     }
 
     public function guardarPersona(){
@@ -161,6 +236,12 @@ class Index extends Component
             'especialidad' => 'nullable|string',
             'tipoDocumento' => 'nullable|numeric',
             'pais' => 'nullable|string',
+            'departamento_direccion' => 'required|numeric',
+            'provincia_direccion' => 'required|numeric',
+            'distrito_direccion' => 'required|numeric',
+            'departamento_nacimiento' => 'required|numeric',
+            'provincia_nacimiento' => 'required|numeric',
+            'distrito_nacimiento' => 'required|numeric',
         ]);
 
         $persona = Persona::find($this->persona_id);
@@ -197,6 +278,19 @@ class Index extends Component
         }
         // dd($persona);
         $persona->save();
+
+        // guardar de ubigeo
+        $ubigeo_distrito = Distrito::select('ubigeo')->where('id',$this->distrito_direccion)->first();
+        $ubigeo_direccion = UbigeoPersona::where('tipo_ubigeo_cod_tipo',1)->where('persona_idpersona',$this->persona_id)->first();
+        $ubigeo_direccion->id_distrito = $this->distrito_direccion;
+        $ubigeo_direccion->ubigeo = $ubigeo_distrito->ubigeo;
+        $ubigeo_direccion->save();
+
+        $ubigeo_nacimiento = Distrito::select('ubigeo')->where('id',$this->distrito_nacimiento)->first();
+        $ubigeo_nacimiento_persona = UbigeoPersona::where('tipo_ubigeo_cod_tipo',2)->where('persona_idpersona',$this->persona_id)->first();
+        $ubigeo_nacimiento_persona->id_distrito = $this->distrito_nacimiento;
+        $ubigeo_nacimiento_persona->ubigeo = $ubigeo_nacimiento->ubigeo;
+        $ubigeo_nacimiento_persona->save();
 
         // guardar nueva ficha de inscripcion
         $inscripcion = Inscripcion::join('persona','persona.idpersona','=','inscripcion.persona_idpersona')

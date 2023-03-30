@@ -1,7 +1,6 @@
 <div>
     <div class="row">
         <div class="col-sm-12">
-
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -288,6 +287,102 @@
                                     @endif>
                                 </div>
                             @endif
+                            <div class="mb-0 col-md-12">
+                                <span class="fs-5 fw-bold">
+                                    Datos de Dirección
+                                </span>
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Departamento <span class="text-danger">*</span></label>
+                                @if($modo == 1)
+                                    <input type="text" class="form-control @error('departamento_direccion') is-invalid  @enderror" wire:model="departamento_direccion" readonly>
+                                @else
+                                    <select class="form-select @error('departamento_direccion') is-invalid  @enderror" wire:model="departamento_direccion">
+                                        <option value="" selected>Seleccione</option>
+                                        @foreach ($departamento_direccion_array as $item)
+                                            <option value="{{$item->id}}">{{$item->departamento}}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Provincia <span class="text-danger">*</span></label>
+                                @if($modo == 1)
+                                    <input type="text" class="form-control @error('provincia_direccion') is-invalid  @enderror" wire:model="provincia_direccion" readonly>
+                                @else
+                                    <select class="form-select @error('provincia_direccion') is-invalid  @enderror" wire:model="provincia_direccion">
+                                        <option value="" selected>Seleccione</option>
+                                        @if ($provincia_direccion_array)
+                                            @foreach ($provincia_direccion_array as $item)
+                                                <option value="{{$item->id}}">{{$item->provincia}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                @endif
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Distrito <span class="text-danger">*</span></label>
+                                @if($modo == 1)
+                                    <input type="text" class="form-control @error('distrito_direccion') is-invalid  @enderror" wire:model="distrito_direccion" readonly>
+                                @else
+                                    <select class="form-select @error('distrito_direccion') is-invalid  @enderror" wire:model="distrito_direccion">
+                                        <option value="" selected>Seleccione</option>
+                                        @if ($distrito_direccion_array)
+                                            @foreach ($distrito_direccion_array as $item)
+                                                <option value="{{$item->id}}">{{$item->distrito}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                @endif
+                            </div>
+                            <div class="mb-0 col-md-12">
+                                <span class="fs-5 fw-bold">
+                                    Datos de Nacimiento
+                                </span>
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Departamento <span class="text-danger">*</span></label>
+                                @if($modo == 1)
+                                    <input type="text" class="form-control @error('departamento_nacimiento') is-invalid  @enderror" wire:model="departamento_nacimiento" readonly>
+                                @else
+                                    <select class="form-select @error('departamento_nacimiento') is-invalid  @enderror" wire:model="departamento_nacimiento">
+                                        <option value="" selected>Seleccione</option>
+                                        @foreach ($departamento_nacimiento_array as $item)
+                                            <option value="{{$item->id}}">{{$item->departamento}}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Provincia <span class="text-danger">*</span></label>
+                                @if($modo == 1)
+                                    <input type="text" class="form-control @error('provincia_nacimiento') is-invalid  @enderror" wire:model="provincia_nacimiento" readonly>
+                                @else
+                                    <select class="form-select @error('provincia_nacimiento') is-invalid  @enderror" wire:model="provincia_nacimiento">
+                                        <option value="" selected>Seleccione</option>
+                                        @if ($provincia_nacimiento_array)
+                                            @foreach ($provincia_nacimiento_array as $item)
+                                                <option value="{{$item->id}}">{{$item->provincia}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                @endif
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Distrito <span class="text-danger">*</span></label>
+                                @if($modo == 1)
+                                    <input type="text" class="form-control @error('distrito_nacimiento') is-invalid  @enderror" wire:model="distrito_nacimiento" readonly>
+                                @else
+                                    <select class="form-select @error('distrito_nacimiento') is-invalid  @enderror" wire:model="distrito_nacimiento">
+                                        <option value="" selected>Seleccione</option>
+                                        @if ($distrito_nacimiento_array)
+                                            @foreach ($distrito_nacimiento_array as $item)
+                                                <option value="{{$item->id}}">{{$item->distrito}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                @endif
+                            </div>
                         </div>
                     </div>
                     @if ($modo != 1)

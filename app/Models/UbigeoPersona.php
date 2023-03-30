@@ -26,4 +26,9 @@ class UbigeoPersona extends Model
         return $this->belongsTo(TipoUbigeo::class,
         'tipo_ubigeo_cod_tipo','cod_tipo');
     }
+
+    public function Distrito(){
+        return $this->belongsTo(Distrito::class,
+        'id_distrito','id');
+    }
 }
