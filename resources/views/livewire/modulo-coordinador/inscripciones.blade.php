@@ -67,10 +67,10 @@ Una vez realizado la evaluación, no podrá realizar modificación de las notas 
                             <th scope="col">INSCRITO</th>
                             <th scope="col" class="col-md-1">DOCUMENTO</th>
                             <th scope="col" class="col-md-2">EVA. EXPEDIENTE</th>
-                            <th scope="col" class="col-md-2">EVA. ENTREVISTA</th>
                             @if ($mencion->descripcion_programa == 'DOCTORADO')
                             <th scope="col" class="col-md-2">TEMA TESIS</th>
                             @endif
+                            <th scope="col" class="col-md-2">EVA. ENTREVISTA</th>
                             <th scope="col" class="col-md-1">ESTADO</th>
                         </tr>
                     </thead>
@@ -94,17 +94,6 @@ Una vez realizado la evaluación, no podrá realizar modificación de las notas 
                                 <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                 @endif
                             </td>
-                            <td align="center" class="fs-6">
-                                @if ($evalu)
-                                    @if ($evalu->p_entrevista != null)
-                                    <strong>{{ number_format($evalu->p_entrevista, 0) }}</strong> 
-                                    @else
-                                    <button wire:click="evaEntre({{$item->id_inscripcion}},{{ $tipo }})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
-                                    @endif
-                                @else
-                                <button wire:click="evaEntre({{$item->id_inscripcion}},{{ $tipo }})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
-                                @endif
-                            </td>
                             @php $tipo = 1; @endphp
                             @if ($mencion->descripcion_programa == 'DOCTORADO')
                             @php $tipo = 2; @endphp
@@ -122,6 +111,17 @@ Una vez realizado la evaluación, no podrá realizar modificación de las notas 
                             @else
                             @php $tipo = 1; @endphp
                             @endif
+                            <td align="center" class="fs-6">
+                                @if ($evalu)
+                                    @if ($evalu->p_entrevista != null)
+                                    <strong>{{ number_format($evalu->p_entrevista, 0) }}</strong> 
+                                    @else
+                                    <button wire:click="evaEntre({{$item->id_inscripcion}},{{ $tipo }})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                    @endif
+                                @else
+                                <button wire:click="evaEntre({{$item->id_inscripcion}},{{ $tipo }})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                @endif
+                            </td>
                             <td align="center">
                                 @if ($evalu)
                                     @if ($evalu->evaluacion_estado == 1)
