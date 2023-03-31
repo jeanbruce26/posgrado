@@ -89,16 +89,18 @@ class Inscripciones extends Component
             }
         }else{
             if($evaluacion){
-                if($evaluacion->p_expediente){
+                if($evaluacion->p_expediente && $evaluacion->p_entrevista){
                     return redirect()->route('coordinador.investigacion', [
                         'id' => $evaluacion->evaluacion_id,
                         'tipo' => $evaluacion->tipo_evaluacion_id
                     ]);
-                }else{
+                }elseif($evaluacion->p_expediente == null){
                     $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Le falta completar la Evaluacion de Expediente']);
+                }elseif($evaluacion->p_entrevista == null){
+                    $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Le falta completar la Evaluacion de Entrevista']);
                 }
             }else{
-                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Le falta completar la Evaluacion de Expediente']);
+                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Le falta completar la Evaluacion de Expediente y Entrevista']);
             }
         }
     }
@@ -119,34 +121,15 @@ class Inscripciones extends Component
         }else{
             if($evaluacion){
                 if($evaluacion->p_expediente){
-                    if($tipo == 1){
-                        return redirect()->route('coordinador.entrevista', [
-                            'id' => $evaluacion->evaluacion_id,
-                            'tipo' => $evaluacion->tipo_evaluacion_id
-                        ]);
-                    }else{
-                        if($evaluacion->p_investigacion == null){
-                            $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de perfil de proyecto de investigacion']);
-                        }else{
-                            return redirect()->route('coordinador.entrevista', [
-                                'id' => $evaluacion->evaluacion_id,
-                                'tipo' => $evaluacion->tipo_evaluacion_id
-                            ]);
-                        }
-                    }
+                    return redirect()->route('coordinador.entrevista', [
+                        'id' => $evaluacion->evaluacion_id,
+                        'tipo' => $evaluacion->tipo_evaluacion_id
+                    ]);
                 }else{ 
-                    if($tipo == 1){
-                        $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de expediente']);
-                    }else{
-                        $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de expediente y la evaluacion de perfil de proyecto de investigacion']);
-                    }
+                    $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de expediente']);
                 }
             }else{
-                if($tipo == 1){
-                    $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de expediente']);
-                }else{
-                    $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de expediente y la evaluacion de perfil de proyecto de investigacion']);
-                }                
+                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Falta completar la evaluacion de expediente']);            
             }
         }
     }
