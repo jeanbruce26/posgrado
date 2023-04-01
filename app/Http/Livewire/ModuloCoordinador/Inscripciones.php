@@ -82,7 +82,7 @@ class Inscripciones extends Component
         
         if($admision->fecha_evaluacion_expediente_inicio > $fecha || $admision->fecha_evaluacion_expediente_fin < $fecha){
             if($admision->fecha_evaluacion_expediente_inicio > $fecha){
-                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'La fecha de inicio de la evaluacion de perfil de proyecto de investigacion es el: '. date('d/m/Y',strtotime($admision->fecha_evaluacion_entrevista_inicio))]);
+                $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'La fecha de inicio de la evaluacion de perfil de proyecto de investigacion es el: '. date('d/m/Y',strtotime($admision->fecha_evaluacion_expediente_inicio))]);
             }
             if($admision->fecha_evaluacion_expediente_fin < $fecha){
                 $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Evaluaciones de perfil de proyecto de investigacion finalizadas']);
