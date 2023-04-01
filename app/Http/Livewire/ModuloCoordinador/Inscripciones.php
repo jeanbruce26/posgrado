@@ -80,11 +80,11 @@ class Inscripciones extends Component
         $fecha = today(); // fecha actual
         $evaluacion = Evaluacion::where('inscripcion_id',$id)->first(); // buscar si ya existe una evaluacion para esa inscripcion
         
-        if($admision->fecha_evaluacion_entrevista_inicio > $fecha || $admision->fecha_evaluacion_entrevista_fin < $fecha){
-            if($admision->fecha_evaluacion_entrevista_inicio > $fecha){
+        if($admision->fecha_evaluacion_expediente_inicio > $fecha || $admision->fecha_evaluacion_expediente_fin < $fecha){
+            if($admision->fecha_evaluacion_expediente_inicio > $fecha){
                 $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'La fecha de inicio de la evaluacion de perfil de proyecto de investigacion es el: '. date('d/m/Y',strtotime($admision->fecha_evaluacion_entrevista_inicio))]);
             }
-            if($admision->fecha_evaluacion_entrevista_fin < $fecha){
+            if($admision->fecha_evaluacion_expediente_fin < $fecha){
                 $this->dispatchBrowserEvent('errorEvaluacion', ['mensaje' => 'Evaluaciones de perfil de proyecto de investigacion finalizadas']);
             }
         }else{
