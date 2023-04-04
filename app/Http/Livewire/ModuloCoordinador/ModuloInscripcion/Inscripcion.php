@@ -11,6 +11,28 @@ class Inscripcion extends Component
 {
     public $id_mencion;
     public $search = '';
+    public $sort_nombre = 'nombre_completo'; // Columna de la tabla a ordenar
+    public $sort_direccion = 'asc'; // Orden de la columna a ordenar
+
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'sort_nombre' => ['except' => 'nombre_completo'],
+        'sort_direccion' => ['except' => 'asc'],
+    ];
+
+    public function sort($value)
+    {
+        if ($this->sort_nombre == $value) {
+            if ($this->sort_direccion == 'asc') {
+                $this->sort_direccion = 'desc';
+            } else {
+                $this->sort_direccion = 'asc';
+            }
+        } else {
+            $this->sort_nombre = $value;
+            $this->sort_direccion = 'asc';
+        }
+    }
 
     public function export_excel() 
     {
@@ -45,7 +67,7 @@ class Inscripcion extends Component
                     ->orWhere('programa.descripcion_programa','LIKE',"%{$search}%")
                     ->orWhere('persona.num_doc','LIKE',"%{$search}%");
                 })
-                ->orderBy('persona.nombre_completo', 'asc')
+                ->orderBy($this->sort_nombre == 'nombre_completo' ? 'persona.' . $this->sort_nombre :'inscripcion.' .  $this->sort_nombre, $this->sort_direccion)
                 ->get();
 
         return view('livewire.modulo-coordinador.modulo-inscripcion.inscripcion', [

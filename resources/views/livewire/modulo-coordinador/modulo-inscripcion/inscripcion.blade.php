@@ -18,16 +18,52 @@
                         <table class="table table-hover align-middle table-nowrap mb-0">
                             <thead>
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
-                                    <th scope="col">ID</th>
-                                    <th scope="col" class="col-md-3">Apellidos y Nombres</th>
-                                    <th scope="col">Documento</th>
-                                    <th scope="col">Fecha de Inscripción</th>
-                                    <th scope="col">Celular</th>
-                                    <th scope="col">Correo Electrónico</th>
-                                    <th scope="col">Especialidad</th>
-                                    {{-- <th scope="col">Nro. Operacion</th>
-                                    <th scope="col">Monto</th>
-                                    <th scope="col">Fecha de Pago</th> --}}
+                                    <th class="col-md-1" style="cursor: pointer;" wire:click="sort('id_inscripcion')">
+                                        <div class="d-flex gap-2 alig-items-center justify-content-center">
+                                            <span class="fw-bold">N°</span>
+                                            <div>
+                                                @if ($sort_nombre == 'id_inscripcion')
+                                                    @if ($sort_direccion == 'asc')
+                                                        <i class="ri ri-arrow-up-s-line"></i>
+                                                    @else
+                                                        <i class="ri ri-arrow-down-s-line"></i>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th class="col-md-3 text-start" style="cursor: pointer;" wire:click="sort('nombre_completo')">
+                                        <div class="d-flex gap-2 alig-items-center justify-content-start">
+                                            <span>Apellidos y Nombres</span>
+                                            <div>
+                                                @if ($sort_nombre == 'nombre_completo')
+                                                    @if ($sort_direccion == 'asc')
+                                                        <i class="ri ri-arrow-up-s-line"></i>
+                                                    @else
+                                                        <i class="ri ri-arrow-down-s-line"></i>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>Documento</th>
+                                    <th class="col-md-2" style="cursor: pointer;" wire:click="sort('fecha_inscripcion')">
+                                        <div class="d-flex gap-2 alig-items-center justify-content-center">
+                                            <span>Fecha de Inscripción</span>
+                                            <div>
+                                                @if ($sort_nombre == 'fecha_inscripcion')
+                                                    @if ($sort_direccion == 'asc')
+                                                        <i class="ri ri-arrow-up-s-line"></i>
+                                                    @else
+                                                        <i class="ri ri-arrow-down-s-line"></i>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>Celular</th>
+                                    <th class="text-start">Correo Electrónico</th>
+                                    <th class="text-start">Especialidad</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,15 +99,6 @@
                                             <td>
                                                 {{ $item->especialidad }}
                                             </td>
-                                            {{-- <td align="center">
-                                                {{ $item->nro_operacion }}
-                                            </td>
-                                            <td align="center">
-                                                S/. {{ $item->monto }}
-                                            </td>
-                                            <td align="center">
-                                                {{ date('d/m/Y', strtotime($item->fecha_pago)) }}
-                                            </td> --}}
                                         </tr>
                                     @endif
                                 @endforeach
