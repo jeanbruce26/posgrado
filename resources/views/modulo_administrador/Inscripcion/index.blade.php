@@ -46,7 +46,7 @@
     window.addEventListener('alertaSeguimiento', event => {
         // alert('Name updated to: ' + event.detail.id);
         Swal.fire({
-            title: '¿Estás seguro de quitar el seguimiento de expediente de esta inscripción?',
+            title: '¿Estás seguro de asignar/quitar el seguimiento de expediente de esta inscripción?',
             text: "",
             icon: 'question',
             showCancelButton: true,
@@ -103,12 +103,12 @@
             }
         })
     })
-    window.addEventListener('alertaSuccess', event => {
-        Swal.fire(
-            event.detail.titulo,
-            event.detail.mensaje,
-            'error'
-        )
-    });
+    // window.addEventListener('alertaSuccess', event => {
+    //     Swal.fire(
+    //         event.detail.titulo,
+    //         event.detail.mensaje,
+    //         'success'
+    //     )
+    // });
 </script>
 @endsection

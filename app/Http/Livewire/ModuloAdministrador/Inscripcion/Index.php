@@ -7,6 +7,7 @@ use App\Models\Admision;
 use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
 use App\Models\ExpedienteInscripcionSeguimiento;
+use App\Models\ExpedienteTipoSeguimiento;
 use App\Models\Inscripcion;
 use App\Models\InscripcionPago;
 use App\Models\Mencion;
@@ -221,19 +222,7 @@ class Index extends Component
     public function cargarAlertaSeguimiento($id)
     {
         $this->inscripcion_id = $id;
-        $expediente_seguimiento = ExpedienteInscripcionSeguimiento::join('ex_insc', 'ex_insc.cod_ex_insc', '=', 'expediente_inscripcion_seguimiento.cod_ex_insc')
-                                                        ->where('ex_insc.id_inscripcion', $id)
-                                                        ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
-                                                        ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
-                                                        ->count();
-        if($expediente_seguimiento > 0){
-            $this->dispatchBrowserEvent('alertaSeguimiento');
-        }else{
-            $this->dispatchBrowserEvent('alertaError', [
-                'titulo' => '¡Error!',
-                'mensaje' => 'No se puede modificar su inscripción, porque no tiene expediente en seguimiento.'
-            ]);
-        }
+        $this->dispatchBrowserEvent('alertaSeguimiento');
     }
 
     public function cambiarSeguimiento()
@@ -243,9 +232,45 @@ class Index extends Component
                                                         ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
                                                         ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
                                                         ->get();
-        foreach($expediente_seguimiento as $item){
-            $item->expediente_inscripcion_seguimiento_estado = 0;
-            $item->save();
+        if($expediente_seguimiento->count() > 0){
+            foreach($expediente_seguimiento as $item){
+                $item->expediente_inscripcion_seguimiento_estado = 0;
+                $item->save();
+            }
+        }else{
+            $inscripcion = Inscripcion::find($this->inscripcion_id);
+            $exp_ins = ExpedienteInscripcion::join('expediente','ex_insc.expediente_cod_exp','=','expediente.cod_exp')
+                                                ->where('ex_insc.id_inscripcion',$this->inscripcion_id)
+                                                ->where(function($query) use ($inscripcion){
+                                                    $query->where('expediente.expediente_tipo', 0)
+                                                        ->orWhere('expediente.expediente_tipo', $inscripcion->tipo_programa);
+                                                })
+                                                ->get();
+            $exp_seg = ExpedienteTipoSeguimiento::join('expediente','expediente_tipo_seguimiento.cod_exp','=','expediente.cod_exp')
+                                                ->where('expediente_tipo_seguimiento_estado', 1)
+                                                ->where('tipo_seguimiento', 1)
+                                                ->where(function($query) use ($inscripcion){
+                                                    $query->where('expediente.expediente_tipo', 0)
+                                                        ->orWhere('expediente.expediente_tipo', $inscripcion->tipo_programa);
+                                                })
+                                                ->get();
+
+            $array_seguimiento = [];
+            foreach ($exp_ins as $exp) {
+                foreach ($exp_seg as $seg) {
+                    if($exp->expediente_cod_exp == $seg->cod_exp){
+                        array_push($array_seguimiento, $exp->cod_ex_insc);
+                    }
+                }
+            }
+            // Registrar datos del seguimiento del expediente de inscripcion
+            foreach ($array_seguimiento as $item) {
+                $seguimiento_exp_ins = new ExpedienteInscripcionSeguimiento();
+                $seguimiento_exp_ins->cod_ex_insc = $item;
+                $seguimiento_exp_ins->tipo_seguimiento = 1;
+                $seguimiento_exp_ins->expediente_inscripcion_seguimiento_estado = 1;
+                $seguimiento_exp_ins->save();
+            }
         }
         $this->dispatchBrowserEvent('alertaSuccess', [
             'titulo' => '¡Éxito!',
