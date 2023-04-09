@@ -622,6 +622,11 @@ class Usuario extends Component
 
         $encuestas = Encuesta::where('encuesta_estado', 1)->get(); // obtenemos las encuestas activas
 
+        $fecha_inscripcion = date('Y-m-d', strtotime(Inscripcion::find(auth('usuarios')->user()->id_inscripcion)->fecha_inscripcion));
+        $fecha_maestria_dj = Carbon::parse($fecha_inscripcion)->addMonths(6);
+        $fecha_doctorado_dj = Carbon::parse($fecha_inscripcion)->addMonths(12);
+        $tipo_programa = auth('usuarios')->user()->tipo_programa;
+
         return view('livewire.modulo-inscripcion.usuario.usuario', [
             'nombre' => $nombre,
             'expediente' => Expediente::all(),
@@ -644,7 +649,10 @@ class Usuario extends Component
             'concepto_pago_model' => $concepto_pago_model,
             'ciclo_model' => $ciclo_model,
             'canal_pago_model' => $canal_pago_model,
-            'encuestas' => $encuestas
+            'encuestas' => $encuestas,
+            'fecha_maestria_dj' => $fecha_maestria_dj,
+            'fecha_doctorado_dj' => $fecha_doctorado_dj,
+            'tipo_programa' => $tipo_programa,
         ]);
     }
 }

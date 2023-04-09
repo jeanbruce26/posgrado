@@ -40,10 +40,17 @@
         <div class="alert alert-warning alert-dismissible alert-label-icon rounded-label shadow fade show"
             role="alert">
             <i class="ri-information-line label-icon"></i>
-            <strong>
-                Recuerde que tiene por regularizar su Constancia de Registro ante la SUNEDU, por favor ingrese a la
-                sección de expedientes y suba su documento.
-            </strong>
+            @if ($tipo_programa == 1)
+                <strong>
+                    Recuerde que tiene por regularizar su Constancia de Registro ante la SUNEDU, por favor ingrese a la
+                    sección de expedientes y suba su documento. Tiene 6 meses para regularizar su expediente ({{ date('d/m/Y', strtotime($fecha_maestria_dj)) }}).
+                </strong>
+            @else
+                <strong>
+                    Recuerde que tiene por regularizar su Constancia de Registro ante la SUNEDU, por favor ingrese a la
+                    sección de expedientes y suba su documento. Tiene 1 año para regularizar su expediente ({{ date('d/m/Y', strtotime($fecha_doctorado_dj)) }}).
+                </strong>
+            @endif
         </div>
     @endif
     <!-- Success Alert -->
