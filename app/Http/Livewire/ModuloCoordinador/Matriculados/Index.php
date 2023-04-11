@@ -15,10 +15,14 @@ class Index extends Component
 {
     use WithPagination; // sirve para paginar los resultados
     protected $queryString = [
-        'filtro_programa' => ['except' => 0],
-        'search' => ['except' => '']
+        'filtro_programa' => [
+            'except' => '0',
+        ],
+        'search' => [
+            'except' => ''
+        ]
     ]; // sirve para que el filtro se guarde en la url
-    public $filtro_programa = 8; // variable para el filtro de programa
+    public $filtro_programa = 0; // variable para el filtro de programa
     public $search = ''; // variable para el buscador
     
     public function mount()
