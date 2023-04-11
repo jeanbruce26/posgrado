@@ -39,7 +39,7 @@ class Index extends Component
         $subprograma = SubPrograma::where('facultad_id', $facultad_id)->get();
         $programas = collect([]);
         foreach ($subprograma as $sub) {
-            $mencion = Mencion::where('id_subprograma', $sub->id_subprograma)->get();
+            $mencion = Mencion::where('id_subprograma', $sub->id_subprograma)->where('mencion_estado', 1)->get();
             foreach ($mencion as $men) {
                 $programas->push($men);
             }

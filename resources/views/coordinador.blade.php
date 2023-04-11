@@ -171,7 +171,7 @@
                         <li class="nav-item">
                             <a class="nav-link menu-link fw-bold" href="{{ route('coordinador.modulo-inscripcion-index.index') }}" role="button"
                                 aria-expanded="false" aria-controls="sidebarDashboard">
-                                <i class="mdi mdi-clipboard-file-outline"></i> <span data-key="t-apps">Inscripciones</span>
+                                <i class="mdi mdi-clipboard-file-outline"></i> <span data-key="t-apps">Datos de Inscritos</span>
                             </a>
                         </li>
                         <li class="nav-item">
