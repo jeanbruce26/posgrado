@@ -16,7 +16,7 @@ class Index extends Component
     use WithPagination; // sirve para paginar los resultados
     protected $queryString = [
         'filtro_programa' => [
-            'except' => '0',
+            'except' => 0
         ],
         'search' => [
             'except' => ''
