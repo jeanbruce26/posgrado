@@ -53,7 +53,7 @@
         <div class="d-flex align-items-center mt-1">
             <i class="ri-error-warning-line me-3 align-middle fs-18 text-danger "></i>
             <strong class="text-danger">
-                Observacíon: Alumno con declaracion de regulización de constancia en lina de la SUNEDU.
+                Observacíon: Alumno con declaracion de regularización de constancia en lina de la SUNEDU.
             </strong>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

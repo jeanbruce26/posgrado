@@ -64,15 +64,15 @@
                 <div class="flex-grow-1">
                     <h5 class="alert-heading fw-bold text-uppercase">Puntajes</h5>
                     <p class="mb-0">
-                        <strong>Evaluación de Expedientes:</strong> @if($evaluacion) {{ number_format($evaluacion->p_expediente) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif 
+                        <strong>Evaluación de Expedientes:</strong> @if($evaluacion) @if($evaluacion->evaluacion_estado != 1) {{ number_format($evaluacion->p_expediente) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif @else <span class="text-danger">Sin evaluación</span> @endif 
                     </p>
                     @if ($inscripcion->tipo_programa == 2)
                     <p class="mb-0">
-                        <strong>Evaluación de Investigación:</strong> @if($evaluacion) {{ number_format($evaluacion->p_investigacion) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif
+                        <strong>Evaluación de Investigación:</strong> @if($evaluacion) @if($evaluacion->evaluacion_estado != 1) {{ number_format($evaluacion->p_investigacion) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif @else <span class="text-danger">Sin evaluación</span> @endif
                     </p>
                     @endif
                     <p class="mb-0">
-                        <strong>Evaluación de Entrevista:</strong> @if($evaluacion) {{ number_format($evaluacion->p_entrevista) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif
+                        <strong>Evaluación de Entrevista:</strong> @if($evaluacion) @if($evaluacion->evaluacion_estado != 1)  {{ number_format($evaluacion->p_entrevista) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif @else <span class="text-danger">Sin evaluación</span> @endif
                     </p>
                 </div>
             </div>
