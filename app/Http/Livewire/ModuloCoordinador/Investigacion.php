@@ -89,14 +89,14 @@ class Investigacion extends Component
         if($eva){
             $eva->evaluacion_investigacion_puntaje = $this->puntaje;
             $eva->save();
-            $this->dispatchBrowserEvent('notificacionPuntaje', ['message' =>'Puntaje actualizado satisfactoriamente.', 'color' => '#2eb867']);
+            // $this->dispatchBrowserEvent('notificacionPuntaje', ['message' =>'Puntaje actualizado satisfactoriamente.', 'color' => '#2eb867']);
         }else{
             $eva_expe = EvaluacionInvestigacion::create([
                 "evaluacion_investigacion_puntaje" => $this->puntaje,
                 "evaluacion_investigacion_item_id" => $this->evaluacion_investigacion_item_id,
                 "evaluacion_id" => $this->evaluacion_id,
             ]);
-            $this->dispatchBrowserEvent('notificacionPuntaje', ['message' =>'Puntaje agregado satisfactoriamente.', 'color' => '#2eb867']);
+            // $this->dispatchBrowserEvent('notificacionPuntaje', ['message' =>'Puntaje agregado satisfactoriamente.', 'color' => '#2eb867']);
         }
         
         $this->limpiar();

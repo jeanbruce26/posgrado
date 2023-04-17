@@ -90,14 +90,14 @@ class Expediente extends Component
         if($eva){
             $eva->evaluacion_expediente_puntaje = $this->puntaje;
             $eva->save();
-            $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Puntaje actualizada satisfactoriamente.']);
+            // $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Puntaje actualizada satisfactoriamente.']);
         }else{
             $eva_expe = EvaluacionExpediente::create([
                 "evaluacion_expediente_puntaje" => $this->puntaje,
                 "evaluacion_expediente_titulo_id" => $this->id_eva_exp,
                 "evaluacion_id" => $this->evaluacion_id,
             ]);
-            $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Puntaje agregada satisfactoriamente.']);
+            // $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Puntaje agregada satisfactoriamente.']);
         }
 
         $this->limpiar();

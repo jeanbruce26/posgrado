@@ -89,14 +89,14 @@ class Entrevista extends Component
         if($eva){
             $eva->evaluacion_entrevista_puntaje = $this->puntaje;
             $eva->save();
-            $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Puntaje actualizada satisfactoriamente.']);
+            // $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Puntaje actualizada satisfactoriamente.']);
         }else{
             $eva_expe = EvaluacionEntrevista::create([
                 "evaluacion_entrevista_puntaje" => $this->puntaje,
                 "evaluacion_entrevista_item_id" => $this->evaluacion_entrevista_item_id,
                 "evaluacion_id" => $this->evaluacion_id,
             ]);
-            $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Puntaje agregada satisfactoriamente.']);
+            // $this->dispatchBrowserEvent('notificacionNota', ['message' =>'Puntaje agregada satisfactoriamente.']);
         }
         
         $this->limpiar();
