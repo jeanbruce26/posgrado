@@ -163,9 +163,7 @@
                                                     @php
                                                         $evaluacion = App\Models\Evaluacion::where('inscripcion_id', $item->id_inscripcion)->first();
                                                     @endphp
-                                                    @if ($evaluacion == null)
                                                     <a href="#modalCambiarPrograma" wire:click="cargarInscripcion({{ $item->id_inscripcion }})" class="link-primary fs-16" data-bs-toggle="modal" data-bs-target="#modalCambiarPrograma"><i class="ri-pencil-line"></i></a>
-                                                    @endif
                                                     <a wire:click="cargarAlertaSeguimiento({{ $item->id_inscripcion }})" class="link-danger fs-16" style="cursor: pointer;"><i class="ri-close-circle-line"></i></a>
                                                     @if ($evaluacion == null)
                                                     <a wire:click="reservar_inscripcion({{ $item->id_inscripcion }})" class="link-danger fs-16" style="cursor: pointer;"><i class="ri-file-reduce-line"></i></a>
