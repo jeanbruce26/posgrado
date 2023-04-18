@@ -231,6 +231,23 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarEva" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="sidebarEva">
+                                <i class="mdi mdi-book-open"></i> <span
+                                    data-key="t-apps">Evaluación</span>
+                            </a>
+
+                            <div class="collapse menu-dropdown" id="sidebarEva">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.evaluacion.index') }}" class="nav-link"
+                                            data-key="t-analytics"> Puntajes </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('admin.admitidos.index') }}" role="button" aria-expanded="false"
                                 aria-controls="sidebarDashboard">
                                 <i class="mdi mdi-account-multiple-check-outline"></i> <span data-key="t-apps">Admitidos</span>
