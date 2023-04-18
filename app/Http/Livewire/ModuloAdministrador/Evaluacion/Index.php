@@ -13,7 +13,8 @@ class Index extends Component
     
     protected $paginationTheme = 'bootstrap';
     protected $queryString = [
-        'search' => ['except' => '']
+        'search' => ['except' => ''],
+        'filtro_programa' => ['except' => '']
     ];
 
     public $search = '';
