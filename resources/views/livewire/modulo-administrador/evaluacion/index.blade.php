@@ -69,13 +69,13 @@
                                                 @endif
                                             </td>
                                             <td align="center">
-                                                {{ number_format($evaluacion->p_expediente).' pts.' ?? '-' }}
+                                                @if($evaluacion->p_expediente) {{ number_format($evaluacion->p_expediente).' pts.' }} @else - @endif
                                             </td>
                                             <td align="center">
-                                                @if($evaluacion->p_investigacion) {{ number_format($evaluacion->p_investigacion).' pts.' ?? '-' }} @else - @endif
+                                                @if($evaluacion->p_investigacion) {{ number_format($evaluacion->p_investigacion).' pts.' }} @else - @endif
                                             </td>
                                             <td align="center">
-                                                {{ number_format($evaluacion->p_entrevista).' pts.' ?? '-' }}
+                                                @if($evaluacion->p_entrevista) {{ number_format($evaluacion->p_entrevista).' pts.' }} @else - @endif
                                             </td>
                                         </tr>
                                     @endif
