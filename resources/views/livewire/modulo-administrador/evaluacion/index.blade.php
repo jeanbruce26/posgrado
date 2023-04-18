@@ -69,13 +69,37 @@
                                                 @endif
                                             </td>
                                             <td align="center">
-                                                @if($evaluacion->p_expediente) {{ number_format($evaluacion->p_expediente).' pts.' }} @else - @endif
+                                                @if($evaluacion) 
+                                                    @if($evaluacion->p_expediente) 
+                                                        {{ number_format($evaluacion->p_expediente).' pts.' }} 
+                                                    @else 
+                                                        - 
+                                                    @endif 
+                                                @else 
+                                                    - 
+                                                @endif
                                             </td>
                                             <td align="center">
-                                                @if($evaluacion->p_investigacion) {{ number_format($evaluacion->p_investigacion).' pts.' }} @else - @endif
+                                                @if($evaluacion) 
+                                                    @if($evaluacion->p_investigacion) 
+                                                        {{ number_format($evaluacion->p_investigacion).' pts.' }} 
+                                                    @else 
+                                                        - 
+                                                    @endif 
+                                                @else 
+                                                    - 
+                                                @endif
                                             </td>
                                             <td align="center">
-                                                @if($evaluacion->p_entrevista) {{ number_format($evaluacion->p_entrevista).' pts.' }} @else - @endif
+                                                @if($evaluacion) 
+                                                    @if($evaluacion->p_entrevista) 
+                                                        {{ number_format($evaluacion->p_entrevista).' pts.' }} 
+                                                    @else 
+                                                        - 
+                                                    @endif 
+                                                @else 
+                                                    - 
+                                                @endif
                                             </td>
                                         </tr>
                                     @endif
