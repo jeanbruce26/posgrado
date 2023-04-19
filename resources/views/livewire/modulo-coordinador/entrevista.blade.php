@@ -48,6 +48,34 @@
             @endif
         </div>
     </div> --}}
+    <div class="row">
+        @foreach ($expedientes as $item)  
+            @php
+                $expediente_tipo_evaluacion = App\Models\ExpedienteTipoEvaluacion::where('tipo_expediente_evaluacion', 3)->where('cod_exp', $item->cod_exp)->first();
+            @endphp
+            @if ($expediente_tipo_evaluacion)
+                <div class="col-md-4">
+                    <div class="card card-primary">
+                        <div class="p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-book-3-line label-icon align-middle fs-3"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="card-text text-white"><span class="fw-medium">{{$expediente_tipo_evaluacion->expediente->tipo_doc}}.</span></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pb-3 mx-3">
+                            <div class="text-center">
+                                <a target="_blank" href="{{asset($item->nom_exped)}}" class="link-light fw-bold">Abrir <i class="ri-arrow-right-s-line align-middle lh-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+    </div>
     <div class="card">
         <div class="card-body">
             <div class="table-responsive table-card">

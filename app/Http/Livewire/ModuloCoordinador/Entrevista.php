@@ -8,6 +8,7 @@ use App\Models\Evaluacion;
 use App\Models\EvaluacionEntrevistaTitulo;
 use App\Models\EvaluacionEntrevista;
 use App\Models\EvaluacionEntrevistaItem;
+use App\Models\ExpedienteInscripcion;
 use App\Models\ObservacionEvaluacion;
 use App\Models\Puntaje;
 
@@ -195,6 +196,14 @@ class Entrevista extends Component
         $puntaje_model = Puntaje::where('puntaje_estado', 1)->first();
         $this->contarTotal();
 
+        $expedientes = ExpedienteInscripcion::join('expediente', 'ex_insc.expediente_cod_exp', '=', 'expediente.cod_exp')
+                        ->where('ex_insc.id_inscripcion',$evaluacion_data->inscripcion_id)
+                        ->where(function($query) use ($inscripcion){
+                            $query->where('expediente.expediente_tipo', 0)
+                                ->orWhere('expediente.expediente_tipo', $inscripcion->tipo_programa);
+                        })
+                        ->get();
+
         return view('livewire.modulo-coordinador.entrevista', [
             'inscripcion' => $inscripcion,
             'evaluacion_data' => $evaluacion_data,
@@ -202,6 +211,7 @@ class Entrevista extends Component
             'boton' => $boton,
             'evaluacion_entrevista_item' => $evaluacion_entrevista_item,
             'puntaje_model' => $puntaje_model,
+            'expedientes' => $expedientes
         ]);
     }
 }
