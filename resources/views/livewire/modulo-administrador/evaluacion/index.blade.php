@@ -37,6 +37,7 @@
                                     <th scope="col" class="col-md-1">Eva. Expediente</th>
                                     <th scope="col" class="col-md-1">Eva. Investigacion</th>
                                     <th scope="col" class="col-md-1">Eva. Entrevista</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -101,6 +102,9 @@
                                                     - 
                                                 @endif
                                             </td>
+                                            <td align="center">
+                                                <a href="#modal_evaluacion" wire:click="cargar_eva_expediente({{ $item->id_inscripcion }})" class="link-primary fs-16" data-bs-toggle="modal" data-bs-target="#modal_evaluacion"><i class="ri-pencil-line"></i></a>
+                                            </td>
                                         </tr>
                                     @endif
                                 @endforeach
@@ -125,88 +129,194 @@
         </div>
     </div>
     {{-- modal cambiar programa --}}
-    {{-- <div wire:ignore.self class="modal fade" id="modalCambiarPrograma" tabindex="-1" aria-labelledby="modalCambiarPrograma" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
+    <div wire:ignore.self class="modal fade" id="modal_evaluacion" tabindex="-1" aria-labelledby="modalCambiarPrograma" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="showModalLabel">Cambiar Programa</h5>
+                    <h5 class="modal-title" id="showModalLabel">
+                        Editar Evaluacion
+                    </h5>
                     <button type="button" wire:click="limpiar()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form novalidate>
-                        <div class="row">
-                            <div class="mb-3 col-md-12">
-                                <label class="form-label">Programa <span class="text-danger">*</span></label>
-                                <select class="form-select @error('programa') is-invalid  @enderror"
-                                    wire:model="programa">
-                                    <option value="" selected>Seleccione</option>
-                                    @if ($programa_model)
-                                    @foreach ($programa_model as $item)
-                                        <option value="{{ $item->id_programa }}">{{ $item->descripcion_programa }}
-                                        </option>
-                                    @endforeach
-                                    @endif
-                                </select>
+                    <ul class="nav nav-tabs mb-3" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#expediente" role="tab" aria-selected="true">
+                                Eva. Expediente
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#investigacion" role="tab" aria-selected="false" tabindex="-1">
+                                Eva. Investigacion
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#entrevista" role="tab" aria-selected="false" tabindex="-1">
+                                Eva. Entrevista
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content  text-muted mb-3">
+                        <div class="tab-pane active show" id="expediente" role="tabpanel">
+                            <h6 class="mb-4">
+                                Evaluacion de Expediente
+                            </h6>
+                            <div class="px-3">
+                                <div class="table-responsive table-card">
+                                    <table class="table align-middle mb-0 table-hover table-striped table-nowrap table-bordered">
+                                        <thead style="background: rgb(199, 208, 219)">
+                                            <tr align="center">
+                                                <th scope="col" class="col-md-5">CONCEPTO</th>
+                                                <th scope="col" class="col-md-3">PUNTAJE ESPECIFICO</th>
+                                                <th scope="col" class="col-md-2">CALIFICACION</th>
+                                                <th scope="col" class="col-md-2">PUNTAJE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $num = 1;
+                                            @endphp
+                                            @if ($evaluacion_expediente_titulo_model)
+                                                @foreach ($evaluacion_expediente_titulo_model as $item)
+                                                @php
+                                                    $evaluacion_expediente_items = App\Models\EvaluacionExpedienteItem::where('evaluacion_expediente_titulo_id', $item->evaluacion_expediente_titulo_id)->get();
+                                                @endphp
+                                                <tr>
+                                                    <td scope="row">
+                                                        <div class="d-flex flex-column">
+                                                            <strong><span class="me-2">{{$num++}}</span>{{$item->evaluacion_expediente_titulo}}</strong>
+                                                            <div class="ms-3">
+                                                            @foreach ($evaluacion_expediente_items as $item2)
+                                                            @php
+                                                                $evaluacion_expediente_subitems = App\Models\EvaluacionExpedienteSubitem::where('evaluacion_expediente_item_id', $item2->evaluacion_expediente_item_id)->get();
+                                                            @endphp
+                                                                <div>
+                                                                    <span class="me-2"><i class="ri-check-line"></i></span>{{ $item2->evaluacion_expediente_item }}
+                                                                    @foreach ($evaluacion_expediente_subitems as $item3)
+                                                                    <div>
+                                                                        <span class="me-2 ms-3"><i class="ri-check-line"></i></span>{{ $item3->evaluacion_expediente_subitem }}
+                                                                    </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td align="center">
+                                                        <strong>PUNTAJE MAXIMO ({{ number_format($item->evaluacion_expediente_titulo_puntaje_maximo,0) }})</strong>
+                                                        <div class="ms-3">
+                                                            @foreach ($evaluacion_expediente_items as $item2)
+                                                                @if ($item2->evaluacion_expediente_puntaje != null)
+                                                                <div>
+                                                                    @if ($evaluacion_expediente_subitems->count() > 0)
+                                                                        <strong>Maximo {{ number_format($item2->evaluacion_expediente_puntaje,2) }}</strong>
+                                                                    @else
+                                                                        <span class="me-2"><i class="ri-arrow-right-line"></i></span>{{ number_format($item2->evaluacion_expediente_puntaje,2) }}
+                                                                    @endif
+                                                                    @foreach ($evaluacion_expediente_subitems as $item3)
+                                                                    <div>
+                                                                        <span class="me-2"><i class="ri-arrow-right-line"></i></span>{{ number_format($item3->evaluacion_expediente_subitem_puntaje,2) }}
+                                                                    </div>
+                                                                    @endforeach
+                                                                </div>
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    </td>
+                                                    <td align="center">
+                                                        <button type="button" wire:click="cargarId({{$item->evaluacion_expediente_titulo_id}})" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalNota">Ingresar Puntaje</button>
+                                                    </td>
+                                                    @php
+                                                        $evaluacion = App\Models\Evaluacion::where('inscripcion_id', $id_inscripcion)->first();
+                                                        $evaluacion_expediente_notas = App\Models\EvaluacionExpediente::where('evaluacion_expediente_titulo_id', $item->evaluacion_expediente_titulo_id)->where('evaluacion_id',$evaluacion->evaluacion_id)->first();
+                                                    @endphp
+                                                    <td align="center" class="fs-5">
+                                                        @if ($evaluacion_expediente_notas)
+                                                        <strong>{{number_format($evaluacion_expediente_notas->evaluacion_expediente_puntaje,0)}}</strong>
+                                                        @else
+                                                        <strong>-</strong>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                        <tfoot style="background: rgb(199, 208, 219)">
+                                            <tr>
+                                                <td colspan="3" class="fw-bold text-center">TOTAL</td>
+                                                <td align="center" class="fw-bold fs-5">{{$total}}</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
                             </div>
-
-                            <div class="mb-3 col-md-12">
-                                <label class="form-label">@if($programa_nombre) {{ $programa_nombre }} @else Esperando Programa... @endif <span class="text-danger">*</span></label>
-                                <select class="form-select @error('subprograma') is-invalid  @enderror"
-                                    wire:model="subprograma">
-                                    <option value="" selected>Seleccione</option>
-                                    @if ($subprograma_model)
-                                    @foreach ($subprograma_model as $item)
-                                        <option value="{{ $item->id_subprograma }}">{{ $item->subprograma }}
-                                        </option>
-                                    @endforeach
-                                    @endif
-                                </select>
-                                @error('subprograma')
-                                    <span class="error text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            @if ($subprograma_model)
-
-                            @php
-                                $valor = null;
-                                if ($mencion_model) {
-                                    foreach ($mencion_model as $item){
-                                        $valor = $item->mencion;
-                                    } 
-                                }
-                                @endphp
-
-                            @if ($valor)  
-                            <div class="mb-3 col-md-12">
-                                <label class="form-label">Mención <span class="text-danger">*</span></label>
-                                <select class="form-select @error('mencion') is-invalid  @enderror"
-                                    wire:model="mencion">
-                                    <option value="" selected>Seleccione</option>
-                                    @foreach ($mencion_model as $item)
-                                        <option value="{{ $item->id_mencion }}">{{ $item->mencion }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('mencion')
-                                    <span class="error text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>  
-                            @endif
-                                
-                            @endif
                         </div>
-                    </form>
+                        <div class="tab-pane" id="investigacion" role="tabpanel">
+                            <h6 class="mb-4">
+                                Evaluacion de Investigacion
+                            </h6>
+                            <div class="alert alert-dark shadow text-center" role="alert">
+                                <strong>
+                                    No es posible cambiar la evaluacion de la investigacion de tema de Tesis.
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="entrevista" role="tabpanel">
+                            <h6 class="mb-4">
+                                Evaluacion de Entrevista
+                            </h6>
+                            <div class="alert alert-dark shadow text-center" role="alert">
+                                <strong>
+                                    No es posible cambiar la evaluacion de la entrevista.
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer col-12 d-flex justify-content-between">
+                {{-- <div class="modal-footer col-12 d-flex justify-content-between">
                     <button type="button" wire:click="limpiar()"
                         class="btn btn-secondary btn-label waves-effect waves-light w-md" data-bs-dismiss="modal"><i
                             class="ri-arrow-left-s-line label-icon align-middle fs-16 me-2"></i> Cancelar</button>
                     <button type="button" wire:click="guardarCambioPrograma()"
                         class="btn btn-primary btn-label waves-effect right waves-light w-md"><i
                             class="ri-check-double-fill label-icon align-middle fs-16 ms-2"></i> Guardar</button>
-                </div>
+                </div> --}}
             </div>
         </div>
-    </div> --}}
+    </div>
+    <div wire:ignore.self class="modal fade" id="modalNota" tabindex="-1" role="dialog" aria-labelledby="modalNotaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h5 class="modal-title text-uppercase" id="modalNotaLabel">Ingresar su puntaje</h5>
+                        <button type="button" wire:click="limpiar()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex align-items-center">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="puntaje" class="col-form-label">Puntaje</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="number" class="form-control @error('puntaje') is-invalid @enderror" wire:model="puntaje">
+                                    @error('puntaje')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="d-flex justify-content-between w-100">
+                            <button type="button" wire:click="cancelar_modal_puntaje()" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" wire:click="agregarNota()" class="btn btn-success">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

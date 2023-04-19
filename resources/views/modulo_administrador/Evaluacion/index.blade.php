@@ -23,8 +23,16 @@
 @section('javascript')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.38/dist/sweetalert2.all.min.js"></script>
 <script>
-    window.addEventListener('modalCambiarPrograma', event => {
-        $('#modalCambiarPrograma').modal('hide');
+    window.addEventListener('modal_evaluacion', event => {
+        $('#modal_evaluacion').modal('hide');
+    })
+    window.addEventListener('modal_puntaje', event => {
+        $('#modalNota').modal('hide');
+    })
+    window.addEventListener('modal_puntaje', event => {
+        $('#modal_evaluacion').modal('show');
+        $('#modalNota').modal('hide');
+        Livewire.emitTo('modulo-administrador.evaluacion.index', 'cargar_eva_expediente', event.detail.id_inscripcion);
     })
     window.addEventListener('alertaCambioPrograma', event => {
         // alert('Name updated to: ' + event.detail.id);
@@ -103,12 +111,5 @@
             }
         })
     })
-    // window.addEventListener('alertaSuccess', event => {
-    //     Swal.fire(
-    //         event.detail.titulo,
-    //         event.detail.mensaje,
-    //         'success'
-    //     )
-    // });
 </script>
 @endsection
