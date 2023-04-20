@@ -14,6 +14,24 @@
                 <div class="alert alert-danger alert-solid shadow" role="alert">
                     <strong>¡No admitido!</strong>
                 </div>
+                <div class="alert alert-primary alert-dismissible alert-additional shadow fade show" role="alert">
+                    <div class="alert-body">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                                <i class="ri-notification-line fs-16 align-middle"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="alert-heading fw-bold text-uppercase">Observación</h5>
+                                <p class="mb-0">
+                                    <strong>
+                                        {{ $evaluacion->evaluacion_observacion }}
+                                    </strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endif
         @else
             <div class="alert alert-info alert-dismissible alert-label-icon rounded-label shadow fade show" role="alert">
@@ -54,7 +72,7 @@
         </div>
     @endif
     <!-- Success Alert -->
-    <div class="alert alert-primary alert-dismissible alert-additional shadow fade show" role="alert">
+    {{-- <div class="alert alert-primary alert-dismissible alert-additional shadow fade show" role="alert">
         <div class="alert-body">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <div class="d-flex">
@@ -77,10 +95,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="alert-content">
-            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-        </div> --}}
-    </div>
+    </div> --}}
     <div class="mt-4">
         <div class="card">
             <h4 class="card-header d-flex fw-bold justify-content-between align-items-center">

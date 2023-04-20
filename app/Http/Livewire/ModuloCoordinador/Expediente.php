@@ -5,8 +5,12 @@ namespace App\Http\Livewire\ModuloCoordinador;
 use Livewire\Component;
 use App\Models\Inscripcion;
 use App\Models\Evaluacion;
+use App\Models\EvaluacionEntrevista;
+use App\Models\EvaluacionEntrevistaItem;
 use App\Models\EvaluacionExpediente;
 use App\Models\EvaluacionExpedienteTitulo;
+use App\Models\EvaluacionInvestigacion;
+use App\Models\EvaluacionInvestigacionItem;
 use App\Models\ExpedienteInscripcion;
 use App\Models\ExpedienteInscripcionSeguimiento;
 use App\Models\ExpedienteTipoEvaluacion;
@@ -148,6 +152,46 @@ class Expediente extends Component
             $observacion->fecha_observacion = now();
             $observacion->evaluacion_id = $this->evaluacion_id;
             $observacion->save();
+        }
+
+        $evaluacion = Evaluacion::find($this->evaluacion_id);
+        if($this->total == 0){
+            $evaluacion->p_expediente = 0;
+            $evaluacion->fecha_expediente = today();
+            $evaluacion->p_entrevista = 0;
+            $evaluacion->fecha_entrevista = today();
+            if($evaluacion->tipo_evaluacion_id == 2){
+                $evaluacion->p_investigacion = 0;
+                $evaluacion->fecha_investigacion = today();
+            }
+            $evaluacion->p_final = 0;
+            $evaluacion->evaluacion_estado = 2;
+            if($evaluacion->tipo_evaluacion_id == 2){
+                $evaluacion->evaluacion_observacion = 'No cumple con el Grado Academico del Art. 68.';
+            }else{
+                $evaluacion->evaluacion_observacion = 'No cumple con el Grado Academico del Art. 51.';
+            }
+            $evaluacion->save();
+        }
+
+        $evaluacion_entrevista_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id',$evaluacion->tipo_evaluacion_id)->get(); 
+        foreach($evaluacion_entrevista_item as $item){
+            $evaluacion_entrevista = new EvaluacionEntrevista();
+            $evaluacion_entrevista->evaluacion_entrevista_puntaje = 0;
+            $evaluacion_entrevista->evaluacion_entrevista_item_id = $item->evaluacion_entrevista_item_id;
+            $evaluacion_entrevista->evaluacion_id = $evaluacion->evaluacion_id;
+            $evaluacion_entrevista->save();
+        }
+
+        if($evaluacion->tipo_evaluacion_id == 2){
+            $evaluacion_investigacion_item = EvaluacionInvestigacionItem::where('evaluacion_investigacion_item_estado',1)->get(); 
+            foreach($evaluacion_investigacion_item as $item){
+                $evaluacion_investigacion = new EvaluacionInvestigacion();
+                $evaluacion_investigacion->evaluacion_investigacion_puntaje = 0;
+                $evaluacion_investigacion->evaluacion_investigacion_item_id = $item->evaluacion_investigacion_item_id;
+                $evaluacion_investigacion->evaluacion_id = $evaluacion->evaluacion_id;
+                $evaluacion_investigacion->save();
+            }
         }
 
         return redirect()->route('coordinador.inscripciones',$inscripcion->id_mencion);

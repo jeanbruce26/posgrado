@@ -154,7 +154,7 @@ class Entrevista extends Component
         if($this->tipo_evaluacion_id == 1){
             $nota_final = $evaluacion->p_expediente + $this->total;
             if($nota_final < $evaluacion->Puntaje->puntaje_minimo_final_maestria){
-                $evaluacion->evaluacion_observacion = 'Evaluación de entrevista jalada.';
+                $evaluacion->evaluacion_observacion = 'Evaluación jalada.';
                 $evaluacion->evaluacion_estado = 2;
             }else{
                 $evaluacion->evaluacion_observacion = 'Evaluado.';
@@ -163,7 +163,7 @@ class Entrevista extends Component
         }else{
             $nota_final = $evaluacion->p_expediente + $evaluacion->p_investigacion + $this->total;
             if($nota_final < $evaluacion->Puntaje->puntaje_minimo_final_doctorado){
-                $evaluacion->evaluacion_observacion = 'Evaluación de entrevista jalada.';
+                $evaluacion->evaluacion_observacion = 'Evaluación jalada.';
                 $evaluacion->evaluacion_estado = 2;
             }else{
                 $evaluacion->evaluacion_observacion = 'Evaluado.';
@@ -182,6 +182,29 @@ class Entrevista extends Component
             $observacion->evaluacion_id = $this->evaluacion_id;
             $observacion->save();
         }
+
+        $evaluacion = Evaluacion::find($this->evaluacion_id);
+        if($this->total == 0){
+            $evaluacion->p_entrevista = 0;
+            $evaluacion->fecha_entrevista = today();
+            if($evaluacion->tipo_evaluacion_id == 2){
+                $evaluacion->p_investigacion = 0;
+                $evaluacion->fecha_investigacion = today();
+            }
+            $evaluacion->evaluacion_estado = 2;
+            $evaluacion->evaluacion_observacion = 'No se presentó a la evaluación de entrevista.';
+            $evaluacion->save();
+        }
+
+        $evaluacion = Evaluacion::find($this->evaluacion_id);
+        if($evaluacion->tipo_evaluacion_id == 1){
+            $puntaje_final = $evaluacion->p_expediente + $evaluacion->p_entrevista;
+        }else{
+            $puntaje_final = $evaluacion->p_expediente + $evaluacion->p_investigacion + $evaluacion->p_entrevista;
+        }
+        $evaluacion->p_final = $puntaje_final;
+        $evaluacion->save();
+
 
         return redirect()->route('coordinador.inscripciones',$inscripcion->id_mencion);
     }

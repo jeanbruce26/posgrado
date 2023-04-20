@@ -119,6 +119,7 @@
                     <th colspan="3">EVALUACION</th>
                     <th rowspan="2">PUNTAJE <br> TOTAL</th>
                     <th rowspan="2">RESULTADO</th>
+                    <th rowspan="2">OBSERVACION</th>
                 </tr>
                 <tr style="font-size: 0.7rem; font-weight: 700;">
                     <th>EXPEDIENTE <br> C. VITAE <br> (20%)</th>
@@ -147,6 +148,7 @@
                             <td align="center">POR EVALUAR</td>
                             @endif
                         @endif
+                        <td>{{ $item->evaluacion_observacion }}</td>
                     </tr>
                 @endforeach
             </tbody>

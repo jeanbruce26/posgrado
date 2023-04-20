@@ -3,8 +3,12 @@
 namespace App\Http\Livewire\ModuloAdministrador\Evaluacion;
 
 use App\Models\Evaluacion;
+use App\Models\EvaluacionEntrevista;
+use App\Models\EvaluacionEntrevistaItem;
 use App\Models\EvaluacionExpediente;
 use App\Models\EvaluacionExpedienteTitulo;
+use App\Models\EvaluacionInvestigacion;
+use App\Models\EvaluacionInvestigacionItem;
 use App\Models\ExpedienteInscripcion;
 use App\Models\Inscripcion;
 use App\Models\Mencion;
@@ -39,7 +43,8 @@ class Index extends Component
     
     protected $listeners = [
         'render', 
-        'cargar_eva_expediente'
+        'cargar_eva_expediente',
+        'evaluar_cero'
     ];
 
     public function limpiar_filtro()
@@ -149,6 +154,86 @@ class Index extends Component
         ]);
     }
     
+    public function alerta_evaluacion_cero($id_inscripcion)
+    {
+        $this->dispatchBrowserEvent('alerta_evaluacion_cero', [
+            'id_inscripcion' => $id_inscripcion
+        ]);
+    }
+
+    public function evaluar_cero(Inscripcion $inscripcion)
+    {
+        $evaluacion_model = Evaluacion::where('inscripcion_id',$inscripcion->id_inscripcion)->first();
+        if($evaluacion_model)
+        {
+            $evaluacion = Evaluacion::find($evaluacion_model->evaluacion_id);
+            if($this->total == 0){
+                $evaluacion->p_expediente = 0;
+                $evaluacion->fecha_expediente = today();
+                $evaluacion->p_entrevista = 0;
+                $evaluacion->fecha_entrevista = today();
+                if($evaluacion->tipo_evaluacion_id == 2){
+                    $evaluacion->p_investigacion = 0;
+                    $evaluacion->fecha_investigacion = today();
+                }
+                $evaluacion->p_final = 0;
+                $evaluacion->evaluacion_estado = 2;
+                if($evaluacion->tipo_evaluacion_id == 2){
+                    $evaluacion->evaluacion_observacion = 'No cumple con el Grado Academico del Art. 68.';
+                }else{
+                    $evaluacion->evaluacion_observacion = 'No cumple con el Grado Academico del Art. 51.';
+                }
+                $evaluacion->save();
+            }
+    
+            $evaluacion = Evaluacion::find($evaluacion_model->evaluacion_id);
+            $evaluacion_expediente_titulo = EvaluacionExpedienteTitulo::where('tipo_evaluacion_id',$evaluacion->tipo_evaluacion_id)->get(); 
+            foreach($evaluacion_expediente_titulo as $item){
+                $evaluacion_expediente = EvaluacionExpediente::where('evaluacion_expediente_titulo_id',$item->evaluacion_expediente_titulo_id)->where('evaluacion_id',$evaluacion->evaluacion_id)->first();
+                if($evaluacion_expediente){
+                    $evaluacion_expediente->evaluacion_expediente_puntaje = 0;
+                }else{
+                    $evaluacion_expediente = new EvaluacionExpediente();
+                    $evaluacion_expediente->evaluacion_expediente_puntaje = 0;
+                    $evaluacion_expediente->evaluacion_expediente_titulo_id = $item->evaluacion_expediente_titulo_id;
+                    $evaluacion_expediente->evaluacion_id = $evaluacion->evaluacion_id;
+                }
+                $evaluacion_expediente->save();
+            }
+    
+            $evaluacion = Evaluacion::find($evaluacion_model->evaluacion_id);
+            $evaluacion_entrevista_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id',$evaluacion->tipo_evaluacion_id)->get(); 
+            foreach($evaluacion_entrevista_item as $item){
+                $evaluacion_entrevista = EvaluacionEntrevista::where('evaluacion_entrevista_item_id',$item->evaluacion_entrevista_item_id)->where('evaluacion_id',$evaluacion->evaluacion_id)->first();
+                if($evaluacion_entrevista){
+                    $evaluacion_entrevista->evaluacion_entrevista_puntaje = 0;
+                }else{
+                    $evaluacion_entrevista = new EvaluacionEntrevista();
+                    $evaluacion_entrevista->evaluacion_entrevista_puntaje = 0;
+                    $evaluacion_entrevista->evaluacion_entrevista_item_id = $item->evaluacion_entrevista_item_id;
+                    $evaluacion_entrevista->evaluacion_id = $evaluacion->evaluacion_id;
+                }
+                $evaluacion_entrevista->save();
+            }
+    
+            if($evaluacion->tipo_evaluacion_id == 2){
+                $evaluacion_investigacion_item = EvaluacionInvestigacionItem::where('evaluacion_investigacion_item_estado',1)->get(); 
+                foreach($evaluacion_investigacion_item as $item){
+                    $evaluacion_investigacion = EvaluacionInvestigacion::where('evaluacion_investigacion_item_id',$item->evaluacion_investigacion_item_id)->where('evaluacion_id',$evaluacion->evaluacion_id)->first();
+                    if($evaluacion_investigacion){
+                        $evaluacion_investigacion->evaluacion_investigacion_puntaje = 0;
+                    }else{
+                        $evaluacion_investigacion = new EvaluacionInvestigacion();
+                        $evaluacion_investigacion->evaluacion_investigacion_puntaje = 0;
+                        $evaluacion_investigacion->evaluacion_investigacion_item_id = $item->evaluacion_investigacion_item_id;
+                        $evaluacion_investigacion->evaluacion_id = $evaluacion->evaluacion_id;
+                    }
+                    $evaluacion_investigacion->save();
+                }
+            }
+        }
+    }
+
     public function render()
     {
         if($this->filtro_programa)

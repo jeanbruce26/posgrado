@@ -34,10 +34,10 @@
         $('#modalNota').modal('hide');
         Livewire.emitTo('modulo-administrador.evaluacion.index', 'cargar_eva_expediente', event.detail.id_inscripcion);
     })
-    window.addEventListener('alertaCambioPrograma', event => {
+    window.addEventListener('alerta_evaluacion_cero', event => {
         // alert('Name updated to: ' + event.detail.id);
         Swal.fire({
-            title: '¿Estás seguro de cambiar el programa del inscrito?',
+            title: '¿Estás seguro de evaluar cero al postulante?',
             text: "",
             icon: 'question',
             showCancelButton: true,
@@ -47,7 +47,7 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                Livewire.emitTo('modulo-administrador.inscripcion.index', 'cambiarPrograma');
+                Livewire.emitTo('modulo-administrador.evaluacion.index', 'evaluar_cero', event.detail.id_inscripcion);
             }
         })
     })

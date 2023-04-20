@@ -78,10 +78,22 @@ Una vez realizado la evaluación, no podrá realizar modificación de las notas 
                         @foreach ($inscripciones as $item)
                         @php
                             $evalu = App\Models\Evaluacion::where('inscripcion_id', $item->id_inscripcion)->first();
+                            $expediente_seguimiento_count = App\Models\ExpedienteInscripcionSeguimiento::join('ex_insc', 'expediente_inscripcion_seguimiento.cod_ex_insc', '=', 'ex_insc.cod_ex_insc')
+                                                ->where('id_inscripcion', $item->id_inscripcion)
+                                                ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
+                                                ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
+                                                ->count();
                         @endphp
                         <tr>
                             <td scope="row" class="fw-bold" align="center">{{$item->id_inscripcion}}</td>
-                            <td>{{$item->apell_pater}} {{$item->apell_mater}}, {{$item->nombres}}</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    {{$item->apell_pater}} {{$item->apell_mater}}, {{$item->nombres}}
+                                    @if ($expediente_seguimiento_count > 0)
+                                        <i class="ri-information-line text-danger fs-5" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Documento en tramite*** modificar"></i>
+                                    @endif
+                                </div>
+                            </td>
                             <td align="center">{{$item->num_doc}}</td>
                             <td align="center" class="fs-6">
                                 @if ($evalu)
