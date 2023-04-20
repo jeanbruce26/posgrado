@@ -32,75 +32,115 @@
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
                                     <th scope="col">ID</th>
                                     <th scope="col">Documento</th>
-                                    <th scope="col">Persona</th>
+                                    <th class="text-center" style="cursor: pointer;" wire:click="sort('nombre_completo')">
+                                        <div class="d-flex gap-2 alig-items-center justify-content-center">
+                                            <span>Postulante</span>
+                                            <div>
+                                                @if ($sort_nombre == 'nombre_completo')
+                                                    @if ($sort_direccion == 'asc')
+                                                        <i class="ri ri-arrow-up-s-line"></i>
+                                                    @else
+                                                        <i class="ri ri-arrow-down-s-line"></i>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th scope="col">Programa</th>
-                                    <th scope="col" class="col-md-1">Eva. Expediente</th>
-                                    <th scope="col" class="col-md-1">Eva. Investigacion</th>
-                                    <th scope="col" class="col-md-1">Eva. Entrevista</th>
+                                    <th class="col-md-1 text-center" style="cursor: pointer;" wire:click="sort('p_expediente')">
+                                        <div class="d-flex gap-2 alig-items-center justify-content-center">
+                                            <span>Eva. Expediente</span>
+                                            <div>
+                                                @if ($sort_nombre == 'p_expediente')
+                                                    @if ($sort_direccion == 'asc')
+                                                        <i class="ri ri-arrow-up-s-line"></i>
+                                                    @else
+                                                        <i class="ri ri-arrow-down-s-line"></i>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th class="col-md-1 text-center" style="cursor: pointer;" wire:click="sort('p_investigacion')">
+                                        <div class="d-flex gap-2 alig-items-center justify-content-center">
+                                            <span>Eva. Investigacion</span>
+                                            <div>
+                                                @if ($sort_nombre == 'p_investigacion')
+                                                    @if ($sort_direccion == 'asc')
+                                                        <i class="ri ri-arrow-up-s-line"></i>
+                                                    @else
+                                                        <i class="ri ri-arrow-down-s-line"></i>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th class="col-md-1 text-center" style="cursor: pointer;" wire:click="sort('p_entrevista')">
+                                        <div class="d-flex gap-2 alig-items-center justify-content-center">
+                                            <span>Eva. Entrevista</span>
+                                            <div>
+                                                @if ($sort_nombre == 'p_entrevista')
+                                                    @if ($sort_direccion == 'asc')
+                                                        <i class="ri ri-arrow-up-s-line"></i>
+                                                    @else
+                                                        <i class="ri ri-arrow-down-s-line"></i>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($inscripcion as $item)
+                                @foreach ($evaluaciones as $item)
                                 @php
                                     $expediente_seguimiento_count = App\Models\ExpedienteInscripcionSeguimiento::join('ex_insc', 'expediente_inscripcion_seguimiento.cod_ex_insc', '=', 'ex_insc.cod_ex_insc')
                                                 ->where('id_inscripcion', $item->id_inscripcion)
                                                 ->where('expediente_inscripcion_seguimiento.tipo_seguimiento', 1)
                                                 ->where('expediente_inscripcion_seguimiento.expediente_inscripcion_seguimiento_estado', 1)
                                                 ->count();
-                                    $evaluacion = App\Models\Evaluacion::where('inscripcion_id', $item->id_inscripcion)->first();
+                                    // $evaluacion = App\Models\Evaluacion::where('inscripcion_id', $item->id_inscripcion)->first();
                                 @endphp
                                     @if($item->persona_idpersona!=null)
                                         <tr>
                                             <td align="center" class="fw-bold">{{ $item->id_inscripcion }}</td>
-                                            <td align="center">{{ $item->persona->num_doc }}</td>
+                                            <td align="center">{{ $item->num_doc }}</td>
                                             <td>
                                                 <div class="d-flex align-items-center gap-3">
-                                                    {{ $item->persona->nombre_completo }}
+                                                    {{ $item->nombre_completo }}
                                                     @if ($expediente_seguimiento_count > 0)
                                                         <i class="ri-information-line text-danger fs-5"></i>
                                                     @endif
                                                 </div>
                                             </td>
                                             <td>
-                                                @if ($item->Mencion->mencion == null)
-                                                    {{$item->Mencion->SubPrograma->Programa->descripcion_programa}} EN {{$item->Mencion->SubPrograma->subprograma}}
+                                                @if ($item->mencion == null)
+                                                    {{$item->descripcion_programa}} EN {{$item->subprograma}}
                                                 @else
-                                                    MENCION EN {{$item->Mencion->mencion}}
+                                                    MENCION EN {{$item->mencion}}
                                                 @endif
                                             </td>
                                             <td align="center">
-                                                @if($evaluacion) 
-                                                    @if($evaluacion->p_expediente) 
-                                                        {{ number_format($evaluacion->p_expediente).' pts.' }} 
-                                                    @else 
-                                                        - 
-                                                    @endif 
+                                                @if($item->p_expediente) 
+                                                    {{ number_format($item->p_expediente).' pts.' }} 
                                                 @else 
                                                     - 
-                                                @endif
+                                                @endif 
                                             </td>
                                             <td align="center">
-                                                @if($evaluacion) 
-                                                    @if($evaluacion->p_investigacion) 
-                                                        {{ number_format($evaluacion->p_investigacion).' pts.' }} 
-                                                    @else 
-                                                        - 
-                                                    @endif 
+                                                @if($item->p_investigacion) 
+                                                    {{ number_format($item->p_investigacion).' pts.' }} 
                                                 @else 
                                                     - 
-                                                @endif
+                                                @endif 
                                             </td>
                                             <td align="center">
-                                                @if($evaluacion) 
-                                                    @if($evaluacion->p_entrevista) 
-                                                        {{ number_format($evaluacion->p_entrevista).' pts.' }} 
-                                                    @else 
-                                                        - 
-                                                    @endif 
+                                                @if($item->p_entrevista) 
+                                                    {{ number_format($item->p_entrevista).' pts.' }} 
                                                 @else 
                                                     - 
-                                                @endif
+                                                @endif 
                                             </td>
                                             <td align="center">
                                                 <a href="#modal_evaluacion" wire:click="cargar_eva_expediente({{ $item->id_inscripcion }})" class="link-primary fs-16" data-bs-toggle="modal" data-bs-target="#modal_evaluacion"><i class="ri-pencil-line"></i></a>
@@ -111,9 +151,9 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        @if ($inscripcion->count())
+                        @if ($evaluaciones->count())
                             <div class="mt-2 d-flex justify-content-end text-muted">
-                                {{ $inscripcion->links() }}
+                                {{ $evaluaciones->links() }}
                             </div>
                         @elseif ($search != null)
                             <div class="text-center p-3 text-muted">

@@ -23,7 +23,9 @@ class Index extends Component
     protected $paginationTheme = 'bootstrap';
     protected $queryString = [
         'search' => ['except' => ''],
-        'filtro_programa' => ['except' => '']
+        'filtro_programa' => ['except' => ''],
+        'sort_nombre' => ['except' => 'nombre_completo'],
+        'sort_direccion' => ['except' => 'asc'],
     ];
 
     public $search = '';
@@ -41,6 +43,9 @@ class Index extends Component
     public $id_eva_exp;
     public $evaluacion_id;
     
+    public $sort_nombre = 'nombre_completo'; // Columna de la tabla a ordenar
+    public $sort_direccion = 'asc'; // Orden de la columna a ordenar
+
     protected $listeners = [
         'render', 
         'cargar_eva_expediente',
@@ -234,40 +239,89 @@ class Index extends Component
         }
     }
 
+    public function sort($value)
+    {
+        if ($this->sort_nombre == $value) {
+            if ($this->sort_direccion == 'asc') {
+                $this->sort_direccion = 'desc';
+            } else {
+                $this->sort_direccion = 'asc';
+            }
+        } else {
+            $this->sort_nombre = $value;
+            $this->sort_direccion = 'asc';
+        }
+    }
+
     public function render()
     {
         if($this->filtro_programa)
         {
-            $inscripcion = Inscripcion::join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
-                ->join('mencion','inscripcion.id_mencion','=','mencion.id_mencion')
-                ->join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
-                ->join('programa','subprograma.id_programa','=','programa.id_programa')
-                ->where('mencion.id_mencion',$this->filtro_programa)
-                ->where(function($query){
-                    $query->where('persona.nombres','LIKE',"%{$this->search}%")
-                        ->orWhere('persona.apell_pater','LIKE',"%{$this->search}%")
-                        ->orWhere('persona.apell_mater','LIKE',"%{$this->search}%")
-                        ->orWhere('persona.nombre_completo','LIKE',"%{$this->search}%")
-                        ->orWhere('persona.num_doc','LIKE',"%{$this->search}%")
-                        ->orWhere('inscripcion.id_inscripcion','LIKE',"%{$this->search}%");
-                })
-                ->orderBy('inscripcion.id_inscripcion','desc')
-                ->paginate(100);
-        }else{
-            $inscripcion = Inscripcion::join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
-                ->join('mencion','inscripcion.id_mencion','=','mencion.id_mencion')
-                ->join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
-                ->join('programa','subprograma.id_programa','=','programa.id_programa')
-                ->where(function($query){
-                    $query->where('persona.nombres','LIKE',"%{$this->search}%")
-                        ->orWhere('persona.apell_pater','LIKE',"%{$this->search}%")
-                        ->orWhere('persona.apell_mater','LIKE',"%{$this->search}%")
-                        ->orWhere('persona.nombre_completo','LIKE',"%{$this->search}%")
-                        ->orWhere('persona.num_doc','LIKE',"%{$this->search}%")
-                        ->orWhere('inscripcion.id_inscripcion','LIKE',"%{$this->search}%");
-                })
-                ->orderBy('inscripcion.id_inscripcion','desc')
-                ->paginate(100);
+            // $inscripcion = Inscripcion::join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+            //     ->join('mencion','inscripcion.id_mencion','=','mencion.id_mencion')
+            //     ->join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
+            //     ->join('programa','subprograma.id_programa','=','programa.id_programa')
+            //     ->where('mencion.id_mencion',$this->filtro_programa)
+            //     ->where(function($query){
+            //         $query->where('persona.nombres','LIKE',"%{$this->search}%")
+            //             ->orWhere('persona.apell_pater','LIKE',"%{$this->search}%")
+            //             ->orWhere('persona.apell_mater','LIKE',"%{$this->search}%")
+            //             ->orWhere('persona.nombre_completo','LIKE',"%{$this->search}%")
+            //             ->orWhere('persona.num_doc','LIKE',"%{$this->search}%")
+            //             ->orWhere('inscripcion.id_inscripcion','LIKE',"%{$this->search}%");
+            //     })
+            //     ->orderBy('inscripcion.id_inscripcion','desc')
+            //     ->paginate(100);
+            $evaluaciones = Evaluacion::join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                                ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                                ->join('mencion','inscripcion.id_mencion','=','mencion.id_mencion')
+                                ->join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
+                                ->join('programa','subprograma.id_programa','=','programa.id_programa')
+                                ->where('mencion.id_mencion',$this->filtro_programa)
+                                ->where(function($query){
+                                    $query->where('persona.nombres','LIKE',"%{$this->search}%")
+                                        ->orWhere('persona.apell_pater','LIKE',"%{$this->search}%")
+                                        ->orWhere('persona.apell_mater','LIKE',"%{$this->search}%")
+                                        ->orWhere('persona.nombre_completo','LIKE',"%{$this->search}%")
+                                        ->orWhere('persona.num_doc','LIKE',"%{$this->search}%")
+                                        ->orWhere('inscripcion.id_inscripcion','LIKE',"%{$this->search}%");
+                                })
+                                // ->orderBy('inscripcion.id_inscripcion','desc')
+                                ->orderBy($this->sort_nombre == 'nombre_completo' ? 'persona.' . $this->sort_nombre :'evaluacion.' .  $this->sort_nombre, $this->sort_direccion)
+                                ->paginate(100);
+        }
+        else
+        {
+            // $inscripcion = Inscripcion::join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+            //     ->join('mencion','inscripcion.id_mencion','=','mencion.id_mencion')
+            //     ->join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
+            //     ->join('programa','subprograma.id_programa','=','programa.id_programa')
+            //     ->where(function($query){
+            //         $query->where('persona.nombres','LIKE',"%{$this->search}%")
+            //             ->orWhere('persona.apell_pater','LIKE',"%{$this->search}%")
+            //             ->orWhere('persona.apell_mater','LIKE',"%{$this->search}%")
+            //             ->orWhere('persona.nombre_completo','LIKE',"%{$this->search}%")
+            //             ->orWhere('persona.num_doc','LIKE',"%{$this->search}%")
+            //             ->orWhere('inscripcion.id_inscripcion','LIKE',"%{$this->search}%");
+            //     })
+            //     ->orderBy('inscripcion.id_inscripcion','desc')
+            //     ->paginate(100);
+            $evaluaciones = Evaluacion::join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                                ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                                ->join('mencion','inscripcion.id_mencion','=','mencion.id_mencion')
+                                ->join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
+                                ->join('programa','subprograma.id_programa','=','programa.id_programa')
+                                ->where(function($query){
+                                    $query->where('persona.nombres','LIKE',"%{$this->search}%")
+                                        ->orWhere('persona.apell_pater','LIKE',"%{$this->search}%")
+                                        ->orWhere('persona.apell_mater','LIKE',"%{$this->search}%")
+                                        ->orWhere('persona.nombre_completo','LIKE',"%{$this->search}%")
+                                        ->orWhere('persona.num_doc','LIKE',"%{$this->search}%")
+                                        ->orWhere('inscripcion.id_inscripcion','LIKE',"%{$this->search}%");
+                                })
+                                // ->orderBy('inscripcion.id_inscripcion','desc')
+                                ->orderBy($this->sort_nombre == 'nombre_completo' ? 'persona.' . $this->sort_nombre :'evaluacion.' .  $this->sort_nombre, $this->sort_direccion)
+                                ->paginate(100);
         }
         
         $programas = Mencion::join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
@@ -276,8 +330,10 @@ class Index extends Component
                 ->orderBy('programa.descripcion_programa','ASC')
                 ->orderBy('subprograma.subprograma','ASC')
                 ->get();
+
         return view('livewire.modulo-administrador.evaluacion.index', [
-            'inscripcion' => $inscripcion,
+            'evaluaciones' => $evaluaciones,
+            // 'inscripcion' => $inscripcion,
             'programas' => $programas
         ]);
     }
