@@ -157,7 +157,7 @@ class Entrevista extends Component
                 $evaluacion->evaluacion_observacion = 'Evaluación jalada.';
                 $evaluacion->evaluacion_estado = 2;
             }else{
-                $evaluacion->evaluacion_observacion = 'Evaluado.';
+                $evaluacion->evaluacion_observacion = '';
                 $evaluacion->evaluacion_estado = 3;
             }
         }else{
@@ -166,7 +166,7 @@ class Entrevista extends Component
                 $evaluacion->evaluacion_observacion = 'Evaluación jalada.';
                 $evaluacion->evaluacion_estado = 2;
             }else{
-                $evaluacion->evaluacion_observacion = 'Evaluado.';
+                $evaluacion->evaluacion_observacion = '';
                 $evaluacion->evaluacion_estado = 3;
             }
         }

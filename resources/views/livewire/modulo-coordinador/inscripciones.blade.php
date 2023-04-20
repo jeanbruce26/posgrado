@@ -90,7 +90,7 @@ Una vez realizado la evaluación, no podrá realizar modificación de las notas 
                                 <div class="d-flex align-items-center gap-3">
                                     {{$item->apell_pater}} {{$item->apell_mater}}, {{$item->nombres}}
                                     @if ($expediente_seguimiento_count > 0)
-                                        <i class="ri-information-line text-danger fs-5" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Documento en tramite*** modificar"></i>
+                                        <i class="ri-information-line text-danger fs-5" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Presento Declaración Jurada"></i>
                                     @endif
                                 </div>
                             </td>
