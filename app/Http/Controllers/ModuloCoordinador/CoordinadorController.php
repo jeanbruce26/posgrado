@@ -196,4 +196,45 @@ class CoordinadorController extends Controller
     {
         return view('modulo_coordinador.matriculados.index');
     }
+
+    public function auth()
+    {
+        return view('modulo_coordinador.vista-docentes.auth.index');
+    }
+
+
+    public function logout()
+    {
+        auth('evaluacion')->logout();
+        return redirect()->route('coordinador.auth.index');
+    }
+
+    public function programas()
+    {
+        // $programas = Programa::all();
+        return view('modulo_coordinador.vista-docentes.evaluacion.index');
+    }
+
+    public function programas_inscripciones($id_mencion)
+    {
+        return view('modulo_coordinador.vista-docentes.evaluacion.inscripcion', [
+            'id_mencion' => $id_mencion
+        ]);
+    }
+
+    public function programas_entrevista($id, $tipo)
+    {
+        return view('modulo_coordinador.vista-docentes.evaluacion.entrevista', [
+            'id' => $id,
+            'tipo' => $tipo
+        ]);
+    }
+
+    public function programas_investigacion($id, $tipo)
+    {
+        return view('modulo_coordinador.vista-docentes.evaluacion.investigacion', [
+            'id' => $id,
+            'tipo' => $tipo
+        ]);
+    }
 }

@@ -52,6 +52,10 @@ return [
             'driver' => 'session',
             'provider' => 'admin',
         ],
+        'evaluacion' => [
+            'driver' => 'session',
+            'provider' => 'evaluacion',
+        ],
     ],
 
     /*
@@ -95,6 +99,11 @@ return [
         'admin' => [
             'driver' => 'eloquent',
             'model' => App\Models\UsuarioTrabajador::class,
+        ],
+
+        'evaluacion' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\UsuarioEvaluacion::class,
         ],
     ],
 

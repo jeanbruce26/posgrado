@@ -72,6 +72,17 @@ Route::prefix('coordinador')->middleware(['auth:admin','auth.coordinador'])->gro
     Route::get('/matriculados', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'matriculados'])->name('coordinador.matriculados.index');
 });
 
+// docentes de coordinadores para la evaluacion
+Route::get('/evaluacion/login', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'auth'])->name('coordinador.auth.index');
+Route::post('/evaluacion/logout', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'logout'])->name('coordinador.auth.logout');
+
+Route::prefix('evaluacion')->middleware(['auth.evaluacion.vista.docente'])->group(function () {
+    Route::get('/programas', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas'])->name('coordinador.docente.programas.index');
+    Route::get('/programas/{id}/inscripciones', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas_inscripciones'])->name('coordinador.docente.programas.inscripciones.index');
+    Route::get('/programas/{id}/investigacion/{tipo}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas_investigacion'])->name('coordinador.evaluacion-docente.investigacion');
+    Route::get('/programas/{id}/entrevista/{tipo}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas_entrevista'])->name('coordinador.evaluacion-docente.entrevista');
+});
+
 
 //CONTROLADOR DEL MODULO DEL AREA CONTABLE
 Route::prefix('contable')->middleware(['auth:admin','auth.contable'])->group(function () {
