@@ -145,6 +145,7 @@
                                             <td align="center">
                                                 <a href="#modal_evaluacion" wire:click="cargar_eva_expediente({{ $item->id_inscripcion }})" class="link-primary fs-16" data-bs-toggle="modal" data-bs-target="#modal_evaluacion"><i class="ri-pencil-line"></i></a>
                                                 <a wire:click="alerta_evaluacion_cero({{ $item->id_inscripcion }})" style="cursor: pointer;" class="link-danger fs-16"><i class="ri-delete-bin-2-line"></i></a>
+                                                <a wire:click="alerta_evaluacion_reset({{ $item->id_inscripcion }})" style="cursor: pointer;" class="link-warning fs-16"><i class="ri-history-fill"></i></a>
                                             </td>
                                         </tr>
                                     @endif

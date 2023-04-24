@@ -49,7 +49,8 @@ class Index extends Component
     protected $listeners = [
         'render', 
         'cargar_eva_expediente',
-        'evaluar_cero'
+        'evaluar_cero',
+        'evaluar_reset'
     ];
 
     public function limpiar_filtro()
@@ -234,6 +235,60 @@ class Index extends Component
                         $evaluacion_investigacion->evaluacion_id = $evaluacion->evaluacion_id;
                     }
                     $evaluacion_investigacion->save();
+                }
+            }
+        }
+    }
+
+    public function alerta_evaluacion_reset($id_inscripcion)
+    {
+        $this->dispatchBrowserEvent('alerta_evaluacion_reset', [
+            'id_inscripcion' => $id_inscripcion
+        ]);
+    }
+
+    public function evaluar_reset(Inscripcion $inscripcion)
+    {
+        $evaluacion_model = Evaluacion::where('inscripcion_id',$inscripcion->id_inscripcion)->first();
+        if($evaluacion_model)
+        {
+            $evaluacion = Evaluacion::find($evaluacion_model->evaluacion_id);
+            $evaluacion->p_expediente = null;
+            $evaluacion->fecha_expediente = null;
+            $evaluacion->p_entrevista = null;
+            $evaluacion->fecha_entrevista = null;
+            $evaluacion->p_investigacion = null;
+            $evaluacion->fecha_investigacion = null;
+            $evaluacion->p_final = null;
+            $evaluacion->evaluacion_estado = 1;
+            $evaluacion->evaluacion_observacion = null;
+            $evaluacion->save();
+    
+            $evaluacion = Evaluacion::find($evaluacion_model->evaluacion_id);
+            $evaluacion_expediente_titulo = EvaluacionExpedienteTitulo::where('tipo_evaluacion_id',$evaluacion->tipo_evaluacion_id)->get(); 
+            if($evaluacion_expediente_titulo){
+                foreach($evaluacion_expediente_titulo as $item){
+                    $evaluacion_expediente = EvaluacionExpediente::where('evaluacion_expediente_titulo_id',$item->evaluacion_expediente_titulo_id)->where('evaluacion_id',$evaluacion->evaluacion_id)->first();
+                    $evaluacion_expediente ? $evaluacion_expediente->delete() : '';
+                }
+            }
+    
+            $evaluacion = Evaluacion::find($evaluacion_model->evaluacion_id);
+            $evaluacion_entrevista_item = EvaluacionEntrevistaItem::where('tipo_evaluacion_id',$evaluacion->tipo_evaluacion_id)->get(); 
+            if($evaluacion_entrevista_item){
+                foreach($evaluacion_entrevista_item as $item){
+                    $evaluacion_entrevista = EvaluacionEntrevista::where('evaluacion_entrevista_item_id',$item->evaluacion_entrevista_item_id)->where('evaluacion_id',$evaluacion->evaluacion_id)->first();
+                    $evaluacion_entrevista ? $evaluacion_entrevista->delete() : '';
+                }
+            }
+    
+            if($evaluacion->tipo_evaluacion_id == 2){
+                $evaluacion_investigacion_item = EvaluacionInvestigacionItem::where('evaluacion_investigacion_item_estado',1)->get(); 
+                if($evaluacion_investigacion_item){
+                    foreach($evaluacion_investigacion_item as $item){
+                        $evaluacion_investigacion = EvaluacionInvestigacion::where('evaluacion_investigacion_item_id',$item->evaluacion_investigacion_item_id)->where('evaluacion_id',$evaluacion->evaluacion_id)->first();
+                        $evaluacion_investigacion ? $evaluacion_investigacion->delete() : '';
+                    }
                 }
             }
         }

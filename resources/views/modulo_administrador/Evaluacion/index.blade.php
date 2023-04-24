@@ -51,6 +51,23 @@
             }
         })
     })
+    window.addEventListener('alerta_evaluacion_reset', event => {
+        // alert('Name updated to: ' + event.detail.id);
+        Swal.fire({
+            title: '¿Estás seguro de resetear la evaluacion del postulante?',
+            text: "",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Modificar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-administrador.evaluacion.index', 'evaluar_reset', event.detail.id_inscripcion);
+            }
+        })
+    })
     window.addEventListener('alertaSeguimiento', event => {
         // alert('Name updated to: ' + event.detail.id);
         Swal.fire({
