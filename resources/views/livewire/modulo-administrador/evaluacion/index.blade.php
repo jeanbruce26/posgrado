@@ -89,6 +89,21 @@
                                             </div>
                                         </div>
                                     </th>
+                                    <th class="col-md-1 text-center" style="cursor: pointer;" wire:click="sort('p_final')">
+                                        <div class="d-flex gap-2 alig-items-center justify-content-center">
+                                            <span>Puntaje Final</span>
+                                            <div>
+                                                @if ($sort_nombre == 'p_final')
+                                                    @if ($sort_direccion == 'asc')
+                                                        <i class="ri ri-arrow-up-s-line"></i>
+                                                    @else
+                                                        <i class="ri ri-arrow-down-s-line"></i>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col">Estado</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -141,6 +156,24 @@
                                                 @else 
                                                     - 
                                                 @endif 
+                                            </td>
+                                            <td align="center">
+                                                @if($item->p_final) 
+                                                    {{ number_format($item->p_final).' pts.' }} 
+                                                @else 
+                                                    - 
+                                                @endif 
+                                            </td>
+                                            <td align="center">
+                                                @if ($item->evaluacion_estado == 3)
+                                                    <span class="badge badge-success">
+                                                        Admitido
+                                                    </span>
+                                                @else
+                                                    <span class="badge badge-danger">
+                                                        No Admitido
+                                                    </span>
+                                                @endif
                                             </td>
                                             <td align="center">
                                                 <a href="#modal_evaluacion" wire:click="cargar_eva_expediente({{ $item->id_inscripcion }})" class="link-primary fs-16" data-bs-toggle="modal" data-bs-target="#modal_evaluacion"><i class="ri-pencil-line"></i></a>
