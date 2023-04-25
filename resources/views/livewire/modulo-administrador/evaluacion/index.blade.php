@@ -299,7 +299,7 @@
                                                         </div>
                                                     </td>
                                                     <td align="center">
-                                                        <button type="button" wire:click="cargarId({{$item->evaluacion_expediente_titulo_id}})" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalNota">Ingresar Puntaje</button>
+                                                        <button type="button" wire:click="cargarId({{$item->evaluacion_expediente_titulo_id}})" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalNotaExpediente">Ingresar Puntaje</button>
                                                     </td>
                                                     @php
                                                         $evaluacion = App\Models\Evaluacion::where('inscripcion_id', $id_inscripcion)->first();
@@ -319,7 +319,7 @@
                                         <tfoot style="background: rgb(199, 208, 219)">
                                             <tr>
                                                 <td colspan="3" class="fw-bold text-center">TOTAL</td>
-                                                <td align="center" class="fw-bold fs-5">{{$total}}</td>
+                                                <td align="center" class="fw-bold fs-5">{{$total_expediente}}</td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -340,10 +340,57 @@
                             <h6 class="mb-4">
                                 Evaluacion de Entrevista
                             </h6>
-                            <div class="alert alert-dark shadow text-center" role="alert">
-                                <strong>
-                                    No es posible cambiar la evaluacion de la entrevista.
-                                </strong>
+                            <div class="px-3">
+                                <div class="table-responsive table-card">
+                                    <table class="table align-middle mb-0 table-hover table-nowrap table-bordered">
+                                        <thead style="background: rgb(199, 208, 219)">
+                                            <tr align="center">
+                                                <th class="col-md-6">DIMENSIONES DE EVALUACIÓN</th>
+                                                <th class="col-md-2">PUNTAJE ESPECIFICO</th>
+                                                <th class="col-md-2">CALIFICACION</th>
+                                                <th class="col-md-2">PUNTAJE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $num = 1;
+                                            @endphp
+                                            @if ($evaluacion_entrevista_item_model)
+                                                @foreach ($evaluacion_entrevista_item_model as $item)
+                                                <tr>
+                                                    <td scope="row">
+                                                        <span class="me-3">{{$num++}}.</span>{{$item->evaluacion_entrevista_item}}
+                                                    </td>
+                                                    <td align="center">
+                                                        <strong>PUNTAJE MAXIMO ({{ number_format($item->evaluacion_entrevista_item_puntaje,0) }})</strong>
+                                                    </td>
+                                                    <td align="center">
+                                                        <div>
+                                                            <button type="button" wire:click="cargarIdEntrevista({{$item->evaluacion_entrevista_item_id}})" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalNotaEntrevista">Ingresar Puntaje</button>
+                                                        </div>
+                                                    </td>
+                                                    <td align="center" class="fs-5">
+                                                        @php
+                                                            $evaluacion_entrevista_notas = App\Models\EvaluacionEntrevista::where('evaluacion_entrevista_item_id', $item->evaluacion_entrevista_item_id)->where('evaluacion_id',$evaluacion_id)->first();
+                                                        @endphp
+                                                        @if ($evaluacion_entrevista_notas)
+                                                        <strong>{{number_format($evaluacion_entrevista_notas->evaluacion_entrevista_puntaje,0)}}</strong>
+                                                        @else
+                                                        <strong>-</strong>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                        <tfoot style="background: rgb(199, 208, 219)">
+                                            <tr>
+                                                <td colspan="3" class="fw-bold text-center">TOTAL</td>
+                                                <td align="center" class="fw-bold fs-5">{{ number_format($total_entrevista,0) }}</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -359,7 +406,7 @@
             </div>
         </div>
     </div>
-    <div wire:ignore.self class="modal fade" id="modalNota" tabindex="-1" role="dialog" aria-labelledby="modalNotaLabel" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="modalNotaExpediente" tabindex="-1" role="dialog" aria-labelledby="modalNotaLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <form>
@@ -387,7 +434,42 @@
                     <div class="modal-footer">
                         <div class="d-flex justify-content-between w-100">
                             <button type="button" wire:click="cancelar_modal_puntaje()" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" wire:click="agregarNota()" class="btn btn-success">Guardar</button>
+                            <button type="button" wire:click="agregarNotaExpediente()" class="btn btn-success">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div wire:ignore.self class="modal fade" id="modalNotaEntrevista" tabindex="-1" role="dialog" aria-labelledby="modalNotaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h5 class="modal-title text-uppercase" id="modalNotaLabel">Ingresar su puntaje</h5>
+                        <button type="button" wire:click="limpiar()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex align-items-center">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="puntaje" class="col-form-label">Puntaje</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="number" class="form-control @error('puntaje') is-invalid @enderror" wire:model="puntaje">
+                                    @error('puntaje')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="d-flex justify-content-between w-100">
+                            <button type="button" wire:click="cancelar_modal_puntaje()" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" wire:click="agregarNotaEntrevista()" class="btn btn-success">Guardar</button>
                         </div>
                     </div>
                 </form>

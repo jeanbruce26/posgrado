@@ -27,11 +27,13 @@
         $('#modal_evaluacion').modal('hide');
     })
     window.addEventListener('modal_puntaje', event => {
-        $('#modalNota').modal('hide');
+        $('#modalNotaExpediente').modal('hide');
+        $('#modalNotaEentrevista').modal('hide');
     })
     window.addEventListener('modal_puntaje', event => {
         $('#modal_evaluacion').modal('show');
-        $('#modalNota').modal('hide');
+        $('#modalNotaExpediente').modal('hide');
+        $('#modalNotaEntrevista').modal('hide');
         Livewire.emitTo('modulo-administrador.evaluacion.index', 'cargar_eva_expediente', event.detail.id_inscripcion);
     })
     window.addEventListener('alerta_evaluacion_cero', event => {
