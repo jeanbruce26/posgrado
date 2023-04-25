@@ -146,7 +146,31 @@ class Index extends Component
         $evaluacion->fecha_expediente = today();
         $evaluacion->save();
 
-        // $this->dispatchBrowserEvent('modal_puntaje');
+        // calcular nota final
+        $puntaje_model = Puntaje::where('puntaje_estado', 1)->first();
+        $evaluacion = Evaluacion::find($this->evaluacion_id);
+        if($evaluacion->tipo_evaluacion_id == 1){
+            $puntaje_final = $evaluacion->p_expediente + $evaluacion->p_entrevista;
+            if($puntaje_final < $puntaje_model->puntaje_minimo_final_maestria){
+                $evaluacion->evaluacion_observacion = 'Evaluación jalada.';
+                $evaluacion->evaluacion_estado = 2;
+            }else{
+                $evaluacion->evaluacion_observacion = '';
+                $evaluacion->evaluacion_estado = 3;
+            }
+        }else{
+            $puntaje_final = $evaluacion->p_expediente + $evaluacion->p_investigacion + $evaluacion->p_entrevista;
+            if($puntaje_final < $puntaje_model->puntaje_minimo_final_doctorado){
+                $evaluacion->evaluacion_observacion = 'Evaluación jalada.';
+                $evaluacion->evaluacion_estado = 2;
+            }else{
+                $evaluacion->evaluacion_observacion = '';
+                $evaluacion->evaluacion_estado = 3;
+            }
+        }
+        $evaluacion->p_final = $puntaje_final;
+        $evaluacion->save();
+
         $this->cancelar_modal_puntaje();
     }
 

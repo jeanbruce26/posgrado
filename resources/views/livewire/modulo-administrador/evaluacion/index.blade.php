@@ -166,11 +166,11 @@
                                             </td>
                                             <td align="center">
                                                 @if ($item->evaluacion_estado == 3)
-                                                    <span class="badge badge-success">
+                                                    <span class="badge text-bg-success">
                                                         Admitido
                                                     </span>
                                                 @else
-                                                    <span class="badge badge-danger">
+                                                    <span class="badge text-bg-danger">
                                                         No Admitido
                                                     </span>
                                                 @endif
