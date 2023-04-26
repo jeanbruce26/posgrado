@@ -290,24 +290,22 @@ class Index extends Component
         if($evaluacion_model)
         {
             $evaluacion = Evaluacion::find($evaluacion_model->evaluacion_id);
-            if($this->total == 0){
-                $evaluacion->p_expediente = 0;
-                $evaluacion->fecha_expediente = today();
-                $evaluacion->p_entrevista = 0;
-                $evaluacion->fecha_entrevista = today();
-                if($evaluacion->tipo_evaluacion_id == 2){
-                    $evaluacion->p_investigacion = 0;
-                    $evaluacion->fecha_investigacion = today();
-                }
-                $evaluacion->p_final = 0;
-                $evaluacion->evaluacion_estado = 2;
-                if($evaluacion->tipo_evaluacion_id == 2){
-                    $evaluacion->evaluacion_observacion = 'No cumple con el Grado Academico del Art. 68.';
-                }else{
-                    $evaluacion->evaluacion_observacion = 'No cumple con el Grado Academico del Art. 51.';
-                }
-                $evaluacion->save();
+            $evaluacion->p_expediente = 0;
+            $evaluacion->fecha_expediente = today();
+            $evaluacion->p_entrevista = 0;
+            $evaluacion->fecha_entrevista = today();
+            if($evaluacion->tipo_evaluacion_id == 2){
+                $evaluacion->p_investigacion = 0;
+                $evaluacion->fecha_investigacion = today();
             }
+            $evaluacion->p_final = 0;
+            $evaluacion->evaluacion_estado = 2;
+            if($evaluacion->tipo_evaluacion_id == 2){
+                $evaluacion->evaluacion_observacion = 'No cumple con el Grado Academico del Art. 68.';
+            }else{
+                $evaluacion->evaluacion_observacion = 'No cumple con el Grado Academico del Art. 51.';
+            }
+            $evaluacion->save();
     
             $evaluacion = Evaluacion::find($evaluacion_model->evaluacion_id);
             $evaluacion_expediente_titulo = EvaluacionExpedienteTitulo::where('tipo_evaluacion_id',$evaluacion->tipo_evaluacion_id)->get(); 
