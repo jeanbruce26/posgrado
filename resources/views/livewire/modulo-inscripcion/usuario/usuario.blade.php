@@ -39,7 +39,6 @@
                     {{ $admision_fecha_admitidos }}.</strong>
             </div>
         @endif
-        
     @endif
     @if (date('Y/m/d', strtotime($fecha_admision_normal)) >= date('Y/m/d', strtotime(today())))
         <div class="alert alert-info alert-dismissible alert-label-icon rounded-label shadow fade show" role="alert">
@@ -312,6 +311,20 @@
                                         @endforeach
                                     </select>
                                     @error('ciclo')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-12">
+                                    <label class="form-label"> Grupo 
+                                        <span class="text-danger">*</span></label>
+                                    <select type="text" class="form-select @error('grupo') is-invalid  @enderror"
+                                        wire:model="grupo">
+                                        <option value="">Seleccione un grupo</option>
+                                        @foreach ($grupo_model as $grupo)
+                                            <option value="{{ $grupo->id_grupo_programa }}" {{ $grupo->grupo_cantidad == $grupo->grupo_contador ? disabled : '' }}>Grupo {{ $grupo->grupo }} - Cupos: {{ $grupo->grupo_cantidad - $grupo->grupo_contador }} </option>
+                                        @endforeach
+                                    </select>
+                                    @error('grupo')
                                         <span class="error text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

@@ -17,7 +17,8 @@ class MatriculaPago extends Model
         'pago_id',
         'admitidos_id',
         'concepto_id',
-        'ciclo_id'
+        'ciclo_id',
+        'id_grupo_programa',
     ];
 
     public $timestamps = false;
@@ -40,5 +41,10 @@ class MatriculaPago extends Model
     public function ciclo()
     {
         return $this->belongsTo(Ciclo::class, 'ciclo_id');
+    }
+
+    public function grupo_programa()
+    {
+        return $this->belongsTo(GrupoPrograma::class, 'id_grupo_programa');
     }
 }

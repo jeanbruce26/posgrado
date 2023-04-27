@@ -16,6 +16,7 @@ use App\Models\Evaluacion;
 use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
 use App\Models\ExpedienteInscripcionSeguimiento;
+use App\Models\GrupoPrograma;
 use App\Models\Inscripcion;
 use App\Models\MatriculaPago;
 use App\Models\Pago;
@@ -41,6 +42,7 @@ class Usuario extends Component
     public $canal_pago;
     public $concepto_pago;
     public $ciclo;
+    public $grupo;
     public $voucher;
     public $iteration = 0;
     public $modo;
@@ -252,7 +254,7 @@ class Usuario extends Component
 
     public function limpiar_modal()
     {
-        $this->reset(['documento', 'numero_operacion', 'fecha_operacion', 'monto_operacion', 'concepto_pago', 'ciclo', 'voucher']);
+        $this->reset(['documento', 'numero_operacion', 'fecha_operacion', 'monto_operacion', 'concepto_pago', 'ciclo', 'voucher', 'grupo']);
         $this->resetErrorBag();
         $this->resetValidation();
         $this->modo = '';
@@ -273,6 +275,7 @@ class Usuario extends Component
                         'canal_pago' => 'required|numeric',
                         'concepto_pago' => 'required|numeric',
                         'ciclo' => 'required|numeric',
+                        'grupo' => 'required|numeric',
                         'voucher' => 'required|mimes:pdf,jpg,jpeg,png|max:5120',
                     ]);
                 }else{
@@ -284,6 +287,7 @@ class Usuario extends Component
                         'canal_pago' => 'required|numeric',
                         'concepto_pago' => 'required|numeric',
                         'ciclo' => 'nullable|numeric',
+                        'grupo' => 'nullable|numeric',
                         'voucher' => 'required|mimes:pdf,jpg,jpeg,png|max:5120',
                     ]);
                 }
@@ -296,6 +300,7 @@ class Usuario extends Component
                     'canal_pago' => 'required|numeric',
                     'concepto_pago' => 'required|numeric',
                     'ciclo' => 'nullable|numeric',
+                    'grupo' => 'nullable|numeric',
                     'voucher' => 'required|mimes:pdf,jpg,jpeg,png|max:5120',
                 ]);
             }
@@ -451,6 +456,7 @@ class Usuario extends Component
             $pago_matricula->admitidos_id = $admitido->admitidos_id;
             $pago_matricula->concepto_id = $this->concepto_pago;
             $pago_matricula->ciclo_id = $this->ciclo;
+            $pago_matricula->id_grupo_programa = $this->grupo;
             $pago_matricula->save();
 
             $pago = Pago::find($pago->pago_id); //actualizar estado del pago
@@ -468,12 +474,17 @@ class Usuario extends Component
             $pago_matricula->admitidos_id = $admitido->admitidos_id;
             $pago_matricula->concepto_id = $this->concepto_pago;
             $pago_matricula->ciclo_id = $this->ciclo;
+            $pago_matricula->id_grupo_programa = $this->grupo;
             $pago_matricula->save();
 
             $pago = Pago::find($pago->pago_id); //actualizar estado del pago
             $pago->estado = 5; // estado 5 = pago por matricula
             $pago->save();
         }
+        // actualizarcontadordedlos grupos
+        $grupo = GrupoPrograma::find($this->grupo);
+        $grupo->grupo_contador = $grupo->grupo_contador + 1;
+        $grupo->save();
 
         // mostrar alerta de registro de pago con exito
         $this->dispatchBrowserEvent('alertaRegistroPagoSuccess', ['mensaje' => 'Pago registrado correctamente.']);
@@ -576,10 +587,13 @@ class Usuario extends Component
         $pago_constancia_ingreso = 0;
         $pago_matricula = 0;
         $matricula_pago = null;
+        $grupo_model = collect();
         if($evaluacion){
             $admitido = Admitidos::where('evaluacion_id',$evaluacion->evaluacion_id)->first();
             // dd($admitido);
             if($admitido){
+                $grupo_model = GrupoPrograma::where('grupo_programa_estado', 1)->where('id_mencion', $admitido->id_mencion)->get(); // para el combo de grupos
+
                 $constanca_ingreso_pago = ConstanciaIngresoPago::where('admitidos_id',$admitido->admitidos_id)->first(); //verificar si ya pago
                 $matricula_pago = MatriculaPago::where('admitidos_id',$admitido->admitidos_id)->first(); //verificar si ya pago
                 if($constanca_ingreso_pago){
@@ -648,6 +662,7 @@ class Usuario extends Component
             'admision_fecha_matricula_extemporanea_fin' => $admision_fecha_matricula_extemporanea_fin,
             'concepto_pago_model' => $concepto_pago_model,
             'ciclo_model' => $ciclo_model,
+            'grupo_model' => $grupo_model,
             'canal_pago_model' => $canal_pago_model,
             'encuestas' => $encuestas,
             'fecha_maestria_dj' => $fecha_maestria_dj,
