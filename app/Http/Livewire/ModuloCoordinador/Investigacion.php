@@ -110,7 +110,7 @@ class Investigacion extends Component
         $eva_item = EvaluacionInvestigacionItem::count();
         $evaluacion = Evaluacion::find($this->evaluacion_id);
         
-        if($eva == $eva_item){
+        if($eva >= $eva_item){
             $this->dispatchBrowserEvent('alertaConfirmacionInvestigacion', [
                 'mensaje' =>'Una vez evaluado no se podrá modificar las notas.', 
                 'icon' => 'question', 
