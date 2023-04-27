@@ -462,6 +462,11 @@ class Usuario extends Component
             $pago = Pago::find($pago->pago_id); //actualizar estado del pago
             $pago->estado = 5; // estado 5 = pago por matricula
             $pago->save();
+            
+            // actualizarcontadordedlos grupos
+            $grupo = GrupoPrograma::find($this->grupo);
+            $grupo->grupo_contador = $grupo->grupo_contador + 1;
+            $grupo->save();
         }else if($this->concepto_pago == 4){
             $pago_constancia = new ConstanciaIngresoPago(); //guardar pago por constancia de ingreso
             $pago_constancia->pago_id = $pago->pago_id;
@@ -480,11 +485,12 @@ class Usuario extends Component
             $pago = Pago::find($pago->pago_id); //actualizar estado del pago
             $pago->estado = 5; // estado 5 = pago por matricula
             $pago->save();
+
+            // actualizarcontadordedlos grupos
+            $grupo = GrupoPrograma::find($this->grupo);
+            $grupo->grupo_contador = $grupo->grupo_contador + 1;
+            $grupo->save();
         }
-        // actualizarcontadordedlos grupos
-        $grupo = GrupoPrograma::find($this->grupo);
-        $grupo->grupo_contador = $grupo->grupo_contador + 1;
-        $grupo->save();
 
         // mostrar alerta de registro de pago con exito
         $this->dispatchBrowserEvent('alertaRegistroPagoSuccess', ['mensaje' => 'Pago registrado correctamente.']);
