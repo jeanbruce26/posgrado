@@ -410,6 +410,16 @@ class Usuario extends Component
                 }
             }
         }
+        
+        // validamos que sea ciclo 1
+        if($this->concepto_pago == 3 || $this->concepto_pago == 4 || $this->concepto_pago == 5){
+            if(1 != $this->ciclo){
+                $this->dispatchBrowserEvent('alertaRegistroPago', [
+                    'mensaje' => 'El ciclo seleccionado no es el correcto.'
+                ]);
+                return back();
+            }
+        }
 
         // redireccionar a la funcion para registrar el pago
         $this->dispatchBrowserEvent('confirmacion-registro_pago', ['mensaje' => 'Pago registrado correctamente']);
@@ -462,7 +472,7 @@ class Usuario extends Component
             $pago = Pago::find($pago->pago_id); //actualizar estado del pago
             $pago->estado = 5; // estado 5 = pago por matricula
             $pago->save();
-            
+
             // actualizarcontadordedlos grupos
             $grupo = GrupoPrograma::find($this->grupo);
             $grupo->grupo_contador = $grupo->grupo_contador + 1;
