@@ -401,8 +401,12 @@ class Index extends Component
                 $evaluacion_investigacion_item = EvaluacionInvestigacionItem::where('evaluacion_investigacion_item_estado',1)->get(); 
                 if($evaluacion_investigacion_item){
                     foreach($evaluacion_investigacion_item as $item){
-                        $evaluacion_investigacion = EvaluacionInvestigacion::where('evaluacion_investigacion_item_id',$item->evaluacion_investigacion_item_id)->where('evaluacion_id',$evaluacion->evaluacion_id)->first();
-                        $evaluacion_investigacion ? $evaluacion_investigacion->delete() : '';
+                        $evaluacion_investigacion = EvaluacionInvestigacion::where('evaluacion_investigacion_item_id',$item->evaluacion_investigacion_item_id)->where('evaluacion_id',$evaluacion->evaluacion_id)->get();
+                        if($evaluacion_investigacion){
+                            foreach($evaluacion_investigacion as $item){
+                                $item->delete();
+                            }
+                        }
                     }
                 }
             }
