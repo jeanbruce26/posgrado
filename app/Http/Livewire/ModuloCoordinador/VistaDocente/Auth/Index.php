@@ -28,7 +28,7 @@ class Index extends Component
             'password' => 'required',
         ]);
 
-        $usuario = UsuarioEvaluacion::where('usuario_evaluacion_correo',$this->correo)->first();
+        $usuario = UsuarioEvaluacion::where('usuario_evaluacion_correo',$this->correo)->where('usuario_evaluacion_estado', 1)->first();
 
         if ($usuario) {
             if (Hash::check($this->password, $usuario->usuario_evaluacion_password)) {
