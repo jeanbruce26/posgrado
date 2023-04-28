@@ -147,24 +147,28 @@
         style="padding-right: 6rem; padding-left: 6rem; padding-top: 7rem; font-weight: bold; font-size: 0.9rem; width: 100%">
         <tbody>
             <tr>
-                <td align="left">
+                {{-- <td align="left">
                     ..............................................
                 </td>
-                <td align="center"></td>
-                <td align="right">
+                <td align="center"></td> --}}
+                <td align="center">
                     ..............................................
                 </td>
             </tr>
             <tr>
-                <td align="left" style="padding-left: 0.9rem">
+                {{-- <td align="left" style="padding-left: 0.9rem">
                     Firma del Coordinador
                 </td>
-                <td align="center"></td>
-                <td align="right" style="padding-right: 1.95rem">
+                <td align="center"></td> --}}
+                {{-- <td align="center" style="padding-right: 1.95rem"> --}}
+                <td align="center">
                     Firma del Alumno
                 </td>
             </tr>
         </tbody>
     </table>
+    <div style="position: absolute; right: 70px; top: 187px;">
+        <img src="{{ public_path('asset-pdf/sello-posgrado.png') }}" width="110px" alt="sello posgrado">
+    </div>
 </body>
 </html>
