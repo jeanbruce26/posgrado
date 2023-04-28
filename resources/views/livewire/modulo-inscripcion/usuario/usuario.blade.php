@@ -8,11 +8,11 @@
         @if ($evaluacion)
             @if ($admitido)
                 <div class="alert alert-success alert-solid shadow" role="alert">
-                    <strong>¡Admitido!</strong>
+                    <strong class="h3">¡Admitido!</strong>
                 </div>
             @else
                 <div class="alert alert-danger alert-solid shadow" role="alert">
-                    <strong>¡No admitido!</strong>
+                    <strong class="h3">¡No admitido!</strong>
                 </div>
                 <div class="alert alert-primary alert-dismissible alert-additional shadow fade show" role="alert">
                     <div class="alert-body">
