@@ -102,7 +102,8 @@
                             </td>
                             <td align="center">
                                 <div>
-                                    <button type="button" wire:click="cargarId({{$item->evaluacion_entrevista_item_id}})" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalNota" @if ($boton != null) disabled @endif>Ingresar Puntaje</button>
+                                    {{-- <button type="button" wire:click="cargarId({{$item->evaluacion_entrevista_item_id}})" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalNota" @if ($boton != null) disabled @endif>Ingresar Puntaje</button> --}}
+                                    <button type="button" wire:click="cargarId({{$item->evaluacion_entrevista_item_id}})" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalNota">Ingresar Puntaje</button>
                                 </div>
                             </td>
                             <td align="center" class="fs-5">
@@ -139,7 +140,8 @@
                 </form>
             </div>
             <div class="text-end">
-                <button type="button" wire:click="evaluarPaso2()" class="btn btn-primary btn-label waves-effect waves-light w-lg" @if ($boton != null) disabled @endif><i class="ri-save-line label-icon align-middle fs-16 me-2"></i> Evaluar</button>
+                {{-- <button type="button" wire:click="evaluarPaso2()" class="btn btn-primary btn-label waves-effect waves-light w-lg" @if ($boton != null) disabled @endif><i class="ri-save-line label-icon align-middle fs-16 me-2"></i> Evaluar</button> --}}
+                <button type="button" wire:click="evaluarPaso2()" class="btn btn-primary btn-label waves-effect waves-light w-lg"><i class="ri-save-line label-icon align-middle fs-16 me-2"></i> Evaluar</button>
             </div>
         </div>
     </div>

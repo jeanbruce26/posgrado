@@ -127,7 +127,8 @@ Una vez realizado la evaluación, no podrá realizar modificación de las notas 
                             <td align="center" class="fs-6">
                                 @if ($evalu)
                                     @if ($evalu->p_entrevista != null)
-                                    <strong>{{ number_format($evalu->p_entrevista, 0) }} pts.</strong> 
+                                    <button wire:click="evaEntre({{$item->id_inscripcion}},{{ $tipo }})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                    <strong class="ms-3">{{ number_format($evalu->p_entrevista, 0) }} pts.</strong> 
                                     @else
                                     <button wire:click="evaEntre({{$item->id_inscripcion}},{{ $tipo }})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"@if ($evalu) @if ($evalu->evaluacion_estado == 2) disabled @endif @endif><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                     @endif
