@@ -96,10 +96,15 @@ class CoordinadorController extends Controller
             'maestria' => $maestria
         ];
 
-        // dd($programa);
-
+        // Crea una instancia de la clase PDF
         $pdf = PDF::loadView('modulo_coordinador.reporte-evaluacion-maestria', $data);
+        // $pdf = PDF::loadView('example', $data);
 
+        // Configura el tamaño de papel A4 y los márgenes en milímetros
+        $pdf->setPaper('a4', 'portrait');
+        $pdf->setPaper('150mm', '80mm', '150mm', '80mm');
+
+        // Genera el PDF y lo envía al navegador para su descarga
         return $pdf->stream('acta-evaluacion-'.$fecha2.'.pdf');
     }
 

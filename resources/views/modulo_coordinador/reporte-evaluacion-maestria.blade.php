@@ -16,6 +16,7 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
+            margin: 5rem 1rem 5rem 1rem;
         }
 
         table.customTable {
@@ -43,7 +44,7 @@
 </head>
 
 <body>
-    <table class="table" style="width:100%; padding-right: 1.4rem; padding-left: 1.4rem; padding-bottom: 1.5rem; padding-top: 2.5rem;">
+    <table class="table" style="width:100%; padding-right: 1.4rem; padding-left: 1.4rem; padding-bottom: 1.5rem;">
         <thead>
             <tr>
                 <th>
@@ -89,7 +90,7 @@
             @endif
         </strong> integrada por los siguientes docentes:
     </div>
-    <div style="padding-right: 9rem; padding-left: 9rem; padding-top: 0.5rem; font-size: 0.9rem; text-align: justify; line-height: 1.5;">
+    <div style="padding-right: 9rem; padding-left: 9rem; padding-top: 1rem; font-size: 0.9rem; text-align: justify; line-height: 1.5;">
         <table>
             <tbody>
                 <tr>
@@ -113,7 +114,7 @@
     <div style="padding-right: 7rem; padding-left: 7rem; padding-top: 1.5rem; font-size: 0.9rem; text-align: justify; line-height: 1.5;">
         Con	la	finalidad	de	evaluar	a	los	postulantes	de	la Maestría y después de realizado el Proceso de Evaluación, la relación de postulantes es como sigue:
     </div>
-    <div style="padding-right: 7rem; padding-left: 7rem; padding-top: 1rem; font-size: 0.9rem; text-align: justify;">
+    <div style="padding-right: 7rem; padding-left: 7rem; padding-top: 1.5rem; font-size: 0.9rem; text-align: justify;">
         <table class="customTable">
             <thead>
                 <tr style="font-size: 0.7rem; font-weight: 700;">
@@ -155,7 +156,7 @@
             </tbody>
         </table>
     </div>
-    <div style="padding-right: 7rem; padding-left: 7rem; padding-top: 1rem; font-size: 0.9rem; text-align: justify; line-height: 1.5;">
+    <div style="padding-right: 7rem; padding-left: 7rem; padding-top: 1.5rem; font-size: 0.9rem; text-align: justify; line-height: 1.5;">
         Terminado el acto de evaluación, a los ..... días del mes de .................. del 202...., se hace llegar los resultados a la Dirección de la Escuela de Posgrado de la UNU y se procede a firmar el acta en señal de conformidad.
     </div>
     <div style="padding-right: 7rem; padding-left: 7rem; padding-top: 5rem; font-size: 0.9rem; text-align: justify;">

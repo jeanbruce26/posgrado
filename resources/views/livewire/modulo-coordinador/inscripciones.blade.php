@@ -98,8 +98,9 @@ Una vez realizado la evaluación, no podrá realizar modificación de las notas 
                             <td align="center" class="fs-6">
                                 @if ($evalu)
                                     @if ($evalu->p_expediente != null)
-                                    <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
-                                    <strong class="ms-3">{{ number_format($evalu->p_expediente, 0) }} pts.</strong> 
+                                    {{-- <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                    <strong class="ms-3">{{ number_format($evalu->p_expediente, 0) }} pts.</strong>  --}}
+                                    <strong>{{ number_format($evalu->p_expediente, 0) }} pts.</strong> 
                                     @else
                                     <button wire:click="evaExpe({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                     @endif
@@ -113,8 +114,9 @@ Una vez realizado la evaluación, no podrá realizar modificación de las notas 
                             <td align="center" class="fs-6">
                                 @if ($evalu)
                                     @if ($evalu->p_investigacion != null)
-                                    <button wire:click="evaInvestigacion({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
-                                    <strong class="ms-3">{{ number_format($evalu->p_investigacion, 0) }} pts.</strong> 
+                                    {{-- <button wire:click="evaInvestigacion({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                    <strong class="ms-3">{{ number_format($evalu->p_investigacion, 0) }} pts.</strong>  --}}
+                                    <strong>{{ number_format($evalu->p_investigacion, 0) }} pts.</strong> 
                                     @else
                                     <button wire:click="evaInvestigacion({{$item->id_inscripcion}})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                     @endif
@@ -128,8 +130,9 @@ Una vez realizado la evaluación, no podrá realizar modificación de las notas 
                             <td align="center" class="fs-6">
                                 @if ($evalu)
                                     @if ($evalu->p_entrevista != null)
-                                    <button wire:click="evaEntre({{$item->id_inscripcion}},{{ $tipo }})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
-                                    <strong class="ms-3">{{ number_format($evalu->p_entrevista, 0) }} pts.</strong> 
+                                    {{-- <button wire:click="evaEntre({{$item->id_inscripcion}},{{ $tipo }})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
+                                    <strong class="ms-3">{{ number_format($evalu->p_entrevista, 0) }} pts.</strong>  --}}
+                                    <strong>{{ number_format($evalu->p_entrevista, 0) }} pts.</strong> 
                                     @else
                                     <button wire:click="evaEntre({{$item->id_inscripcion}},{{ $tipo }})" type="button" class="btn btn-sm btn-primary btn-label waves-effect rounded-pill w-md waves-light"><i class="ri-file-text-line label-icon align-middle fs-16"></i> Evaluar</button>
                                     @endif
