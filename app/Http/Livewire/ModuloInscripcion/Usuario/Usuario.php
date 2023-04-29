@@ -380,19 +380,23 @@ class Usuario extends Component
         $fecha_matricula_extemporanea = Admision::where('estado',1)->first()->fecha_matricula_extemporanea;
         $fecha_matricula_extemporanea_fin = Admision::where('estado',1)->first()->fecha_matricula_extemporanea_fin;
         if($this->concepto_pago != 5){
-            if($this->fecha_operacion >= $fecha_matricula_extemporanea && $this->fecha_operacion <= $fecha_matricula_extemporanea_fin){
-                $this->dispatchBrowserEvent('alertaRegistroPago', [
-                    'mensaje' => 'El concepto de pago ingresado no es el correcto, debe realizar su matrícula extemporánea.'
-                ]);
-                return back();
+            if($this->concepto_pago == 4){
+                if($this->fecha_operacion >= $fecha_matricula_extemporanea && $this->fecha_operacion <= $fecha_matricula_extemporanea_fin){
+                    $this->dispatchBrowserEvent('alertaRegistroPago', [
+                        'mensaje' => 'El concepto de pago ingresado no es el correcto, debe realizar su matrícula extemporánea.'
+                    ]);
+                    return back();
+                }
             }
         }
         if($this->fecha_operacion >= $fecha_matricula_extemporanea && $this->fecha_operacion <= $fecha_matricula_extemporanea_fin){
-            if($this->monto_operacion != 200){
-                $this->dispatchBrowserEvent('alertaRegistroPago', [
-                    'mensaje' => 'El monto de operación ingresado no es el correcto, el monto de la matrícula extemporánea es de S/. 200.00'
-                ]);
-                return back();
+            if($this->concepto_pago == 3 || $this->concepto_pago == 4 || $this->concepto_pago == 5){
+                if($this->monto_operacion != 200){
+                    $this->dispatchBrowserEvent('alertaRegistroPago', [
+                        'mensaje' => 'El monto de operación ingresado no es el correcto, el monto de la matrícula extemporánea es de S/. 200.00'
+                    ]);
+                    return back();
+                }
             }
         }
 
