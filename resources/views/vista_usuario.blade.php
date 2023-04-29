@@ -80,6 +80,7 @@
                     </div>
 
                     <div class="d-flex align-items-center">
+                        @auth('usuarios')
                         <div class="dropdown ms-sm-3 header-item">
                             <div class="d-flex align-items-center px-4">
 
@@ -91,6 +92,7 @@
                                 </form>
                             </div>
                         </div>
+                        @endauth
                     </div>
                 </div>
             </div>

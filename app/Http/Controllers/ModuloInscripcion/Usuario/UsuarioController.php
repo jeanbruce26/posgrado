@@ -42,4 +42,9 @@ class UsuarioController extends Controller
 
         return $pdf->stream('archivo.pdf');
     }
+
+    public function ficha_inscripcion()
+    {
+        return view('modulo_inscripcion.usuario.ficha');
+    }
 }

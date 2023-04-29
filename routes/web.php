@@ -117,7 +117,7 @@ Route::prefix('usuarios')->middleware(['auth.usuarios'])->group(function () {
     Route::get('/pagos', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'pagos'])->middleware('auth.usuario.admitido')->name('usuarios.pagos');
     Route::get('/pdf', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'pdf'])->name('usuarios.pdf');
 });
-
+Route::get('usuarios/ficha-inscripcion', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'ficha_inscripcion'])->name('usuarios.ficha-inscripcion');
 
 
 
