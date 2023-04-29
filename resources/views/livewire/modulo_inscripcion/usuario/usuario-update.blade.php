@@ -39,11 +39,11 @@
                                                     <a target="_blank" href="{{asset($item2->nom_exped)}}" class="ms-2"><i style="color:rgb(78, 78, 78)" class="bx bxs-file-pdf bx-sm bx-burst-hover"></i></a>
                                                 </td>
                                                 <td align="center">
-                                                    @if ($final >= $fecha)
+                                                    {{-- @if ($final >= $fecha) --}}
                                                     <a href="#modalExpediente" wire:click="cargarCodExpIns({{$item2->cod_ex_insc}})" type="button" class="link-success fs-15" data-bs-toggle="modal" data-bs-target="#modalExpediente"><i class="bx bx-edit bx-sm bx-burst-hover"></i></a>
-                                                    @else
+                                                    {{-- @else
                                                     <span><strong>-</strong></span>
-                                                    @endif
+                                                    @endif --}}
                                                 </td>
                                             </tr>
                                             @php
