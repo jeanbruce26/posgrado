@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admitidos;
+use App\Models\Evaluacion;
 use App\Models\Inscripcion;
 use App\Models\Mencion;
 use App\Models\Pago;
@@ -40,8 +42,11 @@ class DashboardController extends Controller
         $ingreso_total = Pago::sum('monto');
         $ingreso_inscripcion = Pago::where('estado', 3)->sum('monto');
         $ingreso_constancia = Pago::where('estado', 4)->sum('monto');
+        $ingreso_matricula = Pago::where('estado', 5)->sum('monto');
 
         $pagos = Pago::all();
+        $evaluados = Evaluacion::where('evaluacion_estado', 3)->count();
+        $admitidos = Admitidos::all()->count();
 
         return view('modulo_administrador.dashboard.index', [
             'programas_maestria' => $programas_maestria,
@@ -49,7 +54,10 @@ class DashboardController extends Controller
             'ingreso_total' => $ingreso_total,
             'ingreso_inscripcion' => $ingreso_inscripcion,
             'ingreso_constancia' => $ingreso_constancia,
-            'pagos' => $pagos
+            'ingreso_matricula' => $ingreso_matricula,
+            'pagos' => $pagos,
+            'evaluados' => $evaluados,
+            'admitidos' => $admitidos
         ]);
     }
 
