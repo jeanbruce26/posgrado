@@ -353,7 +353,7 @@
                     <button type="button" wire:click="limpiar_modal()"
                         class="btn btn-secondary btn-label waves-effect waves-light w-md" data-bs-dismiss="modal"><i
                             class="ri-arrow-left-s-line label-icon align-middle fs-16 me-2"></i> Cancelar</button>
-                    <button type="button" wire:click="cargar_alerta_registrarPago()"
+                    <button type="button" wire:click="cargar_alerta_registrarPago()" @if($voucher == null) disabled @endif
                         class="btn btn-primary btn-label waves-effect right waves-light w-md"><i
                             class="ri-check-double-fill label-icon align-middle fs-16 ms-2"></i> Guardar</button>
                 </div>
