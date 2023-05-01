@@ -346,7 +346,7 @@ class Usuario extends Component
 
         // validar si el monto de operacion ingresado es igual al monto del concepto de pago
         $concepto_pago = ConceptoPago::find($this->concepto_pago);
-        if($concepto_pago->monto != $this->monto_operacion){
+        if($concepto_pago->monto <= $this->monto_operacion){
             $this->dispatchBrowserEvent('alertaRegistroPago', [
                 'mensaje' => 'El monto de operación ingresado no es el correcto. El monto correcto es de S/ '.$concepto_pago->monto
             ]);
