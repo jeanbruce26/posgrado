@@ -81,6 +81,16 @@
         <tbody>
             <tr>
                 <td align="left">
+                    GRUPO: <span style="font-weight: regular;">{{ $grupo }}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table style="padding-right: 6.5rem; padding-left: 6.5rem; padding-top: 0.9rem; font-weight: bold; font-size: 1rem;">
+        <tbody>
+            <tr>
+                <td align="left">
                     FICHA DE MATRICULA
                 </td>
             </tr>
@@ -167,7 +177,7 @@
             </tr>
         </tbody>
     </table>
-    <div style="position: absolute; right: 70px; top: 187px;">
+    <div style="position: absolute; right: 70px; top: 190px;">
         <img src="{{ public_path('asset-pdf/sello-posgrado.png') }}" width="110px" alt="sello posgrado">
     </div>
 </body>

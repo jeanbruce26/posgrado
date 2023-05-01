@@ -32,4 +32,20 @@ class ProgramaController extends Controller
 
         return view('modulo_administrador.Curso.index', compact('mencion_id', 'titulo'));
     }
+
+    public function grupo($mencion_id)
+    {
+        $mencion = Mencion::join('subprograma', 'subprograma.id_subprograma', '=', 'mencion.id_subprograma')
+            ->join('programa', 'programa.id_programa', '=', 'subprograma.id_programa')
+            ->where('id_mencion', $mencion_id)
+            ->first();
+
+        if($mencion->mencion == null){
+            $titulo = $mencion->descripcion_programa . ' en ' . $mencion->subprograma;
+        }else{
+            $titulo = $mencion->descripcion_programa . ' en ' . $mencion->subprograma . ' con mención en ' . $mencion->mencion;
+        }
+
+        return view('modulo_administrador.Programa.grupo', compact('mencion_id', 'titulo'));
+    }
 }

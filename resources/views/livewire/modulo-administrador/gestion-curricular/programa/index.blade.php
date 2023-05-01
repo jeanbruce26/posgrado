@@ -67,12 +67,24 @@
                                                 <span style="cursor: pointer;" wire:click="cargarAlerta({{ $item->id_mencion }})" class="badge text-bg-danger">Inactivo</span>
                                             @endif
                                         </td>
-                                        <td align="center">
+                                        {{-- <td align="center">
                                             <div class="hstack gap-3 flex-wrap justify-content-center">
                                                 <a href="#modalPrograma" wire:click="cargarPrograma({{ $item->id_mencion }}, 1)" class="link-success fs-16" data-bs-toggle="modal" data-bs-target="#modalPrograma"><i class="ri-edit-2-line"></i></a>
                                                 <a href="#modalPrograma" wire:click="cargarPrograma({{ $item->id_mencion }}, 2)" class="link-danger fs-16" data-bs-toggle="modal" data-bs-target="#modalPrograma"><i class="ri-file-copy-2-line"></i></a>
                                                 <a style="cursor: pointer;" wire:click="cargarVistaCurso({{ $item->id_mencion }})" class="link-primary fs-16"><i class="ri-book-3-line"></i></a>
                                             </div>
+                                        </td> --}}
+                                        <td>
+                                            <div class="btn-group shadow">
+                                                <button type="button" class="btn btn-light shadow-none">Acciones</button>
+                                                <button type="button" class="btn btn-light shadow-none dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#modalPrograma" wire:click="cargarPrograma({{ $item->id_mencion }}, 1)"data-bs-toggle="modal" data-bs-target="#modalPrograma">Editar Programa</a>
+                                                    <a class="dropdown-item" href="#modalPrograma" wire:click="cargarPrograma({{ $item->id_mencion }}, 2)" data-bs-toggle="modal" data-bs-target="#modalPrograma">Copiar Programa</a>
+                                                    <a class="dropdown-item" style="cursor: pointer;" wire:click="cargarVistaCurso({{ $item->id_mencion }})">Cursos</a>
+                                                    <a class="dropdown-item" style="cursor: pointer;" wire:click="cargarVistaGrupo({{ $item->id_mencion }})">Grupos</a>
+                                                </div>
+                                            </div><!-- /btn-group -->
                                         </td>
                                     </tr>
                                 @endforeach

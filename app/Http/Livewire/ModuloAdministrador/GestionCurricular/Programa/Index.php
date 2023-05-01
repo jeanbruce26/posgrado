@@ -249,6 +249,12 @@ class Index extends Component
         return redirect()->route('admin.programa.curso', $mencion_id);
     }
 
+    public function cargarVistaGrupo($mencion_id){
+        // dd('mencion_id = ' . $mencion_id);
+
+        return redirect()->route('admin.programa.grupo', $mencion_id);
+    }
+
     public function subirHistorial($usuario_id, $descripcion, $tabla)
     {
         HistorialAdministrativo::create([
