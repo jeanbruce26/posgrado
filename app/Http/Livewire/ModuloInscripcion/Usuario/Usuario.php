@@ -132,10 +132,12 @@ class Usuario extends Component
         $fecha->locale('es');
         $fecha = 'Pucallpa, ' . $fecha->isoFormat('LL');
         if($admitido->admitidos_id < 10){
-            $codigo_constancia = substr($admitido->admitidos_codigo, 1, 1) . substr($admitido->admitidos_codigo, 5, 9) . '00' . $admitido->admitidos_id;
+            $codigo_constancia = substr($admitido->admitidos_codigo, 1, 1) . substr($admitido->admitidos_codigo, 5, 9) . '000' . $admitido->admitidos_id;
         }else if($admitido->admitidos_id < 100){
-            $codigo_constancia = substr($admitido->admitidos_codigo, 1, 1) . substr($admitido->admitidos_codigo, 5, 9) . '0' . $admitido->admitidos_id;
+            $codigo_constancia = substr($admitido->admitidos_codigo, 1, 1) . substr($admitido->admitidos_codigo, 5, 9) . '00' . $admitido->admitidos_id;
         }else if($admitido->admitidos_id < 1000){
+            $codigo_constancia = substr($admitido->admitidos_codigo, 1, 1) . substr($admitido->admitidos_codigo, 5, 9) . '0' . $admitido->admitidos_id;
+        }else if($admitido->admitidos_id < 10000){
             $codigo_constancia = substr($admitido->admitidos_codigo, 1, 1) . substr($admitido->admitidos_codigo, 5, 9) . $admitido->admitidos_id;
         }
 
