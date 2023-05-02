@@ -81,7 +81,7 @@
         </div>
     </div>
     <div style="padding-right: 6rem; padding-left: 6rem; padding-top: 1.5rem; font-size: 0.9rem; text-align: justify; line-height: 1.5;">
-        En Pucallpa a los días ..... días del mes de .................. del 202...., se reunieron en los ambientes de la Escuela de Posgrado de la UNU, en concordancia con la Resolución N° 001-2023-CAREPG-UNU que aprueba el Concurso de {{ $admision }} de la Escuela de Posgrado, la Comisión de Evaluación de Postulantes del <strong>Doctorado 
+        En Pucallpa a los días ..... días del mes de .................. del 202...., se reunieron en los ambientes de la Escuela de Posgrado de la UNU, en concordancia con la Resolución 002_Resolución 002-2023-UNU-CEPG y la ampliación con Resolución 100_Resolución 100-2023-UNU-CEPG que aprueba el Concurso de {{ $admision }} de la Escuela de Posgrado, la Comisión de Evaluación de Postulantes del <strong>Doctorado 
             @if ($mencion == null)
                 en {{ $doctorado }}
             @endif

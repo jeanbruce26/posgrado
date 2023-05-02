@@ -107,7 +107,22 @@
                     RECIBO: <span style="font-weight: regular;">{{ $numero_operacion }}</span>
                 </td>
                 <td align="right">
-                    PLAN/CICLO: <span style="font-weight: regular;">{{ $plan }}/{{ $ciclo }}</span>
+                    PLAN VIGENTE: <span style="font-weight: regular;">{{ $plan }}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="padding-right: 6.5rem; padding-left: 6.5rem; padding-top: 0.9rem; font-weight: bold; font-size: 1rem;" width="100%">
+        <tbody>
+            <tr>
+                <td align="left">
+                    PROCESO: <span style="font-weight: regular;">{{ $admision }}</span>
+                </td>
+                <td align="center">
+                    {{-- CICLO: <span style="font-weight: regular;">{{ $ciclo }}</span> --}}
+                </td>
+                <td align="right">
+                    {{-- CICLO: <span style="font-weight: regular;">{{ $ciclo }}</span> --}}
                 </td>
             </tr>
         </tbody>

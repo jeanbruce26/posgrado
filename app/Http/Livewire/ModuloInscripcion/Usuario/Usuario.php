@@ -211,6 +211,8 @@ class Usuario extends Component
         $celular = $datos->celular1;
         $grupo = MatriculaPago::where('admitidos_id',$admitido->admitidos_id)->first();
         $grupo = $grupo->grupo_programa->grupo;
+        $admision = Admision::where('cod_admi',$datos->admision_cod_admi)->first();
+        $admision = $admision->admision;
         $data = [ 
             'programa' => $programa,
             'subprograma' => $subprograma,
@@ -224,7 +226,8 @@ class Usuario extends Component
             'domicilio' => $domicilio,
             'celular' => $celular,
             'cursos' => $cursos,
-            'grupo' => $grupo
+            'grupo' => $grupo,
+            'admision' => $admision
         ];
 
         $nombre_pdf = Str::slug($nombre) . '-ficha-matricula-' . $ciclo . '.pdf';
