@@ -325,7 +325,7 @@
                                         wire:model="grupo">
                                         <option value="">Seleccione un grupo</option>
                                         @foreach ($grupo_model as $grupo)
-                                            <option value="{{ $grupo->id_grupo_programa }}" {{ $grupo->grupo_cantidad == $grupo->grupo_contador ? 'disabled' : '' }}>Grupo {{ $grupo->grupo }} - Cupos: {{ $grupo->grupo_cantidad - $grupo->grupo_contador }} </option>
+                                            <option value="{{ $grupo->id_grupo_programa }}" @if($grupo->grupo_cantidad <= $grupo->grupo_contador) disabled @endif>Grupo {{ $grupo->grupo }} - Cupos: {{ $grupo->grupo_cantidad - $grupo->grupo_contador }} </option>
                                         @endforeach
                                     </select>
                                     @error('grupo')
