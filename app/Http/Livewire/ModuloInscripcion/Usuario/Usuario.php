@@ -121,11 +121,14 @@ class Usuario extends Component
         $admision = ucwords(strtolower($datos->admision));
         if($datos->descripcion_programa == 'DOCTORADO'){
             $programa = 'DOCTORADO EN ' . $datos->subprograma;
+            $programa2 = 'el DOCTORADO EN ' . $datos->subprograma;
         }else{
             if($datos->mencion == null){
                 $programa = 'MAESTRIA EN ' . $datos->subprograma;
+                $programa2 = 'la MAESTRIA EN ' . $datos->subprograma;
             }else{
                 $programa = 'MAESTRIA EN ' . $datos->subprograma . ' CON MENCIÓN EN ' . $datos->mencion;
+                $programa2 = 'la MAESTRIA EN ' . $datos->subprograma . ' CON MENCIÓN EN ' . $datos->mencion;
             }
         }
         $fecha = Carbon::parse(today());
@@ -148,6 +151,7 @@ class Usuario extends Component
             'codigo' => $codigo,
             'admision' => $admision,
             'programa' => $programa,
+            'programa2' => $programa2,
             'fecha' => $fecha,
             'codigo_constancia' => $codigo_constancia_qr
         ];

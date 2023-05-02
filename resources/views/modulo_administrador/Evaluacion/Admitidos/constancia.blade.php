@@ -60,7 +60,7 @@
     </div>
     
     <div style="padding-right: 7rem; padding-left: 7rem; padding-top: 2.7rem; font-size: 1.2rem; text-align: justify;">
-        <strong>{{ $nombre }}</strong> con código de matrícula <strong>{{ $codigo }}</strong>, ha ingresado a la Escuela de Posgrado de la Universidad Nacional de Ucayali - {{ $admision }} en la <strong>{{ $programa }}</strong>.
+        <strong>{{ $nombre }}</strong> con código de matrícula <strong>{{ $codigo }}</strong>, ha ingresado a la Escuela de Posgrado de la Universidad Nacional de Ucayali - {{ $admision }} en <strong>{{ $programa2 }}</strong>.
     </div>
 
     <div style="padding-right: 7rem; padding-left: 7rem; padding-top: 2rem; font-size: 1.2rem; text-align: justify;">
