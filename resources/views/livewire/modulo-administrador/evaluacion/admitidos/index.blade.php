@@ -22,8 +22,22 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex justify-content-between align-items-center gap-4">
-                            
+                        <div class="d-flex align-items-center gap-4">
+                            <select class="form-select w-75" wire:model="filtro_programa">
+                                <option value="">Seleccione el programa</option>
+                                @foreach ($programas as $item)
+                                    <option value="{{ $item->id_mencion }}">
+                                        @if ($item->mencion == null)
+                                            {{$item->SubPrograma->Programa->descripcion_programa}} EN {{$item->SubPrograma->subprograma}}
+                                        @else
+                                            MENCION EN {{$item->mencion}}
+                                        @endif
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button type="button" wire:click="limpiar_filtro()" class="btn btn-secondary">
+                                Limpiar
+                            </button>
                         </div>
                         <div class="w-25">
                             <input class="form-control text-muted" type="search" wire:model="search"
@@ -35,18 +49,20 @@
                             <thead>
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
                                     <th scope="col" class="">ID</th>
-                                    <th scope="col" class="col-md-2">Codigo</th>
-                                    <th scope="col" class="col-md-2">Documento</th>
+                                    <th scope="col" class="">Codigo</th>
+                                    <th scope="col" class="">Documento</th>
                                     <th scope="col" class="col-md-3">Apellidos y Nombres</th>
-                                    <th scope="col" class="col-md-3">Celular</th>
-                                    <th scope="col" class="col-md-2">Pago Constancia</th>
-                                    <th scope="col" class="col-md-2">Pago Matricula</th>
+                                    <th scope="col" class="col-md-1">Celular</th>
+                                    <th scope="col" class="col-md-3">Programa</th>
+                                    <th scope="col" class="">Pago Constancia</th>
+                                    <th scope="col" class="">Pago Matricula</th>
+                                    <th scope="col" class="col-md-1"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if ($admitidos_model->count() == 0)
                                     <tr>
-                                        <td colspan="8" align="center" class="text-muted">No hay registros, por favor genere los codigos de admitidos.</td>
+                                        <td colspan="8" align="center" class="text-muted">No hay registros.</td>
                                     </tr>
                                 @else
                                     @foreach ($admitidos_model as $item)
@@ -60,6 +76,13 @@
                                         <td align="center">{{ $item->num_doc }}</td>
                                         <td align="">{{ $item->apell_pater }} {{ $item->apell_mater }}, {{ $item->nombres }}</td>
                                         <td align="center">+51 {{ $item->celular1 }}</td>
+                                        <td align="">
+                                            @if ($item->Mencion->mencion == null)
+                                                {{$item->Mencion->SubPrograma->Programa->descripcion_programa}} EN {{$item->Mencion->SubPrograma->subprograma}}
+                                            @else
+                                                MENCION EN {{$item->Mencion->mencion}}
+                                            @endif
+                                        </td>
                                         <td align="center">
                                             @if ($constancia)
                                                 <button class="btn btn-sm btn-secondary" wire:click="cargar_pago(1, {{ $item->admitidos_id }})" data-bs-toggle="modal" data-bs-target="#modal_pago">
@@ -77,6 +100,20 @@
                                             @else
                                                 ---
                                             @endif
+                                        </td>
+                                        <td>
+                                            <div class="btn-group shadow">
+                                                <button type="button" class="btn btn-light shadow-none">Acciones</button>
+                                                <button type="button" class="btn btn-light shadow-none dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" style="cursor: pointer;" wire:click="alerta_delete_pago_constancia({{ $item->admitidos_id }})">
+                                                        Eliminar Pago Constancia de Ingreso
+                                                    </a>
+                                                    <a class="dropdown-item" style="cursor: pointer;" wire:click="alerta_delete_pago_matricula({{ $item->admitidos_id }})">
+                                                        Eliminar Pago Matricula
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach

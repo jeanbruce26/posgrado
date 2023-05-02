@@ -75,10 +75,51 @@
 
     window.addEventListener('errorFechaAdmitidos', event => {
         Swal.fire(
-        event.detail.mensaje,
-        '',
-        'error'
+            event.detail.mensaje,
+            '',
+            'error'
         )
     });
+    window.addEventListener('notificacion_delete', event => {
+        Swal.fire(
+            event.detail.message,
+            '',
+            event.detail.icon
+        )
+    });
+    window.addEventListener('alerta_delete_pago_constancia', event => {
+        // alert('Name updated to: ' + event.detail.id);
+        Swal.fire({
+            title: '¿Estás seguro de eliminar el pago de Constancia de Ingreso?',
+            text: "Una vez eliminado no se podrá recuperar la información del pago de la constancia de ingreso y se eliminará la constancia de ingreso generada.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-administrador.evaluacion.admitidos.index', 'delete_pago_constancia', event.detail.admitidos_id);
+            }
+        })
+    })
+    window.addEventListener('alerta_delete_pago_matricula', event => {
+        // alert('Name updated to: ' + event.detail.id);
+        Swal.fire({
+            title: '¿Estás seguro de eliminar el pago de Matricula?',
+            text: "Una vez eliminado no se podrá recuperar la información del pago de la matricula y se eliminará la matricula generada.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-administrador.evaluacion.admitidos.index', 'delete_pago_matricula', event.detail.admitidos_id);
+            }
+        })
+    })
 </script>
 @endsection

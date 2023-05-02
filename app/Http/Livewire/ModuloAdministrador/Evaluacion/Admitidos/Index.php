@@ -9,10 +9,13 @@ use App\Models\ConstanciaIngresoPago;
 use App\Models\Evaluacion;
 use App\Models\HistorialInscripcion;
 use App\Models\MatriculaPago;
+use App\Models\Mencion;
+use App\Models\Pago;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\File;
 
 class Index extends Component
 {
@@ -26,7 +29,9 @@ class Index extends Component
 
     public $operacion, $fecha, $monto, $documento, $voucher, $concepto; // variables para el modal de constancia de ingreso y pago
 
-    protected $listeners = ['render', 'generar_codigo', 'crearConstancia'];
+    public $filtro_programa; // variable para el filtro de programa
+
+    protected $listeners = ['render', 'generar_codigo', 'crearConstancia', 'delete_pago_constancia', 'delete_pago_matricula'];
 
     public function updating()
     {
@@ -290,6 +295,61 @@ class Index extends Component
         return Excel::download(new UsersExport, 'admitidos-'.$fecha_actual.'-'.$hora_actual.'.xlsx');
     }
 
+    public function limpiar_filtro()
+    {
+        $this->reset([
+            'filtro_programa'
+        ]);
+    }
+
+    public function alerta_delete_pago_constancia($admitidos_id)
+    {
+        $this->dispatchBrowserEvent('alerta_delete_pago_constancia', ['admitidos_id' => $admitidos_id]);
+    }
+
+    public function delete_pago_constancia($admitidos_id)
+    {
+        $constancia = ConstanciaIngresoPago::where('admitidos_id', $admitidos_id)->first();
+        if($constancia){
+            $pago_id = $constancia->pago_id;
+            $constancia->delete();
+            $pago = Pago::find($pago_id);
+            $pago->delete();
+            $admitido = Admitidos::find($admitidos_id);
+            File::delete($admitido->constancia);
+            $admitido->constancia_codigo = null;
+            $admitido->constancia = null;
+            $admitido->save();
+        }else{
+            $this->dispatchBrowserEvent('notificacion_delete', [
+                'message' =>'No existe pago de constancia de ingreso para este usuario admitido.',
+                'icon' => 'error'
+            ]);
+        }
+    }
+
+    public function alerta_delete_pago_matricula($admitidos_id)
+    {
+        $this->dispatchBrowserEvent('alerta_delete_pago_matricula', ['admitidos_id' => $admitidos_id]);
+    }
+
+    public function delete_pago_matricula($admitidos_id)
+    {
+        $matricula = MatriculaPago::where('admitidos_id', $admitidos_id)->first();
+        if($matricula){
+            $pago_id = $matricula->pago_id; 
+            $matricula->delete();
+            File::delete($matricula->ficha_matricula);
+            $pago = Pago::find($pago_id);
+            $pago->delete();
+        }else{
+            $this->dispatchBrowserEvent('notificacion_delete', [
+                'message' =>'No existe pago de matricula para este usuario admitido.',
+                'icon' => 'error'
+            ]);
+        }
+    }
+
     public function render()
     {
         $evaluacion_admitidos_count = Evaluacion::where('evaluacion_estado', 3)->count();
@@ -299,7 +359,27 @@ class Index extends Component
         }else{
             $this->mostrar_alerta = 0;
         }
-        $admitidos_model = Admitidos::join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+        if($this->filtro_programa)
+        {
+            $admitidos_model = Admitidos::join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->where('admitidos.id_mencion', $this->filtro_programa)
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+        }else{
+            $admitidos_model = Admitidos::join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
                     ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
                     ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
                     ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
@@ -310,11 +390,20 @@ class Index extends Component
                     ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
                     ->orWhere('persona.nombres','like','%'.$this->search.'%')
                     ->orWhere('persona.num_doc','like','%'.$this->search.'%')
-                    ->orderBy('admitidos.admitidos_codigo')
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+        }
+        $programas = Mencion::join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
+                    ->join('programa','subprograma.id_programa','=','programa.id_programa')
+                    ->where('mencion.mencion_estado', 1)
+                    ->orderBy('programa.descripcion_programa','ASC')
+                    ->orderBy('subprograma.subprograma','ASC')
                     ->get();
 
         return view('livewire.modulo-administrador.evaluacion.admitidos.index',[
-            'admitidos_model' => $admitidos_model
+            'admitidos_model' => $admitidos_model,
+            'programas' => $programas
         ]);
     }
 }
