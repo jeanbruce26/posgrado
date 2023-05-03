@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Programa;
 use App\Http\Controllers\Controller;
+use App\Models\GrupoPrograma;
 use App\Models\Mencion;
 use App\Models\Sede;
 
@@ -47,5 +48,13 @@ class ProgramaController extends Controller
         }
 
         return view('modulo_administrador.Programa.grupo', compact('mencion_id', 'titulo'));
+    }
+
+    public function detalle_grupo($id, $id_grupo_programa)
+    {
+        return view('modulo_administrador.Programa.detalle-grupo', [
+            'id_mencion' => $id,
+            'id_grupo_programa' => $id_grupo_programa
+        ]);
     }
 }

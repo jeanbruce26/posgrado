@@ -28,6 +28,7 @@ Route::prefix('administrador')->middleware(['auth:admin','auth.administrador'])-
     Route::get('/programa', [App\Http\Controllers\ProgramaController::class, 'index'])->name('admin.programa.index');
     Route::get('/programa/{id}/cursos', [App\Http\Controllers\ProgramaController::class, 'curso'])->name('admin.programa.curso');
     Route::get('/programa/{id}/grupos', [App\Http\Controllers\ProgramaController::class, 'grupo'])->name('admin.programa.grupo');
+    Route::get('/programa/{id}/grupos/{id_grupo_programa}/admitidos', [App\Http\Controllers\ProgramaController::class, 'detalle_grupo'])->name('admin.programa.detalle-grupo');
     Route::get('/plan', [App\Http\Controllers\PlanController::class, 'index'])->name('admin.plan.index');
     Route::get('/admision', [App\Http\Controllers\AdmisionController::class, 'index'])->name('admin.admision.index');
     
