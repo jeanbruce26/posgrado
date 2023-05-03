@@ -81,7 +81,7 @@
         </div>
     </div>
     <div style="padding-right: 6rem; padding-left: 6rem; padding-top: 1.5rem; font-size: 0.9rem; text-align: justify; line-height: 1.5;">
-        En Pucallpa los días 17 al 28 de abril del 2023, se reunieron en los ambientes de la Escuela de Posgrado de la UNU, en concordancia con la Resolución 002_Resolución 002-2023-UNU-CEPG y la ampliación con Resolución 100_Resolución 100-2023-UNU-CEPG que aprueba el Concurso de {{ $admision }} de la Escuela de Posgrado, la Comisión de Evaluación de Postulantes de la
+        En Pucallpa los días 17 al 28 de abril del 2023, se reunieron en los ambientes de la Escuela de Posgrado de la UNU, en concordancia con la Resolución 002-2023-UNU-CEPG y la ampliación con Resolución 100-2023-UNU-CEPG que aprueba el Concurso de {{ $admision }} de la Escuela de Posgrado, la Comisión de Evaluación de Postulantes de la
         <strong>Maestria 
             @if ($mencion == null)
                 en {{ $maestria }}
