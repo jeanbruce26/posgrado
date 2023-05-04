@@ -201,7 +201,7 @@ class Usuario extends Component
             $subprograma = $datos->subprograma;
             $mencion = $datos->mencion;
         }
-        $fecha = date('d/m/Y', strtotime(Carbon::parse(today())));
+        $fecha = date('d/m/Y');
         $numero_operacion = $matricula_pago->pago->nro_operacion;
         $plan = $datos->plan;
         $ciclo = $matricula_pago->ciclo->ciclo;
