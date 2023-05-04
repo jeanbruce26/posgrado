@@ -185,6 +185,8 @@ class Usuario extends Component
 
         $matricula_pago = MatriculaPago::where('admitidos_id',$admitido->admitidos_id)->first();
 
+        $pago = Pago::where('pagos_id',$matricula_pago->pago_id)->first();
+
         $cursos = Curso::where('mencion_id',$datos->id_mencion)
                         ->where('ciclo_id', $matricula_pago->ciclo_id)
                         ->get();
@@ -201,7 +203,7 @@ class Usuario extends Component
             $subprograma = $datos->subprograma;
             $mencion = $datos->mencion;
         }
-        $fecha = date('d/m/Y');
+        $fecha = date('d/m/Y', strtotime($pago->fecha_pago));
         $numero_operacion = $matricula_pago->pago->nro_operacion;
         $plan = $datos->plan;
         $ciclo = $matricula_pago->ciclo->ciclo;
