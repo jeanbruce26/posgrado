@@ -18,7 +18,7 @@ class Index extends Component
     protected $paginationTheme = 'bootstrap';
     protected $queryString = [
         'search' => ['except' => ''],
-        'filtro_estado' => ['except' => [1,2,3,4,5,6]],
+        'filtro_estado' => ['except' => [1,2,3,4,5]],
     ];
 
     public $search = '';
@@ -31,7 +31,7 @@ class Index extends Component
     public $monto;
     public $fecha_pago;
     public $canal_pago;
-    public $filtro_estado = [1,2,3,4,5,6]; 
+    public $filtro_estado = [1,2,3,4,5]; 
     
     protected $listeners = ['render', 'deletePago'];
 
@@ -221,8 +221,6 @@ class Index extends Component
                             $query->orWhere('estado', 4);
                         }else if ($value == 5) {
                             $query->orWhere('estado', 5);
-                        }else if ($value == 6) {
-                            $query->orWhere('estado', 6);
                         }
                     }
                     // $query->where('estado', 4)
