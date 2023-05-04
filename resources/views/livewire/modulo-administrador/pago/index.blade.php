@@ -73,9 +73,9 @@
                                         </td>
                                         <td align="center">
                                             <div class="hstack gap-3 flex-wrap justify-content-center">
-                                                @if($item->estado == 1 || $item->estado == 2)
+                                                {{-- @if($item->estado == 1 || $item->estado == 2) --}}
                                                 <a href="#modalPago" wire:click="cargarIdPago({{ $item->pago_id }})" class="link-success fs-16" data-bs-toggle="modal" data-bs-target="#modalPago"><i class="ri-edit-2-line"></i></a>
-                                                @endif
+                                                {{-- @endif --}}
                                                 @if($item->estado == 1)
                                                 <a style="cursor: pointer" wire:click="eliminar({{ $item->pago_id }})" class="link-danger fs-16"><i class="ri-delete-bin-line"></i></a>
                                                 @endif
