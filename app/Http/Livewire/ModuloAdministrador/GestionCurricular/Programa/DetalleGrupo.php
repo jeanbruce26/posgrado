@@ -154,6 +154,7 @@ class DetalleGrupo extends Component
                                 ->join('pago', 'matricula_pago.pago_id', '=', 'pago.pago_id')
                                 ->where('matricula_pago.id_grupo_programa', $this->id_grupo_programa)
                                 ->orderBy('matricula_pago.id_grupo_programa', 'desc')
+                                ->orderBy('pago.fecha_pago', 'desc')
                                 ->get();
 
     $grupos = GrupoPrograma::where('grupo_programa_estado', '1')
