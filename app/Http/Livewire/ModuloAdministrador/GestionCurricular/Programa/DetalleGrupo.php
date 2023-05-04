@@ -151,6 +151,7 @@ class DetalleGrupo extends Component
     $detalle_grupos = MatriculaPago::join('admitidos', 'matricula_pago.admitidos_id', '=', 'admitidos.admitidos_id')
                                 ->join('persona', 'admitidos.persona_id', '=', 'persona.idpersona')
                                 ->join('grupo_programa', 'matricula_pago.id_grupo_programa', '=', 'grupo_programa.id_grupo_programa')
+                                ->join('pago', 'matricula_pago.pago_id', '=', 'pago.pago_id')
                                 ->where('matricula_pago.id_grupo_programa', $this->id_grupo_programa)
                                 ->orderBy('matricula_pago.id_grupo_programa', 'desc')
                                 ->get();

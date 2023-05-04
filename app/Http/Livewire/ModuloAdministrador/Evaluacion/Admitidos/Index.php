@@ -21,7 +21,9 @@ class Index extends Component
 {
     protected $paginationTheme = 'bootstrap';
     protected $queryString = [
-        'search' => ['except' => '']
+        'search' => ['except' => ''],
+        'filtro_programa' => ['except' => ''],
+        'filtro_pago' => ['except' => ''],
     ];
 
     public $search = '';
@@ -30,6 +32,7 @@ class Index extends Component
     public $operacion, $fecha, $monto, $documento, $voucher, $concepto; // variables para el modal de constancia de ingreso y pago
 
     public $filtro_programa; // variable para el filtro de programa
+    public $filtro_pago; // variable para el filtro de pago
 
     protected $listeners = ['render', 'generar_codigo', 'crearConstancia', 'delete_pago_constancia', 'delete_pago_matricula'];
 
@@ -298,7 +301,8 @@ class Index extends Component
     public function limpiar_filtro()
     {
         $this->reset([
-            'filtro_programa'
+            'filtro_programa',
+            'filtro_pago',
         ]);
     }
 
@@ -359,11 +363,13 @@ class Index extends Component
         }else{
             $this->mostrar_alerta = 0;
         }
-        if($this->filtro_programa)
+        if($this->filtro_programa && $this->filtro_pago == '')
         {
             $admitidos_model = Admitidos::join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
                     ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
                     ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
                     ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
                     ->where(function($query){
                         $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
@@ -378,10 +384,12 @@ class Index extends Component
                     ->orderBy('admitidos.admitidos_codigo', 'ASC')
                     ->orderBy('persona.nombre_completo', 'ASC')
                     ->get();
-        }else{
+        }else if($this->filtro_pago == ''){
             $admitidos_model = Admitidos::join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
                     ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
                     ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
                     ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
                     ->where('admitidos.admitidos_id','like','%'.$this->search.'%')
                     ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
@@ -393,6 +401,328 @@ class Index extends Component
                     ->orderBy('admitidos.admitidos_codigo', 'ASC')
                     ->orderBy('persona.nombre_completo', 'ASC')
                     ->get();
+        }else if($this->filtro_programa && $this->filtro_pago){
+            if($this->filtro_pago == 'constancia'){
+                $admitidos_model = ConstanciaIngresoPago::join('admitidos', 'constancia_ingreso_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                    ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->where('admitidos.id_mencion', $this->filtro_programa)
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+            }else if($this->filtro_pago == 'matricula'){
+                $admitidos_model = MatriculaPago::join('admitidos', 'matricula_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                    ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->where('admitidos.id_mencion', $this->filtro_programa)
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+            }else if($this->filtro_pago == 'constancia_matricula'){
+                $constancia = ConstanciaIngresoPago::join('admitidos', 'constancia_ingreso_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                    ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->where('admitidos.id_mencion', $this->filtro_programa)
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+                $matricula = MatriculaPago::join('admitidos', 'matricula_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                    ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->where('admitidos.id_mencion', $this->filtro_programa)
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+                $admitidos_model = collect();
+                foreach($constancia as $cons){
+                    foreach($matricula as $matri){
+                        if($cons->admitidos_id == $matri->admitidos_id){
+                            $admitidos_model->push($cons);
+                        }
+                    }
+                }
+            }else if($this->filtro_pago == 'sin_constancia'){
+                $admitidos = Admitidos::join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->where('admitidos.id_mencion', $this->filtro_programa)
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+                $admitidos_model = collect();
+                foreach($admitidos as $admi){
+                    $constancia = ConstanciaIngresoPago::join('admitidos', 'constancia_ingreso_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                        ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                        ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                        ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                        ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                        ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                        ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                        ->where('admitidos.id_mencion', $this->filtro_programa)
+                        ->where('admitidos.admitidos_id', $admi->admitidos_id)
+                        ->first();
+                    if($constancia == null){
+                        $admitidos_model->push($admi);
+                    }
+                }
+            }else if($this->filtro_pago == 'sin_matricula'){
+                $admitidos = Admitidos::join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->where('admitidos.id_mencion', $this->filtro_programa)
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+                $admitidos_model = collect();
+                foreach($admitidos as $admi){
+                    $matricula = MatriculaPago::join('admitidos', 'matricula_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                        ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                        ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                        ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                        ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                        ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                        ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                        ->where('admitidos.id_mencion', $this->filtro_programa)
+                        ->where('admitidos.admitidos_id', $admi->admitidos_id)
+                        ->first();
+                    if($matricula == null){
+                        $admitidos_model->push($admi);
+                    }
+                }
+            }
+        }else if($this->filtro_pago){
+            if($this->filtro_pago == 'constancia'){
+                $admitidos_model = ConstanciaIngresoPago::join('admitidos', 'constancia_ingreso_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                    ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+            }else if($this->filtro_pago == 'matricula'){
+                $admitidos_model = MatriculaPago::join('admitidos', 'matricula_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                    ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+            }else if($this->filtro_pago == 'constancia_matricula'){
+                $constancia = ConstanciaIngresoPago::join('admitidos', 'constancia_ingreso_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                    ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+                $matricula = MatriculaPago::join('admitidos', 'matricula_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                    ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+                $admitidos_model = collect();
+                foreach($constancia as $cons){
+                    foreach($matricula as $matri){
+                        if($cons->admitidos_id == $matri->admitidos_id){
+                            $admitidos_model->push($cons);
+                        }
+                    }
+                }
+            }else if($this->filtro_pago == 'sin_constancia'){
+                $admitidos = Admitidos::join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+                $admitidos_model = collect();
+                foreach($admitidos as $admi){
+                    $constancia = ConstanciaIngresoPago::join('admitidos', 'constancia_ingreso_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                        ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                        ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                        ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                        ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                        ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                        ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                        ->where('admitidos.admitidos_id', $admi->admitidos_id)
+                        ->first();
+                    if($constancia == null){
+                        $admitidos_model->push($admi);
+                    }
+                }
+            }else if($this->filtro_pago == 'sin_matricula'){
+                $admitidos = Admitidos::join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                    ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                    ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                    ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                    ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                    ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                    ->where(function($query){
+                        $query->where('admitidos.admitidos_id','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.admitidos_codigo','like','%'.$this->search.'%')
+                        ->orWhere('admitidos.constancia_codigo','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_pater','like','%'.$this->search.'%')
+                        ->orWhere('persona.apell_mater','like','%'.$this->search.'%')
+                        ->orWhere('persona.nombres','like','%'.$this->search.'%')
+                        ->orWhere('persona.num_doc','like','%'.$this->search.'%');
+                    })
+                    ->orderBy('admitidos.admitidos_codigo', 'ASC')
+                    ->orderBy('persona.nombre_completo', 'ASC')
+                    ->get();
+                $admitidos_model = collect();
+                foreach($admitidos as $admi){
+                    $matricula = MatriculaPago::join('admitidos', 'matricula_pago.admitidos_id', '=', 'admitidos.admitidos_id')
+                        ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
+                        ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
+                        ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+                        ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+                        ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+                        ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                        ->where('admitidos.admitidos_id', $admi->admitidos_id)
+                        ->first();
+                    if($matricula == null){
+                        $admitidos_model->push($admi);
+                    }
+                }
+            }
         }
         $programas = Mencion::join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
                     ->join('programa','subprograma.id_programa','=','programa.id_programa')

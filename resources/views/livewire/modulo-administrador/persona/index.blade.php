@@ -74,7 +74,10 @@
                         <div class="col-sm-12 row g-3">
                             <div class="mb-3 col-md-4">
                                 <label class="form-label">Documento <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('documento') is-invalid  @enderror" wire:model="documento" readonly>
+                                <input type="text" class="form-control @error('documento') is-invalid  @enderror" wire:model="documento" 
+                                @if($modo == 1)
+                                    readonly
+                                @endif>
                                 @error('documento')
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror

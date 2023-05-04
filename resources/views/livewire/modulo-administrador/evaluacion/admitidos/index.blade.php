@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <div class="d-flex align-items-center gap-4">
-                            <select class="form-select w-75" wire:model="filtro_programa">
+                            <select class="form-select" wire:model="filtro_programa">
                                 <option value="">Seleccione el programa</option>
                                 @foreach ($programas as $item)
                                     <option value="{{ $item->id_mencion }}">
@@ -34,6 +34,24 @@
                                         @endif
                                     </option>
                                 @endforeach
+                            </select>
+                            <select class="form-select" wire:model="filtro_pago">
+                                <option value="">Filtro de Constancia y Matricula</option>
+                                <option value="constancia">
+                                    Solo Constancia de Ingreso
+                                </option>
+                                <option value="matricula">
+                                    Solo Matricula
+                                </option>
+                                <option value="constancia_matricula">
+                                    Constancia de Ingreso y Matricula
+                                </option>
+                                <option value="sin_constancia">
+                                    No tienen Constancia de Ingreso
+                                </option>
+                                <option value="sin_matricula">
+                                    No tienen Matricula
+                                </option>
                             </select>
                             <button type="button" wire:click="limpiar_filtro()" class="btn btn-secondary">
                                 Limpiar
@@ -62,7 +80,7 @@
                             <tbody>
                                 @if ($admitidos_model->count() == 0)
                                     <tr>
-                                        <td colspan="8" align="center" class="text-muted">No hay registros.</td>
+                                        <td colspan="9" align="center" class="text-muted">No hay registros.</td>
                                     </tr>
                                 @else
                                     @foreach ($admitidos_model as $item)
@@ -77,10 +95,10 @@
                                         <td align="">{{ $item->apell_pater }} {{ $item->apell_mater }}, {{ $item->nombres }}</td>
                                         <td align="center">+51 {{ $item->celular1 }}</td>
                                         <td align="">
-                                            @if ($item->Mencion->mencion == null)
-                                                {{$item->Mencion->SubPrograma->Programa->descripcion_programa}} EN {{$item->Mencion->SubPrograma->subprograma}}
+                                            @if ($item->mencion == null)
+                                                {{$item->descripcion_programa}} EN {{$item->subprograma}}
                                             @else
-                                                MENCION EN {{$item->Mencion->mencion}}
+                                                MENCION EN {{$item->mencion}}
                                             @endif
                                         </td>
                                         <td align="center">

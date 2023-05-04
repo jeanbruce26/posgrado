@@ -24,17 +24,22 @@
                                   <th scope="col">Admitido</th>
                                   <th scope="col">DNI</th>
                                   <th scope="col">Grupo</th>
+                                  <th scope="col">Fecha de Matricula</th>
                                   <th scope="col" class="col-md-1">Acciones</th>
                               </tr>
                           </thead>
                           <tbody>
                               @foreach ($detalle_grupos as $item)
+                              @php
+                                  
+                              @endphp
                               <tr>
                                   <td align="center"><strong>{{ $item->admitidos_id }}</strong></td>
                                   <td align="center">{{ $item->admitidos_codigo }}</td>
                                   <td align="center">{{ $item->nombre_completo }}</td>
                                   <td align="center">{{ $item->num_doc }}</td>
                                   <td align="center">{{ $item->grupo }}</td>
+                                  <td align="center">{{ date('d/m/Y', strtotime($item->fecha_pago)) }}</td>
                                   <td align="center">
                                     <a href="#modalGrupo" wire:click="cargarEditar({{ $item->admitidos_id }})" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalGrupo">Editar</a>
                                   </td>

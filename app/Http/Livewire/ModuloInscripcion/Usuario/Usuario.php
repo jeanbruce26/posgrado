@@ -64,7 +64,7 @@ class Usuario extends Component
             if($this->concepto_pago){
                 if($this->concepto_pago == 3 || $this->concepto_pago == 4){
                     $this->validateOnly($propertyName, [
-                        'documento' => 'required|numeric|digits:8',
+                        'documento' => 'required|numeric|digits_between:8,9',
                         'numero_operacion' => 'required|numeric',
                         'fecha_operacion' => 'required|date',
                         'monto_operacion' => 'required|numeric',
@@ -75,7 +75,7 @@ class Usuario extends Component
                     ]);
                 }else{
                     $this->validateOnly($propertyName, [
-                        'documento' => 'required|numeric|digits:8',
+                        'documento' => 'required|numeric|digits_between:8,9',
                         'numero_operacion' => 'required|numeric',
                         'fecha_operacion' => 'required|date',
                         'monto_operacion' => 'required|numeric',
@@ -87,7 +87,7 @@ class Usuario extends Component
                 }
             }else{
                 $this->validateOnly($propertyName, [
-                    'documento' => 'required|numeric|digits:8',
+                    'documento' => 'required|numeric|digits_between:8,9',
                     'numero_operacion' => 'required|numeric',
                     'fecha_operacion' => 'required|date',
                     'monto_operacion' => 'required|numeric',
@@ -280,7 +280,7 @@ class Usuario extends Component
             if($this->concepto_pago){
                 if($this->concepto_pago == 3 || $this->concepto_pago == 4){
                     $this->validate([
-                        'documento' => 'required|numeric|digits:8',
+                        'documento' => 'required|numeric|digits_between:8,9',
                         'numero_operacion' => 'required|numeric',
                         'fecha_operacion' => 'required|date',
                         'monto_operacion' => 'required|numeric',
@@ -292,7 +292,7 @@ class Usuario extends Component
                     ]);
                 }else{
                     $this->validate([
-                        'documento' => 'required|numeric|digits:8',
+                        'documento' => 'required|numeric|digits_between:8,9',
                         'numero_operacion' => 'required|numeric',
                         'fecha_operacion' => 'required|date',
                         'monto_operacion' => 'required|numeric',
@@ -305,7 +305,7 @@ class Usuario extends Component
                 }
             }else{
                 $this->validate([
-                    'documento' => 'required|numeric|digits:8',
+                    'documento' => 'required|numeric|digits_between:8,9',
                     'numero_operacion' => 'required|numeric',
                     'fecha_operacion' => 'required|date',
                     'monto_operacion' => 'required|numeric',
