@@ -30,6 +30,7 @@ class Index extends Component
     public $monto;
     public $fecha_pago;
     public $canal_pago;
+    public $filtro_estado = [1,2,3,4,5,6]; 
     
     protected $listeners = ['render', 'deletePago'];
 
@@ -208,9 +209,24 @@ class Index extends Component
                     ->orWhere('pago_id','LIKE',"%{$buscar}%");
                 })
                 ->where(function($query){
-                    $query->where('estado', 4)
-                    ->orWhere('estado', 5)
-                    ->orWhere('estado', 6);
+                    foreach ($this->filtro_estado as $key => $value) {
+                        if ($value == 1) {
+                            $query->orWhere('estado', 1);
+                        }else if ($value == 2) {
+                            $query->orWhere('estado', 2);
+                        }else if ($value == 3) {
+                            $query->orWhere('estado', 3);
+                        }else if ($value == 4) {
+                            $query->orWhere('estado', 4);
+                        }else if ($value == 5) {
+                            $query->orWhere('estado', 5);
+                        }else if ($value == 6) {
+                            $query->orWhere('estado', 6);
+                        }
+                    }
+                    // $query->where('estado', 4)
+                    // ->orWhere('estado', 5)
+                    // ->orWhere('estado', 6);
                 })
                 ->orderBy('pago_id','DESC')
                 ->paginate(200);

@@ -8,7 +8,44 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <div class="d-flex justify-content-between align-items-center gap-4">
-                            
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filtro</button>
+                                <div class="dropdown-menu">
+                                    <form novalidate autocomplete="off" class="px-4 py-3" style="width: 300px">
+                                        <!-- Switches Color -->
+                                        {{-- <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" wire:model="" value="all" id="all">
+                                            <label class="form-check-label" for="all">
+                                                Todos los pagos
+                                            </label>
+                                        </div> --}}
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" wire:model="filtro_estado" value="1" id="sin_concepto">
+                                            <label class="form-check-label" for="sin_concepto">
+                                                Pagos sin concepto
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" wire:model="filtro_estado" value="3" id="inscripcion">
+                                            <label class="form-check-label" for="inscripcion">
+                                                Pagos por Inscripcion
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" wire:model="filtro_estado" value="4" id="constancia">
+                                            <label class="form-check-label" for="constancia">
+                                                Pagos por Constancia de Ingreso
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" wire:model="filtro_estado" value="5" id="matricula">
+                                            <label class="form-check-label" for="matricula">
+                                                Pagos por Matricula
+                                            </label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div><!-- /btn-group -->
                         </div>
                         <div class="w-25">
                             <input class="form-control text-muted" type="search" wire:model="search"
@@ -76,7 +113,7 @@
                                             @if ($item->voucher)
                                                 <a href="{{ asset($item->voucher) }}" target="_blank" class="btn btn-primary btn-sm">
                                                 Abrir
-                                                </a>
+                                                </>
                                             @else
                                                 -
                                             @endif
