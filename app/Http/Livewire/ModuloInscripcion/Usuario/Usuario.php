@@ -185,7 +185,7 @@ class Usuario extends Component
 
         $matricula_pago = MatriculaPago::where('admitidos_id',$admitido->admitidos_id)->first();
 
-        $pago = Pago::where('pagos_id',$matricula_pago->pago_id)->first();
+        $pago = Pago::where('pago_id', $matricula_pago->pago_id)->first();
 
         $cursos = Curso::where('mencion_id',$datos->id_mencion)
                         ->where('ciclo_id', $matricula_pago->ciclo_id)
