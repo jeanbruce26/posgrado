@@ -404,8 +404,8 @@ class Usuario extends Component
             }
         }
         if($this->fecha_operacion >= $fecha_matricula_extemporanea && $this->fecha_operacion <= $fecha_matricula_extemporanea_fin){
-            if($this->concepto_pago == 3 || $this->concepto_pago == 4 || $this->concepto_pago == 5){
-                if($this->monto_operacion != 200){
+            if($this->concepto_pago == 5){
+                if($this->monto_operacion < 200){
                     $this->dispatchBrowserEvent('alertaRegistroPago', [
                         'mensaje' => 'El monto de operación ingresado no es el correcto, el monto de la matrícula extemporánea es de S/. 200.00'
                     ]);
