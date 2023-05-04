@@ -7,6 +7,7 @@ use App\Models\Admision;
 use App\Models\Admitidos;
 use App\Models\ConstanciaIngresoPago;
 use App\Models\Evaluacion;
+use App\Models\GrupoPrograma;
 use App\Models\HistorialInscripcion;
 use App\Models\MatriculaPago;
 use App\Models\Mencion;
@@ -340,12 +341,16 @@ class Index extends Component
     public function delete_pago_matricula($admitidos_id)
     {
         $matricula = MatriculaPago::where('admitidos_id', $admitidos_id)->first();
+        $grupo_antigui = $matricula->id_grupo_programa;
         if($matricula){
             $pago_id = $matricula->pago_id; 
             $matricula->delete();
             File::delete($matricula->ficha_matricula);
             $pago = Pago::find($pago_id);
             $pago->delete();
+            $grupo = GrupoPrograma::find($grupo_antigui);
+            $grupo->grupo_contador = $grupo->grupo_contador - 1;
+            $grupo->save();
         }else{
             $this->dispatchBrowserEvent('notificacion_delete', [
                 'message' =>'No existe pago de matricula para este usuario admitido.',
