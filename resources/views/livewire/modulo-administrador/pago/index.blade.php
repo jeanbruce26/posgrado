@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-hover table-nowrap mb-0">
+                        <table class="table table-hover align-middle table-nowrap mb-0">
                             <thead>
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
                                     <th scope="col" class="col-md-1">ID</th>
@@ -26,6 +26,7 @@
                                     <th scope="col">Fecha de Pago</th>
                                     <th scope="col">Canal Pago</th>
                                     <th scope="col" class="col-md-2">Estado</th>
+                                    <th scope="col">Voucher</th>
                                     <th scope="col" class="col-md-1">Acciones</th>
                                 </tr>
                             </thead>
@@ -70,6 +71,15 @@
                                                 </div>
                                             </div>
                                             
+                                        </td>
+                                        <td align="center">
+                                            @if ($item->voucher)
+                                                <a href="{{ asset($item->voucher) }}" target="_blank" class="btn btn-primary btn-sm">
+                                                Abrir
+                                                </a>
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                         <td align="center">
                                             <div class="hstack gap-3 flex-wrap justify-content-center">
