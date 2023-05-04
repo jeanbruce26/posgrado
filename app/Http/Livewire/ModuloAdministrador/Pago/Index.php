@@ -201,11 +201,19 @@ class Index extends Component
     public function render()
     {
         $buscar = $this->search;
-        $pago = Pago::where('fecha_pago','LIKE',"%{$buscar}%")
-                ->orWhere('dni','LIKE',"%{$buscar}%")
-                ->orWhere('nro_operacion','LIKE',"%{$buscar}%")
-                ->orWhere('pago_id','LIKE',"%{$buscar}%")
-                ->orderBy('pago_id','DESC')->paginate(200);
+        $pago = Pago::where(function($query) use ($buscar){
+                    $query->where('fecha_pago','LIKE',"%{$buscar}%")
+                    ->orWhere('dni','LIKE',"%{$buscar}%")
+                    ->orWhere('nro_operacion','LIKE',"%{$buscar}%")
+                    ->orWhere('pago_id','LIKE',"%{$buscar}%");
+                })
+                ->where(function($query){
+                    $query->where('estado', 4)
+                    ->orWhere('estado', 5)
+                    ->orWhere('estado', 6);
+                })
+                ->orderBy('pago_id','DESC')
+                ->paginate(200);
         $canalPago = CanalPago::all();
         return view('livewire.modulo-administrador.pago.index', [
             'pago' => $pago,
