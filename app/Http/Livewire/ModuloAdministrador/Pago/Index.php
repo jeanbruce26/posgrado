@@ -19,12 +19,17 @@ class Index extends Component
     protected $queryString = [
         'search' => ['except' => ''],
         'filtro_estado' => ['except' => [1,2,3,4,5]],
+        'sort_nombre' => ['except' => 'pago_id'],
+        'sort_direccion' => ['except' => 'desc'],
     ];
 
     public $search = '';
     public $modo = 1;
     public $pago_id;
     public $titulo = 'Crear Pago';
+
+    public $sort_nombre = 'pago_id'; // Columna de la tabla a ordenar
+    public $sort_direccion = 'desc'; // Orden de la columna a ordenar
 
     public $documento;
     public $numero_operacion;
@@ -198,7 +203,19 @@ class Index extends Component
         ]);
     }
 
-
+    public function sort($value)
+    {
+        if ($this->sort_nombre == $value) {
+            if ($this->sort_direccion == 'asc') {
+                $this->sort_direccion = 'desc';
+            } else {
+                $this->sort_direccion = 'asc';
+            }
+        } else {
+            $this->sort_nombre = $value;
+            $this->sort_direccion = 'asc';
+        }
+    }
 
     public function render()
     {
@@ -227,7 +244,7 @@ class Index extends Component
                     // ->orWhere('estado', 5)
                     // ->orWhere('estado', 6);
                 })
-                ->orderBy('pago_id','DESC')
+                ->orderBy($this->sort_nombre, $this->sort_direccion)
                 ->paginate(200);
         $canalPago = CanalPago::all();
         return view('livewire.modulo-administrador.pago.index', [

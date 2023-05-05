@@ -56,10 +56,36 @@
                         <table class="table table-hover align-middle table-nowrap mb-0">
                             <thead>
                                 <tr align="center" style="background-color: rgb(179, 197, 245)">
-                                    <th scope="col" class="col-md-1">ID</th>
+                                    <th class="col-md-1" style="cursor: pointer;" wire:click="sort('pago_id')">
+                                        <div class="d-flex gap-2 alig-items-center justify-content-center">
+                                            <span class="fw-bold">ID</span>
+                                            <div>
+                                                @if ($sort_nombre == 'pago_id')
+                                                    @if ($sort_direccion == 'asc')
+                                                        <i class="ri ri-arrow-up-s-line"></i>
+                                                    @else
+                                                        <i class="ri ri-arrow-down-s-line"></i>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th scope="col">Documento</th>
                                     <th scope="col">Número de Operación</th>
-                                    <th scope="col">Monto</th>
+                                    <th style="cursor: pointer;" wire:click="sort('monto')">
+                                        <div class="d-flex gap-2 alig-items-center justify-content-center">
+                                            <span class="fw-bold">Monto</span>
+                                            <div>
+                                                @if ($sort_nombre == 'monto')
+                                                    @if ($sort_direccion == 'asc')
+                                                        <i class="ri ri-arrow-up-s-line"></i>
+                                                    @else
+                                                        <i class="ri ri-arrow-down-s-line"></i>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th scope="col">Fecha de Pago</th>
                                     <th scope="col">Canal Pago</th>
                                     <th scope="col" class="col-md-2">Estado</th>
