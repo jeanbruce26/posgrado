@@ -38,11 +38,14 @@
                             </thead>
                             <tbody>
                                 @foreach ($grupos as $item)
+                                @php
+                                    $matriculados_count = App\Models\MatriculaPago::where('id_grupo_programa', $item->id_grupo_programa)->count();
+                                @endphp
                                     <tr>
                                         <td align="center"><strong>{{ $item->id_grupo_programa }}</strong></td>
                                         <td align="center">{{ $item->grupo }}</td>
                                         <td align="center">{{ $item->grupo_cantidad }}</td>
-                                        <td align="center">{{ $item->grupo_contador }}</td>
+                                        <td align="center">{{ $matriculados_count }}</td>
                                         <td align="center">{{ $item->admision->admision }}</td>
                                         <td align="center">
                                             @if ($item->grupo_programa_estado == 1)

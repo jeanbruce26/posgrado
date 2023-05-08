@@ -38,7 +38,8 @@
                 </div>
             @endif
         @else
-            <div class="alert alert-info alert-dismissible alert-label-icon rounded-label shadow fade show" role="alert">
+            <div class="alert alert-info alert-dismissible alert-label-icon rounded-label shadow fade show"
+                role="alert">
                 <i class="ri-information-line label-icon"></i><strong>Los resultados de admitidos se presentará el
                     {{ $admision_fecha_admitidos }}.</strong>
             </div>
@@ -64,12 +65,14 @@
             @if ($tipo_programa == 1)
                 <strong>
                     Recuerde que tiene por regularizar su Constancia de Registro ante la SUNEDU, por favor ingrese a la
-                    sección de expedientes y suba su documento. Tiene 6 meses para regularizar su expediente ({{ date('d/m/Y', strtotime($fecha_maestria_dj)) }}).
+                    sección de expedientes y suba su documento. Tiene 6 meses para regularizar su expediente
+                    ({{ date('d/m/Y', strtotime($fecha_maestria_dj)) }}).
                 </strong>
             @else
                 <strong>
                     Recuerde que tiene por regularizar su Constancia de Registro ante la SUNEDU, por favor ingrese a la
-                    sección de expedientes y suba su documento. Tiene 1 año para regularizar su expediente ({{ date('d/m/Y', strtotime($fecha_doctorado_dj)) }}).
+                    sección de expedientes y suba su documento. Tiene 1 año para regularizar su expediente
+                    ({{ date('d/m/Y', strtotime($fecha_doctorado_dj)) }}).
                 </strong>
             @endif
         </div>
@@ -85,15 +88,15 @@
                 <div class="flex-grow-1">
                     <h5 class="alert-heading fw-bold text-uppercase">Puntajes</h5>
                     <p class="mb-0">
-                        <strong>Evaluación de Expedientes:</strong> @if($admitido) @if($evaluacion) {{ number_format($evaluacion->p_expediente) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif @else <span class="text-danger">Sin evaluación</span> @endif 
+                        <strong>Evaluación de Expedientes:</strong> @if ($admitido) @if ($evaluacion) {{ number_format($evaluacion->p_expediente) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif @else <span class="text-danger">Sin evaluación</span> @endif 
                     </p>
                     @if ($inscripcion->tipo_programa == 2)
                     <p class="mb-0">
-                        <strong>Evaluación de Investigación:</strong> @if($admitido) @if($evaluacion) {{ number_format($evaluacion->p_investigacion) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif @else <span class="text-danger">Sin evaluación</span> @endif
+                        <strong>Evaluación de Investigación:</strong> @if ($admitido) @if ($evaluacion) {{ number_format($evaluacion->p_investigacion) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif @else <span class="text-danger">Sin evaluación</span> @endif
                     </p>
                     @endif
                     <p class="mb-0">
-                        <strong>Evaluación de Entrevista:</strong> @if($admitido) @if($evaluacion)  {{ number_format($evaluacion->p_entrevista) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif @else <span class="text-danger">Sin evaluación</span> @endif
+                        <strong>Evaluación de Entrevista:</strong> @if ($admitido) @if ($evaluacion)  {{ number_format($evaluacion->p_entrevista) }} pts. @else <span class="text-danger">Sin evaluación</span> @endif @else <span class="text-danger">Sin evaluación</span> @endif
                     </p>
                 </div>
             </div>
@@ -108,11 +111,8 @@
                 @if ($evaluacion)
                     @if ($admitido)
                         @if ($admision_fecha_constancia <= today() && $admision_fecha_matricula_extemporanea_fin >= today())
-                            <a
-                                href="#modalRegistrarPago"
-                                wire:click="modal_registrar_pago"
-                                class="btn btn-info bg-gradient waves-effect waves-light" 
-                                data-bs-toggle="modal"
+                            <a href="#modalRegistrarPago" wire:click="modal_registrar_pago"
+                                class="btn btn-info bg-gradient waves-effect waves-light" data-bs-toggle="modal"
                                 data-bs-target="#modalRegistrarPago">
                                 Registrar Pago
                             </a>
@@ -218,8 +218,8 @@
     </div>
     <!-- end tab content -->
     {{-- Modal Usuario --}}
-    <div wire:ignore.self class="modal fade" id="modalRegistrarPago" tabindex="-1" aria-labelledby="modalRegistrarPago"
-        aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="modalRegistrarPago" tabindex="-1"
+        aria-labelledby="modalRegistrarPago" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -319,13 +319,19 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-12">
-                                    <label class="form-label"> Grupo 
+                                    <label class="form-label"> Grupo
                                         <span class="text-danger">*</span></label>
                                     <select type="text" class="form-select @error('grupo') is-invalid  @enderror"
                                         wire:model="grupo">
                                         <option value="">Seleccione un grupo</option>
                                         @foreach ($grupo_model as $grupo)
-                                            <option value="{{ $grupo->id_grupo_programa }}" @if($grupo->grupo_cantidad <= $grupo->grupo_contador) disabled @endif>Grupo {{ $grupo->grupo }} - Cupos: {{ $grupo->grupo_cantidad - $grupo->grupo_contador }} </option>
+                                            @php
+                                                $matriculados_contador = App\Models\MatriculaPago::where('id_grupo_programa', $grupo->id_grupo_programa)->count();
+                                            @endphp
+                                            <option value="{{ $grupo->id_grupo_programa }}"
+                                                @if ($grupo->grupo_cantidad <= $matriculados_contador) disabled @endif>
+                                                Grupo {{ $grupo->grupo }} - Cupos: {{ $grupo->grupo_cantidad - $matriculados_contador }} 
+                                            </option>
                                         @endforeach
                                     </select>
                                     @error('grupo')
@@ -353,7 +359,8 @@
                     <button type="button" wire:click="limpiar_modal()"
                         class="btn btn-secondary btn-label waves-effect waves-light w-md" data-bs-dismiss="modal"><i
                             class="ri-arrow-left-s-line label-icon align-middle fs-16 me-2"></i> Cancelar</button>
-                    <button type="button" wire:click="cargar_alerta_registrarPago()" @if($voucher == null) disabled @endif
+                    <button type="button" wire:click="cargar_alerta_registrarPago()"
+                        @if ($voucher == null) disabled @endif
                         class="btn btn-primary btn-label waves-effect right waves-light w-md"><i
                             class="ri-check-double-fill label-icon align-middle fs-16 ms-2"></i> Guardar</button>
                 </div>
@@ -361,7 +368,8 @@
         </div>
     </div>
     <!-- Modal -->
-    <div wire:init="open_modal_encuesta" wire:ignore.self class="modal fade" id="modal_encuesta" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal_encuesta" aria-hidden="true">
+    <div wire:init="open_modal_encuesta" wire:ignore.self class="modal fade" id="modal_encuesta"
+        data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal_encuesta" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body text-center p-5">
@@ -380,23 +388,27 @@
                         </div>
                         <div class="text-muted mt-4 mb-4 mx-5">
                             @foreach ($encuestas as $item)
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="{{ $item->encuesta_id }}" id="{{ $item->encuesta_id }}" wire:model="encuesta" wire:key="{{ $item->encuesta_id }}">
-                                <label class="fs-5" style="color: #2a2a2a" for="{{ $item->encuesta_id }}">
-                                    {{ $item->descripcion }}
-                                </label>
-                            </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="{{ $item->encuesta_id }}"
+                                        id="{{ $item->encuesta_id }}" wire:model="encuesta"
+                                        wire:key="{{ $item->encuesta_id }}">
+                                    <label class="fs-5" style="color: #2a2a2a" for="{{ $item->encuesta_id }}">
+                                        {{ $item->descripcion }}
+                                    </label>
+                                </div>
                             @endforeach
                             @if ($mostra_otros == true)
-                            <div class="mt-2">
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Especifique otro" wire:model="encuesta_otro">
+                                <div class="mt-2">
+                                    <div>
+                                        <input type="text" class="form-control" placeholder="Especifique otro"
+                                            wire:model="encuesta_otro">
+                                    </div>
                                 </div>
-                            </div>
                             @endif
                         </div>
                         <div class="hstack gap-2 justify-content-center">
-                            <button type="button" wire:click="guardar_encuesta" class="btn btn-info">Guardar</button>
+                            <button type="button" wire:click="guardar_encuesta"
+                                class="btn btn-info">Guardar</button>
                         </div>
                     </form>
                 </div>

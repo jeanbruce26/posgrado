@@ -385,7 +385,7 @@ class Usuario extends Component
             if($this->concepto_pago == 3 || $this->concepto_pago == 5){
                 $this->dispatchBrowserEvent('alertaRegistroPago', [
                     'mensaje' => 'Debe realizar su constancia de ingreso para realizar su matrícula.'
-                ]);
+                ]); 
                 return back();
             }
         }
