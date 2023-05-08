@@ -382,7 +382,7 @@ class Usuario extends Component
         $admitidos_id = Admitidos::where('evaluacion_id', $evaluacion_id)->first()->admitidos_id;
         $constancia_pago = ConstanciaIngresoPago::where('admitidos_id', $admitidos_id)->first();
         if(!$constancia_pago){
-            if($this->concepto_pago == 3){
+            if($this->concepto_pago == 3 || $this->concepto_pago == 5){
                 $this->dispatchBrowserEvent('alertaRegistroPago', [
                     'mensaje' => 'Debe realizar su constancia de ingreso para realizar su matrícula.'
                 ]);
