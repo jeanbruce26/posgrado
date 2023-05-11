@@ -102,6 +102,29 @@
             </div>
         </div>
     </div> --}}
+    @if ($admitido)
+        <!-- Alert Credenciales Aula Virtual -->
+        <div class="alert alert-secondary alert-outline shadow fade show" role="alert">
+            <div>
+                <div>
+                    <span class="fs-3 fw-bold">
+                        Credeciales de acceso al Aula Virtual
+                    </span>
+                </div>
+                <div class="mt-2 d-flex flex-column gap-1">
+                    <span class="fs-5 text-dark">
+                        - Usuario: <strong>{{ strtolower($admitido->Persona->email) }}</strong>
+                    </span>
+                    <span class="fs-5 text-dark">
+                        - Contraseña: <strong>{{ $admitido->Persona->num_doc }}</strong>
+                    </span>
+                    <span class="fs-5 text-dark">
+                        - Link: <a href="https://ucayali.mrooms.net/login/index.php" target="_blank" class="fw-bold text-dark">https://ucayali.mrooms.net/login/index.php</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="mt-4">
         <div class="card">
             <h4 class="card-header d-flex fw-bold justify-content-between align-items-center">
