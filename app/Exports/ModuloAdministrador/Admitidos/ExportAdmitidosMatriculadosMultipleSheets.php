@@ -25,6 +25,8 @@ class ExportAdmitidosMatriculadosMultipleSheets implements WithMultipleSheets
             $sheets[] = new ExportAdmitidosMatriculados($grupo->id_grupo_programa, $grupo->grupo);
         }
 
+        $sheets[] = new ExportAdmitidosNoMatriculados($this->id_mencion);
+
         return $sheets;
     }
 }
