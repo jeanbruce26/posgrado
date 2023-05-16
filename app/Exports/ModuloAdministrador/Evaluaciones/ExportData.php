@@ -16,7 +16,7 @@ class ExportData implements FromCollection, WithHeadings, WithEvents
     */
     public function collection()
     {
-        $evaluaciones = Evaluacion::select('persona.nombre_completo', 'persona.num_doc', 'evaluacion.p_expediente', 'evaluacion.p_investigacion', 'evaluacion.p_entrevista', 'evaluacion.p_final', DB::raw('IF(evaluacion.evaluacion_estado = 2, "NO ADMITIDO", "ADMITIDO") AS estado'), DB::raw('IF(mencion.mencion IS NULL, CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma), CONCAT(CONCAT(CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma)," CON MENCION EN "), mencion.mencion)) AS programa'))
+        $evaluaciones = Evaluacion::select('persona.nombre_completo', 'persona.num_doc', 'evaluacion.p_expediente', 'evaluacion.p_investigacion', 'evaluacion.p_entrevista', 'evaluacion.p_final', DB::raw('IF(evaluacion.evaluacion_estado = 2, "NO ADMITIDO", "ADMITIDO") AS estado'), DB::raw('IF(evaluacion.evaluacion_estado = 2, evaluacion.evaluacion_observacion, "") AS observacion'), DB::raw('IF(mencion.mencion IS NULL, CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma), CONCAT(CONCAT(CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma)," CON MENCION EN "), mencion.mencion)) AS programa'))
                                 ->join('inscripcion', 'evaluacion.inscripcion_id', '=', 'inscripcion.id_inscripcion')
                                 ->join('persona', 'inscripcion.persona_idpersona', '=', 'persona.idpersona')
                                 ->join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
@@ -38,6 +38,7 @@ class ExportData implements FromCollection, WithHeadings, WithEvents
                 'p_entrevista' => $item->p_entrevista,
                 'p_final' => $item->p_final,
                 'estado' => $item->estado,
+                'observacion' => $item->observacion,
                 'programa' => $item->programa,
             ]);
         }
@@ -47,7 +48,7 @@ class ExportData implements FromCollection, WithHeadings, WithEvents
 
     public function headings(): array
     {
-        return ["Nro", "Apellidos y Nombres", "DNI", "Eva. Expediente", "Eva. Investigacion", "Eva. Entrevista", "Puntaje Final", "Estado", "Programa"];
+        return ["Nro", "Apellidos y Nombres", "DNI", "Eva. Expediente", "Eva. Investigacion", "Eva. Entrevista", "Puntaje Final", "Estado", "Observacion", "Programa"];
     }
 
     public function registerEvents(): array
@@ -63,10 +64,11 @@ class ExportData implements FromCollection, WithHeadings, WithEvents
                 $event->sheet->getColumnDimension('F')->setWidth(30);
                 $event->sheet->getColumnDimension('G')->setWidth(30);
                 $event->sheet->getColumnDimension('H')->setWidth(40);
-                $event->sheet->getColumnDimension('I')->setWidth(120);  
-                $event->sheet->getStyle('A1:I1')->getFont()->setBold(true);
-                $event->sheet->getStyle('A1:I1')->getFont()->setSize(11);
-                $event->sheet->getStyle('A1:I1')->applyFromArray([
+                $event->sheet->getColumnDimension('I')->setWidth(40);
+                $event->sheet->getColumnDimension('J')->setWidth(120);  
+                $event->sheet->getStyle('A1:J1')->getFont()->setBold(true);
+                $event->sheet->getStyle('A1:J1')->getFont()->setSize(11);
+                $event->sheet->getStyle('A1:J1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'size' => 12,
@@ -75,12 +77,12 @@ class ExportData implements FromCollection, WithHeadings, WithEvents
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ],
                 ]);
-                $event->sheet->getStyle('A1:I1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('9dceff');
-                $event->sheet->getStyle('A1:I1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);
-                $event->sheet->getStyle('A1:I1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                $event->sheet->setAutoFilter('A1:I1');
-                $event->sheet->getStyle('A1:I1')->getAlignment()->setWrapText(true);
-                $event->sheet->getStyle('A1:I1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getStyle('A1:J1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('9dceff');
+                $event->sheet->getStyle('A1:J1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);
+                $event->sheet->getStyle('A1:J1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                $event->sheet->setAutoFilter('A1:J1');
+                $event->sheet->getStyle('A1:J1')->getAlignment()->setWrapText(true);
+                $event->sheet->getStyle('A1:J1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 $styleArray = [
                     'borders' => [
                         'allBorders' => [
@@ -90,9 +92,9 @@ class ExportData implements FromCollection, WithHeadings, WithEvents
                     ],
                 ];
                 // agregar estilo al resto de las celdas
-                $event->sheet->getStyle('A2:I'.$event->sheet->getHighestRow())->applyFromArray($styleArray);
-                $event->sheet->getStyle('A2:I'.$event->sheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $event->sheet->getStyle('A2:I'.$event->sheet->getHighestRow())->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getStyle('A2:J'.$event->sheet->getHighestRow())->applyFromArray($styleArray);
+                $event->sheet->getStyle('A2:J'.$event->sheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $event->sheet->getStyle('A2:J'.$event->sheet->getHighestRow())->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 // alinear texto a la izquierda
                 $event->sheet->getStyle('A2:A'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getStyle('B2:B'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
@@ -103,6 +105,7 @@ class ExportData implements FromCollection, WithHeadings, WithEvents
                 $event->sheet->getStyle('G2:G'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getStyle('H2:H'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getStyle('I2:I'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                $event->sheet->getStyle('I2:J'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
             },
         ];
     }
