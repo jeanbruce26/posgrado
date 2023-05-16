@@ -14,10 +14,15 @@
     </div>
 </div>
 
-<div class="page-title-box d-sm-flex align-items-center justify-content-end">
+<div class="page-title-box d-sm-flex align-items-center justify-content-end gap-2">
+    <a href="{{ route('admin.export_evaluaciones_excel') }}" target="_blank">
+        <button type="button" class="btn btn-success">
+            <i class="fas fa-file-pdf"></i> Exportar Evaluaciones (Excel)
+        </button>
+    </a>
     <a href="{{ route('admin.export_pdf') }}" target="_blank">
         <button type="button" class="btn btn-info">
-            <i class="fas fa-file-pdf"></i> Exportar PDF
+            <i class="fas fa-file-pdf"></i> Exportar Reporte (PDF)
         </button>
     </a>
 </div>
