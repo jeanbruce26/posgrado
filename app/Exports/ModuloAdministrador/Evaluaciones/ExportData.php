@@ -64,7 +64,7 @@ class ExportData implements FromCollection, WithHeadings, WithEvents
                 $event->sheet->getColumnDimension('F')->setWidth(30);
                 $event->sheet->getColumnDimension('G')->setWidth(30);
                 $event->sheet->getColumnDimension('H')->setWidth(40);
-                $event->sheet->getColumnDimension('I')->setWidth(40);
+                $event->sheet->getColumnDimension('I')->setWidth(80);
                 $event->sheet->getColumnDimension('J')->setWidth(120);  
                 $event->sheet->getStyle('A1:J1')->getFont()->setBold(true);
                 $event->sheet->getStyle('A1:J1')->getFont()->setSize(11);
