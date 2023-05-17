@@ -4,16 +4,20 @@ namespace App\Http\Livewire\ModuloAdministrador\Pago;
 
 use App\Models\Admision;
 use App\Models\CanalPago;
+use App\Models\ConstanciaIngresoPago;
 use App\Models\HistorialAdministrativo;
 use App\Models\Inscripcion;
 use App\Models\InscripcionPago;
+use App\Models\MatriculaPago;
 use App\Models\Pago;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class Index extends Component
 {
     use WithPagination;
+    use WithFileUploads; // sirve para subir archivos al servidor (imagenes, pdf, etc)
     
     protected $paginationTheme = 'bootstrap';
     protected $queryString = [
@@ -36,6 +40,8 @@ class Index extends Component
     public $monto;
     public $fecha_pago;
     public $canal_pago;
+    public $voucher;
+    public $iteration = 0;
     public $filtro_estado = [1,2,3,4,5]; 
     
     protected $listeners = ['render', 'deletePago'];
@@ -47,7 +53,8 @@ class Index extends Component
             'documento' => 'required|digits_between:8,9|numeric',
             'monto' => 'required|numeric',
             'fecha_pago' => 'required|date',
-            'canal_pago' => 'required|numeric'
+            'canal_pago' => 'required|numeric',
+            'voucher' => 'required|mimes:pdf,jpg,jpeg,png|max:5120',
         ]);
     }
 
@@ -63,6 +70,7 @@ class Index extends Component
         $this->reset('documento','numero_operacion','monto','fecha_pago','canal_pago');
         $this->modo = 1;
         $this->titulo = "Crear Pago";
+        $this->iteration++;
     }
 
     public function cargarIdPago(Pago $pago)
@@ -81,16 +89,18 @@ class Index extends Component
 
     public function guardarPago()
     {
-        $this->validate([
-            'numero_operacion' => 'required|numeric',
-            'documento' => 'required|digits_between:8,9|numeric',
-            'monto' => 'required|numeric',
-            'fecha_pago' => 'required|date',
-            'canal_pago' => 'required|numeric'
-        ]);
-
         //validacion de numero de operacion repetido y dni repetido en el mismo dia
-        if ($this->modo == 1) {
+        if ($this->modo == 1) {//Modo 1 = Crear
+            //Validacion de campos 
+            $this->validate([
+                'numero_operacion' => 'required|numeric',
+                'documento' => 'required|digits_between:8,9|numeric',
+                'monto' => 'required|numeric',
+                'fecha_pago' => 'required|date',
+                'canal_pago' => 'required|numeric',
+                'voucher' => 'required|mimes:pdf,jpg,jpeg,png|max:5120',
+            ]);
+
             $validar = Pago::where('nro_operacion', $this->numero_operacion)->first();
             
             if ($validar) {
@@ -117,17 +127,15 @@ class Index extends Component
                     return back();
                 }
             }
-        }
 
-        if ($this->modo == 1) {
-            $pago = Pago::create([
-                "dni" => $this->documento,
-                "nro_operacion" => $this->numero_operacion,
-                "monto" => $this->monto,
-                "fecha_pago" => $this->fecha_pago,
-                "estado" => 2,
-                "canal_pago_id" => $this->canal_pago,
-            ]);
+            $pago = new Pago();
+            $pago->dni = $this->documento;
+            $pago->nro_operacion = $this->numero_operacion;
+            $pago->monto = $this->monto;
+            $pago->fecha_pago = $this->fecha_pago;
+            $pago->estado = 2;
+            $pago->canal_pago_id = $this->canal_pago;
+            $pago->save();
 
             //  obtener el ultimo codigo de inscripcion
             $ultimo_codifo_inscripcion = Inscripcion::orderBy('inscripcion_codigo','DESC')->first();
@@ -156,16 +164,56 @@ class Index extends Component
             $inscripcion_pago->inscripcion_id = $inscripcion->id_inscripcion;
             $inscripcion_pago->concepto_pago_id = 1;
             $inscripcion_pago->save();
+
+            //Guardar el voucher 
+            if($this->voucher){
+                $path = 'vouchers/';
+                $filename = 'voucher-pago-'.$inscripcion_pago->pago_id.'-'.time().'.'.$this->voucher->getClientOriginalExtension();
+                $nombre_db = $path.$filename;
+                $data = $this->voucher;
+                $data->storeAs($path, $filename, 'files_publico');
+                $pago->voucher = $nombre_db;
+            }
+            $pago->save();//actualizar el pago con el nombre del voucher
     
             $this->subirHistorial($pago->pago_id, 'Creación de Pago', 'pago');
             $this->dispatchBrowserEvent('notificacionPago', ['message' =>'Pago creado satisfactoriamente.', 'color' => '#2eb867']);
-        }else{
+
+        }else{//Modo 2 = Actualizar
+            //Validacion de campos 
+            $this->validate([
+                'numero_operacion' => 'required|numeric',
+                'documento' => 'required|digits_between:8,9|numeric',
+                'monto' => 'required|numeric',
+                'fecha_pago' => 'required|date',
+                'canal_pago' => 'required|numeric',
+                'voucher' => 'nullable|mimes:pdf,jpg,jpeg,png|max:5120',
+            ]);
+
             $pago = Pago::find($this->pago_id);
+            $insc_pago = InscripcionPago::where('pago_id', $this->pago_id)->first();
+            $matri_pago = MatriculaPago::where('pago_id', $this->pago_id)->first();
+            $const_pago = ConstanciaIngresoPago::where('pago_id', $this->pago_id)->first();
             $pago->dni = $this->documento;
             $pago->nro_operacion = $this->numero_operacion;
             $pago->monto = $this->monto;
             $pago->fecha_pago = $this->fecha_pago;
             $pago->canal_pago_id = $this->canal_pago;
+            if($this->voucher){
+                $path = 'vouchers/';
+                If($insc_pago){
+                    $nomb_voucher = $insc_pago->pago_id;
+                }else if($matri_pago){
+                    $nomb_voucher = $matri_pago->pago_id;
+                }else if($const_pago){
+                    $nomb_voucher = $const_pago->pago_id;
+                }
+                $filename = 'voucher-pago-'.$nomb_voucher.'-'.time().'.'.$this->voucher->getClientOriginalExtension();
+                $nombre_db = $path.$filename;
+                $data = $this->voucher;
+                $data->storeAs($path, $filename, 'files_publico');
+                $pago->voucher = $nombre_db;
+            }
             $pago->save();
 
             $this->subirHistorial($pago->pago_id, 'Actualización de Pago', 'pago');
