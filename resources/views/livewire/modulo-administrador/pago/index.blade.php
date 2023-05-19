@@ -150,7 +150,7 @@
                                                 <a href="#modalPago" wire:click="cargarIdPago({{ $item->pago_id }})" class="link-success fs-16" data-bs-toggle="modal" data-bs-target="#modalPago"><i class="ri-edit-2-line"></i></a>
                                                 {{-- @endif --}}
                                                 @if($item->estado == 1)
-                                                <a style="cursor: pointer" wire:click="eliminar({{ $item->pago_id }})" class="link-danger fs-16"><i class="ri-delete-bin-line"></i></a>
+                                                    <a style="cursor: pointer" wire:click="eliminar({{ $item->pago_id }})" class="link-danger fs-16"><i class="ri-delete-bin-line"></i></a>
                                                 @endif
                                             </div>
                                         </td>
@@ -172,7 +172,7 @@
             </div>
         </div>
     </div>
-    {{-- Modal Nuevo --}}
+    {{-- Modal --}}
     <div wire:ignore.self class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPago" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
@@ -224,6 +224,19 @@
                                     <span class="error text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <div class="mb-3 col-md-12">
+                                <label class="form-label"> Voucher de Pago
+                                    <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control @error('voucher') is-invalid  @enderror"
+                                    wire:model="voucher" accept="image/*,application/pdf"
+                                    id="upload{{ $iteration }}">
+                                <span class="fs-7 mt-2" style="color: #626262">
+                                    Nota: El voucher debe ser en formato PDF o imagen JPG, JPEG, PNG <br>
+                                </span>
+                                @error('voucher')
+                                    <span class="error text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     
@@ -235,5 +248,5 @@
             </div>
         </div>
     </div>
-    {{-- Modal Nuevo --}}
+    {{-- Modal --}}
 </div>
