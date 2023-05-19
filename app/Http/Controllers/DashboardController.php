@@ -79,7 +79,7 @@ class DashboardController extends Controller
             ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
             ->where('mencion.mencion_estado', 1)
             ->whereMonth('inscripcion.fecha_inscripcion', 2)
-            ->where('inscripcion.id_mencion', 12)
+            ->where('inscripcion.id_mencion', 25)
             ->groupBy('inscripcion.id_mencion')
             ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
             ->get();
@@ -114,7 +114,7 @@ class DashboardController extends Controller
             ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
             ->where('mencion.mencion_estado', 1)
             ->whereMonth('inscripcion.fecha_inscripcion', 3)
-            ->where('inscripcion.id_mencion', 12)
+            ->where('inscripcion.id_mencion', 25)
             ->groupBy('inscripcion.id_mencion')
             ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
             ->get();
@@ -149,7 +149,7 @@ class DashboardController extends Controller
             ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
             ->where('mencion.mencion_estado', 1)
             ->whereMonth('inscripcion.fecha_inscripcion', 4)
-            ->where('inscripcion.id_mencion', 12)
+            ->where('inscripcion.id_mencion', 25)
             ->groupBy('inscripcion.id_mencion')
             ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
             ->get();
