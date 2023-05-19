@@ -50,6 +50,111 @@ class DashboardController extends Controller
         $evaluados = Evaluacion::where('evaluacion_estado', 3)->count();
         $admitidos = Admitidos::all()->count();
 
+        // reportes ded inscritos del mes de febrero
+        $inscritos_febrero_1 = Inscripcion::join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+            ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+            ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+            ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
+            ->where('mencion.mencion_estado', 1)
+            ->whereMonth('inscripcion.fecha_inscripcion', 2)
+            ->whereNotIn('inscripcion.id_mencion', [1, 12])
+            ->groupBy('inscripcion.id_mencion')
+            ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
+            ->get();
+        $inscritos_febrero_count_1 = $inscritos_febrero_1->sum('cantidad_mencion');
+        $inscritos_febrero_2 = Inscripcion::join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+            ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+            ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+            ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
+            ->where('mencion.mencion_estado', 1)
+            ->whereMonth('inscripcion.fecha_inscripcion', 2)
+            ->where('inscripcion.id_mencion', 1)
+            ->groupBy('inscripcion.id_mencion')
+            ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
+            ->get();
+        $inscritos_febrero_count_2 = $inscritos_febrero_2->sum('cantidad_mencion');
+        $inscritos_febrero_3 = Inscripcion::join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+            ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+            ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+            ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
+            ->where('mencion.mencion_estado', 1)
+            ->whereMonth('inscripcion.fecha_inscripcion', 2)
+            ->where('inscripcion.id_mencion', 12)
+            ->groupBy('inscripcion.id_mencion')
+            ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
+            ->get();
+        $inscritos_febrero_count_3 = $inscritos_febrero_3->sum('cantidad_mencion');
+
+        // reportes ded inscritos del mes de marzo
+        $inscritos_marzo_1 = Inscripcion::join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+            ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+            ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+            ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
+            ->where('mencion.mencion_estado', 1)
+            ->whereMonth('inscripcion.fecha_inscripcion', 3)
+            ->whereNotIn('inscripcion.id_mencion', [1, 12])
+            ->groupBy('inscripcion.id_mencion')
+            ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
+            ->get();
+        $inscritos_marzo_count_1 = $inscritos_marzo_1->sum('cantidad_mencion');
+        $inscritos_marzo_2 = Inscripcion::join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+            ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+            ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+            ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
+            ->where('mencion.mencion_estado', 1)
+            ->whereMonth('inscripcion.fecha_inscripcion', 3)
+            ->where('inscripcion.id_mencion', 1)
+            ->groupBy('inscripcion.id_mencion')
+            ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
+            ->get();
+        $inscritos_marzo_count_2 = $inscritos_marzo_2->sum('cantidad_mencion');
+        $inscritos_marzo_3 = Inscripcion::join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+            ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+            ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+            ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
+            ->where('mencion.mencion_estado', 1)
+            ->whereMonth('inscripcion.fecha_inscripcion', 3)
+            ->where('inscripcion.id_mencion', 12)
+            ->groupBy('inscripcion.id_mencion')
+            ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
+            ->get();
+        $inscritos_marzo_count_3 = $inscritos_marzo_3->sum('cantidad_mencion');
+
+        // reportes ded inscritos del mes de abril
+        $inscritos_abril_1 = Inscripcion::join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+            ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+            ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+            ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
+            ->where('mencion.mencion_estado', 1)
+            ->whereMonth('inscripcion.fecha_inscripcion', 4)
+            ->whereNotIn('inscripcion.id_mencion', [1, 12])
+            ->groupBy('inscripcion.id_mencion')
+            ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
+            ->get();
+        $inscritos_abril_count_1 = $inscritos_abril_1->sum('cantidad_mencion');
+        $inscritos_abril_2 = Inscripcion::join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+            ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+            ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+            ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
+            ->where('mencion.mencion_estado', 1)
+            ->whereMonth('inscripcion.fecha_inscripcion', 4)
+            ->where('inscripcion.id_mencion', 1)
+            ->groupBy('inscripcion.id_mencion')
+            ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
+            ->get();
+        $inscritos_abril_count_2 = $inscritos_abril_2->sum('cantidad_mencion');
+        $inscritos_abril_3 = Inscripcion::join('mencion', 'inscripcion.id_mencion', '=', 'mencion.id_mencion')
+            ->join('subprograma', 'mencion.id_subprograma', '=', 'subprograma.id_subprograma')
+            ->join('programa', 'subprograma.id_programa', '=', 'programa.id_programa')
+            ->select('subprograma.subprograma', 'mencion.mencion', 'programa.descripcion_programa', Inscripcion::raw('count(inscripcion.id_mencion) as cantidad_mencion'))
+            ->where('mencion.mencion_estado', 1)
+            ->whereMonth('inscripcion.fecha_inscripcion', 4)
+            ->where('inscripcion.id_mencion', 12)
+            ->groupBy('inscripcion.id_mencion')
+            ->orderBy(Inscripcion::raw('count(inscripcion.id_mencion)'), 'DESC')
+            ->get();
+        $inscritos_abril_count_3 = $inscritos_abril_3->sum('cantidad_mencion');
+
         return view('modulo_administrador.dashboard.index', [
             'programas_maestria' => $programas_maestria,
             'programas_doctorado' => $programas_doctorado,
@@ -59,7 +164,16 @@ class DashboardController extends Controller
             'ingreso_matricula' => $ingreso_matricula,
             'pagos' => $pagos,
             'evaluados' => $evaluados,
-            'admitidos' => $admitidos
+            'admitidos' => $admitidos, 
+            'inscritos_febrero_count_1' => $inscritos_febrero_count_1,
+            'inscritos_febrero_count_2' => $inscritos_febrero_count_2,
+            'inscritos_febrero_count_3' => $inscritos_febrero_count_3,
+            'inscritos_marzo_count_1' => $inscritos_marzo_count_1,
+            'inscritos_marzo_count_2' => $inscritos_marzo_count_2,
+            'inscritos_marzo_count_3' => $inscritos_marzo_count_3,
+            'inscritos_abril_count_1' => $inscritos_abril_count_1,
+            'inscritos_abril_count_2' => $inscritos_abril_count_2,
+            'inscritos_abril_count_3' => $inscritos_abril_count_3,
         ]);
     }
 

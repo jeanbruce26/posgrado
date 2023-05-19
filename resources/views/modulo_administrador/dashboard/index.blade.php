@@ -193,6 +193,154 @@
         </div>
     </div>
 </div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0 ms-2 text-uppercase font-bold">Reporte de Inscritos del Mes de Febrero</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table table-nowrap mb-0">
+                <thead class="" style="background-color: #fffadc">
+                    <tr align="center">
+                        <th scope="col" class="col-md-1">NRO</th>
+                        <th scope="col" class="col-md-9">PROGRAMA</th>
+                        <th scope="col" class="col-md-2">CANTIDAD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="center" class="fw-bold fs-5">1</td>
+                        <td style="white-space: initial" class="fs-5 text-uppercase">
+                            MENCIÓN EN AGRICULTURA SOSTENIBLE
+                        </td>
+                        <td align="center" class="fs-5">{{ $inscritos_febrero_count_2 }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center" class="fw-bold fs-5">2</td>
+                        <td style="white-space: initial" class="fs-5 text-uppercase">
+                            MAESTRIA EN MEDIO AMBIENTE DESARROLLO SOSTENIBLE Y RESPONSABILIDAD SOCIAL
+                        </td>
+                        <td align="center" class="fs-5">{{ $inscritos_febrero_count_3 }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center" class="fw-bold fs-5">3</td>
+                        <td style="white-space: initial" class="fs-5 text-uppercase">
+                            RESTO DE PROGRAMAS
+                        </td>
+                        <td align="center" class="fs-5">{{ $inscritos_febrero_count_1 }}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="table-light" align="center">
+                        <td colspan="2" class="text-end fw-bold fs-6">TOTAL</td>
+                        <td class="fw-bold fs-5">
+                            {{ $inscritos_febrero_count_1 + $inscritos_febrero_count_2 + $inscritos_febrero_count_3 }}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0 ms-2 text-uppercase font-bold">Reporte de Inscritos del Mes de Marzo</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table table-nowrap mb-0">
+                <thead class="" style="background-color: #fffadc">
+                    <tr align="center">
+                        <th scope="col" class="col-md-1">NRO</th>
+                        <th scope="col" class="col-md-9">PROGRAMA</th>
+                        <th scope="col" class="col-md-2">CANTIDAD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="center" class="fw-bold fs-5">1</td>
+                        <td style="white-space: initial" class="fs-5 text-uppercase">
+                            MENCIÓN EN AGRICULTURA SOSTENIBLE
+                        </td>
+                        <td align="center" class="fs-5">{{ $inscritos_marzo_count_2 }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center" class="fw-bold fs-5">2</td>
+                        <td style="white-space: initial" class="fs-5 text-uppercase">
+                            MAESTRIA EN MEDIO AMBIENTE DESARROLLO SOSTENIBLE Y RESPONSABILIDAD SOCIAL
+                        </td>
+                        <td align="center" class="fs-5">{{ $inscritos_marzo_count_3 }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center" class="fw-bold fs-5">3</td>
+                        <td style="white-space: initial" class="fs-5 text-uppercase">
+                            RESTO DE PROGRAMAS
+                        </td>
+                        <td align="center" class="fs-5">{{ $inscritos_marzo_count_1 }}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="table-light" align="center">
+                        <td colspan="2" class="text-end fw-bold fs-6">TOTAL</td>
+                        <td class="fw-bold fs-5">
+                            {{ $inscritos_marzo_count_1 + $inscritos_marzo_count_2 + $inscritos_marzo_count_3 }}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0 ms-2 text-uppercase font-bold">Reporte de Inscritos del Mes de Febrero</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table class="table table-nowrap mb-0">
+                <thead class="" style="background-color: #fffadc">
+                    <tr align="center">
+                        <th scope="col" class="col-md-1">NRO</th>
+                        <th scope="col" class="col-md-9">PROGRAMA</th>
+                        <th scope="col" class="col-md-2">CANTIDAD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="center" class="fw-bold fs-5">1</td>
+                        <td style="white-space: initial" class="fs-5 text-uppercase">
+                            MENCIÓN EN AGRICULTURA SOSTENIBLE
+                        </td>
+                        <td align="center" class="fs-5">{{ $inscritos_abril_count_2 }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center" class="fw-bold fs-5">2</td>
+                        <td style="white-space: initial" class="fs-5 text-uppercase">
+                            MAESTRIA EN MEDIO AMBIENTE DESARROLLO SOSTENIBLE Y RESPONSABILIDAD SOCIAL
+                        </td>
+                        <td align="center" class="fs-5">{{ $inscritos_abril_count_3 }}</td>
+                    </tr>
+                    <tr>
+                        <td align="center" class="fw-bold fs-5">3</td>
+                        <td style="white-space: initial" class="fs-5 text-uppercase">
+                            RESTO DE PROGRAMAS
+                        </td>
+                        <td align="center" class="fs-5">{{ $inscritos_abril_count_1 }}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="table-light" align="center">
+                        <td colspan="2" class="text-end fw-bold fs-6">TOTAL</td>
+                        <td class="fw-bold fs-5">
+                            {{ $inscritos_abril_count_1 + $inscritos_abril_count_2 + $inscritos_abril_count_3 }}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('javascript')
