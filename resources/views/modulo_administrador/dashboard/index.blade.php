@@ -294,7 +294,7 @@
 </div>
 <div class="card">
     <div class="card-header">
-        <h5 class="card-title mb-0 ms-2 text-uppercase font-bold">Reporte de Inscritos del Mes de Febrero</h5>
+        <h5 class="card-title mb-0 ms-2 text-uppercase font-bold">Reporte de Inscritos del Mes de Abril</h5>
     </div>
     <div class="card-body">
         <div class="table-responsive table-card">
