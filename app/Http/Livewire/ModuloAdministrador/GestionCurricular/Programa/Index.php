@@ -90,12 +90,28 @@ class Index extends Component
 
     public function cambiarEstado(Mencion $mencion)
     {
-        if ($mencion->mencion_estado == 1) {
+        if($mencion->mencion == null)
+        {
+            $subprograma = SubPrograma::where('id_subprograma', $mencion->subprograma->id_subprograma)->first();
+            if($subprograma->estado == 1)
+            {
+                $subprograma->estado = 0;
+            }
+            else
+            {
+                $subprograma->estado = 1;
+            }
+            $subprograma->save();
+        }
+            
+        if ($mencion->mencion_estado == 1) 
+        {
             $mencion->mencion_estado = 0;
-        } else {
+        }
+        else 
+        {
             $mencion->mencion_estado = 1;
         }
-
         $mencion->save();
 
         $this->subirHistorial($mencion->mencion_estado,'Actualizacion de estado de programa','mencion');
@@ -243,13 +259,15 @@ class Index extends Component
         $this->limpiar();
     }
 
-    public function cargarVistaCurso($mencion_id){
+    public function cargarVistaCurso($mencion_id)
+    {
         // dd('mencion_id = ' . $mencion_id);
 
         return redirect()->route('admin.programa.curso', $mencion_id);
     }
 
-    public function cargarVistaGrupo($mencion_id){
+    public function cargarVistaGrupo($mencion_id)
+    {
         // dd('mencion_id = ' . $mencion_id);
 
         return redirect()->route('admin.programa.grupo', $mencion_id);

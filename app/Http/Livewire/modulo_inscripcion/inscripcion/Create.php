@@ -309,7 +309,7 @@ class Create extends Component
     }
 
     public function updatedSedeCombo($sede_combo){
-        $this->programa_combo_array = Programa::where('id_sede',$sede_combo)->get();
+        $this->programa_combo_array = Programa::where('id_sede',$sede_combo)->where('programa_estado', 1)->get();
         $this->subprograma_combo_array = collect();
         $this->mencion_combo_array = collect();
         $this->programa_combo = null;
@@ -350,7 +350,7 @@ class Create extends Component
             $valor = $item->mencion;
         }
         if($valor == null){
-            $mencion = Mencion::where('id_subprograma',$subprograma_combo)->first();
+            $mencion = Mencion::where('id_subprograma',$subprograma_combo)->where('mencion_estado',1)->first();
             $this->mencion_combo = $mencion->id_mencion;
         }
     }

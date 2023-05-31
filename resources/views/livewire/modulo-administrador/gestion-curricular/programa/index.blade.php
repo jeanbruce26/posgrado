@@ -84,7 +84,7 @@
                                                     <a class="dropdown-item" style="cursor: pointer;" wire:click="cargarVistaCurso({{ $item->id_mencion }})">Cursos</a>
                                                     <a class="dropdown-item" style="cursor: pointer;" wire:click="cargarVistaGrupo({{ $item->id_mencion }})">Grupos</a>
                                                 </div>
-                                            </div><!-- /btn-group -->
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

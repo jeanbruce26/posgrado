@@ -16,6 +16,7 @@ class Programa extends Model
         'id_programa',
         'descripcion_programa',
         'id_sede',
+        'programa_estado'
     ];
 
     public function Sede(){
