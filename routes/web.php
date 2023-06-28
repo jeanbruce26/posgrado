@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
+// mantenimiento
+Route::get('', [App\Http\Controllers\DashboardController::class, 'mantenimiento'])->name('mantenimiento');
+Route::get('/inscripcion/login', [App\Http\Controllers\DashboardController::class, 'mantenimiento']);
+Route::get('/usuarios/login', [App\Http\Controllers\DashboardController::class, 'mantenimiento']);
+
 // CONTROLADOR DEL LOGIN ADMINISTRADOR
 Route::get('login', [App\Http\Controllers\AdminLoginController::class, 'login'])->name('admin.login');
 Route::post('logout', [App\Http\Controllers\AdminLoginController::class, 'logout'])->name('admin.logout');
@@ -76,15 +81,15 @@ Route::prefix('coordinador')->middleware(['auth:admin','auth.coordinador'])->gro
 });
 
 // docentes de coordinadores para la evaluacion
-Route::get('/evaluacion/login', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'auth'])->name('coordinador.auth.index');
-Route::post('/evaluacion/logout', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'logout'])->name('coordinador.auth.logout');
+// Route::get('/evaluacion/login', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'auth'])->name('coordinador.auth.index');
+// Route::post('/evaluacion/logout', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'logout'])->name('coordinador.auth.logout');
 
-Route::prefix('evaluacion')->middleware(['auth.evaluacion.vista.docente'])->group(function () {
-    Route::get('/programas', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas'])->name('coordinador.docente.programas.index');
-    Route::get('/programas/{id}/inscripciones', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas_inscripciones'])->name('coordinador.docente.programas.inscripciones.index');
-    Route::get('/programas/{id}/investigacion/{tipo}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas_investigacion'])->name('coordinador.evaluacion-docente.investigacion');
-    Route::get('/programas/{id}/entrevista/{tipo}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas_entrevista'])->name('coordinador.evaluacion-docente.entrevista');
-});
+// Route::prefix('evaluacion')->middleware(['auth.evaluacion.vista.docente'])->group(function () {
+//     Route::get('/programas', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas'])->name('coordinador.docente.programas.index');
+//     Route::get('/programas/{id}/inscripciones', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas_inscripciones'])->name('coordinador.docente.programas.inscripciones.index');
+//     Route::get('/programas/{id}/investigacion/{tipo}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas_investigacion'])->name('coordinador.evaluacion-docente.investigacion');
+//     Route::get('/programas/{id}/entrevista/{tipo}', [App\Http\Controllers\ModuloCoordinador\CoordinadorController::class, 'programas_entrevista'])->name('coordinador.evaluacion-docente.entrevista');
+// });
 
 
 //CONTROLADOR DEL MODULO DEL AREA CONTABLE
@@ -102,24 +107,24 @@ Route::get('errorLogin', function(){
 
 
 //RUTAS DE LA PARTE DE INSCRIPCION DE USUARIOS
-Route::get('inscripcion', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'index'])->middleware('auth.pagos','pagos.estado')->name('inscripcion');
-Route::get('inscripcion/pagos', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'index2'])->middleware('auth.pagos','pagos.estado')->name('inscripcion.pagos');
-Route::get('inscripcion/inscripcion/{id}', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'inscripcion'])->middleware('auth.pagos')->name('inscripcion.inscripcion');
-Route::get('inscripcion/pdf/{id}', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'pdf'])->middleware('auth.pagos')->name('usuario-pdf');
-Route::get('inscripcion/gracias/{id}', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'gracias'])->name('inscripcion.gracias');
-Route::get('inscripcion/login', [App\Http\Controllers\ModuloInscripcion\Inscripcion\InscripcionLoginController::class, 'index'])->middleware('insc')->name('usuario.login');
-Route::post('inscripcion/logout', [App\Http\Controllers\ModuloInscripcion\Inscripcion\InscripcionLoginController::class, 'logout'])->name('usuario.logout');
+// Route::get('inscripcion', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'index'])->middleware('auth.pagos','pagos.estado')->name('inscripcion');
+// Route::get('inscripcion/pagos', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'index2'])->middleware('auth.pagos','pagos.estado')->name('inscripcion.pagos');
+// Route::get('inscripcion/inscripcion/{id}', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'inscripcion'])->middleware('auth.pagos')->name('inscripcion.inscripcion');
+// Route::get('inscripcion/pdf/{id}', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'pdf'])->middleware('auth.pagos')->name('usuario-pdf');
+// Route::get('inscripcion/gracias/{id}', [App\Http\Controllers\ModuloInscripcion\Inscripcion\UserInscripcionController::class, 'gracias'])->name('inscripcion.gracias');
+// Route::get('inscripcion/login', [App\Http\Controllers\ModuloInscripcion\Inscripcion\InscripcionLoginController::class, 'index'])->middleware('insc')->name('usuario.login');
+// Route::post('inscripcion/logout', [App\Http\Controllers\ModuloInscripcion\Inscripcion\InscripcionLoginController::class, 'logout'])->name('usuario.logout');
 
 
 //RUTAS DE LOS USUARIOS PARA QUE SUBAN SUS EXPEDIENTES FALTANTES
-Route::get('usuarios/login', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioLoginController::class, 'index'])->name('usuario.usuario.login');
-Route::post('usuarios/logout', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioLoginController::class, 'logout'])->name('usuario.usuario.logout');
-Route::prefix('usuarios')->middleware(['auth.usuarios'])->group(function () {
-    Route::get('/', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'index'])->middleware('auth.usuarios')->name('usuarios.index');
-    Route::get('/documentos', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'edit'])->middleware('auth.usuarios')->name('usuarios.edit');
-    Route::get('/pagos', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'pagos'])->middleware('auth.usuario.admitido')->name('usuarios.pagos');
-    Route::get('/pdf', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'pdf'])->name('usuarios.pdf');
-});
+// Route::get('usuarios/login', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioLoginController::class, 'index'])->name('usuario.usuario.login');
+// Route::post('usuarios/logout', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioLoginController::class, 'logout'])->name('usuario.usuario.logout');
+// Route::prefix('usuarios')->middleware(['auth.usuarios'])->group(function () {
+//     Route::get('/', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'index'])->middleware('auth.usuarios')->name('usuarios.index');
+//     Route::get('/documentos', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'edit'])->middleware('auth.usuarios')->name('usuarios.edit');
+//     Route::get('/pagos', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'pagos'])->middleware('auth.usuario.admitido')->name('usuarios.pagos');
+//     Route::get('/pdf', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'pdf'])->name('usuarios.pdf');
+// });
 // Route::get('usuarios/ficha-inscripcion', [App\Http\Controllers\ModuloInscripcion\Usuario\UsuarioController::class, 'ficha_inscripcion'])->name('usuarios.ficha-inscripcion');
 
 

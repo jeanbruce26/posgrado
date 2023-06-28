@@ -238,4 +238,9 @@ class DashboardController extends Controller
 
         return Excel::download(new ExportData, $nombre_archivo);
     }
+
+    public function mantenimiento()
+    {
+        return view('mantenimiento.index');
+    }
 }
