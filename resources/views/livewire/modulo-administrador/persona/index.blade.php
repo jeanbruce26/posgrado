@@ -33,10 +33,36 @@
                                     <tr align="center" style="background-color: rgb(179, 197, 245)">
                                         <th scope="col">ID</th>
                                         <th scope="col">Documento</th>
-                                        <th scope="col">Nombre Completo</th>
+                                        <th class="col-md-1 text-center" style="cursor: pointer;" wire:click="sort('nombre_completo')">
+                                            <div class="d-flex gap-2 alig-items-center justify-content-center">
+                                                <span>Nombre Completo</span>
+                                                <div>
+                                                    @if ($sort_nombre == 'nombre_completo')
+                                                        @if ($sort_direccion == 'asc')
+                                                            <i class="ri ri-arrow-up-s-line"></i>
+                                                        @else
+                                                            <i class="ri ri-arrow-down-s-line"></i>
+                                                        @endif
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </th>
                                         <th scope="col">Fecha de Nacimiento</th>
                                         <th scope="col">Sexo</th>
-                                        <th scope="col">Departamento</th>
+                                        <th class="col-md-1 text-center" style="cursor: pointer;" wire:click="sort('id')">
+                                            <div class="d-flex gap-2 alig-items-center justify-content-center">
+                                                <span>Departamento</span>
+                                                <div>
+                                                    @if ($sort_nombre == 'id')
+                                                        @if ($sort_direccion == 'asc')
+                                                            <i class="ri ri-arrow-up-s-line"></i>
+                                                        @else
+                                                            <i class="ri ri-arrow-down-s-line"></i>
+                                                        @endif
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </th>
                                         <th scope="col">Provincia</th>
                                         <th scope="col">Distrito</th>
                                         <th scope="col">Celular</th>
@@ -56,7 +82,7 @@
                                         <tr>
                                             <td align="center" class="fw-bold">{{$item->idpersona}}</td>
                                             <td align="center">{{$item->num_doc}}</td>
-                                            <td>{{$item->nombres}} {{$item->apell_pater}} {{$item->apell_mater}}</td>
+                                            <td>{{$item->nombre_completo}}</td>
                                             <td align="center">{{date('d/m/Y', strtotime($item->fecha_naci))}}</td>
                                             <td align="center">{{$item->sexo}}</td>
                                             <td align="center">{{$departamento}}</td>

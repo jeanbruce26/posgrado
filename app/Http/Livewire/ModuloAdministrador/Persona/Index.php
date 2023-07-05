@@ -26,7 +26,9 @@ class Index extends Component
 {
     protected $queryString = [
         'search' => ['except' => ''],
-        'filtro_programa' => ['except' => '']
+        'filtro_programa' => ['except' => ''],
+        'sort_nombre' => ['except' => 'nombre_completo'],
+        'sort_direccion' => ['except' => 'asc'],
     ];
     
     public $search = '';
@@ -62,6 +64,9 @@ class Index extends Component
 
     // para el filtor de programa
     public $filtro_programa;
+    
+    public $sort_nombre = 'nombre_completo'; // Columna de la tabla a ordenar
+    public $sort_direccion = 'asc'; // Orden de la columna a ordenar
 
     public function moun()
     {
@@ -385,6 +390,20 @@ class Index extends Component
         ]);
     }
 
+    public function sort($value)
+    {
+        if ($this->sort_nombre == $value) {
+            if ($this->sort_direccion == 'asc') {
+                $this->sort_direccion = 'desc';
+            } else {
+                $this->sort_direccion = 'asc';
+            }
+        } else {
+            $this->sort_nombre = $value;
+            $this->sort_direccion = 'asc';
+        }
+    }
+
     public function limpiar_filtro()
     {
         $this->reset('filtro_programa');
@@ -395,7 +414,7 @@ class Index extends Component
         $buscar = $this->search;
         if($this->filtro_programa)
         {
-            $personaModel = Inscripcion::join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+            $inscripciones = Inscripcion::join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
                 ->join('mencion','inscripcion.id_mencion','=','mencion.id_mencion')
                 ->join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
                 ->join('programa','subprograma.id_programa','=','programa.id_programa')
@@ -409,19 +428,56 @@ class Index extends Component
                         ->orWhere('persona.sexo','LIKE',"%{$this->search}%")
                         ->orWhere('persona.celular1','LIKE',"%{$this->search}%");
                 })
-                ->orderBy('inscripcion.id_inscripcion','desc')
-                ->paginate(100);
+                ->orderBy('persona.idpersona','asc')
+                ->get();
+
+            $ubigeo_persona = UbigeoPersona::join('persona','ubi_pers.persona_idpersona','=','persona.idpersona')
+                ->join('distrito','ubi_pers.id_distrito','=','distrito.id')
+                ->join('provincia','distrito.id_provincia','=','provincia.id')
+                ->join('departamento','provincia.id_departamento','=','departamento.id')
+                ->where(function ($query) use ($buscar) {
+                    $query->where('persona.idpersona','LIKE',"%{$buscar}%")
+                        ->orWhere('persona.num_doc','LIKE',"%{$buscar}%")
+                        ->orWhere('persona.nombres','LIKE',"%{$buscar}%")
+                        ->orWhere('persona.apell_pater','LIKE',"%{$buscar}%")
+                        ->orWhere('persona.apell_mater','LIKE',"%{$buscar}%")
+                        ->orWhere('persona.nombre_completo','LIKE',"%{$buscar}%")
+                        ->orWhere('persona.fecha_naci','LIKE',"%{$buscar}%")
+                        ->orWhere('persona.sexo','LIKE',"%{$buscar}%")
+                        ->orWhere('persona.celular1','LIKE',"%{$buscar}%");
+                })
+                ->where('ubi_pers.tipo_ubigeo_cod_tipo', 1)
+                ->orderBy($this->sort_nombre == 'nombre_completo' ? 'persona.' . $this->sort_nombre :'departamento.' .  $this->sort_nombre, $this->sort_direccion)
+                ->get();
+            
+            $personaModel = collect();
+            foreach ($ubigeo_persona as $key => $value) {
+                foreach ($inscripciones as $key2 => $value2) {
+                    if($value->persona_idpersona == $value2->persona_idpersona)
+                    {
+                        $personaModel->push($value);
+                    }
+                }
+            }
         }else{
-            $personaModel = Persona::where('idpersona','LIKE',"%{$buscar}%")
-                        ->orWhere('num_doc','LIKE',"%{$buscar}%")
-                        ->orWhere('nombres','LIKE',"%{$buscar}%")
-                        ->orWhere('apell_pater','LIKE',"%{$buscar}%")
-                        ->orWhere('apell_mater','LIKE',"%{$buscar}%")
-                        ->orWhere('nombre_completo','LIKE',"%{$buscar}%")
-                        ->orWhere('fecha_naci','LIKE',"%{$buscar}%")
-                        ->orWhere('sexo','LIKE',"%{$buscar}%")
-                        ->orWhere('celular1','LIKE',"%{$buscar}%")
-                        ->orderBy('idpersona','DESC')->get();
+            $personaModel = UbigeoPersona::join('persona','ubi_pers.persona_idpersona','=','persona.idpersona')
+                        ->join('distrito','ubi_pers.id_distrito','=','distrito.id')
+                        ->join('provincia','distrito.id_provincia','=','provincia.id')
+                        ->join('departamento','provincia.id_departamento','=','departamento.id')
+                        ->where(function ($query) use ($buscar) {
+                            $query->where('persona.idpersona','LIKE',"%{$buscar}%")
+                                ->orWhere('persona.num_doc','LIKE',"%{$buscar}%")
+                                ->orWhere('persona.nombres','LIKE',"%{$buscar}%")
+                                ->orWhere('persona.apell_pater','LIKE',"%{$buscar}%")
+                                ->orWhere('persona.apell_mater','LIKE',"%{$buscar}%")
+                                ->orWhere('persona.nombre_completo','LIKE',"%{$buscar}%")
+                                ->orWhere('persona.fecha_naci','LIKE',"%{$buscar}%")
+                                ->orWhere('persona.sexo','LIKE',"%{$buscar}%")
+                                ->orWhere('persona.celular1','LIKE',"%{$buscar}%");
+                        })
+                        ->where('ubi_pers.tipo_ubigeo_cod_tipo', 1)
+                        ->orderBy($this->sort_nombre == 'nombre_completo' ? 'persona.' . $this->sort_nombre :'departamento.' .  $this->sort_nombre, $this->sort_direccion)
+                        ->get();
         }
         
         $discapacidadModel = Discapacidad::all();
