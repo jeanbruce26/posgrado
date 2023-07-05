@@ -4,11 +4,25 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex justify-content-between align-items-center gap-4">
-                            
+                        <div class="d-flex align-items-center gap-4">
+                            <select class="form-select w-75" wire:model="filtro_programa">
+                                <option value="">Seleccione el programa</option>
+                                @foreach ($programas_model as $item)
+                                    <option value="{{ $item->id_mencion }}">
+                                        @if ($item->mencion == null)
+                                            {{$item->SubPrograma->Programa->descripcion_programa}} EN {{$item->SubPrograma->subprograma}}
+                                        @else
+                                            MENCION EN {{$item->mencion}}
+                                        @endif
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button type="button" wire:click="limpiar_filtro()" class="btn btn-secondary">
+                                Limpiar
+                            </button>
                         </div>
                         <div class="w-25">
-                            <input class="form-control form-control-sm text-muted" type="search" wire:model="search"
+                            <input class="form-control text-muted" type="search" wire:model="search"
                                 placeholder="Buscar...">
                         </div>
                     </div>
@@ -17,11 +31,14 @@
                             <table class="table table-hover table-nowrap mb-0">
                                 <thead>
                                     <tr align="center" style="background-color: rgb(179, 197, 245)">
-                                        <th scope="col" class="col-md-1">ID</th>
-                                        <th scope="col" class="col-md-1">Documento</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Documento</th>
                                         <th scope="col">Nombre Completo</th>
                                         <th scope="col">Fecha de Nacimiento</th>
                                         <th scope="col">Sexo</th>
+                                        <th scope="col">Departamento</th>
+                                        <th scope="col">Provincia</th>
+                                        <th scope="col">Distrito</th>
                                         <th scope="col">Celular</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
@@ -30,12 +47,21 @@
                                 {{-- <tbody> --}}
                                 <tbody>
                                     @foreach ($personaModel as $item)
+                                        @php
+                                            $ubigeo = App\Models\UbigeoPersona::where('persona_idpersona', $item->idpersona)->where('tipo_ubigeo_cod_tipo', 1)->first();
+                                            $departamento = $ubigeo->Distrito->Provincia->Departamento->departamento;
+                                            $provincia = $ubigeo->Distrito->Provincia->provincia;
+                                            $distrito = $ubigeo->Distrito->distrito;                                         
+                                        @endphp
                                         <tr>
                                             <td align="center" class="fw-bold">{{$item->idpersona}}</td>
                                             <td align="center">{{$item->num_doc}}</td>
                                             <td>{{$item->nombres}} {{$item->apell_pater}} {{$item->apell_mater}}</td>
                                             <td align="center">{{date('d/m/Y', strtotime($item->fecha_naci))}}</td>
                                             <td align="center">{{$item->sexo}}</td>
+                                            <td align="center">{{$departamento}}</td>
+                                            <td align="center">{{$provincia}}</td>
+                                            <td align="center">{{$distrito}}</td>
                                             <td align="center">{{$item->celular1}}</td>
                                             <td align="center">
                                                 <div class="hstack gap-3 flex-wrap justify-content-center">

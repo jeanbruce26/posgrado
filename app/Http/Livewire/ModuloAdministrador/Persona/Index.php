@@ -25,7 +25,8 @@ use Livewire\Component;
 class Index extends Component
 {
     protected $queryString = [
-        'search' => ['except' => '']
+        'search' => ['except' => ''],
+        'filtro_programa' => ['except' => '']
     ];
     
     public $search = '';
@@ -58,6 +59,9 @@ class Index extends Component
 
     public $departamento_direccion, $departamento_direccion_array, $provincia_direccion, $provincia_direccion_array, $distrito_direccion, $distrito_direccion_array; // Direccion
     public $departamento_nacimiento, $departamento_nacimiento_array, $provincia_nacimiento, $provincia_nacimiento_array, $distrito_nacimiento, $distrito_nacimiento_array; // Nacimiento
+
+    // para el filtor de programa
+    public $filtro_programa;
 
     public function moun()
     {
@@ -381,10 +385,34 @@ class Index extends Component
         ]);
     }
 
+    public function limpiar_filtro()
+    {
+        $this->reset('filtro_programa');
+    }
+
     public function render()
     {
         $buscar = $this->search;
-        $personaModel = Persona::where('idpersona','LIKE',"%{$buscar}%")
+        if($this->filtro_programa)
+        {
+            $personaModel = Inscripcion::join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
+                ->join('mencion','inscripcion.id_mencion','=','mencion.id_mencion')
+                ->join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
+                ->join('programa','subprograma.id_programa','=','programa.id_programa')
+                ->where('mencion.id_mencion',$this->filtro_programa)
+                ->where(function($query){
+                    $query->where('persona.nombres','LIKE',"%{$this->search}%")
+                        ->orWhere('persona.apell_pater','LIKE',"%{$this->search}%")
+                        ->orWhere('persona.apell_mater','LIKE',"%{$this->search}%")
+                        ->orWhere('persona.nombre_completo','LIKE',"%{$this->search}%")
+                        ->orWhere('persona.num_doc','LIKE',"%{$this->search}%")
+                        ->orWhere('persona.sexo','LIKE',"%{$this->search}%")
+                        ->orWhere('persona.celular1','LIKE',"%{$this->search}%");
+                })
+                ->orderBy('inscripcion.id_inscripcion','desc')
+                ->paginate(100);
+        }else{
+            $personaModel = Persona::where('idpersona','LIKE',"%{$buscar}%")
                         ->orWhere('num_doc','LIKE',"%{$buscar}%")
                         ->orWhere('nombres','LIKE',"%{$buscar}%")
                         ->orWhere('apell_pater','LIKE',"%{$buscar}%")
@@ -394,16 +422,26 @@ class Index extends Component
                         ->orWhere('sexo','LIKE',"%{$buscar}%")
                         ->orWhere('celular1','LIKE',"%{$buscar}%")
                         ->orderBy('idpersona','DESC')->get();
+        }
+        
         $discapacidadModel = Discapacidad::all();
         $estadoCivilModel = EstadoCivil::all();
         $universidadModel = Universidad::all();
         $gradoAcademicoModel = GradoAcademico::all();
+
+        $programas_model = Mencion::join('subprograma','mencion.id_subprograma','=','subprograma.id_subprograma')
+                ->join('programa','subprograma.id_programa','=','programa.id_programa')
+                ->where('mencion.mencion_estado', 1)
+                ->orderBy('programa.descripcion_programa','ASC')
+                ->orderBy('subprograma.subprograma','ASC')
+                ->get();
         return view('livewire.modulo-administrador.persona.index', [
             'personaModel' => $personaModel,
             'discapacidadModel' => $discapacidadModel,
             'estadoCivilModel' => $estadoCivilModel,
             'universidadModel' => $universidadModel,
             'gradoAcademicoModel' => $gradoAcademicoModel,
+            'programas_model' => $programas_model,
         ]);
     }
 }
