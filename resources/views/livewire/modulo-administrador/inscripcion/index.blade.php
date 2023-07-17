@@ -46,6 +46,7 @@
                                     <th scope="col">Programa</th>
                                     <th scope="col" class="col-md-2">Fecha</th>
                                     <th scope="col" class="col-md-1">Acciones</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -169,6 +170,11 @@
                                                     <a wire:click="reservar_inscripcion({{ $item->id_inscripcion }})" class="link-danger fs-16" style="cursor: pointer;"><i class="ri-file-reduce-line"></i></a>
                                                     @endif
                                                 </div>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger" wire:click="delete_inscripcion_alerta({{ $item->id_inscripcion }})">
+                                                    Delete Inscripcion
+                                                </button>
                                             </td>
                                         </tr>
                                     @endif

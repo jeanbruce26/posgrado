@@ -4,6 +4,10 @@ namespace App\Http\Livewire\ModuloAdministrador\Inscripcion;
 
 use App\Exports\DataInscripcionesExport;
 use App\Models\Admision;
+use App\Models\Evaluacion;
+use App\Models\EvaluacionEntrevista;
+use App\Models\EvaluacionExpediente;
+use App\Models\EvaluacionInvestigacion;
 use App\Models\Expediente;
 use App\Models\ExpedienteInscripcion;
 use App\Models\ExpedienteInscripcionSeguimiento;
@@ -48,7 +52,7 @@ class Index extends Component
     public $filtro_programa;
 
     protected $listeners = [
-        'render', 'cambiarPrograma', 'cambiarSeguimiento', 'reservarPago'
+        'render', 'cambiarPrograma', 'cambiarSeguimiento', 'reservarPago', 'delete_inscripcion'
     ];
     
     public function updated($propertyName)
@@ -352,6 +356,61 @@ class Index extends Component
     public function limpiar_filtro()
     {
         $this->reset('filtro_programa');
+    }
+
+    public function delete_inscripcion_alerta($id_inscripcion){
+        $this->dispatchBrowserEvent('alertaDelete', [
+            'titulo' => '¡Alerta!',
+            'mensaje' => '¿Está seguro de eliminar toda la información de la inscripción, evaluación y pago de la inscripción?',
+            'id_inscripcion' => $id_inscripcion
+        ]);
+    }
+
+    public function delete_inscripcion($id_inscripcion){
+        $inscripcion = Inscripcion::find($id_inscripcion);
+        $expediente_inscripcion = ExpedienteInscripcion::where('id_inscripcion', $id_inscripcion)->get();
+        foreach ($expediente_inscripcion as $item) {
+            $expediente = Expediente::where('cod_exp', $item->expediente_cod_exp)
+                                        ->where(function($query) use ($inscripcion){
+                                            $query->where('expediente_tipo', 0)
+                                                ->orWhere('expediente_tipo', $inscripcion->tipo_programa);
+                                        })
+                                        ->first();
+            if($expediente === null){
+                File::delete($item->nom_exped);
+            }
+            $expediente_inscripcion_seguimiento = ExpedienteInscripcionSeguimiento::where('cod_ex_insc', $item->cod_ex_insc)->get();
+            foreach ($expediente_inscripcion_seguimiento as $item2) {
+                $item2->delete();
+            }
+            $item->delete();
+        }
+        $inscripcion_pago = InscripcionPago::where('inscripcion_id', $id_inscripcion)->get();
+        foreach ($inscripcion_pago as $item) {
+            $item->delete();
+            $pago = Pago::find($item->pago_id);
+            $pago->delete();
+        }
+        $evaluacion = Evaluacion::where('inscripcion_id', $id_inscripcion)->first();
+        $evaluacion_expediente = EvaluacionExpediente::where('evaluacion_id', $evaluacion->evaluacion_id)->get();
+        foreach ($evaluacion_expediente as $item) {
+            $item->delete();
+        }
+        $evaluacion_investigacion = EvaluacionInvestigacion::where('evaluacion_id', $evaluacion->evaluacion_id)->get();
+        foreach ($evaluacion_investigacion as $item) {
+            $item->delete();
+        }
+        $evaluacion_entrevista = EvaluacionEntrevista::where('evaluacion_id', $evaluacion->evaluacion_id)->get();
+        foreach ($evaluacion_entrevista as $item) {
+            $item->delete();
+        }
+        $evaluacion->delete();
+        $inscripcion->delete();
+        // emitimos la alerta de exito
+        $this->dispatchBrowserEvent('alertaSuccess', [
+            'titulo' => '¡Éxito!',
+            'mensaje' => 'Se ha eliminado toda la información de la inscripción, evaluación y pago de la inscripción correctamente.'
+        ]);
     }
 
     public function render()

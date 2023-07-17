@@ -103,12 +103,22 @@
             }
         })
     })
-    // window.addEventListener('alertaSuccess', event => {
-    //     Swal.fire(
-    //         event.detail.titulo,
-    //         event.detail.mensaje,
-    //         'success'
-    //     )
-    // });
+    window.addEventListener('alertaDelete', event => {
+        // alert('Name updated to: ' + event.detail.id);
+        Swal.fire({
+            title: event.detail.titulo,
+            text: event.detail.mensaje,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('modulo-administrador.inscripcion.index', 'delete_inscripcion', event.detail.id_inscripcion);
+            }
+        })
+    })
 </script>
 @endsection
