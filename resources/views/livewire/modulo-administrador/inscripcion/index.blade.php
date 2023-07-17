@@ -172,9 +172,15 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <button class="btn btn-danger" wire:click="delete_inscripcion_alerta({{ $item->id_inscripcion }})">
-                                                    Delete Inscripcion
-                                                </button>
+                                                <div class="btn-group shadow">
+                                                    <button type="button" class="btn btn-light shadow-none">Acciones</button>
+                                                    <button type="button" class="btn btn-light shadow-none dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" style="cursor: pointer;" wire:click="delete_inscripcion_alerta({{ $item->id_inscripcion }})">
+                                                            Delete Informacion del No Admitido
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endif
