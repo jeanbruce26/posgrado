@@ -15,6 +15,7 @@
                     </div>
                 </div>
                 <div>
+                    <button type="button" wire:click="export_no_admitidos()" class="btn btn-success btn-label waves-effect right waves-light w-md me-3"><i class="ri-file-excel-2-line label-icon align-middle fs-16 ms-2"></i> Excel No Admitidos</button>
                     <button type="button" wire:click="export()" class="btn btn-success btn-label waves-effect right waves-light w-md me-3"><i class="ri-file-excel-2-line label-icon align-middle fs-16 ms-2"></i> Excel</button>
                     <button type="button" wire:click="cargarAlertaCodigo()" class="btn btn-primary btn-label waves-effect right waves-light w-md" @if ($mostrar_alerta == 0) disabled @endif><i class="ri-add-line label-icon align-middle fs-16 ms-2"></i> Generar codigo de admitidos</button>
                 </div>

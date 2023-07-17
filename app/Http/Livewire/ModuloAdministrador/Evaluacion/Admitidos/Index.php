@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\ModuloAdministrador\Evaluacion\Admitidos;
 
 use App\Exports\UsersExport;
+use App\Exports\UsersNoAdmitidosExport;
 use App\Models\Admision;
 use App\Models\Admitidos;
 use App\Models\ConstanciaIngresoPago;
@@ -297,6 +298,16 @@ class Index extends Component
         $this->dispatchBrowserEvent('notificacionExcel', ['message' =>'Excel exportado satisfactoriamente.', 'color' => '#2eb867']);
 
         return Excel::download(new UsersExport, 'admitidos-'.$fecha_actual.'-'.$hora_actual.'.xlsx');
+    }
+
+    public function export_no_admitidos() 
+    {
+        $fecha_actual = date("Ymd", strtotime(today()));
+        $hora_actual = date("His", strtotime(now()));
+
+        $this->dispatchBrowserEvent('notificacionExcel', ['message' =>'Excel exportado satisfactoriamente.', 'color' => '#2eb867']);
+
+        return Excel::download(new UsersNoAdmitidosExport, 'no-admitidos-'.$fecha_actual.'-'.$hora_actual.'.xlsx');
     }
 
     public function limpiar_filtro()
