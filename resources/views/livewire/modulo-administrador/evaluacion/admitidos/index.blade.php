@@ -73,6 +73,7 @@
                                     <th scope="col" class="col-md-3">Apellidos y Nombres</th>
                                     <th scope="col" class="col-md-1">Celular</th>
                                     <th scope="col" class="col-md-3">Programa</th>
+                                    <th scope="col" class="">Ficha Matricula</th>
                                     <th scope="col" class="">Pago Constancia</th>
                                     <th scope="col" class="">Pago Matricula</th>
                                     <th scope="col" class="col-md-1"></th>
@@ -100,6 +101,18 @@
                                                 {{$item->descripcion_programa}} EN {{$item->subprograma}}
                                             @else
                                                 MENCION EN {{$item->mencion}}
+                                            @endif
+                                        </td>
+                                        <td align="center">
+                                            @php
+                                                $ficha = App\Models\MatriculaPago::where('admitidos_id', $item->admitidos_id)->first();
+                                            @endphp
+                                            @if ($ficha)
+                                                <a href="{{ asset($ficha->ficha_matricula) }}" target="_blank" class="btn btn-sm btn-secondary">
+                                                    Ver Ficha
+                                                </a>
+                                            @else
+                                                ---
                                             @endif
                                         </td>
                                         <td align="center">
