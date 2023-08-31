@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Admitidos;
+use App\Models\MatriculaPago;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -14,7 +15,9 @@ class UsersExport implements FromCollection, WithHeadings, WithEvents
 {
     public function collection()
     {
-        $admitidos = Admitidos::select('admitidos.admitidos_id','admitidos.admitidos_codigo', 'persona.nombre_completo','persona.num_doc', 'persona.direccion', 'sexo', 'fecha_naci', 'est_civil.est_civil', 'persona.email', 'persona.celular1', 'univer.universidad', 'persona.año_egreso', 'grado_academico.nom_grado', 'persona.especialidad','admitidos.constancia_codigo', Admitidos::raw('IF(mencion.mencion IS NULL, CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma), CONCAT(CONCAT(CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma)," CON MENCION EN "), mencion.mencion))'))
+        $matriculados = collect();
+
+        $admitidos = Admitidos::select('admitidos.admitidos_id','admitidos.admitidos_codigo', 'persona.nombre_completo','persona.num_doc', 'persona.direccion', 'sexo', 'fecha_naci', 'est_civil.est_civil', 'persona.email', 'persona.celular1', 'univer.universidad', 'persona.año_egreso', 'grado_academico.nom_grado', 'persona.especialidad','admitidos.constancia_codigo', Admitidos::raw('IF(mencion.mencion IS NULL, CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma), CONCAT(CONCAT(CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma)," CON MENCION EN "), mencion.mencion)) as descripcion_programa'))
                 ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
                 ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
                 ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
@@ -26,12 +29,59 @@ class UsersExport implements FromCollection, WithHeadings, WithEvents
                 ->join('programa','subprograma.id_programa','=','programa.id_programa')
                 ->orderBy('admitidos.id_mencion', 'asc')
                 ->get();
-        return $admitidos;
+
+        foreach ($admitidos as $item) {
+            $matricula_pago = MatriculaPago::where('admitidos_id', $item->admitidos_id)->first();
+            
+            if ($matricula_pago) {
+                $matriculados->push([
+                    'admitidos_id' => $item->admitidos_id,
+                    'admitidos_codigo' => $item->admitidos_codigo,
+                    'nombre_completo' => $item->nombre_completo,
+                    'num_doc' => $item->num_doc,
+                    'direccion' => $item->direccion,
+                    'sexo' => $item->sexo,
+                    'fecha_naci' => $item->fecha_naci,
+                    'est_civil' => $item->est_civil,
+                    'email' => $item->email,
+                    'celular1' => $item->celular1,
+                    'universidad' => $item->universidad,
+                    'año_egreso' => $item->año_egreso,
+                    'nom_grado' => $item->nom_grado,
+                    'especialidad' => $item->especialidad,
+                    'constancia_codigo' => $item->constancia_codigo,
+                    'descripcion_programa' => $item->descripcion_programa,
+                    'matricula_pago' => 'SI'
+                ]);
+            } else {
+                $matriculados->push([
+                    'admitidos_id' => $item->admitidos_id,
+                    'admitidos_codigo' => $item->admitidos_codigo,
+                    'nombre_completo' => $item->nombre_completo,
+                    'num_doc' => $item->num_doc,
+                    'direccion' => $item->direccion,
+                    'sexo' => $item->sexo,
+                    'fecha_naci' => $item->fecha_naci,
+                    'est_civil' => $item->est_civil,
+                    'email' => $item->email,
+                    'celular1' => $item->celular1,
+                    'universidad' => $item->universidad,
+                    'año_egreso' => $item->año_egreso,
+                    'nom_grado' => $item->nom_grado,
+                    'especialidad' => $item->especialidad,
+                    'constancia_codigo' => $item->constancia_codigo,
+                    'descripcion_programa' => $item->descripcion_programa,
+                    'matricula_pago' => 'NO'
+                ]);
+            }
+        }
+    
+        return $matriculados;
     }
 
     public function headings(): array
     {
-        return ["ID", "Codigo", "Apellidos y Nombres", "DNI", "Direccion", "Genero", "Fecha de Nacimiento", "Estado Civil", "Email", "Celular", "Universidad", "Año de Egreso", "Grado Academico", "Especialidad", "Codigo de Constancia", "Programa"];
+        return ["ID", "Codigo", "Apellidos y Nombres", "DNI", "Direccion", "Genero", "Fecha de Nacimiento", "Estado Civil", "Email", "Celular", "Universidad", "Año de Egreso", "Grado Academico", "Especialidad", "Codigo de Constancia", "Programa", "Matriculado"];
     }
 
     //agregar estilos a las celdas
@@ -56,9 +106,10 @@ class UsersExport implements FromCollection, WithHeadings, WithEvents
                 $event->sheet->getColumnDimension('N')->setWidth(25);
                 $event->sheet->getColumnDimension('O')->setWidth(25);
                 $event->sheet->getColumnDimension('P')->setWidth(100);
-                $event->sheet->getStyle('A1:P1')->getFont()->setBold(true);
-                $event->sheet->getStyle('A1:P1')->getFont()->setSize(11);
-                $event->sheet->getStyle('A1:P1')->applyFromArray([
+                $event->sheet->getColumnDimension('Q')->setWidth(20);
+                $event->sheet->getStyle('A1:Q1')->getFont()->setBold(true);
+                $event->sheet->getStyle('A1:Q1')->getFont()->setSize(11);
+                $event->sheet->getStyle('A1:Q1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'size' => 12,
@@ -67,12 +118,12 @@ class UsersExport implements FromCollection, WithHeadings, WithEvents
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ],
                 ]);
-                $event->sheet->getStyle('A1:P1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('9dceff');
-                $event->sheet->getStyle('A1:P1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);
-                $event->sheet->getStyle('A1:P1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                $event->sheet->setAutoFilter('A1:P1');
-                $event->sheet->getStyle('A1:P1')->getAlignment()->setWrapText(true);
-                $event->sheet->getStyle('A1:P1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getStyle('A1:Q1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('9dceff');
+                $event->sheet->getStyle('A1:Q1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);
+                $event->sheet->getStyle('A1:Q1')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                $event->sheet->setAutoFilter('A1:Q1');
+                $event->sheet->getStyle('A1:Q1')->getAlignment()->setWrapText(true);
+                $event->sheet->getStyle('A1:Q1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 $styleArray = [
                     'borders' => [
                         'allBorders' => [
@@ -82,9 +133,9 @@ class UsersExport implements FromCollection, WithHeadings, WithEvents
                     ],
                 ];
                 // agregar estilo al resto de las celdas
-                $event->sheet->getStyle('A2:P'.$event->sheet->getHighestRow())->applyFromArray($styleArray);
-                $event->sheet->getStyle('A2:P'.$event->sheet->getHighestRow())->getAlignment()->setWrapText(true);
-                $event->sheet->getStyle('A2:P'.$event->sheet->getHighestRow())->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getStyle('A2:Q'.$event->sheet->getHighestRow())->applyFromArray($styleArray);
+                $event->sheet->getStyle('A2:Q'.$event->sheet->getHighestRow())->getAlignment()->setWrapText(true);
+                $event->sheet->getStyle('A2:Q'.$event->sheet->getHighestRow())->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 // alinear texto a la izquierda
                 $event->sheet->getStyle('A2:A'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getStyle('B2:B'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -102,6 +153,7 @@ class UsersExport implements FromCollection, WithHeadings, WithEvents
                 $event->sheet->getStyle('N2:N'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getStyle('O2:O'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getStyle('P2:P'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                $event->sheet->getStyle('P2:Q'.$event->sheet->getHighestRow())->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             },
         ];
     }
