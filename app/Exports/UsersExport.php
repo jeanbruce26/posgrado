@@ -17,7 +17,7 @@ class UsersExport implements FromCollection, WithHeadings, WithEvents
     {
         $matriculados = collect();
 
-        $admitidos = Admitidos::select('admitidos.admitidos_id','admitidos.admitidos_codigo', 'persona.nombre_completo','persona.num_doc', 'persona.direccion', 'sexo', 'fecha_naci', 'est_civil.est_civil', 'persona.email', 'persona.celular1', 'univer.universidad', 'persona.año_egreso', 'grado_academico.nom_grado', 'persona.especialidad','admitidos.constancia_codigo', Admitidos::raw('IF(mencion.mencion IS NULL, CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma), CONCAT(CONCAT(CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma)," CON MENCION EN "), mencion.mencion)) as descripcion_programa'))
+        $admitidos = Admitidos::select('admitidos.admitidos_id','admitidos.admitidos_codigo', 'persona.apell_pater', 'persona.apell_mater', 'persona.nombres','persona.num_doc', 'persona.direccion', 'sexo', 'fecha_naci', 'est_civil.est_civil', 'persona.email', 'persona.celular1', 'univer.universidad', 'persona.año_egreso', 'grado_academico.nom_grado', 'persona.especialidad','admitidos.constancia_codigo', Admitidos::raw('IF(mencion.mencion IS NULL, CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma), CONCAT(CONCAT(CONCAT(CONCAT(programa.descripcion_programa," EN "), subprograma.subprograma)," CON MENCION EN "), mencion.mencion)) as descripcion_programa'))
                 ->join('evaluacion','admitidos.evaluacion_id','=','evaluacion.evaluacion_id')
                 ->join('inscripcion','evaluacion.inscripcion_id','=','inscripcion.id_inscripcion')
                 ->join('persona','inscripcion.persona_idpersona','=','persona.idpersona')
