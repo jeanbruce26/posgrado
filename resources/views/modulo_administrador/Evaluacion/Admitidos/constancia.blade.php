@@ -78,7 +78,8 @@
     <div style="padding-right: 7rem; padding-left: 7rem; padding-top: 0.8rem; font-size: 1rem;">
         {{-- {{ $codigo_constancia }}
         {!! QrCode::size(50)->generate($codigo_constancia) !!} --}}
-        <img src="data:image/svg+xml;base64,{{ base64_encode($codigo_constancia) }}" alt="qr" width="100">
+        {{-- <img src="data:image/svg+xml;base64,{{ base64_encode($codigo_constancia) }}" alt="qr" width="100"> --}}
+        {{ $codigo_constancia_texto }}
     </div>
 </body>
 </html>
